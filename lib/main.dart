@@ -1,0 +1,101 @@
+// import 'package:appspector/appspector.dart';
+import 'package:edutainment/theme/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'core/loader.dart';
+import 'router/routes.dart';
+import 'theme/theme.dart';
+
+// import 'package:html_to_flutter/html_to_flutter.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initHive();
+  // runAppSpector();
+  await SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.immersiveSticky,
+    overlays: [],
+  );
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(statusBarColor: ColorsPallet.darkBlue),
+  );
+  runApp(const ProviderScope(child: MyApp()));
+  configLoading();
+}
+
+// void runAppSpector() {
+//   final config = Config()
+//     ..iosApiKey = "ios_M2Y0NTg1ZTItZmI0NC00MjlkLWE4Y2QtODM2MjJmNzkyZGY0";
+//
+//   config.monitors = [Monitors.logs];
+//
+//   AppSpectorPlugin.run(config);
+// }
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: 'E-Dutainment',
+      debugShowCheckedModeBanner: false,
+      theme: appTheme,
+      themeMode: ThemeMode.light,
+      routerConfig: appRoutes,
+      builder: EasyLoading.init(),
+    );
+  }
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..indicatorType = EasyLoadingIndicatorType.ring
+    ..loadingStyle = EasyLoadingStyle.light
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..dismissOnTap = false;
+}
+
+
+
+
+
+
+
+// login  ->
+// name: tomcruise 
+// pass: tomcruise
+
+
+
+// flexibleSpace: Container(
+//           decoration: BoxDecoration(
+//             gradient: LinearGradient(
+//               begin: Alignment.topLeft,
+//               end: Alignment.bottomRight,
+//               colors: [
+//                 const Color(0xff181818),
+//                 Colors.green.withOpacity(0.6),
+//                 const Color(0xff181818),
+//               ],
+//             ),
+//           ),
+//         ),
+
+// Html(
+//   config: HtmlConfig(
+//     onTap: (url, [attributes, element]) {},
+//   ),
+//   padding: const EdgeInsets.all(10),
+//   renderMode: RenderMode.column,
+//   data: '${ref.watch(gptVm).respIs}'),
+
+
+// currently worked pages 
+// ProfileButtons
+// flashcardspage
