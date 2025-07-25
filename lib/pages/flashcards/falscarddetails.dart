@@ -199,6 +199,7 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
                   ],
                 ),
               ],
+              
             ),
 
             const SizedBox(height: 20),

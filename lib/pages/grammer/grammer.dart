@@ -103,7 +103,7 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
                         .first
                         .allowedLessonCategory[index];
                     return buildLevelBox(
-                      "${level.label}",
+                      level.label,
                       // subtitle: "",
                       onTap: () {
                         Navigator.push(
