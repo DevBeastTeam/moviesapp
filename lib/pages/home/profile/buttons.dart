@@ -1,6 +1,10 @@
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/pages/excersises/excersise.dart';
+import 'package:edutainment/pages/grammer/grammer.dart';
+import 'package:edutainment/pages/grammer/grammerCatg.dart';
 import 'package:edutainment/pages/ponounciations/plevels.dart';
+import 'package:edutainment/pages/ponounciations/pronounciationspage.dart';
+import 'package:edutainment/pages/ponounciations/pselectcatg.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -133,7 +137,8 @@ class ProfileButtons extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           // builder: (context) => const PeonounciationsPage(),
-                          builder: (context) => const PlevelsPage(),
+                          // builder: (context) => const PlevelsPage(),
+                          builder: (context) => const PSelectCatgPage(),
                         ),
                       );
                       // AwesomeDialog(

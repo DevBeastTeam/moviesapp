@@ -441,7 +441,7 @@ GoRouter appRoutes = GoRouter(
       pageBuilder: (context, state) {
         return CustomTransitionPage(
           key: UniqueKey(),
-          child: const GrammerCatgPage(),
+          child: GrammerCatgPage(),
           transitionDuration: const Duration(milliseconds: 500),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(

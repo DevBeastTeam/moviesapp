@@ -13,14 +13,14 @@ class PSelectCatgPage extends StatefulWidget {
 
 class _PSelectCatgPageState extends State<PSelectCatgPage> {
   List catgList = [
-    {'icon': '📚', 'title': 'Education'},
-    {'icon': '✈️', 'title': 'Travel'},
-    {'icon': '💼', 'title': 'Work'},
-    {'icon': '🎭', 'title': 'Culture & Entetainment'},
-    {'icon': '⚽', 'title': 'Sports'},
-    {'icon': '🏠', 'title': 'Daily Life'},
-    {'icon': '👥', 'title': 'Holidays'},
-    {'icon': '🏥', 'title': 'Relatioins'},
+    {'icon': '📚', 'title': 'Education', " subtitle": "Education"},
+    {'icon': '✈️', 'title': 'Travel', " subtitle": "Education"},
+    {'icon': '💼', 'title': 'Work', " subtitle": "Education"},
+    {'icon': '🎭', 'title': 'Culture & Entetainment', " subtitle": "Education"},
+    {'icon': '⚽', 'title': 'Sports', " subtitle": "Education"},
+    {'icon': '🏠', 'title': 'Daily Life', " subtitle": "Education"},
+    {'icon': '👥', 'title': 'Holidays', " subtitle": "Education"},
+    {'icon': '🏥', 'title': 'Relatioins', " subtitle": "Education"},
   ];
   @override
   Widget build(BuildContext context) {
@@ -50,11 +50,11 @@ class _PSelectCatgPageState extends State<PSelectCatgPage> {
               height: MediaQuery.of(context).size.height * 0.82,
               child: ListView.builder(
                 itemCount: catgList.length,
+
                 shrinkWrap: true,
                 controller: ScrollController(),
                 physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  var data = catgList[index];
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: InkWell(
@@ -79,7 +79,7 @@ class _PSelectCatgPageState extends State<PSelectCatgPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "${data['icon']}",
+                                "${catgList[index]["icon"]}",
                                 style: const TextStyle(
                                   color: Colors.blue,
                                   fontSize: 20,
@@ -88,7 +88,9 @@ class _PSelectCatgPageState extends State<PSelectCatgPage> {
                               ),
                               const SizedBox(width: 15),
                               Text(
-                                "${data['title']}",
+                                // "${data['title']}",
+                                "${catgList[index]["title"]}",
+
                                 style: const TextStyle(color: Colors.black),
                               ),
                             ],

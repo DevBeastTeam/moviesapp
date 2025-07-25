@@ -1,12 +1,10 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
-
 import 'package:edutainment/providers/aichatvm.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../widgets/header_bar/custom_header_bar.dart';
 import '../../widgets/loaders/dotloader.dart';
 
@@ -40,12 +38,13 @@ class ChatAiPageState extends ConsumerState<ChatAiPage> {
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
+
     return DefaultScaffold(
       currentPage: '/home/ai/aichat',
+      // resizeToAvoidBottomInset: true,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
+          Expanded(
             child: Column(
               children: [
                 CustomHeaderBar(
@@ -58,98 +57,89 @@ class ChatAiPageState extends ConsumerState<ChatAiPage> {
                   title: 'Chat With Ai'.toUpperCase(),
                 ),
                 const SizedBox(height: 20),
+                p.chatAiList.isEmpty
+                    ? Expanded(
+                        child: Center(
+                          child: Text(
+                            'Empty',
+                            style: t.titleMedium!.copyWith(
+                              color: Colors.orange,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 2,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                          controller: chatsScrollController,
+                          itemCount: p.chatAiList.length,
+                          itemBuilder: (context, index) {
+                            var chat = p.chatAiList[index];
+                            return BubbleSpecialOne(
+                              text: chat.msg,
+                              isSender: chat.isSender,
+                              color: chat.isSender
+                                  ? Colors.blue
+                                  : Colors.grey.shade400,
+                              textStyle: TextStyle(
+                                color: chat.isSender
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                              tail: true,
+                              sent: true,
+                            );
+                          },
+                        ),
+                      ),
+                if (p.isLoading)
+                  const SizedBox(height: 20, child: Center(child: DotLoader())),
               ],
             ),
           ),
-          p.chatAiList.isEmpty
-              ? Padding(
-                  padding: EdgeInsets.only(top: h * 0.35),
-                  child: Center(
-                    child: Text(
-                      'Empty',
-                      style: t.titleMedium!.copyWith(
-                        color: Colors.orange,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2,
-                      ),
-                    ),
+
+          // Bottom Input Bar with SafeArea
+          SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: msgController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  fillColor: Colors.blueGrey.shade900,
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                )
-              : Expanded(
-                  flex: 1,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    controller:
-                        chatsScrollController, // Attach the controller here
-                    itemCount: p.chatAiList.length,
-                    itemBuilder: (context, index) {
-                      var chat = p.chatAiList[index];
-                      if (chat.isSender) {
-                        return BubbleSpecialOne(
-                          text: chat.msg,
-                          isSender: true,
-                          color: Colors.blue,
-                          textStyle: const TextStyle(color: Colors.white),
-                          tail: true,
-                          sent: true,
-                        );
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () async {
+                      if (msgController.text.isEmpty) {
+                        await EasyLoading.showInfo('Write Something');
                       } else {
-                        return BubbleSpecialOne(
-                          text: chat.msg,
-                          isSender: false,
-                          color: Colors.grey.shade400,
-                          textStyle: const TextStyle(color: Colors.black),
-                          tail: true,
-                          sent: true,
-                        );
+                        await p
+                            .chatWithAiF(context, query: msgController.text)
+                            .then((value) {
+                              msgController.clear();
+                              if (chatsScrollController.hasClients) {
+                                chatsScrollController.jumpTo(
+                                  chatsScrollController
+                                      .position
+                                      .maxScrollExtent,
+                                );
+                              }
+                            });
                       }
                     },
+                    icon: const Icon(Icons.send),
                   ),
+                  border: InputBorder.none,
+                  hintText: 'Type Here',
                 ),
-          p.isLoading
-              ? const SizedBox(height: 20, child: Center(child: DotLoader()))
-              : const SizedBox.shrink(),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              controller: msgController,
-              style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                fillColor: Colors.blueGrey.shade900,
-                filled: true,
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                suffixIcon: IconButton(
-                  onPressed: () async {
-                    if (msgController.text.isEmpty) {
-                      await EasyLoading.showInfo('Write Something');
-                    } else {
-                      await p.chatWithAiF(context, query: msgController.text).then((
-                        value,
-                      ) {
-                        msgController.clear();
-
-                        // Check if the ScrollController is attached
-                        if (chatsScrollController.hasClients) {
-                          chatsScrollController.jumpTo(
-                            chatsScrollController.position.maxScrollExtent,
-                          );
-                        } else {
-                          debugPrint(
-                            'ScrollController not attached to any scroll view.',
-                          );
-                        }
-                      });
-                    }
-                  },
-                  icon: const Icon(Icons.send),
-                ),
-                border: InputBorder.none,
-                hintText: 'Type Here',
               ),
             ),
           ),

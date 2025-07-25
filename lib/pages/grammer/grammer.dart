@@ -1,4 +1,9 @@
+import 'package:edutainment/constants/appimages.dart';
+import 'package:edutainment/pages/grammer/grammerCatg.dart';
+import 'package:edutainment/pages/grammer/grammerdetail.dart';
+import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'grammerData.dart';
@@ -15,6 +20,7 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
   @override
   void initState() {
     super.initState();
+    //
     syncFirstF();
   }
 
@@ -26,7 +32,7 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
 
   @override
   Widget build(BuildContext context) {
-    var p = ref.watch(grammerData);
+    // var p = ref.watch(grammerData);
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
@@ -58,26 +64,73 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  buildLevelBox("A1"),
-                  buildLevelBox("A2"),
-                  buildLevelBox("B1"),
-                  buildLevelBox("B2"),
-                  buildLevelBox("C1"),
-                  buildLevelBox("C2"),
-                ],
+            if (ref.watch(grammerData).isLoading)
+              Padding(
+                padding: EdgeInsets.only(top: h * 0.45),
+                child: const Center(child: DotLoader()),
+              )
+            else if (ref.watch(grammerData).grammersList.isEmpty)
+              Padding(
+                padding: EdgeInsets.only(top: h * 0.45),
+                child: Center(
+                  child: Text(
+                    'Empty',
+                    style: t.titleMedium!.copyWith(
+                      color: Colors.orange,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                ),
+              )
+            else
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: ref
+                      .watch(grammerData)
+                      .grammersList
+                      .first
+                      .allowedLessonCategory
+                      .length,
+                  controller: ScrollController(),
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    var level = ref
+                        .watch(grammerData)
+                        .grammersList
+                        .first
+                        .allowedLessonCategory[index];
+                    return buildLevelBox(
+                      "${level.label}",
+                      // subtitle: "",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GrammerCatgPage(
+                              id: level.id.toString(),
+                              level: level,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
           ],
         ),
       ),
     );
   }
 
-  Widget buildLevelBox(String level) {
+  Widget buildLevelBox(
+    String level, {
+    String subtitle = "Select this level",
+    required Function onTap,
+  }) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
@@ -95,18 +148,14 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
             ),
           ),
         ),
-        subtitle: const Center(
+        subtitle: Center(
           child: Padding(
             padding: EdgeInsets.only(top: 4.0),
-            child: Text(
-              'Select this level',
-              style: TextStyle(color: Colors.grey),
-            ),
+            child: Text(subtitle, style: TextStyle(color: Colors.grey)),
           ),
         ),
         onTap: () {
-          // Level tapped, add logic here if needed
-          print('Selected level: $level');
+          onTap();
         },
       ),
     );

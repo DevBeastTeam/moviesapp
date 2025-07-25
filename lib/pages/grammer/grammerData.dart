@@ -8,9 +8,20 @@ import '../../models/grammerModel.dart';
 var grammerData = ChangeNotifierProvider<GrammerData>((ref) => GrammerData());
 
 class GrammerData extends ChangeNotifier {
+  //////////////////////////
+  var baseApi = ApiHelper();
+
+  List<GrammerDetailModel> grammerSingleData = [];
+  List<GrammerModel> grammersList = []; // data will be stored
   String isLoadingFor = '';
+
+  int _expandedIndexIs = 0;
   bool _isLoading = false;
+  int _slectedLableIndexIs = 0;
+  int _slectedTabBtnIs = 0;
+
   bool get isLoading => _isLoading;
+
   void setLoadingF([bool v = true, String? name]) {
     _isLoading = v;
     if (v == true) {
@@ -21,17 +32,14 @@ class GrammerData extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _expandedIndexIs = 0;
   int get expandedIndexIs => _expandedIndexIs;
+
   set setExpandedIndexIs(int value) {
     _expandedIndexIs = value;
     notifyListeners();
   }
 
-  //////////////////////////
-  var baseApi = ApiHelper();
-
-  List<GrammerModel> grammersList = [];
+  ////////
   void getGrammersF(
     context, {
     bool isLoading = true,
@@ -62,8 +70,8 @@ class GrammerData extends ChangeNotifier {
     }
   }
 
-  int _slectedLableIndexIs = 0;
   int get sletedLableIndexIs => _slectedLableIndexIs;
+
   set setSelctedLableIndexIs(int index) {
     if (index >= 0) {
       _slectedLableIndexIs = index;
@@ -71,16 +79,14 @@ class GrammerData extends ChangeNotifier {
     }
   }
 
-  int _slectedTabBtnIs = 0;
   int get slectedTabBtnIs => _slectedTabBtnIs;
+
   set setSlectedTabBtnIs(int index) {
     if (index >= 0) {
       _slectedTabBtnIs = index;
       notifyListeners();
     }
   }
-
-  List<GrammerDetailModel> grammerSingleData = [];
 
   void getGrammerSingleByIdF(
     context, {

@@ -1,4 +1,6 @@
 import 'package:edutainment/constants/appimages.dart';
+import 'package:edutainment/models/excersisesModel.dart';
+import 'package:edutainment/models/grammerModel.dart';
 import 'package:edutainment/pages/grammer/grammerdetail.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
@@ -9,7 +11,9 @@ import 'grammerData.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
 class GrammerCatgPage extends ConsumerStatefulWidget {
-  const GrammerCatgPage({super.key});
+  AllowedCategory? level;
+  String id = "";
+  GrammerCatgPage({super.key, this.id = "", this.level});
 
   @override
   ConsumerState<GrammerCatgPage> createState() => GrammerCatgPageState();
@@ -55,7 +59,10 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
               'LESSONS CATEGORIES',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-
+            // Text("id: ${widget.id}"),
+            // Text("level: ${widget.level!.label.toString()}"),
+            // Text("level: ${widget.level!.level.toString()}"),
+            // Text("level: ${widget.level!.reference.toString()}"),
             p.isLoading
                 ? Padding(
                     padding: EdgeInsets.only(top: h * 0.45),
@@ -113,7 +120,7 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                                   trailing: SizedBox(
                                     width: 35,
                                     child: Image.asset(
-                                      AppImages.playIcon,
+                                      AppImages.playerlight,
                                       width: 35,
                                     ),
                                   ),

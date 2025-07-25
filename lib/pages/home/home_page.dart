@@ -26,26 +26,32 @@ class _HomePage extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final userData = ref.watch(userProvider);
-    return DefaultScaffold(
-      currentPage: 'profile',
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Container(
-          alignment: Alignment.topCenter,
-          child: SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ProfileHeader(user: userData),
-                ProfileProgress(user: userData),
-                ProfileStatistics(user: userData, statistics: statisticsData),
-                const ProfileButtons(),
-                ProfileBadges(
-                  badges: badgesData,
-                  historyBadges: historyBadgesData,
-                ),
-              ],
+    return PopScope(
+      canPop: false,
+      // onPopInvoked: (v) async{
+      //   return Futur;
+      // },
+      child: DefaultScaffold(
+        currentPage: 'profile',
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Container(
+            alignment: Alignment.topCenter,
+            child: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ProfileHeader(user: userData),
+                  ProfileProgress(user: userData),
+                  ProfileStatistics(user: userData, statistics: statisticsData),
+                  const ProfileButtons(),
+                  ProfileBadges(
+                    badges: badgesData,
+                    historyBadges: historyBadgesData,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -100,7 +100,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                                 child: Text(
                                   'ENGLISH'.toUpperCase(),
                                   style: const TextStyle(
-                                    fontSize: 22,
+                                    fontSize: 18,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -145,7 +145,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                                 child: Text(
                                   'FRANÇAIS'.toUpperCase(),
                                   style: const TextStyle(
-                                    fontSize: 22,
+                                    fontSize: 18,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -187,87 +187,94 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
           const SizedBox(height: 70),
           p.isLoading && p.isLoadingFor == ''
               ? const SizedBox.shrink()
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              : Stack(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        if (p.sletedLableIndexIs > 0) {
-                          p.setSelctedLableIndexIs = p.sletedLableIndexIs - 1;
-                          p.getGrammerSingleByIdF(
-                            context,
-                            loadingFor: 'preIcon',
-                            id: widget
-                                .labelsLessons[p.sletedLableIndexIs - 1]
-                                .id,
-                          );
-                        }
-                      },
-                      borderRadius: BorderRadius.circular(50),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: p.isLoading && p.isLoadingFor == 'preIcon'
-                            ? const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator.adaptive(
-                                  valueColor: AlwaysStoppedAnimation(
-                                    Colors.yellow,
-                                  ),
-                                  // backgroundColor: Colors.yellow,
-                                  strokeWidth: 1,
-                                ),
-                              )
-                            : Icon(
-                                Icons.replay_10_rounded,
-                                color: p.sletedLableIndexIs == 0
-                                    ? Colors.grey
-                                    : null,
-                              ),
-                      ),
-                    ),
-                    Image.asset(AppImages.playericon, width: 70),
-                    InkWell(
-                      onTap: () {
-                        if (p.sletedLableIndexIs <=
-                            widget.labelsLessons.length) {
-                          p.setSelctedLableIndexIs = p.sletedLableIndexIs + 1;
-                          p.getGrammerSingleByIdF(
-                            context,
-                            loadingFor: 'next',
-                            id: widget
-                                .labelsLessons[p.sletedLableIndexIs + 1]
-                                .id,
-                          );
-                        }
-                      },
-                      child: Transform.flip(
-                        flipX: true,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: p.isLoading && p.isLoadingFor == 'next'
-                              ? const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator.adaptive(
-                                    valueColor: AlwaysStoppedAnimation(
-                                      Colors.yellow,
+                    // Image.network(lessonDetailData.lesson!.)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            if (p.sletedLableIndexIs > 0) {
+                              p.setSelctedLableIndexIs =
+                                  p.sletedLableIndexIs - 1;
+                              p.getGrammerSingleByIdF(
+                                context,
+                                loadingFor: 'preIcon',
+                                id: widget
+                                    .labelsLessons[p.sletedLableIndexIs - 1]
+                                    .id,
+                              );
+                            }
+                          },
+                          borderRadius: BorderRadius.circular(50),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: p.isLoading && p.isLoadingFor == 'preIcon'
+                                ? const SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator.adaptive(
+                                      valueColor: AlwaysStoppedAnimation(
+                                        Colors.yellow,
+                                      ),
+                                      // backgroundColor: Colors.yellow,
+                                      strokeWidth: 1,
                                     ),
-                                    // backgroundColor: Colors.yellow,
-                                    strokeWidth: 1,
+                                  )
+                                : Icon(
+                                    Icons.replay_10_rounded,
+                                    color: p.sletedLableIndexIs == 0
+                                        ? Colors.grey
+                                        : null,
                                   ),
-                                )
-                              : Icon(
-                                  Icons.replay_10_rounded,
-                                  color:
-                                      p.sletedLableIndexIs ==
-                                          widget.labelsLessons.length
-                                      ? Colors.grey
-                                      : null,
-                                ),
+                          ),
                         ),
-                      ),
+                        Image.asset(AppImages.playericon, width: 70),
+                        InkWell(
+                          onTap: () {
+                            if (p.sletedLableIndexIs <=
+                                widget.labelsLessons.length) {
+                              p.setSelctedLableIndexIs =
+                                  p.sletedLableIndexIs + 1;
+                              p.getGrammerSingleByIdF(
+                                context,
+                                loadingFor: 'next',
+                                id: widget
+                                    .labelsLessons[p.sletedLableIndexIs + 1]
+                                    .id,
+                              );
+                            }
+                          },
+                          child: Transform.flip(
+                            flipX: true,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: p.isLoading && p.isLoadingFor == 'next'
+                                  ? const SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: CircularProgressIndicator.adaptive(
+                                        valueColor: AlwaysStoppedAnimation(
+                                          Colors.yellow,
+                                        ),
+                                        // backgroundColor: Colors.yellow,
+                                        strokeWidth: 1,
+                                      ),
+                                    )
+                                  : Icon(
+                                      Icons.replay_10_rounded,
+                                      color:
+                                          p.sletedLableIndexIs ==
+                                              widget.labelsLessons.length
+                                          ? Colors.grey
+                                          : null,
+                                    ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

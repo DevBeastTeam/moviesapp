@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/assets/assets_images.dart';
+import '../../widgets/animations/delayed_animation.dart';
 import '../../widgets/indicators/double_circular_progress_indicator.dart';
 
 class SplashScreenContent extends StatelessWidget {

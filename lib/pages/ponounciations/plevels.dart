@@ -50,7 +50,7 @@ class _PlevelsPageState extends ConsumerState<PlevelsPage> {
                     Navigator.pop(context);
                   },
                   centerTitle: false,
-                  title: 'Select Your Levels'.toUpperCase(),
+                  title: 'Select Youruytre Levels'.toUpperCase(),
                 ),
                 const SizedBox(height: 20),
               ],
