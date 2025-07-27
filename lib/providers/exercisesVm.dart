@@ -31,10 +31,12 @@ class ExcerVm extends ChangeNotifier {
   var baseApi = ApiHelper();
 
   List<ExcersisesModel> excersiseList = [];
-  void getExcerF(context,
-      {bool isLoading = true,
-      bool showLoading = true,
-      String loadingFor = ''}) async {
+  void getExcerF(
+    context, {
+    bool isLoading = true,
+    bool showLoading = true,
+    String loadingFor = '',
+  }) async {
     try {
       // if (excersiseList.isNotEmpty) return;
       if (showLoading) {
@@ -77,8 +79,12 @@ class ExcerVm extends ChangeNotifier {
 
   // List<GrammerDetailModel> excersisesSingleData = [];
 
-  void getExcerSingleByIdF(context,
-      {required id, bool showLoading = true, String loadingFor = ''}) async {
+  void getExcerSingleByIdF(
+    context, {
+    required id,
+    bool showLoading = true,
+    String loadingFor = '',
+  }) async {
     try {
       if (showLoading) {
         setLoadingF(true, loadingFor);

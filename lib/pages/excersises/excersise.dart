@@ -39,28 +39,28 @@ class _ExcerisisePageState extends ConsumerState<ExcerisisePage> {
       child: Column(
         children: [
           CustomHeaderBar(
-            onBack: () async {
-              // context.pop();
-              // Get.back();
-              Navigator.pop(context);
-            },
+            onBack: () => Navigator.pop(context),
             centerTitle: false,
             title: 'Levels',
           ),
-          ///////////////
-          const Text('LEVELS', style: TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 20),
+          const Text(
+            'Levels',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
           const SizedBox(height: 50),
           p.isLoading
               ? Padding(
                   padding: EdgeInsets.only(top: h * 0.35),
                   child: const Center(child: DotLoader()),
                 )
-              : p.excersiseList.isEmpty
+              : (p.excersiseList.isEmpty ||
+                    p.excersiseList.first.allowedLessonCategory.isEmpty)
               ? Padding(
                   padding: EdgeInsets.only(top: h * 0.35),
                   child: Center(
                     child: Text(
-                      'Empty',
+                      'No levels available',
                       style: t.titleMedium!.copyWith(
                         color: Colors.orange,
                         fontWeight: FontWeight.bold,
@@ -77,44 +77,33 @@ class _ExcerisisePageState extends ConsumerState<ExcerisisePage> {
                     (index) {
                       var data =
                           p.excersiseList.first.allowedLessonCategory[index];
+                      bool isLocked =
+                          p.excersiseList.first.userLevel.index < index;
                       return InkWell(
-                        onTap: () {
-                          // p.getExcerSingleByIdF(context, id: data.id);
-                          // p.getExcerSingleByIdF(context, id: '1');
-                          // p.getExcerSingleByIdF(context, id: 1);
-                          // p.getExcerSingleByIdF(context, id: 'a');
-                          // p.getExcerSingleByIdF(context, id: 'a1');
-                          // p.getExcerSingleByIdF(context,
-                          //     id: '63f0ba7fe75faea17ab6c557');
-                          // p.getExcerSingleByIdF(context,
-                          //     id: '650b12aca0220be99027bd4d');
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ExcersiseLessonsPage(
-                                labelTitle: data.label,
-                                lableOptionsList: p.excersiseList.first.tags,
-                              ),
-                            ),
-                          );
-                        },
+                        onTap: isLocked
+                            ? null
+                            : () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ExcersiseLessonsPage(
+                                      labelTitle:
+                                          data.label[0].toUpperCase() +
+                                          data.label.substring(1),
+                                      lableOptionsList:
+                                          p.excersiseList.first.tags,
+                                    ),
+                                  ),
+                                );
+                              },
                         child: Stack(
                           children: [
                             Container(
                               width: MediaQuery.of(context).size.width * 0.4,
                               decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
+                                borderRadius: BorderRadius.circular(20),
                                 gradient: LinearGradient(
-                                  colors:
-                                      index >= 0 &&
-                                          p
-                                                  .excersiseList
-                                                  .first
-                                                  .userLevel
-                                                  .index <
-                                              index
+                                  colors: isLocked
                                       ? [
                                           Colors.orangeAccent.withOpacity(0.5),
                                           Colors.deepOrange.withOpacity(0.5),
@@ -129,39 +118,33 @@ class _ExcerisisePageState extends ConsumerState<ExcerisisePage> {
                                 padding: const EdgeInsets.all(40),
                                 child: Center(
                                   child: Text(
-                                    data.label,
+                                    data.label[0].toUpperCase() +
+                                        data.label.substring(1),
                                     style: const TextStyle(
                                       color: Colors.white,
-                                      fontSize: 30,
+                                      fontSize: 26,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                            index >= 0 &&
-                                    p.excersiseList.first.userLevel.index <
-                                        index
-                                ? const Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Icon(Icons.lock_clock),
-                                    ),
-                                  )
-                                : const SizedBox.shrink(),
+                            if (isLocked)
+                              const Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Icon(Icons.lock_clock),
+                                ),
+                              ),
                           ],
                         ),
                       );
                     },
-                  ).toList(),
+                  ),
                 ),
-
-
-
-
-     ],
+        ],
       ),
     );
   }

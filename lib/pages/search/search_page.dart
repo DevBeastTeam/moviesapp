@@ -74,30 +74,45 @@ class _SearchPage extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = MediaQuery.of(context).size.width > 600;
+
     return DefaultScaffold(
       currentPage: 'search',
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(10),
+          const SizedBox(height: 30), // Added top padding
+          if (isTablet) const SizedBox(height: 60),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ), // Added left and right padding
             child: Container(
-              decoration: BoxDecoration(
-                color: ColorsPallet.blueAccent.withOpacity(.4),
-                borderRadius: BorderRadius.circular(12),
+              padding: EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: isTablet ? 20 : 10,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: TextField(
-                onSubmitted: (value) {
-                  setState(() {});
-                },
-                controller: wordController,
-                decoration: const InputDecoration(
-                  icon: Icon(AppIconsLight.magnifyingGlass),
-                  labelText: 'Movies, Definitions, Extracts, ...',
-                  border: InputBorder.none,
+              constraints: isTablet
+                  ? const BoxConstraints(maxWidth: 800)
+                  : null,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: ColorsPallet.blueAccent.withOpacity(.4),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.search,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: TextField(
+                  onSubmitted: (value) {
+                    setState(() {});
+                  },
+                  controller: wordController,
+                  decoration: const InputDecoration(
+                    icon: Icon(AppIconsLight.magnifyingGlass),
+                    labelText: 'Movies, Definitions, Extracts, ...',
+                    border: InputBorder.none,
+                  ),
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.search,
+                ),
               ),
             ),
           ),
@@ -119,249 +134,242 @@ class _SearchPage extends State<SearchPage> {
                   }
                   final player = AudioPlayer();
                   return Expanded(
-                    child: SingleChildScrollView(
+                    child: Center(
                       child: Container(
+                        constraints: isTablet
+                            ? const BoxConstraints(maxWidth: 900)
+                            : null,
                         padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    getIn(result, 'wordData.phonetic', ''),
-                                    style: GoogleFonts.notoSerif(
-                                      textStyle: const TextStyle(
-                                        fontSize: 18,
-                                        color: ColorsPallet.blueAccent,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                IconButton(
-                                  icon: const Icon(
-                                    EdutainmentIcons.playEdutainment,
-                                  ),
-                                  iconSize: 56.0,
-                                  onPressed: () {
-                                    player.setAudioSource(
-                                      AudioSource.uri(
-                                        Uri.parse(result['wordData']['audio']),
-                                      ),
-                                    );
-                                    player.play();
-                                  },
-                                ),
-                              ],
-                            ),
-                            const Divider(
-                              height: 20,
-                              color: Colors.transparent,
-                            ),
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Definitions',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            ...buildDefinitions(
-                              result['wordData'],
-                              'definitions',
-                            ),
-                            const Divider(
-                              height: 12,
-                              color: Colors.transparent,
-                            ),
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Synonyms',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            ...buildDefinitions(result['wordData'], 'synonyms'),
-                            const Divider(
-                              height: 12,
-                              color: Colors.transparent,
-                            ),
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Antonyms',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            ...buildDefinitions(result['wordData'], 'antonyms'),
-                            const Divider(
-                              height: 12,
-                              color: Colors.transparent,
-                            ),
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Examples',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            ...buildDefinitions(result['wordData'], 'examples'),
-                            const Divider(
-                              height: 12,
-                              color: Colors.transparent,
-                            ),
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Films',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            SingleChildScrollView(
-                              physics: const BouncingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
-                                  for (var movie in movies)
-                                    buildMovieFrame(
-                                      movie: movie,
-                                      context: context,
-                                      from: 'search',
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      getIn(result, 'wordData.phonetic', ''),
+                                      style: GoogleFonts.notoSerif(
+                                        textStyle: const TextStyle(
+                                          fontSize: 18,
+                                          color: ColorsPallet.blueAccent,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(
+                                      EdutainmentIcons.playEdutainment,
+                                    ),
+                                    iconSize: 56.0,
+                                    onPressed: () {
+                                      player.setAudioSource(
+                                        AudioSource.uri(
+                                          Uri.parse(
+                                            result['wordData']['audio'],
+                                          ),
+                                        ),
+                                      );
+                                      player.play();
+                                    },
+                                  ),
                                 ],
                               ),
-                            ),
-                            const Divider(
-                              height: 12,
-                              color: Colors.transparent,
-                            ),
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Extracts',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
+                              const Divider(height: 20),
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Definitions',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 12),
-                            for (var subtitle in result['subtitles'] ?? [])
-                              GestureDetector(
-                                onTap: () async {
-                                  await movieFetchAndRedirect(
-                                    subtitle['content_reference'],
-                                    context,
-                                  );
-                                },
-                                behavior: HitTestBehavior.translucent,
-                                child: Container(
-                                  margin: const EdgeInsets.only(bottom: 8),
-                                  padding: const EdgeInsets.all(24),
-                                  width: MediaQuery.of(context).size.width,
-                                  // constraints: const BoxConstraints(maxHeight: 225),
-                                  decoration: BoxDecoration(
-                                    color: ColorsPallet.darkComponentBackground,
-                                    borderRadius: BorderRadius.circular(32),
+                              const SizedBox(height: 12),
+                              ...buildDefinitions(
+                                result['wordData'],
+                                'definitions',
+                              ),
+                              const Divider(height: 12),
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Synonyms',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  height: 150,
-                                  child: Row(
-                                    children: [
-                                      CachedNetworkImage(
-                                        imageUrl: getIn(
-                                          subtitle,
-                                          'content_picture',
-                                          '',
-                                        ),
-                                        imageBuilder:
-                                            (context, imageProvider) =>
-                                                Container(
-                                                  height: 150,
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      // fit: BoxFit.contain,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              ...buildDefinitions(
+                                result['wordData'],
+                                'synonyms',
+                              ),
+                              const Divider(height: 12),
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Antonyms',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              ...buildDefinitions(
+                                result['wordData'],
+                                'antonyms',
+                              ),
+                              const Divider(height: 12),
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Examples',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              ...buildDefinitions(
+                                result['wordData'],
+                                'examples',
+                              ),
+                              const Divider(height: 12),
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Films',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    for (var movie in movies)
+                                      buildMovieFrame(
+                                        movie: movie,
+                                        context: context,
+                                        from: 'search',
+                                      ),
+                                  ],
+                                ),
+                              ),
+                              const Divider(height: 12),
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Extracts',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              for (var subtitle in result['subtitles'] ?? [])
+                                GestureDetector(
+                                  onTap: () async {
+                                    await movieFetchAndRedirect(
+                                      subtitle['content_reference'],
+                                      context,
+                                    );
+                                  },
+                                  behavior: HitTestBehavior.translucent,
+                                  child: Container(
+                                    margin: const EdgeInsets.only(bottom: 8),
+                                    padding: const EdgeInsets.all(24),
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          ColorsPallet.darkComponentBackground,
+                                      borderRadius: BorderRadius.circular(32),
+                                    ),
+                                    height: 150,
+                                    child: Row(
+                                      children: [
+                                        CachedNetworkImage(
+                                          imageUrl: getIn(
+                                            subtitle,
+                                            'content_picture',
+                                            '',
+                                          ),
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                                    height: 150,
+                                                    width: 100,
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                        placeholder: (context, url) =>
-                                            const SizedBox(
-                                              height: 150,
-                                              width: 100,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  CircularProgressIndicator(),
-                                                ],
-                                              ),
-                                            ),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
-                                      ),
-                                      const VerticalDivider(
-                                        width: 15,
-                                        color: Colors.transparent,
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                getIn(
-                                                  subtitle,
-                                                  'content_label',
-                                                ),
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
+                                          placeholder: (context, url) =>
+                                              const SizedBox(
+                                                height: 150,
+                                                width: 100,
+                                                child: Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
                                                 ),
                                               ),
-                                            ),
-                                            const Divider(
-                                              height: 10,
-                                              color: Colors.transparent,
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                getIn(subtitle, 'text'),
-                                                maxLines: 3,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ],
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
                                         ),
-                                      ),
-                                    ],
+                                        const VerticalDivider(
+                                          width: 15,
+                                          color: Colors.transparent,
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            children: [
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  getIn(
+                                                    subtitle,
+                                                    'content_label',
+                                                  ),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                              const Divider(height: 10),
+                                              Expanded(
+                                                child: Text(
+                                                  getIn(subtitle, 'text'),
+                                                  maxLines: 3,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
