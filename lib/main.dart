@@ -1,5 +1,4 @@
 // import 'package:appspector/appspector.dart';
-import 'package:edutainment/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -11,16 +10,27 @@ import 'theme/theme.dart';
 
 // import 'package:html_to_flutter/html_to_flutter.dart';
 
+// Global navigator key for accessing context anywhere
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initHive();
   // runAppSpector();
   await SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.immersiveSticky,
-    overlays: [],
+    SystemUiMode
+        .edgeToEdge, // if edge to edge then  status bar color will be shown
+    // other wise will be hide status bar icons.
+    overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top],
   );
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(statusBarColor: ColorsPallet.darkBlue),
+    // const SystemUiOverlayStyle(statusBarColor: ColorsPallet.darkBlue),
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.black38,
+      statusBarIconBrightness: Brightness.light,
+    ),
   );
   runApp(const ProviderScope(child: MyApp()));
   configLoading();
@@ -42,6 +52,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      scaffoldMessengerKey: scaffoldMessengerKey,
+
       title: 'E-Dutainment',
       debugShowCheckedModeBanner: false,
       theme: appTheme,

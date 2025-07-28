@@ -1,10 +1,12 @@
 import 'package:edutainment/constants/appimages.dart';
+import 'package:edutainment/models/flashCardsModel.dart';
 import 'package:edutainment/providers/flashCardsVM.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../utils/toast.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
 class FlashCardsListPage extends ConsumerStatefulWidget {
@@ -21,6 +23,13 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
   @override
   void initState() {
     super.initState();
+    syncFirstF();
+  }
+
+  void syncFirstF() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(flashCardsVM).getFlashCards(context);
+    });
   }
 
   @override
@@ -52,35 +61,45 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
           SizedBox(
             height: 30,
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: p.flashCardsList.first.subjects.length,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: InkWell(
-                    onTap: () {
-                      _pageController.jumpToPage(index);
-                    },
-                    borderRadius: BorderRadius.circular(30),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.blue),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4,
+                  child: Opacity(
+                    opacity: p.flashCardsList.first.subjects[index].enabled
+                        ? 1
+                        : 0.5,
+                    child: InkWell(
+                      onTap: p.flashCardsList.first.subjects[index].enabled
+                          ? () {
+                              // _pageController.jumpToPage(index);
+                            }
+                          : () {
+                              showToast('This subject is not enabled');
+                            },
+                      borderRadius: BorderRadius.circular(30),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1, color: Colors.blue),
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        child: Center(
-                          child: Text(
-                            index == 0
-                                ? 'ENTERTAINMENT'
-                                : index == 1
-                                ? 'PEDAGOGIAL VIDEOS'
-                                : 'ENGLISH LEASSONS',
-                            style: t.labelSmall,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 4,
+                          ),
+                          child: Center(
+                            child: Text(
+                              p.flashCardsList.first.subjects[index].label,
+                              // index == 0
+                              //     ? 'ENTERTAINMENT'
+                              //     : index == 1
+                              //     ? 'PEDAGOGIAL VIDEOS'
+                              //     : 'ENGLISH LEASSONS',
+                              style: t.labelSmall,
+                            ),
                           ),
                         ),
                       ),
@@ -90,69 +109,121 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
               },
             ),
           ),
-
-          Expanded(
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: 11,
-              onPageChanged: (index) {
-                if (index < 10) {
-                  setState(() {
-                    openedCards[index] = true;
-                  });
-                }
-              },
-              itemBuilder: (context, index) {
-                if (index == 10) {
-                  return const Center(
-                    child: Text(
-                      'This is the last flashcard',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+          const SizedBox(height: 20),
+          ListView.builder(
+            itemCount: p.flashCardsList.first.movies.length,
+            shrinkWrap: true,
+            controller: ScrollController(),
+            physics: BouncingScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              return FlashCardsTileWidget(
+                item: p.flashCardsList.first.movies[index],
+                onTap: () {
+                  showToast('Tapped');
+                  p.getFlashCardMoviesList(
+                    context,
+                    id: p.flashCardsList.first.movies[index].reference,
                   );
-                }
-                return Padding(
-                  padding: const EdgeInsets.all(14),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        opacity: 0.4,
-                        image: AssetImage(AppImages.video1),
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Terminator',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          if (openedCards[index])
-                            SizedBox(
-                              width: 25,
-                              child: Image.asset(AppImages.check, width: 25),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
+                },
+              );
+            },
           ),
+          const SizedBox(height: 20),
+          // Expanded(
+          //   child: PageView.builder(
+          //     controller: _pageController,
+          //     itemCount: 11,
+          //     onPageChanged: (index) {
+          //       if (index < 10) {
+          //         setState(() {
+          //           openedCards[index] = true;
+          //         });
+          //       }
+          //     },
+          //     itemBuilder: (context, index) {
+          //       if (index == 10) {
+          //         return const Center(
+          //           child: Text(
+          //             'This is the last flashcard',
+          //             style: TextStyle(
+          //               fontSize: 20,
+          //               fontWeight: FontWeight.bold,
+          //             ),
+          //           ),
+          //         );
+          //       }
+          //       return Padding(
+          //         padding: const EdgeInsets.all(14),
+          //         child: Container(
+          //           decoration: const BoxDecoration(
+          //             image: DecorationImage(
+          //               opacity: 0.4,
+          //               image: AssetImage(AppImages.video1),
+          //               fit: BoxFit.cover,
+          //             ),
+          //             borderRadius: BorderRadius.all(Radius.circular(10)),
+          //           ),
+          //           child: Padding(
+          //             padding: const EdgeInsets.all(15),
+          //             child: Row(
+          //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //               crossAxisAlignment: CrossAxisAlignment.center,
+          //               children: [
+          //                 const Text(
+          //                   'Terminator',
+          //                   style: TextStyle(
+          //                     color: Colors.white,
+          //                     fontSize: 20,
+          //                     fontWeight: FontWeight.bold,
+          //                   ),
+          //                 ),
+          //                 if (openedCards[index])
+          //                   SizedBox(
+          //                     width: 25,
+          //                     child: Image.asset(AppImages.check, width: 25),
+          //                   ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //       );
+          //     },
+          //   ),
+          // ),
         ],
+      ),
+    );
+  }
+}
+
+class FlashCardsTileWidget extends StatelessWidget {
+  final Movie item;
+  final Function() onTap;
+  bool isSelected = false;
+  FlashCardsTileWidget({
+    super.key,
+    required this.item,
+    required this.onTap,
+    this.isSelected = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80,
+      decoration: BoxDecoration(
+        image: DecorationImage(image: NetworkImage(item.picture)),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ListTile(
+        title: Text('Flashcards'),
+        trailing: Image.asset(
+          isSelected ? AppImages.check : AppImages.uncheckradius,
+        ),
+
+        onTap: () {
+          onTap();
+        },
       ),
     );
   }

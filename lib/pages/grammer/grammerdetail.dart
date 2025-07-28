@@ -7,7 +7,7 @@ import 'package:html_to_flutter/html_to_flutter.dart';
 // import 'package:get/get.dart';
 
 import '../../models/grammerModel.dart';
-import 'grammerData.dart';
+import '../../providers/grammerData.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import '../../widgets/loaders/dotloader.dart';
 
