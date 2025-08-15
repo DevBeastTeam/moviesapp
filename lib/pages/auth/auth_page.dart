@@ -76,7 +76,8 @@ class _AuthPage extends State<AuthPage> {
                     ? 150
                     : MediaQuery.of(context).size.width * 0.25,
                 alignment: Alignment.center,
-                child: AssetsImage.defaultIcon.toImage(),
+                // child: AssetsImage.defaultIcon.toImage(),
+                child: Image.asset(AppImages.playerlight)
               ),
               const SizedBox(height: 12),
               Container(

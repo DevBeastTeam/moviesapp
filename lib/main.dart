@@ -12,7 +12,7 @@ import 'theme/theme.dart';
 
 // Global navigator key for accessing context anywhere
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-    GlobalKey<ScaffoldMessengerState>();
+    GlobalKey<ScaffoldMessengerState>(); 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {

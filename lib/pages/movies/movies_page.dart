@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/utils/assets/assets_images.dart';
 import 'package:flutter/material.dart';
 
@@ -197,7 +198,8 @@ class _MoviesPage extends State<MoviesPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  AssetsImage.defaultIcon.toImage(width: 24),
+                  // AssetsImage.defaultIcon.toImage(width: 24),
+                  Image.asset(AppImages.playerlight, width: 24),
                   const SizedBox(width: 4),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 4.0),

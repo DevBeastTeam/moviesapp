@@ -1,3 +1,4 @@
+import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/widgets/ui/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -53,7 +54,8 @@ class _WelcomePage extends State<WelcomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        AssetsImage.defaultIcon.toImage(width: 50),
+                        // AssetsImage.defaultIcon.toImage(width: 50),
+                        Image.asset(AppImages.playerlight, width: 50,),
                         const VerticalDivider(
                           width: 5,
                           color: Colors.transparent,

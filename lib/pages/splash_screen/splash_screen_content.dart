@@ -1,3 +1,4 @@
+import 'package:edutainment/constants/appimages.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/assets/assets_images.dart';
@@ -21,7 +22,11 @@ class SplashScreenContent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              AssetsImage.defaultIcon.toImage(
+              // AssetsImage.defaultIcon.toImage(
+              //   width: mediaWidth * 0.4 > 250 ? 250 : mediaWidth * 0.4,
+              // ),
+              Image.asset(
+                AppImages.playerlight,
                 width: mediaWidth * 0.4 > 250 ? 250 : mediaWidth * 0.4,
               ),
               Container(
