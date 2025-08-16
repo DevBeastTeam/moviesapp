@@ -1,6 +1,7 @@
 // FlashCardsListPage
 
 import 'dart:developer';
+import 'package:edutainment/models/flashcardDetailsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/api_helper.dart';
@@ -54,12 +55,14 @@ class FlashCardsVM extends ChangeNotifier {
         // in this movies list not used
         flashCardsList.add(FlashCardsModel.fromJson(data));
 
+          if(selectedSubject.isEmpty && flashCardsList[0].subjects.isNotEmpty){
+            setSelectSubject(flashCardsList[0].subjects[0].id);
+          }
 
-
-        // for used movies because second time geting by id form bottom function
-        for (var m in data['movies']) {
-          flashCardsMoviesList.add(FlashCardsMovie.fromJson(m));
-        }
+        // // for used movies because second time geting by id form bottom function
+        // for (var m in data['movies']) {
+        //   flashCardsMoviesList.add(FlashCardsMovie.fromJson(m));
+        // }
         //
       }
       setLoadingF();
@@ -72,30 +75,71 @@ class FlashCardsVM extends ChangeNotifier {
     }
   }
 
+
   List<FlashCardsMovie> flashCardsMoviesList = [];
-  getFlashCardMoviesListById(
+  getFlashCardMoviesListBySubjectId(
     context, {
     String loadingFor = '',
-    String id = "1",
+    String subjectId = "1",
   }) async {
     try {
-      if (flashCardsList.isNotEmpty) return;
+      // if (flashCardsList.isNotEmpty) return;
+      // setSelectSubject(id);
       setLoadingF(loadingFor);
-      setSelectSubject(id);
 
-      // /flashcard/view/:movieId/:level
-      var data = await baseApi.get('/flashcard/view/$id/1', context);
+      // /flashcard/:subject
+      var data = await baseApi.get('/flashcard/$subjectId', context);
       // debugPrint('👉 getFlashCardMoviesList: $data');
-      log('👉 getFlashCardMoviesListById: $data');
+      log('👉 getFlashCardMoviesListBySubjectId: $data');
 
       if (data['success'].toString() == 'true') {
-        flashCardsMoviesList.clear();
-        // flashCardsMoviesList.add(FlashCardsModel.fromJson(data));
+        flashCardsList.clear();
+        flashCardsList.add(FlashCardsModel.fromJson(data));
+
       }
       setLoadingF();
       notifyListeners();
     } catch (e, st) {
-      log('💥 try catch when: getFlashCardMoviesList Error: $e, st:$st');
+      log('💥 try catch when: getFlashCardMoviesListBySubjectId Error: $e, st:$st');
+    } finally {
+      setLoadingF();
+      notifyListeners();
+    }
+  }
+
+ String _selectedLevelIs = "";
+  String get selectedLevel => _selectedLevelIs;
+  setSelectLevel(String value) {
+    _selectedLevelIs = value;
+    notifyListeners();
+  }
+
+
+List<FlashCardDetaiilModel> flashCardsDetailsList = [];
+  getFlashCardDetailsByIds(
+    context, {
+    String loadingFor = '',
+    String movieId = "1",
+    String levelId = "",
+  }) async {
+    try {
+      // if (flashCardsList.isNotEmpty) return;
+      setSelectLevel(levelId);
+      setLoadingF(loadingFor);
+
+      // /flashcard/view/:movieId/:level
+      var data = await baseApi.get('/flashcard/view/$movieId/$levelId', context);
+      // debugPrint('👉 getFlashCardMoviesList: $data');
+      // log('👉 getFlashCardDetailsByIds: $data');
+
+      if (data['success'].toString() == 'true') {
+        flashCardsDetailsList.clear();
+        flashCardsDetailsList.add(FlashCardDetaiilModel.fromJson(data));
+      }
+      setLoadingF();
+      notifyListeners();
+    } catch (e, st) {
+      log('💥 try catch when: getFlashCardDetailsByIds Error: $e, st:$st');
     } finally {
       setLoadingF();
       notifyListeners();

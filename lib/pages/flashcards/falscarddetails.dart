@@ -1,10 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/constants/appimages.dart';
+import 'package:edutainment/constants/toats.dart';
+import 'package:edutainment/models/flashCardsModel.dart';
 import 'package:edutainment/providers/flashCardsVM.dart';
+import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../theme/colors.dart';
+import '../../widgets/flashcardslisttile.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
 class FlashCardDetailsPage extends ConsumerStatefulWidget {
@@ -16,6 +23,11 @@ class FlashCardDetailsPage extends ConsumerStatefulWidget {
 }
 
 class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
+
+    
+  bool isPage2  =false;
+  ScrollController scrollController = ScrollController();
+  
   @override
   void initState() {
     super.initState();
@@ -23,18 +35,35 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
   }
 
   void syncFirstF() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(flashCardsVM).getPronounciationF(context);
-      ref.read(flashCardsVM).getPronounciationFSingleByIdF(context, id: 'k');
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   ref.read(flashCardsVM).getPronounciationF(context);
+    //   ref.read(flashCardsVM).getPronounciationFSingleByIdF(context, id: 'k');
+    // });
   }
+
 
   @override
   Widget build(BuildContext context) {
+    
     var p = ref.watch(flashCardsVM);
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
+
+    // Access the extra data from GoRouterState
+    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+
+    if (extra == null) {
+      return const Scaffold(
+        body: Center(child: Text("Should Pass Extra Data")),
+      );
+    }
+
+    final movie =
+        extra['movie']
+            as FlashCardsMovie; // Replace `Movie` with your actual type
+    final subjectId = extra['subjectId'] as String; // Adjust type accordingly
+
     return DefaultScaffold(
       currentPage: '/home/fc/fcdetails',
       child: SingleChildScrollView(
@@ -51,81 +80,111 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
             ),
             const SizedBox(height: 20),
 
+            // Divider(),
+            // Text("${movie.id}, $subjectId'"),
+            // Divider(),
+
             // 📸 Image + Levels side-by-side
+            // ClipRRect(
+            //         borderRadius: BorderRadius.circular(12),
+            //         child: Image.asset(
+            //           AppImages.video1,
+            //           width: w * 0.4,
+            //           height: h * 0.18,
+            //           fit: BoxFit.cover,
+            //         ),
+            //       ),
+            //       const SizedBox(width: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      AppImages.video1,
-                      width: w * 0.4,
-                      height: h * 0.18,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: SizedBox(
-                      height: h * 0.18,
-                      child: ListView.builder(
-                        itemCount: 6,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: index >= 1 ? Colors.white : Colors.blue,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: Colors.blue),
-                              ),
-                              height: 35,
-                              child: Center(
-                                child: Text(
-                                  'A${index + 1}',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: index >= 1
-                                        ? Colors.black
-                                        : Colors.white,
-                                  ),
+              child: Expanded(
+                child: SizedBox(
+                  height: h * 0.07,
+                  child: ListView.builder(
+                    itemCount: 6,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 5,
+                          horizontal: 5,
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            p.getFlashCardDetailsByIds(
+                              context,
+                              movieId: movie.id,
+                              levelId:   'A${index + 1}'.toLowerCase(),
+                              loadingFor: 'details'
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: p.selectedLevel == 'A${index + 1}'.toLowerCase() ? Colors.blue : Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.blue),
+                            ),
+                            height: 52,
+                            width: 52,
+                            child: Center(
+                              child: Text(
+                                'A${index + 1}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: p.selectedLevel ==  'A${index + 1}'.toLowerCase() ? Colors.white : Colors.black,
                                 ),
                               ),
                             ),
-                          );
-                        },
-                      ),
-                    ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                ],
+                ),
               ),
             ),
 
             const SizedBox(height: 20),
 
-            // 📝 Title and Check Icon
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Terminator',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  Image.asset(AppImages.check, width: 30),
-                ],
-              ),
+            FlashCardsTileWidget(
+              item: movie,
+              onTap: () {
+                // showToast('Tapped');
+              },
             ),
 
             const SizedBox(height: 20),
+
+
 
             // 📦 Flashcard Content Box
-            Container(
+            
+           
+           p.loadingFor=="details" ? Center(child: DotLoader()) :   p.flashCardsDetailsList.isEmpty ? Center(child: Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.1,
+                      bottom: MediaQuery.of(context).size.height * 0.1,
+                    ),
+                    child:
+                        Text(
+                              "Empty",
+                              style: TextStyle(
+                                color: Colors.yellow.withOpacity(0.5),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20
+                              ),
+                            )
+                            .animate(
+                              delay: 1000
+                                  .ms,
+                              onPlay: (controller) =>
+                                  controller.repeat(), 
+                            )
+                            .shimmer(
+                              duration:2000
+                                  .ms, color: ColorsPallet.darkBlue
+                            ))) : Container(
               height: h * 0.45,
               width: w * 0.9,
               decoration: BoxDecoration(
@@ -142,34 +201,42 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: SingleChildScrollView(
+                    controller: scrollController,
+                    // scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(
                       vertical: 10,
                       horizontal: 12,
                     ),
-                    child: Column(
-                      children: List.generate(4, (index) {
-                        return Padding(
+                    child: Padding(
                           padding: const EdgeInsets.only(bottom: 12),
-                          child: Column(
+                          child:
+                          //
+                           p.flashCardsDetailsList.first.movie.description.length > 200 &&
+                           //
+                           isPage2 ?   CachedNetworkImage(imageUrl: p.flashCardsDetailsList.first.movie.picture,progressIndicatorBuilder: (context, url, progress) => DotLoader(),errorWidget: (context, url, error) => Image.asset(AppImages.noimg
+                              ),) : Column(
                             children: [
                               Text(
-                                'vjk',
+                                p.flashCardsDetailsList.first.movie.label,
                                 style: t.titleMedium!.copyWith(
                                   fontWeight: FontWeight.w600,
+                                  color: Colors.black
                                 ),
                               ),
                               const SizedBox(height: 6),
                               Text(
-                                'One Of The Best Players OF the World has Ever Seen',
+                                '${p.flashCardsDetailsList.first.movie.description}',
                                 textAlign: TextAlign.center,
                                 style: t.labelMedium!.copyWith(
                                   fontWeight: FontWeight.w500,
-                                ),
+                                  color: Colors.black),
                               ),
+                              const SizedBox(height: 6),
+                              CachedNetworkImage(imageUrl: p.flashCardsDetailsList.first.movie.picture,progressIndicatorBuilder: (context, url, progress) => DotLoader(),errorWidget: (context, url, error) => Image.asset(AppImages.noimg
+                              ),)
                             ],
                           ),
-                        );
-                      }),
+                        
                     ),
                   ),
                 ),
@@ -179,27 +246,45 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
             const SizedBox(height: 20),
 
             // 🔁 Swipe Instructions
-            const Column(
+             Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.arrow_back),
-                    SizedBox(width: 10),
-                    Text('SWIPE RIGHT: NEXT'),
-                  ],
+                InkWell(
+                  onTap: (){
+                    isPage2 = false;
+                    setState(() {  });
+                    // scrollController.jumpTo(100);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.arrow_back),
+                      SizedBox(width: 10),
+                      Text('SWIPE RIGHT: NEXT'),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('SWIPE LEFT: PREVIOUS'),
-                    SizedBox(width: 10),
-                    Icon(Icons.arrow_forward),
-                  ],
+                InkWell(
+                  onTap: () {
+
+                       if(p.flashCardsDetailsList.first.movie.description.length < 200 ){
+                        toast(context, msg: "maximum Content Reached");
+                       }
+                       debugPrint("clicked");
+                            isPage2 = true;
+                    setState(() {  });
+                    //  scrollController.jumpTo(10);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('SWIPE LEFT: PREVIOUS'),
+                      SizedBox(width: 10),
+                      Icon(Icons.arrow_forward),
+                    ],
+                  ),
                 ),
               ],
-              
             ),
 
             const SizedBox(height: 20),

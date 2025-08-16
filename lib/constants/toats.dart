@@ -5,8 +5,8 @@ void toast(context, {String title = '', required String msg}) {
   final snackBar = SnackBar(
     elevation: 0,
     behavior: SnackBarBehavior.floating,
-    backgroundColor: Colors.transparent,
-    content: Text(msg),
+    backgroundColor: Colors.blue.shade800,
+    content: Text(msg, style: TextStyle(color: Colors.white),),
     // content: AwesomeSnackbarContent(
     //     title: title, message: msg, contentType: ContentType.failure)
   );

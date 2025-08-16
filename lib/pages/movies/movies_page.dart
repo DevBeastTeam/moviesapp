@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/constants/appimages.dart';
-import 'package:edutainment/utils/assets/assets_images.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/colors.dart';

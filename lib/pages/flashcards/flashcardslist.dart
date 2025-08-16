@@ -1,14 +1,16 @@
-import 'package:edutainment/config/textTheme.dart';
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/models/flashCardsModel.dart';
 import 'package:edutainment/providers/flashCardsVM.dart';
+import 'package:edutainment/theme/colors.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../utils/toast.dart';
+import '../../widgets/flashcardslisttile.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
 class FlashCardsListPage extends ConsumerStatefulWidget {
@@ -36,11 +38,11 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
 
   @override
   Widget build(BuildContext context) {
-   var t =  Theme.of(context).textTheme;
+    var t = Theme.of(context).textTheme;
     var p = ref.watch(flashCardsVM);
 
     return DefaultScaffold(
-      currentPage: 'fc',
+      currentPage: '/home/fc',
       child: Column(
         children: [
           Column(
@@ -58,12 +60,30 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
             ],
           ),
 
-
-
           p.loadingFor == "getflash"
-              ? const Center(child: DotLoader())
+              ? Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.3,
+                    ),
+                    child: DotLoader(),
+                  ),
+                )
               : p.flashCardsList.isEmpty
-              ? Center(child: Text("Empty"))
+              ? Center(child: Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.02,
+                    ),
+                    child:
+                        Text(
+                              "No Subjects",
+                              style: TextStyle(
+                                color: Colors.yellow.withOpacity(0.4),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18
+                              ),
+                            )
+                  ))
               : SizedBox(
                   height: 30,
                   child: ListView.builder(
@@ -71,27 +91,24 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
-                      var flashSubject =  p.flashCardsList.first.subjects[index];
+                      var flashSubject = p.flashCardsList.first.subjects[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: Opacity(
-                          opacity:
-                             flashSubject.enabled
-                              ? 1
-                              : 0.5,
+                          opacity: flashSubject.enabled ? 1 : 0.5,
                           child: InkWell(
-                            onTap:
-                                flashSubject.enabled
-                                ? () {
-                                  p.getFlashCardMoviesListById(
-                                    context,
-                                    id: flashSubject.id,
-                                    loadingFor: "movies"
-                                  );
-                                  }
-                                : () {
-                                    showToast('This subject is not enabled');
-                                  },
+                            onTap: () async {
+                              if (flashSubject.enabled == true) {
+                                p.setSelectSubject(flashSubject.id);
+                                await p.getFlashCardMoviesListBySubjectId(
+                                  context,
+                                  subjectId: flashSubject.id,
+                                  loadingFor: "movies",
+                                );
+                              } else {
+                                showToast('This subject is not enabled');
+                              }
+                            },
                             borderRadius: BorderRadius.circular(30),
                             child: Container(
                               decoration: BoxDecoration(
@@ -108,9 +125,13 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                        flashSubject
-                                        .label ?? "Empty",
-                                    style: t.labelSmall!.copyWith(color: flashSubject.id == p.selectedSubject  ? Colors.blue : Colors.white),
+                                    flashSubject.label ?? "Empty",
+                                    style: t.labelSmall!.copyWith(
+                                      color:
+                                          flashSubject.id == p.selectedSubject
+                                          ? Colors.blue
+                                          : Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -123,130 +144,72 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                 ),
           const SizedBox(height: 20),
 
-p.loadingFor == "getflash"? SizedBox.shrink():
-           p.loadingFor == "movies" 
-              ? const Center(child: DotLoader())
-              : p.flashCardsList.isEmpty
-              ? Center(child: Text("Movies Empty"))
-              :
-          ListView.builder(
-            itemCount: p.flashCardsList.first.movies.length,
-            shrinkWrap: true,
-            controller: ScrollController(),
-            physics: BouncingScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) {
-              return FlashCardsTileWidget(
-                item: p.flashCardsList.first.movies[index],
-                onTap: () {
-                  showToast('Tapped');
-                  p.getFlashCardMoviesListById(
-                    context,
-                    id: p.flashCardsList.first.movies[index].reference,
-                  );
-                },
-              );
-            },
-          ),
+          p.loadingFor == "getflash"
+              ? SizedBox.shrink()
+              : p.loadingFor == "movies"
+              ? Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.3,
+                    ),
+                    child: DotLoader(),
+                  ),
+                )
+              : p.flashCardsList.first.movies.isEmpty
+              ? Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.3,
+                    ),
+                    child:
+                        Text(
+                              "Empty",
+                              style: TextStyle(
+                                color: Colors.yellow.withOpacity(0.5),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20
+                              ),
+                            )
+                            .animate(
+                              delay: 1000
+                                  .ms,
+                              onPlay: (controller) =>
+                                  controller.repeat(), 
+                            )
+                            .shimmer(
+                              duration:2000
+                                  .ms, color: ColorsPallet.darkBlue
+                            )
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: p.flashCardsList.first.movies.length,
+                  shrinkWrap: true,
+                  controller: ScrollController(),
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return FlashCardsTileWidget(
+                      item: p.flashCardsList.first.movies[index],
+                      onTap: () {
+                        context.go("/home/fc/fcdetails", extra: {
+                          'movie': p.flashCardsList.first.movies[index],
+                          'subjectId': p.selectedSubject,
+                        });
+                        
+                        // showToast('Tapped');
+                        // p.getFlashCardMoviesListById(
+                        //   context,
+                        //   movieId:
+                        //       p.flashCardsList.first.movies[index].reference,
+                        //   levelId:
+                        //       p.flashCardsList.first.movies[index].reference,
+                        // );
+                      },
+                    );
+                  },
+                ),
           const SizedBox(height: 20),
-          // Expanded(
-          //   child: PageView.builder(
-          //     controller: _pageController,
-          //     itemCount: 11,
-          //     onPageChanged: (index) {
-          //       if (index < 10) {
-          //         setState(() {
-          //           openedCards[index] = true;
-          //         });
-          //       }
-          //     },
-          //     itemBuilder: (context, index) {
-          //       if (index == 10) {
-          //         return const Center(
-          //           child: Text(
-          //             'This is the last flashcard',
-          //             style: TextStyle(
-          //               fontSize: 20,
-          //               fontWeight: FontWeight.bold,
-          //             ),
-          //           ),
-          //         );
-          //       }
-          //       return Padding(
-          //         padding: const EdgeInsets.all(14),
-          //         child: Container(
-          //           decoration: const BoxDecoration(
-          //             image: DecorationImage(
-          //               opacity: 0.4,
-          //               image: AssetImage(AppImages.video1),
-          //               fit: BoxFit.cover,
-          //             ),
-          //             borderRadius: BorderRadius.all(Radius.circular(10)),
-          //           ),
-          //           child: Padding(
-          //             padding: const EdgeInsets.all(15),
-          //             child: Row(
-          //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //               crossAxisAlignment: CrossAxisAlignment.center,
-          //               children: [
-          //                 const Text(
-          //                   'Terminator',
-          //                   style: TextStyle(
-          //                     color: Colors.white,
-          //                     fontSize: 20,
-          //                     fontWeight: FontWeight.bold,
-          //                   ),
-          //                 ),
-          //                 if (openedCards[index])
-          //                   SizedBox(
-          //                     width: 25,
-          //                     child: Image.asset(AppImages.check, width: 25),
-          //                   ),
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //       );
-          //     },
-          //   ),
-          // ),
         ],
-      ),
-    );
-  }
-}
-
-class FlashCardsTileWidget extends StatelessWidget {
-  final FlashCardsMovie item;
-  final Function() onTap;
-  bool isSelected = false;
-  FlashCardsTileWidget({
-    super.key,
-    required this.item,
-    required this.onTap,
-    this.isSelected = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal:  8, vertical: 3),
-      child: Container(
-        height: 80,
-        decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage(item.picture), fit: BoxFit.cover, opacity: 0.3),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: ListTile(
-          title: Text(item.label),
-          trailing: Image.asset(
-            width: 30,
-            isSelected ? AppImages.check : AppImages.uncheckradius,
-          ),
-      
-          onTap: () {
-            onTap();
-          },
-        ),
       ),
     );
   }

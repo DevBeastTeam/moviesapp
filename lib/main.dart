@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       // scaffoldMessengerKey: scaffoldMessengerKey,
       key: globalKey,
+
       title: 'E-Dutainment',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
@@ -72,7 +73,6 @@ void configLoading() {
     ..radius = 10.0
     ..dismissOnTap = false;
 }
-
 
 // login  -> 
 // name: tomcruise 
