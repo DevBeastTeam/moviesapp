@@ -74,16 +74,16 @@ void configLoading() {
 }
 
 
-// login  ->
+// login  -> 
 // name: tomcruise 
 // pass: tomcruise
-
 
 
 // flexibleSpace: Container(
 //           decoration: BoxDecoration(
 //             gradient: LinearGradient(
 //               begin: Alignment.topLeft,
+
 //               end: Alignment.bottomRight,
 //               colors: [
 //                 const Color(0xff181818),

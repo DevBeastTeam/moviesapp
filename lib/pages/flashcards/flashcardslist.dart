@@ -123,10 +123,11 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                 ),
           const SizedBox(height: 20),
 
-           p.loadingFor == "movies"
+p.loadingFor == "getflash"? SizedBox.shrink():
+           p.loadingFor == "movies" 
               ? const Center(child: DotLoader())
               : p.flashCardsList.isEmpty
-              ? Center(child: Text("Empty"))
+              ? Center(child: Text("Movies Empty"))
               :
           ListView.builder(
             itemCount: p.flashCardsList.first.movies.length,
@@ -227,21 +228,25 @@ class FlashCardsTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 80,
-      decoration: BoxDecoration(
-        image: DecorationImage(image: NetworkImage(item.picture)),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ListTile(
-        title: Text('Flashcards'),
-        trailing: Image.asset(
-          isSelected ? AppImages.check : AppImages.uncheckradius,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal:  8, vertical: 3),
+      child: Container(
+        height: 80,
+        decoration: BoxDecoration(
+          image: DecorationImage(image: NetworkImage(item.picture), fit: BoxFit.cover, opacity: 0.3),
+          borderRadius: BorderRadius.circular(10),
         ),
-
-        onTap: () {
-          onTap();
-        },
+        child: ListTile(
+          title: Text(item.label),
+          trailing: Image.asset(
+            width: 30,
+            isSelected ? AppImages.check : AppImages.uncheckradius,
+          ),
+      
+          onTap: () {
+            onTap();
+          },
+        ),
       ),
     );
   }

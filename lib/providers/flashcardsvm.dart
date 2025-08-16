@@ -86,7 +86,7 @@ class FlashCardsVM extends ChangeNotifier {
       // /flashcard/view/:movieId/:level
       var data = await baseApi.get('/flashcard/view/$id/1', context);
       // debugPrint('👉 getFlashCardMoviesList: $data');
-      log('👉 getFlashCardMoviesList: $data');
+      log('👉 getFlashCardMoviesListById: $data');
 
       if (data['success'].toString() == 'true') {
         flashCardsMoviesList.clear();
