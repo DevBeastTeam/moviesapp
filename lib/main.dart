@@ -11,9 +11,9 @@ import 'theme/theme.dart';
 // import 'package:html_to_flutter/html_to_flutter.dart';
 
 // Global navigator key for accessing context anywhere
-final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-    GlobalKey<ScaffoldMessengerState>(); 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+// final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+//     GlobalKey<ScaffoldMessengerState>(); 
+final GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,8 +52,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      scaffoldMessengerKey: scaffoldMessengerKey,
-
+      // scaffoldMessengerKey: scaffoldMessengerKey,
+      key: globalKey,
       title: 'E-Dutainment',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
@@ -72,11 +72,6 @@ void configLoading() {
     ..radius = 10.0
     ..dismissOnTap = false;
 }
-
-
-
-
-
 
 
 // login  ->

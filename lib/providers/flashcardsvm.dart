@@ -13,16 +13,17 @@ var flashCardsVM = ChangeNotifierProvider<FlashCardsVM>(
 );
 
 class FlashCardsVM extends ChangeNotifier {
-  String isLoadingFor = '';
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-  void setLoadingF([bool v = true, String? name]) {
-    _isLoading = v;
-    if (v) {
-      isLoadingFor = name ?? '';
-    } else {
-      isLoadingFor = '';
-    }
+  String _loadingFor = "";
+  String get loadingFor => _loadingFor;
+  void setLoadingF([String name = ""]) {
+    _loadingFor = name;
+    notifyListeners();
+  }
+
+  String _selectedSubjectIs = "";
+  String get selectedSubject => _selectedSubjectIs;
+  setSelectSubject(String value) {
+    _selectedSubjectIs = value;
     notifyListeners();
   }
 
@@ -38,78 +39,75 @@ class FlashCardsVM extends ChangeNotifier {
 
   List<FlashCardsModel> flashCardsList = [];
 
-  getFlashCards(
-    context, {
-    bool isLoading = true,
-    bool showLoading = true,
-    String loadingFor = '',
-  }) async {
+  getFlashCards(context, {String loadingFor = ''}) async {
     try {
       if (flashCardsList.isNotEmpty) return;
-      if (showLoading) {
-        setLoadingF(true, loadingFor);
-      }
+      setLoadingF(loadingFor);
+
+
+
       var data = await baseApi.get('/flashcard/', context);
       // debugPrint('👉 flashCardsList: $data');
       log('👉 flashCardsList: $data');
       if (data['success'].toString() == 'true') {
         flashCardsList.clear();
+        // in this movies list not used
         flashCardsList.add(FlashCardsModel.fromJson(data));
+
+
+
+        // for used movies because second time geting by id form bottom function
+        for (var m in data['movies']) {
+          flashCardsMoviesList.add(FlashCardsMovie.fromJson(m));
+        }
+        //
       }
-      setLoadingF(false);
+      setLoadingF();
       notifyListeners();
     } catch (e, st) {
       log('💥 try catch when: getFlashCardsF Error: $e, st:$st');
     } finally {
-      setLoadingF(false);
+      setLoadingF();
       notifyListeners();
     }
   }
 
-  List flashCardsMoviesList = [];
-  getFlashCardMoviesList(
+  List<FlashCardsMovie> flashCardsMoviesList = [];
+  getFlashCardMoviesListById(
     context, {
-    bool isLoading = true,
-    bool showLoading = true,
     String loadingFor = '',
     String id = "1",
   }) async {
     try {
       if (flashCardsList.isNotEmpty) return;
-      if (showLoading) {
-        setLoadingF(true, loadingFor);
-      }
+      setLoadingF(loadingFor);
+      setSelectSubject(id);
+
       // /flashcard/view/:movieId/:level
       var data = await baseApi.get('/flashcard/view/$id/1', context);
       // debugPrint('👉 getFlashCardMoviesList: $data');
       log('👉 getFlashCardMoviesList: $data');
+
       if (data['success'].toString() == 'true') {
         flashCardsMoviesList.clear();
         // flashCardsMoviesList.add(FlashCardsModel.fromJson(data));
       }
-      setLoadingF(false);
+      setLoadingF();
       notifyListeners();
     } catch (e, st) {
       log('💥 try catch when: getFlashCardMoviesList Error: $e, st:$st');
     } finally {
-      setLoadingF(false);
+      setLoadingF();
       notifyListeners();
     }
   }
 
   //////////////////////////
   List<GrammerModel> pronounciationList = [];
-  void getPronounciationF(
-    context, {
-    bool isLoading = true,
-    bool showLoading = true,
-    String loadingFor = '',
-  }) async {
+  void getPronounciationF(context, {String loadingFor = ''}) async {
     try {
       if (pronounciationList.isNotEmpty) return;
-      if (showLoading) {
-        setLoadingF(true, loadingFor);
-      }
+      setLoadingF(loadingFor);
       var data = await baseApi.get('/lessons/pronunciation', context);
       debugPrint('👉 pronounciationList: $data');
       log('👉 pronounciationList: $data');
@@ -117,12 +115,12 @@ class FlashCardsVM extends ChangeNotifier {
         pronounciationList.clear();
         // pronounciationList.add(GrammerModel.fromJson(data['data']));
       }
-      setLoadingF(false);
+      setLoadingF();
       notifyListeners();
     } catch (e, st) {
       log('💥 try catch when: getPronounciationF Error: $e, st:$st');
     } finally {
-      setLoadingF(false);
+      setLoadingF();
       notifyListeners();
     }
   }
@@ -150,13 +148,10 @@ class FlashCardsVM extends ChangeNotifier {
   void getPronounciationFSingleByIdF(
     context, {
     required String id,
-    bool showLoading = true,
     String loadingFor = '',
   }) async {
     try {
-      if (showLoading) {
-        setLoadingF(true, loadingFor);
-      }
+      setLoadingF(loadingFor);
 
       log('👉 grammerSingleData id: $id');
       // /lessons/exercises/lessonId/questions --> 652969624622968d66f2e888
@@ -166,14 +161,14 @@ class FlashCardsVM extends ChangeNotifier {
         grammerSingleData.clear();
         grammerSingleData.add(GrammerDetailModel.fromJson(data['data']));
       }
-      setLoadingF(false);
+      setLoadingF();
 
       // toast(context, msg: 'grammers geted');
       notifyListeners();
     } catch (e, st) {
       log('💥 try catch when: getGrammersSingleByIdF Error: $e, st:$st');
     } finally {
-      setLoadingF(false);
+      setLoadingF();
       notifyListeners();
     }
   }

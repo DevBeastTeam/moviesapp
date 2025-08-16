@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 
 void showToast(String message) {
-  ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!).showSnackBar(
+  ScaffoldMessenger.of(globalKey.currentState!.context).showSnackBar(
     SnackBar(
       content: Text(message),
       duration: Duration(seconds: 2),
@@ -12,7 +12,7 @@ void showToast(String message) {
         textColor: Colors.white,
         onPressed: () {
           ScaffoldMessenger.of(
-            scaffoldMessengerKey.currentContext!,
+            globalKey.currentState!.context,
           ).hideCurrentSnackBar();
         },
       ),

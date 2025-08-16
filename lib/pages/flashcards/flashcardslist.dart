@@ -1,6 +1,8 @@
+import 'package:edutainment/config/textTheme.dart';
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/models/flashCardsModel.dart';
 import 'package:edutainment/providers/flashCardsVM.dart';
+import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,19 +30,17 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
 
   void syncFirstF() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(flashCardsVM).getFlashCards(context);
+      ref.read(flashCardsVM).getFlashCards(context, loadingFor: "getflash");
     });
   }
 
   @override
   Widget build(BuildContext context) {
+   var t =  Theme.of(context).textTheme;
     var p = ref.watch(flashCardsVM);
-    var t = Theme.of(context).textTheme;
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
 
     return DefaultScaffold(
-      currentPage: '/home/fc',
+      currentPage: 'fc',
       child: Column(
         children: [
           Column(
@@ -58,58 +58,76 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
             ],
           ),
 
-          SizedBox(
-            height: 30,
-            child: ListView.builder(
-              itemCount: p.flashCardsList.first.subjects.length,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Opacity(
-                    opacity: p.flashCardsList.first.subjects[index].enabled
-                        ? 1
-                        : 0.5,
-                    child: InkWell(
-                      onTap: p.flashCardsList.first.subjects[index].enabled
-                          ? () {
-                              // _pageController.jumpToPage(index);
-                            }
-                          : () {
-                              showToast('This subject is not enabled');
-                            },
-                      borderRadius: BorderRadius.circular(30),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 1, color: Colors.blue),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0,
-                            vertical: 4,
-                          ),
-                          child: Center(
-                            child: Text(
-                              p.flashCardsList.first.subjects[index].label,
-                              // index == 0
-                              //     ? 'ENTERTAINMENT'
-                              //     : index == 1
-                              //     ? 'PEDAGOGIAL VIDEOS'
-                              //     : 'ENGLISH LEASSONS',
-                              style: t.labelSmall,
+
+
+          p.loadingFor == "getflash"
+              ? const Center(child: DotLoader())
+              : p.flashCardsList.isEmpty
+              ? Center(child: Text("Empty"))
+              : SizedBox(
+                  height: 30,
+                  child: ListView.builder(
+                    itemCount: p.flashCardsList.first.subjects.length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      var flashSubject =  p.flashCardsList.first.subjects[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Opacity(
+                          opacity:
+                             flashSubject.enabled
+                              ? 1
+                              : 0.5,
+                          child: InkWell(
+                            onTap:
+                                flashSubject.enabled
+                                ? () {
+                                  p.getFlashCardMoviesListById(
+                                    context,
+                                    id: flashSubject.id,
+                                    loadingFor: "movies"
+                                  );
+                                  }
+                                : () {
+                                    showToast('This subject is not enabled');
+                                  },
+                            borderRadius: BorderRadius.circular(30),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: Colors.blue,
+                                ),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                  vertical: 4,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                        flashSubject
+                                        .label ?? "Empty",
+                                    style: t.labelSmall!.copyWith(color: flashSubject.id == p.selectedSubject  ? Colors.blue : Colors.white),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-          ),
+                ),
           const SizedBox(height: 20),
+
+           p.loadingFor == "movies"
+              ? const Center(child: DotLoader())
+              : p.flashCardsList.isEmpty
+              ? Center(child: Text("Empty"))
+              :
           ListView.builder(
             itemCount: p.flashCardsList.first.movies.length,
             shrinkWrap: true,
@@ -120,7 +138,7 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                 item: p.flashCardsList.first.movies[index],
                 onTap: () {
                   showToast('Tapped');
-                  p.getFlashCardMoviesList(
+                  p.getFlashCardMoviesListById(
                     context,
                     id: p.flashCardsList.first.movies[index].reference,
                   );
@@ -197,7 +215,7 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
 }
 
 class FlashCardsTileWidget extends StatelessWidget {
-  final Movie item;
+  final FlashCardsMovie item;
   final Function() onTap;
   bool isSelected = false;
   FlashCardsTileWidget({

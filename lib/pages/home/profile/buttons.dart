@@ -171,7 +171,7 @@ class ProfileButtons extends StatelessWidget {
                     isImg: true,
                     colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                     onPressed: () {
-                      context.go('/home/fc');
+                      context.go('/home/fc'); 
                     },
                   ),
                 ),

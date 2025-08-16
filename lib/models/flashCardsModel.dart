@@ -1,6 +1,8 @@
+import 'package:edutainment/helpers/forstrings.dart';
+
 class FlashCardsModel {
   final bool success;
-  final List<Movie> movies;
+  final List<FlashCardsMovie> movies;
   final List<Subject> subjects;
 
   FlashCardsModel({
@@ -14,7 +16,7 @@ class FlashCardsModel {
       success: json['success'] ?? false,
       movies:
           (json['movies'] as List<dynamic>?)
-              ?.map((e) => Movie.fromJson(e))
+              ?.map((e) => FlashCardsMovie.fromJson(e))
               .toList() ??
           [],
       subjects:
@@ -34,14 +36,14 @@ class FlashCardsModel {
   }
 }
 
-class Movie {
+class FlashCardsMovie {
   final String reference;
   final String label;
   final List<String> tags;
   final String subject;
   final String picture;
 
-  Movie({
+  FlashCardsMovie({
     required this.reference,
     required this.label,
     required this.tags,
@@ -49,15 +51,15 @@ class Movie {
     required this.picture,
   });
 
-  factory Movie.fromJson(Map<String, dynamic> json) {
-    return Movie(
-      reference: json['reference'] ?? '',
-      label: json['label'] ?? '',
+  factory FlashCardsMovie.fromJson(Map<String, dynamic> json) {
+    return FlashCardsMovie(
+      reference: json['reference'].toString().toNullString(),
+      label: json['label'].toString().toNullString(),
       tags:
           (json['tags'] as List<dynamic>?)?.map((e) => e.toString()).toList() ??
           [],
-      subject: json['Subject'] ?? '', // Note the capital 'S' to match your JSON
-      picture: json['picture'] ?? '',
+      subject: json['Subject'].toString().toNullString(), // Note the capital 'S' to match your JSON
+      picture: json['picture'].toString().toNullString(),
     );
   }
 
@@ -95,10 +97,10 @@ class Subject {
 
   factory Subject.fromJson(Map<String, dynamic> json) {
     return Subject(
-      id: json['_id'] ?? '',
-      reference: json['reference'] ?? '',
-      label: json['label'] ?? '',
-      description: json['description'] ?? '',
+      id: json['_id'].toString().toNullString(),
+      reference: json['reference'].toString().toNullString(),
+      label: json['label'].toString().toNullString(),
+      description: json['description'].toString().toNullString(),
       enabled: json['enabled'] ?? false,
       createdOn: DateTime.parse(
         json['created_on'] ?? DateTime.now().toIso8601String(),
@@ -123,3 +125,5 @@ class Subject {
     };
   }
 }
+
+
