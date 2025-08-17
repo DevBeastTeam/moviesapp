@@ -1,7 +1,4 @@
-
-
-
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/appimages.dart';
@@ -26,7 +23,7 @@ class FlashCardsTileWidget extends StatelessWidget {
         height: 80,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(item.picture),
+            image: CachedNetworkImageProvider(item.picture),
             fit: BoxFit.cover,
             opacity: 0.3,
           ),
