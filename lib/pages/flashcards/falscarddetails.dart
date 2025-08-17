@@ -79,70 +79,9 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
               },
               centerTitle: false,
               title: 'FLASHCARDS DETAILS',
-              trailing: (isTablet || isLandscape)
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Expanded(
-                        child: SizedBox(
-                          height: h * 0.13,
-                          width: w * 0.5,
-                          child: ListView.builder(
-                            itemCount: 6,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 5,
-                                  horizontal: 5,
-                                ),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    p.getFlashCardDetailsByIds(
-                                      context,
-                                      movieId: movie.id,
-                                      levelId: 'A${index + 1}'.toLowerCase(),
-                                      loadingFor: 'details',
-                                    );
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color:
-                                          p.selectedLevel ==
-                                              'A${index + 1}'.toLowerCase()
-                                          ? Colors.blue
-                                          : Colors.white,
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(color: Colors.blue),
-                                    ),
-                                    height: 52,
-                                    width: 52,
-                                    child: Center(
-                                      child: Text(
-                                        'A${index + 1}',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                          color:
-                                              p.selectedLevel ==
-                                                  'A${index + 1}'.toLowerCase()
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    )
-                  : SizedBox.shrink(),
+  
             ),
 
-            if(!isTablet && !isLandscape)
-            const SizedBox(height: 20),
 
             // Divider(),
             // Text("${movie.id}, $subjectId'"),
@@ -160,6 +99,79 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
             //       ),
             //       const SizedBox(width: 12),
             
+
+          if(isTablet || isLandscape)
+          Row(children: [
+            Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: SizedBox(
+                        height:isTablet? h*0.08 : h * 0.12,
+                        width: w * 0.47,
+                        child: ListView.builder(
+                          itemCount: 6,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 5,
+                                horizontal: 5,
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  p.getFlashCardDetailsByIds(
+                                    context,
+                                    movieId: movie.id,
+                                    levelId: 'A${index + 1}'.toLowerCase(),
+                                    loadingFor: 'details',
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color:
+                                        p.selectedLevel ==
+                                            'A${index + 1}'.toLowerCase()
+                                        ? Colors.blue
+                                        : Colors.white,
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(color: Colors.blue),
+                                  ),
+                                  height: 52,
+                                  width: 52,
+                                  child: Center(
+                                    child: Text(
+                                      'A${index + 1}',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color:
+                                            p.selectedLevel ==
+                                                'A${index + 1}'.toLowerCase()
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ), 
+                    Spacer(),
+
+            SizedBox(
+              width: w* 0.45,
+              height:isTablet? h*0.08 : h * 0.12,
+              child: FlashCardsTileWidget(
+                item: movie,
+                isSelected: true,
+                onTap: () {
+                  // showToast('Tapped');
+                },
+              ),
+            ),
+          ],),
             
           if(!isTablet && !isLandscape)
             Padding(
@@ -220,8 +232,10 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
               ),
             ),
 
-            const SizedBox(height: 20),
+          if(!isTablet && !isLandscape)
+            const SizedBox(height: 10),
 
+          if(!isTablet && !isLandscape)
             FlashCardsTileWidget(
               item: movie,
               isSelected: true,
