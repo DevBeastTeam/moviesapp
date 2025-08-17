@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/models/grammerDetailModel.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
@@ -21,6 +23,49 @@ class GrammerDetailPage extends ConsumerStatefulWidget {
 }
 
 class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
+  // Timer? timer;
+  // int remainingSeconds = 30;
+  // bool isTimerStart = false;
+
+  // playTimer() async {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) async {
+  //     await Timer.periodic(Duration(seconds: 1), (v) {
+  //       print("hgjkl");
+  //       if (remainingSeconds <= 1) {
+  //         remainingSeconds = 30;
+  //         isTimerStart = false;
+  //       } else {
+  //         remainingSeconds--;
+  //         var p = ref.watch(grammerData);
+
+  //         if (p.sletedLableIndexIs <= widget.labelsLessons.length) {
+  //           p.setSelctedLableIndexIs = p.sletedLableIndexIs + 1;
+  //           p.getGrammerSingleByIdF(
+  //             context,
+  //             loadingFor: 'next',
+  //             id: widget.labelsLessons[p.sletedLableIndexIs + 1].id,
+  //           );
+  //         }
+  //       }
+
+  //       isTimerStart = false;
+  //       //
+  //       setState(() {});
+  //     });
+  //   });
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
+
+  @override
+  void dispose() {
+    super.dispose();
+    ref.watch(grammerData).stopTimer();
+  }
+
   @override
   Widget build(BuildContext context) {
     var p = ref.watch(grammerData);
@@ -39,6 +84,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
           CustomHeaderBar(
             onBack: () async {
               // Get.back();
+              p.stopTimer();
               Navigator.pop(context);
             },
             centerTitle: false,
@@ -47,7 +93,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
           ////////////////////
           const Text('DAILY', style: TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 20),
-          p.isLoading && p.isLoadingFor == ''
+          p.isLoadingFor == 'grammerDetails'
               ? Padding(
                   padding: EdgeInsets.only(top: h * 0.45),
                   child: const Center(child: DotLoader()),
@@ -66,6 +112,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                         InkWell(
                           onTap: () {
                             p.setSlectedTabBtnIs = 0;
+                            p.stopTimer();
                           },
                           borderRadius: BorderRadius.circular(15),
                           child: Container(
@@ -111,6 +158,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                         InkWell(
                           onTap: () {
                             p.setSlectedTabBtnIs = 1;
+                            p.stopTimer();
                           },
                           borderRadius: BorderRadius.circular(15),
                           child: Container(
@@ -158,7 +206,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                   ),
                 ),
           const SizedBox(height: 10),
-          p.isLoading && p.isLoadingFor == ''
+          p.isLoadingFor == 'grammerDetails'
               ? const SizedBox.shrink()
               : InkWell(
                   onTap: () {},
@@ -184,8 +232,8 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                     ),
                   ),
                 ),
-          const SizedBox(height: 70),
-          p.isLoading && p.isLoadingFor == ''
+          const SizedBox(height: 20),
+          p.isLoadingFor == 'grammerDetails'
               ? const SizedBox.shrink()
               : Stack(
                   children: [
@@ -197,6 +245,8 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                         InkWell(
                           onTap: () {
                             if (p.sletedLableIndexIs > 0) {
+                              p.stopTimer();
+
                               p.setSelctedLableIndexIs =
                                   p.sletedLableIndexIs - 1;
                               p.getGrammerSingleByIdF(
@@ -211,7 +261,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                           borderRadius: BorderRadius.circular(50),
                           child: Padding(
                             padding: const EdgeInsets.all(8),
-                            child: p.isLoading && p.isLoadingFor == 'preIcon'
+                            child: p.isLoadingFor == 'preIcon'
                                 ? const SizedBox(
                                     width: 20,
                                     height: 20,
@@ -231,9 +281,64 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                                   ),
                           ),
                         ),
-                        Image.asset(AppImages.playericon, width: 70),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset(
+                              p.slectedTabBtnIs == 0
+                                  ? AppImages.eng
+                                  : AppImages.fr,
+                              width: 150,
+                              opacity: AlwaysStoppedAnimation(0.6),
+                            ),
+                            p.isTimerStart == true && p.remainingSeconds >= 1
+                                ? GestureDetector(
+                                    onTap: () {
+                                      p.stopTimer();
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "${p.remainingSeconds}",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            shadows: [
+                                              BoxShadow(
+                                                color: Colors.black26,
+                                                offset: Offset(2, 2),
+                                                blurRadius: 5,
+                                              ),
+                                            ],
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                        Image.asset(
+                                          AppImages.pause,
+                                          width: 70,
+                                          color: Colors.yellow,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : InkWell(
+                                    onTap: () {
+                                      p.playTimer(
+                                        context,
+                                        labelsLessons: widget.labelsLessons,
+                                      );
+                                    },
+                                    child: Image.asset(
+                                      AppImages.playericon,
+                                      width: 70,
+                                    ),
+                                  ),
+                          ],
+                        ),
                         InkWell(
                           onTap: () {
+                            p.stopTimer();
+
                             if (p.sletedLableIndexIs <=
                                 widget.labelsLessons.length) {
                               p.setSelctedLableIndexIs =
@@ -251,7 +356,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                             flipX: true,
                             child: Padding(
                               padding: const EdgeInsets.all(8),
-                              child: p.isLoading && p.isLoadingFor == 'next'
+                              child: p.isLoadingFor == 'next'
                                   ? const SizedBox(
                                       width: 20,
                                       height: 20,
@@ -278,8 +383,14 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                     ),
                   ],
                 ),
-          const SizedBox(height: 70),
-          p.isLoading && p.isLoadingFor == ''
+
+          // Divider(),
+          // Text("${lessonDetailData.lesson!.contenten}", style: TextStyle(color: Colors.white),),
+          // Divider(),
+          // Text("${lessonDetailData.lesson!.contentfr}", style: TextStyle(color: Colors.white),),
+          // Divider(),
+          const SizedBox(height: 20),
+          p.isLoadingFor == 'grammerDetails'
               ? const SizedBox.shrink()
               : Expanded(
                   child: Container(

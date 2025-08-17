@@ -27,7 +27,7 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
 
   void syncFirstF() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(grammerData).getGrammersF(context);
+      ref.read(grammerData).getGrammersF(context, loadingFor: "grammerCatg");
     });
   }
 
@@ -62,7 +62,7 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
             // Text("level: ${widget.level!.label.toString()}"),
             // Text("level: ${widget.level!.level.toString()}"),
             // Text("level: ${widget.level!.reference.toString()}"),
-            p.isLoading
+            p.loadingFor=="grammerCatg"
                 ? Padding(
                     padding: EdgeInsets.only(top: h * 0.45),
                     child: const Center(child: DotLoader()),

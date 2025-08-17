@@ -45,8 +45,6 @@ class FlashCardsVM extends ChangeNotifier {
       if (flashCardsList.isNotEmpty) return;
       setLoadingF(loadingFor);
 
-
-
       var data = await baseApi.get('/flashcard/', context);
       // debugPrint('👉 flashCardsList: $data');
       log('👉 flashCardsList: $data');
@@ -55,9 +53,9 @@ class FlashCardsVM extends ChangeNotifier {
         // in this movies list not used
         flashCardsList.add(FlashCardsModel.fromJson(data));
 
-          if(selectedSubject.isEmpty && flashCardsList[0].subjects.isNotEmpty){
-            setSelectSubject(flashCardsList[0].subjects[0].id);
-          }
+        if (selectedSubject.isEmpty && flashCardsList[0].subjects.isNotEmpty) {
+          setSelectSubject(flashCardsList[0].subjects[0].id);
+        }
 
         // // for used movies because second time geting by id form bottom function
         // for (var m in data['movies']) {
@@ -74,7 +72,6 @@ class FlashCardsVM extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 
   // List<FlashCardsMovie> flashCardsMoviesList = [];
   getFlashCardMoviesListBySubjectId(
@@ -95,36 +92,28 @@ class FlashCardsVM extends ChangeNotifier {
       if (data['success'].toString() == 'true') {
         flashCardsList.clear();
         flashCardsList.add(FlashCardsModel.fromJson(data));
-flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
-flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
-flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
-flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
-flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
-flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
-flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
-flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
-flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
-flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
+        // flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
       }
       setLoadingF();
       notifyListeners();
     } catch (e, st) {
-      log('💥 try catch when: getFlashCardMoviesListBySubjectId Error: $e, st:$st');
+      log(
+        '💥 try catch when: getFlashCardMoviesListBySubjectId Error: $e, st:$st',
+      );
     } finally {
       setLoadingF();
       notifyListeners();
     }
   }
 
- String _selectedLevelIs = "";
+  String _selectedLevelIs = "";
   String get selectedLevel => _selectedLevelIs;
   setSelectLevel(String value) {
     _selectedLevelIs = value;
     notifyListeners();
   }
 
-
-List<FlashCardDetaiilModel> flashCardsDetailsList = [];
+  List<FlashCardDetaiilModel> flashCardsDetailsList = [];
   getFlashCardDetailsByIds(
     context, {
     String loadingFor = '',
@@ -137,7 +126,10 @@ List<FlashCardDetaiilModel> flashCardsDetailsList = [];
       setLoadingF(loadingFor);
 
       // /flashcard/view/:movieId/:level
-      var data = await baseApi.get('/flashcard/view/$movieId/$levelId', context);
+      var data = await baseApi.get(
+        '/flashcard/view/$movieId/$levelId',
+        context,
+      );
       // debugPrint('👉 getFlashCardMoviesList: $data');
       // log('👉 getFlashCardDetailsByIds: $data');
 

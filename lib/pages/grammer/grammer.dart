@@ -23,7 +23,7 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
 
   void syncFirstF() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(grammerData).getGrammersF(context);
+      ref.read(grammerData).getGrammersF(context,loadingFor: "grammer");
     });
   }
 
@@ -61,7 +61,7 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
               ),
             ),
 
-            if (ref.watch(grammerData).isLoading)
+            if (ref.watch(grammerData).loadingFor=="grammer")
               Padding(
                 padding: EdgeInsets.only(top: h * 0.45),
                 child: const Center(child: DotLoader()),
@@ -102,7 +102,10 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
                     return buildLevelBox(
                       level.label,
                       // subtitle: "",
-                      onTap: () {
+                      onTap: () async{
+                        // in future if need
+                      //  await ref.read(grammerData).getGrammersByIdForCatgListF(context, levelId:level.id , loadingFor: "grammerCatg");
+                        
                         Navigator.push(
                           context,
                           MaterialPageRoute(
