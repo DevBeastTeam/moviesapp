@@ -73,6 +73,12 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
 
+    final mediaQuery = MediaQuery.of(context);
+    final isPortrait = mediaQuery.orientation == Orientation.portrait;
+    final isLandscape = mediaQuery.orientation == Orientation.landscape;
+    final isTablet =
+        mediaQuery.size.shortestSide >= 600; // Common tablet threshold
+
     var lessonDetailData = p.grammerSingleData.isNotEmpty
         ? p.grammerSingleData[0]
         : GrammerDetailModel();
@@ -93,119 +99,280 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
           ////////////////////
           const Text('DAILY', style: TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 20),
-          p.isLoadingFor == 'grammerDetails'
-              ? Padding(
-                  padding: EdgeInsets.only(top: h * 0.45),
-                  child: const Center(child: DotLoader()),
-                )
-              : SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            p.setSlectedTabBtnIs = 0;
-                            p.stopTimer();
-                          },
-                          borderRadius: BorderRadius.circular(15),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              gradient: LinearGradient(
-                                colors: [
-                                  p.slectedTabBtnIs == 0
-                                      ? Colors.orangeAccent
-                                      : Colors.orangeAccent.withOpacity(0.4),
-                                  p.slectedTabBtnIs == 0
-                                      ? Colors.deepOrange
-                                      : Colors.deepOrange.withOpacity(0.4),
-                                ],
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 5,
-                                  offset: const Offset(0, 1),
+
+          if (isTablet && isLandscape)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                p.isLoadingFor == 'grammerDetails'
+                    ? Padding(
+                        padding: EdgeInsets.only(top: h * 0.45),
+                        child: const Center(child: DotLoader()),
+                      )
+                    : SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  p.setSlectedTabBtnIs = 0;
+                                  p.stopTimer();
+                                },
+                                borderRadius: BorderRadius.circular(15),
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        p.slectedTabBtnIs == 0
+                                            ? Colors.orangeAccent
+                                            : Colors.orangeAccent.withOpacity(
+                                                0.4,
+                                              ),
+                                        p.slectedTabBtnIs == 0
+                                            ? Colors.deepOrange
+                                            : Colors.deepOrange.withOpacity(
+                                                0.4,
+                                              ),
+                                      ],
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 2,
+                                        blurRadius: 5,
+                                        offset: const Offset(0, 1),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 15,
+                                        vertical: 5,
+                                      ),
+                                      child: Text(
+                                        'ENGLISH'.toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  p.setSlectedTabBtnIs = 1;
+                                  p.stopTimer();
+                                },
+                                borderRadius: BorderRadius.circular(15),
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        p.slectedTabBtnIs == 1
+                                            ? Colors.orangeAccent
+                                            : Colors.orangeAccent.withOpacity(
+                                                0.4,
+                                              ),
+                                        p.slectedTabBtnIs == 1
+                                            ? Colors.deepOrange
+                                            : Colors.deepOrange.withOpacity(
+                                                0.4,
+                                              ),
+                                      ],
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 2,
+                                        blurRadius: 5,
+                                        offset: const Offset(0, 1),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 15,
+                                        vertical: 5,
+                                      ),
+                                      child: Text(
+                                        'FRANÇAIS'.toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                // Spacer(),
+                p.isLoadingFor == 'grammerDetails'
+                    ? const SizedBox.shrink()
+                    : InkWell(
+                        onTap: () {},
+                        child: Container(
+                          height: 35,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '${lessonDetailData.lesson!.label}',
+                                  style: const TextStyle(color: Colors.blue),
+                                ),
+                                Image.asset(AppImages.check, width: 20),
                               ],
                             ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 15,
-                                  vertical: 5,
+                          ),
+                        ),
+                      ),
+              ],
+            ),
+
+          if (!isTablet && !isLandscape)
+            p.isLoadingFor == 'grammerDetails'
+                ? Padding(
+                    padding: EdgeInsets.only(top: h * 0.45),
+                    child: const Center(child: DotLoader()),
+                  )
+                : SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              p.setSlectedTabBtnIs = 0;
+                              p.stopTimer();
+                            },
+                            borderRadius: BorderRadius.circular(15),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                gradient: LinearGradient(
+                                  colors: [
+                                    p.slectedTabBtnIs == 0
+                                        ? Colors.orangeAccent
+                                        : Colors.orangeAccent.withOpacity(0.4),
+                                    p.slectedTabBtnIs == 0
+                                        ? Colors.deepOrange
+                                        : Colors.deepOrange.withOpacity(0.4),
+                                  ],
                                 ),
-                                child: Text(
-                                  'ENGLISH'.toUpperCase(),
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 1),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 15,
+                                    vertical: 5,
+                                  ),
+                                  child: Text(
+                                    'ENGLISH'.toUpperCase(),
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            p.setSlectedTabBtnIs = 1;
-                            p.stopTimer();
-                          },
-                          borderRadius: BorderRadius.circular(15),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              gradient: LinearGradient(
-                                colors: [
-                                  p.slectedTabBtnIs == 1
-                                      ? Colors.orangeAccent
-                                      : Colors.orangeAccent.withOpacity(0.4),
-                                  p.slectedTabBtnIs == 1
-                                      ? Colors.deepOrange
-                                      : Colors.deepOrange.withOpacity(0.4),
+                          InkWell(
+                            onTap: () {
+                              p.setSlectedTabBtnIs = 1;
+                              p.stopTimer();
+                            },
+                            borderRadius: BorderRadius.circular(15),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                gradient: LinearGradient(
+                                  colors: [
+                                    p.slectedTabBtnIs == 1
+                                        ? Colors.orangeAccent
+                                        : Colors.orangeAccent.withOpacity(0.4),
+                                    p.slectedTabBtnIs == 1
+                                        ? Colors.deepOrange
+                                        : Colors.deepOrange.withOpacity(0.4),
+                                  ],
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 1),
+                                  ),
                                 ],
                               ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 5,
-                                  offset: const Offset(0, 1),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 15,
-                                  vertical: 5,
-                                ),
-                                child: Text(
-                                  'FRANÇAIS'.toUpperCase(),
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 15,
+                                    vertical: 5,
+                                  ),
+                                  child: Text(
+                                    'FRANÇAIS'.toUpperCase(),
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
+
+          if (!isTablet && !isLandscape)
           const SizedBox(height: 10),
+          if (!isTablet && !isLandscape)
           p.isLoadingFor == 'grammerDetails'
               ? const SizedBox.shrink()
               : InkWell(
