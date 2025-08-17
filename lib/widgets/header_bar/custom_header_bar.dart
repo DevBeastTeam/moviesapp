@@ -10,6 +10,8 @@ class CustomHeaderBar extends StatelessWidget {
     this.titleStyle,
     this.onBack,
     this.centerTitle = true,
+
+    this.trailing 
   });
 
   final double height;
@@ -17,6 +19,7 @@ class CustomHeaderBar extends StatelessWidget {
   final TextStyle? titleStyle;
   final bool centerTitle;
   final Function()? onBack;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +61,8 @@ class CustomHeaderBar extends StatelessWidget {
                     ),
                   ),
           ),
+          // trailing != null ? Spacer() : const SizedBox.shrink(),
+          trailing ?? const SizedBox.shrink()
         ],
       ),
     );

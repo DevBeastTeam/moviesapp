@@ -15,6 +15,12 @@ import 'theme/theme.dart';
 //     GlobalKey<ScaffoldMessengerState>(); 
 final GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
 
+
+// login  -> 
+// name: tomcruise 
+// pass: tomcruise
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initHive();

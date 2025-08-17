@@ -76,7 +76,7 @@ class FlashCardsVM extends ChangeNotifier {
   }
 
 
-  List<FlashCardsMovie> flashCardsMoviesList = [];
+  // List<FlashCardsMovie> flashCardsMoviesList = [];
   getFlashCardMoviesListBySubjectId(
     context, {
     String loadingFor = '',
@@ -95,7 +95,16 @@ class FlashCardsVM extends ChangeNotifier {
       if (data['success'].toString() == 'true') {
         flashCardsList.clear();
         flashCardsList.add(FlashCardsModel.fromJson(data));
-
+flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
+flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
+flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
+flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
+flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
+flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
+flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
+flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
+flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
+flashCardsList.first.movies.add(flashCardsList.first.movies[0]);
       }
       setLoadingF();
       notifyListeners();
