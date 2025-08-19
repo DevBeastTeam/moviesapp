@@ -1,4 +1,5 @@
 import 'package:edutainment/constants/appimages.dart';
+import 'package:edutainment/helpers/forstrings.dart';
 import 'package:edutainment/models/grammerModel.dart';
 import 'package:edutainment/pages/grammer/grammerdetail.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
@@ -6,13 +7,16 @@ import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../providers/grammerData.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
 class GrammerCatgPage extends ConsumerStatefulWidget {
-  AllowedCategory? level;
-  String id = "";
-  GrammerCatgPage({super.key, this.id = "", this.level});
+  // AllowedCategory? level;
+  // String id = "";
+  const GrammerCatgPage({super.key, 
+  // this.id = "", this.level, 
+  });
 
   @override
   ConsumerState<GrammerCatgPage> createState() => GrammerCatgPageState();
@@ -37,8 +41,25 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
+
+    //////////
+    // Access the extra data from GoRouterState
+    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+
+    if (extra == null) {
+      return const Scaffold(
+        body: Center(child: Text("Should Pass Extra Data")),
+      );
+    }
+
+    final id = extra['id'].toString().toNullString(); 
+    // final level = extra['level'] as AllowedCategory ?? AllowedCategory(id: "1", label: "abc", reference: "abc", level: "a1"); 
+    ///////////
+
+
+
     return DefaultScaffold(
-      currentPage: '',
+      currentPage: '/home/GrammerPage/grammerCatg',
       child: SingleChildScrollView(
         physics: const ScrollPhysics(),
         controller: ScrollController(),
@@ -58,6 +79,7 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
               'LESSONS CATEGORIES',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
+            
             // Text("id: ${widget.id}"),
             // Text("level: ${widget.level!.label.toString()}"),
             // Text("level: ${widget.level!.level.toString()}"),
@@ -143,16 +165,12 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                                       p.getGrammerSingleByIdF(
                                         context,
                                         id: e.id,
+                                        loadingFor: "next"
                                       );
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              GrammerDetailPage(
-                                                labelsLessons: data,
-                                              ),
-                                        ),
-                                      );
+
+                                      context.go('/home/GrammerPage/grammerCatg/grammerdetail', extra: {
+                                        'labelsLessons': data,
+                                      });
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

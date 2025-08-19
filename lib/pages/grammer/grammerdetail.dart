@@ -5,6 +5,7 @@ import 'package:edutainment/models/grammerDetailModel.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:html_to_flutter/html_to_flutter.dart';
 // import 'package:get/get.dart';
 
@@ -14,9 +15,14 @@ import '../../widgets/header_bar/custom_header_bar.dart';
 import '../../widgets/loaders/dotloader.dart';
 
 class GrammerDetailPage extends ConsumerStatefulWidget {
-  final List<Lesson> labelsLessons;
+  // final List<Lesson> labelsLessons;
 
-  const GrammerDetailPage({super.key, this.labelsLessons = const []});
+  const GrammerDetailPage({
+    super.key,
+    //
+    // this.labelsLessons = const []
+    //
+  });
 
   @override
   ConsumerState<GrammerDetailPage> createState() => _GrammerDetailPageState();
@@ -38,12 +44,12 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
   //         remainingSeconds--;
   //         var p = ref.watch(grammerData);
 
-  //         if (p.sletedLableIndexIs <= widget.labelsLessons.length) {
+  //         if (p.sletedLableIndexIs <= labelsLessons.length) {
   //           p.setSelctedLableIndexIs = p.sletedLableIndexIs + 1;
   //           p.getGrammerSingleByIdF(
   //             context,
   //             loadingFor: 'next',
-  //             id: widget.labelsLessons[p.sletedLableIndexIs + 1].id,
+  //             id: labelsLessons[p.sletedLableIndexIs + 1].id,
   //           );
   //         }
   //       }
@@ -83,8 +89,18 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
         ? p.grammerSingleData[0]
         : GrammerDetailModel();
 
+    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+
+    if (extra == null) {
+      return const Scaffold(
+        body: Center(child: Text("Should Pass Extra Data")),
+      );
+    }
+
+    final labelsLessons = extra['labelsLessons'] as List<Lesson>;
+
     return DefaultScaffold(
-      currentPage: '',
+      currentPage: '/home/GrammerPage/grammerCatg/grammerDetail',
       child: Column(
         children: [
           CustomHeaderBar(
@@ -370,35 +386,34 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                     ),
                   ),
 
+          if (!isTablet && !isLandscape) const SizedBox(height: 10),
           if (!isTablet && !isLandscape)
-          const SizedBox(height: 10),
-          if (!isTablet && !isLandscape)
-          p.isLoadingFor == 'grammerDetails'
-              ? const SizedBox.shrink()
-              : InkWell(
-                  onTap: () {},
-                  child: Container(
-                    height: 35,
-                    width: MediaQuery.of(context).size.width * 0.82,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '${lessonDetailData.lesson!.label}',
-                            style: const TextStyle(color: Colors.blue),
-                          ),
-                          Image.asset(AppImages.check, width: 20),
-                        ],
+            p.isLoadingFor == 'grammerDetails'
+                ? const SizedBox.shrink()
+                : InkWell(
+                    onTap: () {},
+                    child: Container(
+                      height: 35,
+                      width: MediaQuery.of(context).size.width * 0.82,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                             lessonDetailData !=null ? '${lessonDetailData.lesson!.label}' : "Empty",
+                              style: const TextStyle(color: Colors.blue),
+                            ),
+                            Image.asset(AppImages.check, width: 20),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
           const SizedBox(height: 20),
           p.isLoadingFor == 'grammerDetails'
               ? const SizedBox.shrink()
@@ -418,17 +433,15 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                                   p.sletedLableIndexIs - 1;
                               p.getGrammerSingleByIdF(
                                 context,
-                                loadingFor: 'preIcon',
-                                id: widget
-                                    .labelsLessons[p.sletedLableIndexIs - 1]
-                                    .id,
+                                loadingFor: 'previous',
+                                id: labelsLessons[p.sletedLableIndexIs - 1].id,
                               );
                             }
                           },
                           borderRadius: BorderRadius.circular(50),
                           child: Padding(
                             padding: const EdgeInsets.all(8),
-                            child: p.isLoadingFor == 'preIcon'
+                            child: p.isLoadingFor == 'previous'
                                 ? const SizedBox(
                                     width: 20,
                                     height: 20,
@@ -492,7 +505,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                                     onTap: () {
                                       p.playTimer(
                                         context,
-                                        labelsLessons: widget.labelsLessons,
+                                        labelsLessons: labelsLessons,
                                       );
                                     },
                                     child: Image.asset(
@@ -506,16 +519,13 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                           onTap: () {
                             p.stopTimer();
 
-                            if (p.sletedLableIndexIs <=
-                                widget.labelsLessons.length) {
+                            if (p.sletedLableIndexIs <= labelsLessons.length) {
                               p.setSelctedLableIndexIs =
                                   p.sletedLableIndexIs + 1;
                               p.getGrammerSingleByIdF(
                                 context,
                                 loadingFor: 'next',
-                                id: widget
-                                    .labelsLessons[p.sletedLableIndexIs + 1]
-                                    .id,
+                                id: labelsLessons[p.sletedLableIndexIs + 1].id,
                               );
                             }
                           },
@@ -539,7 +549,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                                       Icons.replay_10_rounded,
                                       color:
                                           p.sletedLableIndexIs ==
-                                              widget.labelsLessons.length
+                                              labelsLessons.length
                                           ? Colors.grey
                                           : null,
                                     ),
@@ -557,9 +567,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
           // Text("${lessonDetailData.lesson!.contentfr}", style: TextStyle(color: Colors.white),),
           // Divider(),
           const SizedBox(height: 20),
-          p.isLoadingFor == 'grammerDetails'
-              ? const SizedBox.shrink()
-              : Expanded(
+        Expanded(
                   child: Container(
                     // height: double.infinity,
                     width: double.infinity,
@@ -579,7 +587,9 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                       padding: const EdgeInsets.all(14),
                       child: SingleChildScrollView(
                         controller: ScrollController(),
-                        child: Column(
+                        child:   p.isLoadingFor == 'next' || p.isLoadingFor == 'previous'
+              ? Center(child: const DotLoader())
+              :  Column(
                           children: [
                             // Text("${lessonDetailData.lesson!}"),
                             Html(

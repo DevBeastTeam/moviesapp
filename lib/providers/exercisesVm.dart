@@ -7,18 +7,15 @@ import '../models/excersisesModel.dart';
 var excerVm = ChangeNotifierProvider<ExcerVm>((ref) => ExcerVm());
 
 class ExcerVm extends ChangeNotifier {
-  String isLoadingFor = '';
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-  void setLoadingF([bool v = true, String? name]) {
-    _isLoading = v;
-    if (v) {
-      isLoadingFor = name ?? '';
-    } else {
-      isLoadingFor = '';
-    }
+
+
+  String _loadingFor = "";
+  String get loadingFor => _loadingFor;
+  void setLoadingF([String name = ""]) {
+    _loadingFor = name;
     notifyListeners();
   }
+
 
   int _expandedIndexIs = 0;
   int get expandedIndexIs => _expandedIndexIs;
@@ -40,7 +37,7 @@ class ExcerVm extends ChangeNotifier {
     try {
       // if (excersiseList.isNotEmpty) return;
       if (showLoading) {
-        setLoadingF(true, loadingFor);
+        setLoadingF(loadingFor);
       }
       var data = await baseApi.get('/lessons/exercises', context);
       // debugPrint('👉 excersiseList: $data');
@@ -49,13 +46,40 @@ class ExcerVm extends ChangeNotifier {
         excersiseList.clear();
         excersiseList.add(ExcersisesModel.fromJson(data['data']));
       }
-      setLoadingF(false);
-      notifyListeners();
+      setLoadingF();
     } catch (e, st) {
       log('💥 try catch when: getExcerF Error: $e, st:$st');
     } finally {
-      setLoadingF(false);
-      notifyListeners();
+      setLoadingF();
+    }
+  }
+
+
+  ////////
+  List excersiseCatgList = [];
+  void getExcerBtCatgRef(
+    context, {
+    String loadingFor = '',
+    String catgRef = '',
+  }) async {
+    try {
+      // if (excersiseList.isNotEmpty) return;
+        setLoadingF(loadingFor);
+        
+      // var data = await baseApi.get('/lessons/exercises/path/$catgRef', context);
+      var data = await baseApi.get('/lessons/exercises/category/$catgRef', context);
+      
+      // debugPrint('👉 excersiseList: $data');
+      log('👉 excersiseCatgList: $data');
+      if (data['success'].toString() == 'true') {
+        excersiseCatgList.clear();
+        // excersiseCatgList.add(ExcersisesModel.fromJson(data['data']));
+      }
+      setLoadingF();
+    } catch (e, st) {
+      log('💥 try catch when: excersiseCatgList Error: $e, st:$st');
+    } finally {
+      setLoadingF();
     }
   }
 
@@ -87,7 +111,7 @@ class ExcerVm extends ChangeNotifier {
   }) async {
     try {
       if (showLoading) {
-        setLoadingF(true, loadingFor);
+        setLoadingF(loadingFor);
       }
 
       log('👉 excersisesSingleData id: $id');
@@ -97,14 +121,14 @@ class ExcerVm extends ChangeNotifier {
         // excersisesSingleData.clear();
         // excersisesSingleData.add(GrammerDetailModel.fromJson(data['data']));
       }
-      setLoadingF(false);
+      setLoadingF();
 
       // toast(context, msg: 'grammers geted');
       notifyListeners();
     } catch (e, st) {
       log('💥 try catch when: getExcerSingleByIdF Error: $e, st:$st');
     } finally {
-      setLoadingF(false);
+      setLoadingF();
       notifyListeners();
     }
   }

@@ -130,7 +130,7 @@ class GrammerData extends ChangeNotifier {
       var data = await baseApi.get('/lessons/grammar/$id', context);
       
       log('👉 grammerSingleData: $data');
-      
+
       if (data['success'].toString() == 'true') {
         grammerSingleData.clear();
         grammerSingleData.add(GrammerDetailModel.fromJson(data['data']));

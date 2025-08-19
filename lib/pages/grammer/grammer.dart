@@ -3,6 +3,7 @@ import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../providers/grammerData.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
@@ -35,7 +36,7 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
     var w = MediaQuery.of(context).size.width;
 
     return DefaultScaffold(
-      currentPage: '',
+      currentPage: '/home/GrammerPage',
       child: SingleChildScrollView(
         physics: const ScrollPhysics(),
         controller: ScrollController(),
@@ -106,15 +107,20 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
                         // in future if need
                       //  await ref.read(grammerData).getGrammersByIdForCatgListF(context, levelId:level.id , loadingFor: "grammerCatg");
                         
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => GrammerCatgPage(
-                              id: level.id.toString(),
-                              level: level,
-                            ),
-                          ),
-                        );
+                        context.go('/home/GrammerPage/grammerCatg', extra: {
+                          "id":level.id.toString(),
+                          "level": level,
+                        });
+
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => GrammerCatgPage(
+                        //       id: level.id.toString(),
+                        //       level: level,
+                        //     ),
+                        //   ),
+                        // );
                       },
                     );
                   },

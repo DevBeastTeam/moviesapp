@@ -23,7 +23,7 @@ class _ExcerisisePageState extends ConsumerState<ExcerisisePage> {
 
   void syncFirstF() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(excerVm).getExcerF(context);
+      ref.read(excerVm).getExcerF(context, loadingFor: "getAll");
     });
   }
 
@@ -49,7 +49,7 @@ class _ExcerisisePageState extends ConsumerState<ExcerisisePage> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
           const SizedBox(height: 50),
-          p.isLoading
+          p.loadingFor == "getAll"
               ? Padding(
                   padding: EdgeInsets.only(top: h * 0.35),
                   child: const Center(child: DotLoader()),
@@ -80,21 +80,24 @@ class _ExcerisisePageState extends ConsumerState<ExcerisisePage> {
                       bool isLocked =
                           p.excersiseList.first.userLevel.index < index;
                       return InkWell(
-                        onTap: isLocked
-                            ? null
-                            : () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ExcersiseLessonsPage(
-                                      labelTitle:
-                                          data.label[0].toUpperCase() +
-                                          data.label.substring(1),
-                                      lableOptionsList:
-                                          p.excersiseList.first.tags,
-                                    ),
-                                  ),
-                                );
+                        onTap: 
+                        // isLocked
+                        //     ? null
+                        //     : 
+                            () {
+                              p.getExcerBtCatgRef(context,catgRef: data.reference.toString(), loadingFor: "getByCatg");
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => ExcersiseLessonsPage(
+                                //       labelTitle:
+                                //           data.label[0].toUpperCase() +
+                                //           data.label.substring(1),
+                                //       lableOptionsList:
+                                //           p.excersiseList.first.allowedLessonCategory,
+                                //     ),
+                                //   ),
+                                // );
                               },
                         child: Stack(
                           children: [

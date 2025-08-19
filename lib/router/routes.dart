@@ -256,6 +256,67 @@ GoRouter appRoutes = GoRouter(
             ),
           ],
         ),
+        GoRoute(
+          path: 'GrammerPage',
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: UniqueKey(),
+              child: const GrammerPage(),
+              transitionDuration: const Duration(milliseconds: 500),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: CurveTween(
+                        curve: Curves.easeInOut,
+                      ).animate(animation),
+                      child: child,
+                    );
+                  },
+            );
+          },
+          routes: [
+            GoRoute(
+              path: 'grammerCatg',
+              pageBuilder: (context, state) {
+                return CustomTransitionPage(
+                  key: UniqueKey(),
+                  child: GrammerCatgPage(),
+                  transitionDuration: const Duration(milliseconds: 500),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: CurveTween(
+                            curve: Curves.easeInOut,
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                );
+              },
+              routes: [
+                GoRoute(
+                  path: 'grammerDetail',
+                  pageBuilder: (context, state) {
+                    return CustomTransitionPage(
+                      key: UniqueKey(),
+                      child: GrammerDetailPage(),
+                      transitionDuration: const Duration(milliseconds: 500),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(
+                              opacity: CurveTween(
+                                curve: Curves.easeInOut,
+                              ).animate(animation),
+                              child: child,
+                            );
+                          },
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ],
     ),
     GoRoute(
@@ -458,22 +519,6 @@ GoRouter appRoutes = GoRouter(
         return CustomTransitionPage(
           key: UniqueKey(),
           child: const GrammerDetailPage(),
-          transitionDuration: const Duration(milliseconds: 500),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
-              child: child,
-            );
-          },
-        );
-      },
-    ),
-    GoRoute(
-      path: '/GrammerPage',
-      pageBuilder: (context, state) {
-        return CustomTransitionPage(
-          key: UniqueKey(),
-          child: const GrammerPage(),
           transitionDuration: const Duration(milliseconds: 500),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(

@@ -15,6 +15,7 @@ class DefaultScaffold extends StatelessWidget {
     this.customBgColors,
     this.drawer = const Drawer(),
     this.isShowDrawer = false,
+    this.floatingBtn,
   });
 
   final Widget child;
@@ -23,6 +24,7 @@ class DefaultScaffold extends StatelessWidget {
   final List<Color>? customBgColors;
   final Widget? drawer;
   final bool isShowDrawer;
+  final Widget? floatingBtn;
 
   @override
   Widget build(BuildContext context) {
@@ -93,10 +95,10 @@ class DefaultScaffold extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton:
+    floatingActionButton: 
           floatingQuestionAllowed && !hideBottomBar && currentPage == 'profile'
           ? const FloatingQuestionButton()
-          : null,
+          : floatingBtn,
     );
   }
 }

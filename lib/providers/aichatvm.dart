@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:edutainment/models/aichatModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/api_helper.dart';
@@ -10,20 +11,15 @@ import 'package:http/http.dart' as http;
 
 import '../utils/boxes.dart';
 
-var chatWithAiVm =
-    ChangeNotifierProvider<ChatWithAiVm>((ref) => ChatWithAiVm());
+var chatWithAiVm = ChangeNotifierProvider<ChatWithAiVm>(
+  (ref) => ChatWithAiVm(),
+);
 
 class ChatWithAiVm extends ChangeNotifier {
-  String isLoadingFor = '';
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-  void setLoadingF([bool v = true, String? name]) {
-    _isLoading = v;
-    if (v) {
-      isLoadingFor = name ?? '';
-    } else {
-      isLoadingFor = '';
-    }
+  String _loadingFor = "";
+  String get loadingFor => _loadingFor;
+  void setLoadingF([String name = ""]) {
+    _loadingFor = name;
     notifyListeners();
   }
 
@@ -37,45 +33,53 @@ class ChatWithAiVm extends ChangeNotifier {
   //////////////////////////
   var baseApi = ApiHelper();
 
-  List<ChatAiModel> chatAiList = [
+  // List<ChatAiModel> chatAiList = [
+  //   // ChatAiModel(msg: '', isSender: false),
+  // ];
+
+  List<AiChatModel> chatAiList = [
     // ChatAiModel(msg: '', isSender: false),
   ];
-  Future chatWithAiF(context,
-      {bool isLoading = true,
-      bool showLoading = true,
-      String loadingFor = '',
-      required String query,
-      ScrollController? scrollController}) async {
+
+  Future getChatWithAiF(
+    context, {
+    String loadingFor = '',
+    ScrollController? scrollController,
+  }) async {
     try {
-      if (showLoading) {
-        setLoadingF(true, loadingFor);
-      }
-      chatAiList.add(ChatAiModel(isSender: true, msg: query.toString()));
-      var token = await userBox.get('token');
-      var resp = await http.post(
-          Uri.parse('https://pronounciation.e-dutainment.com/answer'),
-          headers: {
-            HttpHeaders.authorizationHeader: 'JWT $token',
-            HttpHeaders.contentTypeHeader: 'application/json'
-          },
-          body: jsonEncode({'message': query}));
+      setLoadingF(loadingFor);
+      var data = await baseApi.get('/chat', context);
+      log('👉 ai chat getChatWithAiF : ${data}');
+      // scrollController!.jumpTo(scrollController.position.maxScrollExtent);
+      chatAiList.add(AiChatModel.fromJson(data));
 
-      // debugPrint('👉 ai chat response : ${resp.body}');
+      setLoadingF();
+    } catch (e, st) {
+      log('💥 try catch when: getChatWithAiF Error: $e, st:$st');
+    } finally {
+      setLoadingF();
+    }
+  }
 
-      // var respD = jsonDecode(resp.body);
-      // if (resp.statusCode == 200 || resp.statusCode == 201) {
-      chatAiList.add(ChatAiModel(isSender: false, msg: resp.body.toString()));
-      // }
+  Future chatWithAiF(
+    context, {
+    String loadingFor = '',
+    required String query,
+    ScrollController? scrollController,
+  }) async {
+    try {
+      setLoadingF(loadingFor);
+      // chatAiList.add(ChatAiModel(isSender: true, msg: query.toString()));
 
-      setLoadingF(false);
+      var data = await baseApi.post('/create’', {'message': query}, context);
+      debugPrint('👉 chatWithAiF response : ${data}');
       // scrollController!.jumpTo(scrollController.position.maxScrollExtent);
 
-      notifyListeners();
+      setLoadingF();
     } catch (e, st) {
       log('💥 try catch when: chatWithAiF Error: $e, st:$st');
     } finally {
-      setLoadingF(false);
-      notifyListeners();
+      setLoadingF();
     }
   }
 }
@@ -91,8 +95,6 @@ class ChatAiModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'isSender': isSender,
-    };
+    return {'isSender': isSender};
   }
 }

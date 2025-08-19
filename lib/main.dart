@@ -112,3 +112,8 @@ void configLoading() {
 // currently worked pages 
 // ProfileButtons
 // flashcardspage
+
+
+// missings
+// 1. french and english content in flashcards
+// 2. 

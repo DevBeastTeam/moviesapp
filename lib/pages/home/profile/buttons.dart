@@ -46,7 +46,7 @@ class ProfileButtons extends StatelessWidget {
                     //   ),
                     // );
 
-                    context.go('/GrammerPage');
+                    context.go('/home/GrammerPage');
 
                     ///// api calles
                     // await Navigator.push(
