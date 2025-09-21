@@ -1,13 +1,8 @@
-import 'package:edutainment/pages/excersises/exlessondetails.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timelines_plus/timelines_plus.dart';
 
-import '../../models/excersisesModel.dart';
 import '../../providers/exercisesVm.dart';
-import '../../widgets/header_bar/custom_header_bar.dart';
-import '../../widgets/loaders/dotloader.dart';
 
 class ExcersiseLessonsPage extends ConsumerStatefulWidget {
   final String labelTitle;

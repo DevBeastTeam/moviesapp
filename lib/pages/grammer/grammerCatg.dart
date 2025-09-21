@@ -1,7 +1,5 @@
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/helpers/forstrings.dart';
-import 'package:edutainment/models/grammerModel.dart';
-import 'package:edutainment/pages/grammer/grammerdetail.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';

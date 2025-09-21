@@ -6,6 +6,7 @@ import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import '../../widgets/loaders/dotloader.dart';
@@ -140,28 +141,54 @@ ref.watch(chatWithAiVm).getChatWithAiF(context, scrollController: chatsScrollCon
                     //     ),
                     //   )
                     : Expanded(
-                      child: Text("bn"),
-                        // child: ListView.builder(
-                        //   controller: chatsScrollController,
-                        //   itemCount: p.chatAiList.length,
-                        //   itemBuilder: (context, index) {
-                        //     var chat = p.chatAiList[index];
-                        //     // return BubbleSpecialOne(
-                        //     //   text: chat.msg,
-                        //     //   isSender: chat.isSender,
-                        //     //   color: chat.isSender
-                        //     //       ? Colors.blue
-                        //     //       : Colors.grey.shade400,
-                        //     //   textStyle: TextStyle(
-                        //     //     color: chat.isSender
-                        //     //         ? Colors.white
-                        //     //         : Colors.black,
-                        //     //   ),
-                        //     //   tail: true,
-                        //     //   sent: true,
-                        //     // );
-                        //   },
-                        // ),
+                      // child: Text("bn"),
+                        child: ListView.builder(
+                          controller: chatsScrollController,
+                          itemCount: p.chatAiList.length,
+                          itemBuilder: (context, index) {
+                            var chat = p.chatAiList[index];
+                            return GestureDetector(
+                              onTap: () {
+                               Get.bottomSheet(
+                                Container(
+                                  height: h*0.5,
+                                  decoration: BoxDecoration(
+                                    color: ColorsPallet.blue,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.abc_outlined),
+                                        SizedBox(height: 12),
+                                        Text(chat.msg, style: TextStyle(fontWeight: FontWeight.bold)),
+                                        SizedBox(height: 7),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                               );
+                              },
+                              child: BubbleSpecialOne(
+                                text: chat.msg,
+                                isSender: chat.isSender,
+                                color: chat.isSender
+                                    ? Colors.blue
+                                    : Colors.grey.shade400,
+                                textStyle: TextStyle(
+                                  color: chat.isSender
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                                tail: true,
+                                sent: true,
+                              ),
+                            );
+                          },
+                        ),
                       ),
                 if (p.loadingFor == "ai")
                   const SizedBox(height: 20, child: Center(child: DotLoader())),

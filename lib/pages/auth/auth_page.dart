@@ -77,7 +77,7 @@ class _AuthPage extends State<AuthPage> {
                     : MediaQuery.of(context).size.width * 0.25,
                 alignment: Alignment.center,
                 // child: AssetsImage.defaultIcon.toImage(),
-                child: Image.asset(AppImages.playerlight)
+                child: Image.asset(AppImages.playerlight),
               ),
               const SizedBox(height: 12),
               Container(
@@ -117,7 +117,7 @@ e-dutainment.com.
       children: [
         Container(
           width: MediaQuery.of(context).size.width * 1,
-          height: MediaQuery.of(context).size.height * 1,
+          height: MediaQuery.of(context).size.height * 0.8,
           // width: MediaQuery.of(context).size.width,
           // height: Get.height,
           color: Colors.black.withOpacity(.7),
@@ -178,7 +178,7 @@ e-dutainment.com.
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 16, top: 16),
+                margin: const EdgeInsets.only(bottom: 10, top: 10),
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: PrimaryButton(
                   radius: 25,
@@ -236,11 +236,15 @@ e-dutainment.com.
                 ),
               ),
               const Text('a service by'),
-              AssetsImage.bannerColor.toImage(
-                width: MediaQuery.of(context).size.width * .5 > 230
-                    ? 230
-                    : MediaQuery.of(context).size.width * .5,
-              ),
+              // usernameController.text.isEmpty
+              //     ? 
+                  AssetsImage.bannerColor.toImage(
+                      width: MediaQuery.of(context).size.width * .5 > 230
+                          ? 230
+                          : MediaQuery.of(context).size.width * .5,
+                    )
+                    ,
+                  // : SizedBox.shrink(),
               const SizedBox(height: 24),
             ],
           ),

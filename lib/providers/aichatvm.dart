@@ -1,15 +1,11 @@
 // FlashCardsListPage
 
-import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'package:edutainment/models/aichatModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/api_helper.dart';
-import 'package:http/http.dart' as http;
 
-import '../utils/boxes.dart';
 
 var chatWithAiVm = ChangeNotifierProvider<ChatWithAiVm>(
   (ref) => ChatWithAiVm(),
@@ -33,11 +29,11 @@ class ChatWithAiVm extends ChangeNotifier {
   //////////////////////////
   var baseApi = ApiHelper();
 
-  // List<ChatAiModel> chatAiList = [
-  //   // ChatAiModel(msg: '', isSender: false),
-  // ];
+  List<ChatAiModel> chatAiList = [
+    // ChatAiModel(msg: '', isSender: false),
+  ];
 
-  List<AiChatModel> chatAiList = [
+  List<AiChatModel> getedchatAiList = [
     // ChatAiModel(msg: '', isSender: false),
   ];
 
@@ -49,9 +45,9 @@ class ChatWithAiVm extends ChangeNotifier {
     try {
       setLoadingF(loadingFor);
       var data = await baseApi.get('/chat', context);
-      log('👉 ai chat getChatWithAiF : ${data}');
+      log('👉 ai chat getChatWithAiF : $data');
       // scrollController!.jumpTo(scrollController.position.maxScrollExtent);
-      chatAiList.add(AiChatModel.fromJson(data));
+      getedchatAiList.add(AiChatModel.fromJson(data));
 
       setLoadingF();
     } catch (e, st) {
@@ -68,11 +64,12 @@ class ChatWithAiVm extends ChangeNotifier {
     ScrollController? scrollController,
   }) async {
     try {
+      print("query: $query");
       setLoadingF(loadingFor);
-      // chatAiList.add(ChatAiModel(isSender: true, msg: query.toString()));
+      chatAiList.add(ChatAiModel(isSender: true, msg: query.toString()));
 
-      var data = await baseApi.post('/create’', {'message': query}, context);
-      debugPrint('👉 chatWithAiF response : ${data}');
+      var data = await baseApi.post('/chat/create', {'chat': query}, context);
+      debugPrint('👉 chatWithAiF response : $data');
       // scrollController!.jumpTo(scrollController.position.maxScrollExtent);
 
       setLoadingF();

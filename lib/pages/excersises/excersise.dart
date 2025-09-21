@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../widgets/header_bar/custom_header_bar.dart';
 import '../../widgets/loaders/dotloader.dart';
-import 'exlessons.dart';
 
 class ExcerisisePage extends ConsumerStatefulWidget {
   const ExcerisisePage({super.key});
