@@ -12,14 +12,8 @@ import 'theme/theme.dart';
 
 // Global navigator key for accessing context anywhere
 // final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-//     GlobalKey<ScaffoldMessengerState>(); 
+//     GlobalKey<ScaffoldMessengerState>();
 final GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
-
-
-// login  -> 
-// name: tomcruise 
-// pass: tomcruise
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -80,9 +74,7 @@ void configLoading() {
     ..dismissOnTap = false;
 }
 
-// login  -> 
-// name: tomcruise 
-// pass: tomcruise
+
 
 
 // flexibleSpace: Container(
