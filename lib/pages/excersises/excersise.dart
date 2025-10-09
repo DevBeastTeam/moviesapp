@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 
+import '../../widgets/emptyWIdget.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import '../../widgets/loaders/dotloader.dart';
 
@@ -46,7 +47,7 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
             title: 'Excercises',
           ),
           ref.watch(excerVm).loadingFor == "refresh" ||
-                  ref.watch(excerVm).loadingFor == "getExcercisesByCatg"
+                  ref.watch(excerVm).loadingFor == "getAll"
               ? QuickTikTokLoader()
               : SizedBox.shrink(),
           Column(
@@ -58,26 +59,9 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               const SizedBox(height: 50),
-              p.loadingFor == "getAll"
-                  ? Padding(
-                      padding: EdgeInsets.only(top: h * 0.35),
-                      child: const Center(child: DotLoader()),
-                    )
-                  : (p.excersiseList.isEmpty ||
-                        p.excersiseList.first.allowedLessonCategory.isEmpty)
-                  ? Padding(
-                      padding: EdgeInsets.only(top: h * 0.35),
-                      child: Center(
-                        child: Text(
-                          'No levels available',
-                          style: t.titleMedium!.copyWith(
-                            color: Colors.orange,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 2,
-                          ),
-                        ),
-                      ),
-                    )
+              (p.excersiseList.isEmpty ||
+                      p.excersiseList.first.allowedLessonCategory.isEmpty)
+                  ? EmptyWidget(paddingTop: h * 0.25)
                   : Wrap(
                       runSpacing: 15,
                       spacing: 15,

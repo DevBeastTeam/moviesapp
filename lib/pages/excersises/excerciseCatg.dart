@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
+import '../../widgets/emptyWIdget.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import '../../widgets/ui/default_scaffold.dart';
 
@@ -32,101 +33,124 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
 
     return DefaultScaffold(
       currentPage: '/ExcersisesPage/ExcerciseCatgPage',
-      child: Column(
-        // mainAxisSize: MainAxisSize.min,
-        children: [
-          CustomHeaderBar(
-            onBack: () => Navigator.pop(context),
-            centerTitle: false,
-            title: 'Excercises',
-          ),
-          ref.watch(excerVm).loadingFor == "refresh" ||
-                  ref.watch(excerVm).loadingFor == "getExcercisesByCatg"
-              ? QuickTikTokLoader()
-              : SizedBox.shrink(),
-          ref.watch(excerVm).excercisesCatgLessonsSteps == null
-              ? Center(child: Text("Data Empty"))
-              : Column(
-                  // mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: w,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 7,
-                        horizontal: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        // borderRadius: BorderRadius.circular(10),
-                        gradient: LinearGradient(
-                          colors: [
-                            Color(0xFFf9bf13),
-                            Color(0xFFf1711c),
-                            Color(0xFFf82424),
-                          ],
+      child: SingleChildScrollView(
+        controller: ScrollController(),
+        child: Column(
+          // mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomHeaderBar(
+              onBack: () => Navigator.pop(context),
+              centerTitle: false,
+              title: 'Excercises',
+            ),
+            ref.watch(excerVm).loadingFor == "refresh" ||
+                    ref.watch(excerVm).loadingFor == "getExcercisesByCatg"
+                ? QuickTikTokLoader()
+                : SizedBox.shrink(),
+            ref.watch(excerVm).excercisesCatgLessonsSteps == null
+                ? EmptyWidget(paddingTop: h * 0.25)
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: w,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 7,
+                          horizontal: 10,
                         ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          labelTitle.toUpperCase(),
-                          style: t.titleMedium?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                        decoration: BoxDecoration(
+                          // borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xFFf9bf13),
+                              Color(0xFFf1711c),
+                              Color(0xFFf82424),
+                            ],
                           ),
                         ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0,
-                        vertical: 10,
-                      ),
-                      child: Stack(
-                        children: [
-                          // Vertical line in the center
-                          Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                              width: 2,
-                              color: Colors.blueAccent,
+                        child: Center(
+                          child: Text(
+                            labelTitle.toUpperCase(),
+                            style: t.titleMedium?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
 
-                          // Timeline items
-                          ListView.builder(
-                            shrinkWrap: true,
-                            controller: ScrollController(),
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (BuildContext context, index) {
-                              var data = ref
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0,
+                          vertical: 10,
+                        ),
+                        child: Stack(
+                          children: [
+                            // Vertical line in the center
+                            Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: 2,
+                                color: Colors.blueAccent,
+                              ),
+                            ),
+
+                            // Timeline items
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: ref
                                   .watch(excerVm)
                                   .excercisesCatgLessonsSteps!
                                   .data
-                                  .lessons[index];
-                              if (index.isOdd) {
-                                return lessonsToolTip(
-                                  left: data.label,
-                                  isCompleted: data.completed,
-                                  onTap: (){
-
-                                  }
-                                );
-                              } else {
-                                return lessonsToolTip(
-                                  right: data.label,
-                                  isCompleted: data.completed,
-                                onTap:(){}
-                                );
-                              }
-                            },
-                          ),
-                        ],
+                                  .lessons
+                                  .length,
+                              controller: ScrollController(),
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (BuildContext context, index) {
+                                var data = ref
+                                    .watch(excerVm)
+                                    .excercisesCatgLessonsSteps!
+                                    .data
+                                    .lessons[index];
+                                if (index.isOdd) {
+                                  return lessonsToolTip(
+                                    left: data.label.split(":").first,
+                                    isCompleted: data.completed,
+                                    onTap: () {
+                                      context.go(
+                                        "/ExcersisesPage/ExcerciseByCatgQAPage",
+                                        extra: {
+                                          "q": data.questions,
+                                          "labelTitle": widget.labelTitle,
+                                        },
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return lessonsToolTip(
+                                    right: data.label.split(":").first,
+                                    isCompleted: data.completed,
+                                    onTap: () {
+                                      context.go(
+                                        "/ExcersisesPage/ExcerciseByCatgQAPage",
+                                        extra: {
+                                          "q": data.questions,
+                                          "labelTitle": widget.labelTitle,
+                                        },
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-        ],
+                    ],
+                  ),
+          ],
+        ),
       ),
     );
   }
@@ -196,7 +220,9 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
               SizedBox(
                 height: 70,
                 child: VerticalDivider(
-                  color: isCompleted ? Colors.blueAccent : Colors.blue.shade200,
+                  color: isCompleted
+                      ? Colors.blueAccent
+                      : Colors.blue.withOpacity(0.4),
                   thickness: 1,
                   width: 2,
                 ),
@@ -204,8 +230,10 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
               Container(
                 height: 10,
                 width: 10,
-                decoration: const BoxDecoration(
-                  color: Colors.blueAccent,
+                decoration: BoxDecoration(
+                  color: isCompleted
+                      ? Colors.blueAccent
+                      : Colors.blue.withOpacity(0.4),
                   shape: BoxShape.circle,
                 ),
               ),

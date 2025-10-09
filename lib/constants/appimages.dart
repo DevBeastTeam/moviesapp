@@ -18,5 +18,6 @@ class AppImages {
   static const String query = 'assets/images/icons/query.png';
   static const String cards = 'assets/images/icons/cards.png';
   static const String chart = 'assets/images/icons/chart.png';
+  static const String unavailable = 'assets/images/icons/unavailable.png';
   //// for ai chat area icon end
 }

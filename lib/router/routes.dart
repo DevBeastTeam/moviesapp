@@ -568,7 +568,7 @@ GoRouter appRoutes = GoRouter(
                 );
               },
             ),
-            GoRoute(
+            GoRoute( 
               path: 'ExcerciseByCatgQAPage',
               pageBuilder: (context, state) {
                 return CustomTransitionPage(

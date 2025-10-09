@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:edutainment/models/exclessonsstepsmodel.dart';
+import 'package:edutainment/models/excLessonsStepsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/api_helper.dart';
@@ -68,8 +68,8 @@ class ExcerVm extends ChangeNotifier {
       // var data = await baseApi.get('/lessons/exercises/path/$catgRef', context);
       var data = await baseApi.get('/lessons/exercises/category/$catgRef', context);
       
-      // debugPrint('👉 excersiseList: $data');
-      log('👉 getExcerByCatgRef: $data');
+      debugPrint('👉 excersiseList: $data');
+      // log('👉 getExcerByCatgRef: $data');
       if (data['success'].toString() == 'true') {
         if(data['data']!=null){
            excercisesCatgLessonsSteps = ExerciseLessonsStepModel.fromJson(data);

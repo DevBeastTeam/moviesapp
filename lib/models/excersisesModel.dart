@@ -1,7 +1,3 @@
-
-
-
-
 class ExcersisesModel {
   final List<AllowedLessonCategory> allowedLessonCategory;
   final UserLevel userLevel;
