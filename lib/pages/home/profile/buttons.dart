@@ -1,5 +1,4 @@
 import 'package:edutainment/constants/appimages.dart';
-import 'package:edutainment/pages/excersises/excersise.dart';
 import 'package:edutainment/pages/ponounciations/pselectcatg.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -77,13 +76,13 @@ class ProfileButtons extends StatelessWidget {
                   icon: EdutainmentIcons.exercices,
                   colors: const [Color(0xfffd6378), Color(0xffa11111)],
                   onPressed: () {
-                    // context.go('/lessons');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ExcerisisePage(),
-                      ),
-                    );
+                    context.go('/ExcersisesPage');
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const ExcersisesPage(),
+                    //   ),
+                    // );
                     // AwesomeDialog(
                     //         context: context,
                     //         dialogType: DialogType.info,

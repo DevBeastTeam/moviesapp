@@ -8,6 +8,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 class Core {
   Core._();
+  
 
   static final Core _instance = Core._();
 

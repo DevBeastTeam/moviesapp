@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:edutainment/models/exclessonsstepsmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/api_helper.dart';
@@ -35,10 +36,8 @@ class ExcerVm extends ChangeNotifier {
     String loadingFor = '',
   }) async {
     try {
-      // if (excersiseList.isNotEmpty) return;
-      if (showLoading) {
+      if (excersiseList.isNotEmpty) return;
         setLoadingF(loadingFor);
-      }
       var data = await baseApi.get('/lessons/exercises', context);
       // debugPrint('👉 excersiseList: $data');
       log('👉 excersiseList: $data');
@@ -56,28 +55,29 @@ class ExcerVm extends ChangeNotifier {
 
 
   ////////
-  List excersiseCatgList = [];
-  void getExcerBtCatgRef(
+  ExerciseLessonsStepModel? excercisesCatgLessonsSteps;
+  void getExcercisesCatgLessonsStepsF(
     context, {
     String loadingFor = '',
     String catgRef = '',
   }) async {
     try {
-      // if (excersiseList.isNotEmpty) return;
+      if (excercisesCatgLessonsSteps != null) return;
         setLoadingF(loadingFor);
         
       // var data = await baseApi.get('/lessons/exercises/path/$catgRef', context);
       var data = await baseApi.get('/lessons/exercises/category/$catgRef', context);
       
       // debugPrint('👉 excersiseList: $data');
-      log('👉 excersiseCatgList: $data');
+      log('👉 getExcerByCatgRef: $data');
       if (data['success'].toString() == 'true') {
-        excersiseCatgList.clear();
-        // excersiseCatgList.add(ExcersisesModel.fromJson(data['data']));
+        if(data['data']!=null){
+           excercisesCatgLessonsSteps = ExerciseLessonsStepModel.fromJson(data);
+        }
       }
       setLoadingF();
     } catch (e, st) {
-      log('💥 try catch when: excersiseCatgList Error: $e, st:$st');
+      log('💥 try catch when: getExcerByCatgRef Error: $e, st:$st');
     } finally {
       setLoadingF();
     }

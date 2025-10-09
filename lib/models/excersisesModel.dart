@@ -13,10 +13,10 @@ class ExcersisesModel {
 
   factory ExcersisesModel.fromJson(Map<String, dynamic> json) {
     return ExcersisesModel(
-      allowedLessonCategory: (json['allowedLessonCategory'] as List)
+      allowedLessonCategory: json['allowedLessonCategory']!=null? (json['allowedLessonCategory'] as List)
           .map((e) => AllowedLessonCategory.fromJson(e))
-          .toList(),
-      userLevel: UserLevel.fromJson(json['userLevel']),
+          .toList(): [],
+      userLevel: json['allowedLessonCategory']!=null? UserLevel.fromJson(json['userLevel']): UserLevel(index: 0),
     );
   }
 

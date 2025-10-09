@@ -1,3 +1,5 @@
+import 'package:edutainment/pages/excersises/excerciseCatg.dart';
+import 'package:edutainment/pages/excersises/excersise.dart';
 import 'package:edutainment/pages/flashcards/flashcardslist.dart';
 import 'package:edutainment/pages/grammer/grammer.dart';
 import 'package:edutainment/pages/home/profile/profile_settings_page.dart';
@@ -16,6 +18,7 @@ import '../pages/auth/auth_splash_screen.dart';
 import '../pages/entry_quiz/entry_quiz_page.dart';
 import '../pages/entry_quiz/level_page.dart';
 import '../pages/entry_quiz/results_page.dart';
+import '../pages/excersises/exercisesByCatgQA.dart';
 import '../pages/flashcards/falscarddetails.dart';
 import '../pages/home/home_page.dart';
 import '../pages/home/profile/edit.dart';
@@ -529,7 +532,66 @@ GoRouter appRoutes = GoRouter(
         );
       },
     ),
+    ////// excercises menu 
+    GoRoute(
+      path: '/ExcersisesPage',
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          key: UniqueKey(),
+          child: ExcersisesPage(),
+          transitionDuration: const Duration(milliseconds: 500),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
+              child: child,
+            );
+          },
+        );
+      },
+       routes: [
+            GoRoute(
+              path: 'ExcerciseCatgPage',
+              pageBuilder: (context, state) {
+                return CustomTransitionPage(
+                  key: UniqueKey(),
+                  child: const ExcerciseCatgPage(),
+                  transitionDuration: const Duration(milliseconds: 500),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: CurveTween(
+                            curve: Curves.easeInOut,
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                );
+              },
+            ),
+            GoRoute(
+              path: 'ExcerciseByCatgQAPage',
+              pageBuilder: (context, state) {
+                return CustomTransitionPage(
+                  key: UniqueKey(),
+                  child: const ExcerciseByCatgQAPage(),
+                  transitionDuration: const Duration(milliseconds: 500),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: CurveTween(
+                            curve: Curves.easeInOut,
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                );
+              },
+            ),
+          ],
+    ),
   ],
+  
+
   redirect: (context, state) {
     var allowedPath = [
       '/home',
@@ -554,6 +616,7 @@ GoRouter appRoutes = GoRouter(
       } else {
         return '/auth';
       }
+      
     } else if (state.location.contains('/auth') &&
         userBox.get('token') != null &&
         userBox.get('token') != '' &&

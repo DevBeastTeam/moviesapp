@@ -11,7 +11,8 @@ import '../widgets/ui/primary_button.dart';
 
 class ApiHelper {
   // static const String _baseUrl = 'https://dev.play.e-dutainment.com';
-  static const String _baseUrl = 'https://terminator.e-dutainment.com';
+  // static const String _baseUrl = 'https://terminator.e-dutainment.com'; // was worked with this
+  static const String _baseUrl = 'https://play.e-dutainment.com';
   // static const String _baseUrl = 'https://play.e-dutainment.com';
   static const String _basePath = '/api/1.0';
   late Dio _dio;
