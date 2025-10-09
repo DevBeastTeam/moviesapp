@@ -61,7 +61,7 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
               const SizedBox(height: 50),
               (p.excersiseList.isEmpty ||
                       p.excersiseList.first.allowedLessonCategory.isEmpty)
-                  ? EmptyWidget(paddingTop: h * 0.25)
+                  ? EmptyWidget(paddingTop: 30)
                   : Wrap(
                       runSpacing: 15,
                       spacing: 15,

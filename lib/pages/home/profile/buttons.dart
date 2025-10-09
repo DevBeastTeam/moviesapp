@@ -29,7 +29,8 @@ class ProfileButtons extends StatelessWidget {
               Expanded(
                 child: _buildComponent(
                   context: context,
-                  text: 'GRAMMAR',
+                  // text: 'GRAMMAR',
+                  text: 'LESSONS',
                   icon: EdutainmentIcons.grammar,
                   colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
                   onPressed: () async {

@@ -21,8 +21,6 @@ class GrammerData extends ChangeNotifier {
   int _slectedLableIndexIs = 0;
   int _slectedTabBtnIs = 0;
 
-
-
   String _loadingFor = "";
   String get loadingFor => _loadingFor;
   void setLoadingF([String name = ""]) {
@@ -31,7 +29,6 @@ class GrammerData extends ChangeNotifier {
   }
 
   int get expandedIndexIs => _expandedIndexIs;
-
   set setExpandedIndexIs(int value) {
     _expandedIndexIs = value;
     notifyListeners();
@@ -44,7 +41,7 @@ class GrammerData extends ChangeNotifier {
   }) async {
     try {
       if (grammersList.isNotEmpty) return;
-        setLoadingF(loadingFor);
+          setLoadingF(loadingFor);
       
       var data = await baseApi.get('/lessons/grammar', context);
       // debugPrint('👉 grammersList: $data');
@@ -117,7 +114,7 @@ class GrammerData extends ChangeNotifier {
     }
   }
 
-  void getGrammerSingleByIdF(
+   getGrammerSingleByIdF(
     context, {
     required String id,
     String loadingFor = '',
@@ -125,11 +122,12 @@ class GrammerData extends ChangeNotifier {
     try {
         setLoadingF(loadingFor);
 
-      log('👉 grammerSingleData id: $id');
+      log('👉 getGrammerSingleByIdF id: $id');
       // /lessons/exercises/lessonId/questions --> 652969624622968d66f2e888
       var data = await baseApi.get('/lessons/grammar/$id', context);
+      // var data = await baseApi.get('/lessons/grammar?category=b1', context);
       
-      log('👉 grammerSingleData: $data');
+      log('👉 getGrammerSingleByIdF data: $data');
 
       if (data['success'].toString() == 'true') {
         grammerSingleData.clear();
@@ -140,7 +138,7 @@ class GrammerData extends ChangeNotifier {
       // toast(context, msg: 'grammers geted');
       notifyListeners();
     } catch (e, st) {
-      log('💥 try catch when: getGrammersSingleByIdF Error: $e, st:$st');
+      log('💥 try catch when: getGrammerSingleByIdF Error: $e, st:$st');
     } finally {
       setLoadingF();
       notifyListeners();

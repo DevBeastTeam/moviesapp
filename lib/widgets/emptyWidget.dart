@@ -11,7 +11,7 @@ class EmptyWidget extends StatelessWidget {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.only(top: paddingTop),
+      padding: EdgeInsets.only(top: h* paddingTop/100),
       child: Center(
         child: Column(
           children: [

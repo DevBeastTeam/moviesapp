@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../providers/grammerData.dart';
+import '../../providers/grammerVm.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
 class GrammerCatgPage extends ConsumerStatefulWidget {
@@ -70,7 +70,7 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                 Navigator.pop(context);
               },
               centerTitle: false,
-              title: 'Lessaons',
+              title: 'LESSONS',
             ),
             ///////////////
             const Text(

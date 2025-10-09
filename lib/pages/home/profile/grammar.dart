@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../providers/grammerData.dart';
+import '../../../providers/grammerVm.dart';
 import '../../../widgets/ui/default_scaffold.dart';
 
 class GrammarPage extends ConsumerStatefulWidget {

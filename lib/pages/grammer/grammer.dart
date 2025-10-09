@@ -3,7 +3,7 @@ import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../providers/grammerData.dart';
+import '../../providers/grammerVm.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
 class GrammerPage extends ConsumerStatefulWidget {
@@ -103,8 +103,9 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
                       level.label,
                       // subtitle: "",
                       onTap: () async{
-                        // in future if need
+                        // in future if need 
                       //  await ref.read(grammerData).getGrammersByIdForCatgListF(context, levelId:level.id , loadingFor: "grammerCatg");
+                       await ref.read(grammerData).getGrammerSingleByIdF(context, id:level.id , loadingFor: "grammerCatg");
                         
                         context.go('/home/GrammerPage/grammerCatg', extra: {
                           "id":level.id.toString(),

@@ -48,7 +48,7 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
                 ? QuickTikTokLoader()
                 : SizedBox.shrink(),
             ref.watch(excerVm).excercisesCatgLessonsSteps == null
-                ? EmptyWidget(paddingTop: h * 0.25)
+                ? EmptyWidget(paddingTop: 30)
                 : Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

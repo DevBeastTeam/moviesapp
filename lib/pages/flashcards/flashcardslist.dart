@@ -1,11 +1,13 @@
 import 'package:edutainment/providers/flashCardsVM.dart';
 import 'package:edutainment/theme/colors.dart';
+import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../utils/toast.dart';
 import '../../widgets/flashcardslisttile.dart';
@@ -37,6 +39,8 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
   @override
   Widget build(BuildContext context) {
     var t = Theme.of(context).textTheme;
+    var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
     var p = ref.watch(flashCardsVM);
 
     final mediaQuery = MediaQuery.of(context);
@@ -156,35 +160,15 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                             )
                     : SizedBox.fromSize(),
               ),
+                 p.loadingFor == "getflash"
+                   ||  p.loadingFor == "movies"
+                  ? QuickTikTokLoader(): SizedBox.shrink(),
 
               const SizedBox(height: 20),
 
               if (!isTablet && !isLandscape)
-                p.loadingFor == "getflash"
-                    ? Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.3,
-                          ),
-                          child: DotLoader(),
-                        ),
-                      )
-                    : p.flashCardsList.isEmpty
-                    ? Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.02,
-                          ),
-                          child: Text(
-                            "No Subjects",
-                            style: TextStyle(
-                              color: Colors.yellow.withOpacity(0.4),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      )
+                p.flashCardsList.isEmpty
+                    ? EmptyWidget(paddingTop: 2)
                     : SizedBox(
                         height: 30,
                         child: ListView.builder(
@@ -250,42 +234,9 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
 
               if (!isTablet && !isLandscape) const SizedBox(height: 20),
 
-              p.loadingFor == "getflash"
-                  ? SizedBox.shrink()
-                  : p.loadingFor == "movies"
-                  ? Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.3,
-                        ),
-                        child: DotLoader(),
-                      ),
-                    )
-                  : p.flashCardsList.first.movies.isEmpty
-                  ? Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.3,
-                        ),
-                        child:
-                            Text(
-                                  "Empty",
-                                  style: TextStyle(
-                                    color: Colors.yellow.withOpacity(0.5),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                )
-                                .animate(
-                                  delay: 1000.ms,
-                                  onPlay: (controller) => controller.repeat(),
-                                )
-                                .shimmer(
-                                  duration: 2000.ms,
-                                  color: ColorsPallet.darkBlue,
-                                ),
-                      ),
-                    )
+
+                   p.flashCardsList.first.movies.isEmpty
+                  ? EmptyWidget(paddingTop:30)
                   : Expanded(
                       child: SingleChildScrollView(
                         controller: ScrollController(),

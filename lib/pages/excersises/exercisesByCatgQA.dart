@@ -263,7 +263,7 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
     if (questions == null || questions.isEmpty) {
       return DefaultScaffold(
         currentPage: '/home/ExcersisesPage/ExcerciseByCatgQAPage',
-        child: EmptyWidget(paddingTop: h * 0.35),
+        child: EmptyWidget(paddingTop: 30),
       );
     }
 
