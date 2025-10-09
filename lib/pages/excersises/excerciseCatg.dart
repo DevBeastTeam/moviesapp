@@ -32,7 +32,7 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
         : labelTitleCheck.toString();
 
     return DefaultScaffold(
-      currentPage: '/ExcersisesPage/ExcerciseCatgPage',
+      currentPage: '/home/ExcersisesPage/ExcerciseCatgPage',
       child: SingleChildScrollView(
         controller: ScrollController(),
         child: Column(
@@ -119,7 +119,7 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
                                     isCompleted: data.completed,
                                     onTap: () {
                                       context.go(
-                                        "/ExcersisesPage/ExcerciseByCatgQAPage",
+                                        "/home/ExcersisesPage/ExcerciseByCatgQAPage",
                                         extra: {
                                           "q": data.questions,
                                           "labelTitle": widget.labelTitle,
@@ -133,7 +133,7 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
                                     isCompleted: data.completed,
                                     onTap: () {
                                       context.go(
-                                        "/ExcersisesPage/ExcerciseByCatgQAPage",
+                                        "/home/ExcersisesPage/ExcerciseByCatgQAPage",
                                         extra: {
                                           "q": data.questions,
                                           "labelTitle": widget.labelTitle,

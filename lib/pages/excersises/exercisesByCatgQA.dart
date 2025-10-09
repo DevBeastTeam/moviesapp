@@ -219,7 +219,9 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
       _selectedAnswer = answer.reference;
       _isAnswerCorrect = answer.isAnswer;
       _showFeedback = true;
-      _timer?.cancel(); // Stop the timer when an answer is selected
+      _timer?.cancel(); // Stop the timer when an answer is selected-
+      // update answer on backend
+      ref.watch(excerVm).submitExcercisesAnswerF(context, answerId: answer.id.toString());
     });
 
     // Automatically move to the next question after a short delay
@@ -260,7 +262,7 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
 
     if (questions == null || questions.isEmpty) {
       return DefaultScaffold(
-        currentPage: '/ExcersisesPage/ExcerciseByCatgQAPage',
+        currentPage: '/home/ExcersisesPage/ExcerciseByCatgQAPage',
         child: EmptyWidget(paddingTop: h * 0.35),
       );
     }
@@ -268,7 +270,7 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
     final question = questions[_currentQuestionIndex];
 
     return DefaultScaffold(
-      currentPage: '/ExcersisesPage/ExcerciseByCatgQAPage',
+      currentPage: '/home/ExcersisesPage/ExcerciseByCatgQAPage',
       child: SingleChildScrollView(
         controller: ScrollController(),
         child: Column(
@@ -332,7 +334,7 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
+                          horizontal: 40,
                           vertical: 10,
                         ),
                         child: Image.asset(

@@ -37,7 +37,7 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
     var w = MediaQuery.of(context).size.width;
 
     return DefaultScaffold(
-      currentPage: 'ExcersisesPage',
+      currentPage: '/home/ExcersisesPage',
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -100,7 +100,7 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
                                     loadingFor: "getExcercisesByCatg",
                                   );
                                   context.go(
-                                    '/ExcersisesPage/ExcerciseCatgPage',
+                                    '/home/ExcersisesPage/ExcerciseCatgPage',
                                     extra: {
                                       "labelTitle":
                                           data.label[0].toUpperCase() +

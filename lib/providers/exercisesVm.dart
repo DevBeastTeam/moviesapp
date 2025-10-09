@@ -8,15 +8,12 @@ import '../models/excersisesModel.dart';
 var excerVm = ChangeNotifierProvider<ExcerVm>((ref) => ExcerVm());
 
 class ExcerVm extends ChangeNotifier {
-
-
   String _loadingFor = "";
   String get loadingFor => _loadingFor;
   void setLoadingF([String name = ""]) {
     _loadingFor = name;
     notifyListeners();
   }
-
 
   int _expandedIndexIs = 0;
   int get expandedIndexIs => _expandedIndexIs;
@@ -34,10 +31,11 @@ class ExcerVm extends ChangeNotifier {
     bool isLoading = true,
     bool showLoading = true,
     String loadingFor = '',
+    bool isRefresh = false,
   }) async {
     try {
-      if (excersiseList.isNotEmpty) return;
-        setLoadingF(loadingFor);
+      if (!isRefresh && excersiseList.isNotEmpty) return;
+      setLoadingF(loadingFor);
       var data = await baseApi.get('/lessons/exercises', context);
       // debugPrint('👉 excersiseList: $data');
       log('👉 excersiseList: $data');
@@ -53,26 +51,31 @@ class ExcerVm extends ChangeNotifier {
     }
   }
 
-
   ////////
   ExerciseLessonsStepModel? excercisesCatgLessonsSteps;
+  String catgRefTemp = "";
   void getExcercisesCatgLessonsStepsF(
     context, {
     String loadingFor = '',
     String catgRef = '',
+    bool isRefresh = false,
   }) async {
     try {
-      if (excercisesCatgLessonsSteps != null) return;
-        setLoadingF(loadingFor);
-        
+      if (!isRefresh && excercisesCatgLessonsSteps != null) return;
+      setLoadingF(loadingFor);
+      catgRefTemp = catgRef;
+
       // var data = await baseApi.get('/lessons/exercises/path/$catgRef', context);
-      var data = await baseApi.get('/lessons/exercises/category/$catgRef', context);
-      
+      var data = await baseApi.get(
+        '/lessons/exercises/category/$catgRef',
+        context,
+      );
+
       debugPrint('👉 excersiseList: $data');
       // log('👉 getExcerByCatgRef: $data');
       if (data['success'].toString() == 'true') {
-        if(data['data']!=null){
-           excercisesCatgLessonsSteps = ExerciseLessonsStepModel.fromJson(data);
+        if (data['data'] != null) {
+          excercisesCatgLessonsSteps = ExerciseLessonsStepModel.fromJson(data);
         }
       }
       setLoadingF();
@@ -83,56 +86,83 @@ class ExcerVm extends ChangeNotifier {
     }
   }
 
-  int _slectedLableIndexIs = 0;
-  int get sletedLableIndexIs => _slectedLableIndexIs;
-  set setSelctedLableIndexIs(int index) {
-    if (index >= 0) {
-      _slectedLableIndexIs = index;
-      notifyListeners();
-    }
-  }
-
-  int _slectedTabBtnIs = 0;
-  int get slectedTabBtnIs => _slectedTabBtnIs;
-  set setslectedTabBtnIs(int index) {
-    if (index >= 0) {
-      _slectedTabBtnIs = index;
-      notifyListeners();
-    }
-  }
-
-  // List<GrammerDetailModel> excersisesSingleData = [];
-
-  void getExcerSingleByIdF(
+  //////// submit answer
+  // /lessons/exercises/:id
+  void submitExcercisesAnswerF(
     context, {
-    required id,
-    bool showLoading = true,
     String loadingFor = '',
+    String answerId = '',
   }) async {
     try {
-      if (showLoading) {
-        setLoadingF(loadingFor);
-      }
+      if (excercisesCatgLessonsSteps != null) return;
+      setLoadingF(loadingFor);
+      var data = await baseApi.post('/lessons/exercises/$answerId',{
+        "answers":[answerId]
+      }, context);
 
-      log('👉 excersisesSingleData id: $id');
-      var data = await baseApi.get('/lessons/exercises/$id/questions', context);
-      log('👉 excersisesSingleData: $data');
+      debugPrint('👉 submitExcercisesAnswerF: $data');
       if (data['success'].toString() == 'true') {
-        // excersisesSingleData.clear();
-        // excersisesSingleData.add(GrammerDetailModel.fromJson(data['data']));
+        // relaod lessona
+        getExcercisesCatgLessonsStepsF(context, catgRef: catgRefTemp, isRefresh:true);
       }
       setLoadingF();
-
-      // toast(context, msg: 'grammers geted');
-      notifyListeners();
     } catch (e, st) {
-      log('💥 try catch when: getExcerSingleByIdF Error: $e, st:$st');
+      log('💥 try catch when: submitExcercisesAnswerF Error: $e, st:$st');
     } finally {
       setLoadingF();
-      notifyListeners();
     }
   }
 }
+//   int _slectedLableIndexIs = 0;
+//   int get sletedLableIndexIs => _slectedLableIndexIs;
+//   set setSelctedLableIndexIs(int index) {
+//     if (index >= 0) {
+//       _slectedLableIndexIs = index;
+//       notifyListeners();
+//     }
+//   }
+
+//   int _slectedTabBtnIs = 0;
+//   int get slectedTabBtnIs => _slectedTabBtnIs;
+//   set setslectedTabBtnIs(int index) {
+//     if (index >= 0) {
+//       _slectedTabBtnIs = index;
+//       notifyListeners();
+//     }
+//   }
+
+//   // List<GrammerDetailModel> excersisesSingleData = [];
+
+//   void getExcerSingleByIdF(
+//     context, {
+//     required id,
+//     bool showLoading = true,
+//     String loadingFor = '',
+//   }) async {
+//     try {
+//       if (showLoading) {
+//         setLoadingF(loadingFor);
+//       }
+
+//       log('👉 excersisesSingleData id: $id');
+//       var data = await baseApi.get('/lessons/exercises/$id/questions', context);
+//       log('👉 excersisesSingleData: $data');
+//       if (data['success'].toString() == 'true') {
+//         // excersisesSingleData.clear();
+//         // excersisesSingleData.add(GrammerDetailModel.fromJson(data['data']));
+//       }
+//       setLoadingF();
+
+//       // toast(context, msg: 'grammers geted');
+//       notifyListeners();
+//     } catch (e, st) {
+//       log('💥 try catch when: getExcerSingleByIdF Error: $e, st:$st');
+//     } finally {
+//       setLoadingF();
+//       notifyListeners();
+//     }
+//   }
+// }
 
 
 

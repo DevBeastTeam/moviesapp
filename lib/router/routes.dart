@@ -139,6 +139,67 @@ GoRouter appRoutes = GoRouter(
         );
       },
       routes: [
+        ////// excercises menu
+        GoRoute(
+          path: 'ExcersisesPage',
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: UniqueKey(),
+              child: ExcersisesPage(),
+              transitionDuration: const Duration(milliseconds: 500),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: CurveTween(
+                        curve: Curves.easeInOut,
+                      ).animate(animation),
+                      child: child,
+                    );
+                  },
+            );
+          },
+          routes: [
+            GoRoute(
+              path: 'ExcerciseCatgPage',
+              pageBuilder: (context, state) {
+                return CustomTransitionPage(
+                  key: UniqueKey(),
+                  child: const ExcerciseCatgPage(),
+                  transitionDuration: const Duration(milliseconds: 500),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: CurveTween(
+                            curve: Curves.easeInOut,
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                );
+              },
+            ),
+            GoRoute(
+              path: 'ExcerciseByCatgQAPage',
+              pageBuilder: (context, state) {
+                return CustomTransitionPage(
+                  key: UniqueKey(),
+                  child: const ExcerciseByCatgQAPage(),
+                  transitionDuration: const Duration(milliseconds: 500),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: CurveTween(
+                            curve: Curves.easeInOut,
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                );
+              },
+            ),
+          ],
+        ),
+
         GoRoute(
           path: 'settings',
           pageBuilder: (context, state) {
@@ -532,65 +593,7 @@ GoRouter appRoutes = GoRouter(
         );
       },
     ),
-    ////// excercises menu 
-    GoRoute(
-      path: '/ExcersisesPage',
-      pageBuilder: (context, state) {
-        return CustomTransitionPage(
-          key: UniqueKey(),
-          child: ExcersisesPage(),
-          transitionDuration: const Duration(milliseconds: 500),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
-              child: child,
-            );
-          },
-        );
-      },
-       routes: [
-            GoRoute(
-              path: 'ExcerciseCatgPage',
-              pageBuilder: (context, state) {
-                return CustomTransitionPage(
-                  key: UniqueKey(),
-                  child: const ExcerciseCatgPage(),
-                  transitionDuration: const Duration(milliseconds: 500),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: CurveTween(
-                            curve: Curves.easeInOut,
-                          ).animate(animation),
-                          child: child,
-                        );
-                      },
-                );
-              },
-            ),
-            GoRoute( 
-              path: 'ExcerciseByCatgQAPage',
-              pageBuilder: (context, state) {
-                return CustomTransitionPage(
-                  key: UniqueKey(),
-                  child: const ExcerciseByCatgQAPage(),
-                  transitionDuration: const Duration(milliseconds: 500),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: CurveTween(
-                            curve: Curves.easeInOut,
-                          ).animate(animation),
-                          child: child,
-                        );
-                      },
-                );
-              },
-            ),
-          ],
-    ),
   ],
-  
 
   redirect: (context, state) {
     var allowedPath = [
@@ -603,6 +606,7 @@ GoRouter appRoutes = GoRouter(
       '/tests',
       '/tests/list',
       '/home/flashcards',
+      'home/ExcersisesPage',
     ];
 
     configBox.put(
@@ -616,7 +620,6 @@ GoRouter appRoutes = GoRouter(
       } else {
         return '/auth';
       }
-      
     } else if (state.location.contains('/auth') &&
         userBox.get('token') != null &&
         userBox.get('token') != '' &&

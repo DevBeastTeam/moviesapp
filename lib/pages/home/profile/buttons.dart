@@ -76,7 +76,7 @@ class ProfileButtons extends StatelessWidget {
                   icon: EdutainmentIcons.exercices,
                   colors: const [Color(0xfffd6378), Color(0xffa11111)],
                   onPressed: () {
-                    context.go('/ExcersisesPage');
+                    context.go('/home/ExcersisesPage');
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
