@@ -106,9 +106,9 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 15),
+              padding: const EdgeInsets.only(bottom: 5),
               child: SizedBox(
                 width: 400,
                 height: 53,
@@ -274,216 +274,224 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
             decoration: BoxDecoration(color: Colors.blueGrey.shade50),
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 0.78,
-            child: Column(
-              children: [
-                CupertinoListTile(
-                  // onTap: (){
-                  //     context.go('/home/AIMenuPage/AllAIChatHistoryPage', extra: {
-                  //       "isPinnedOnly":true,
-                  //     });
-                  // },
-                  leading: Builder(
-                    builder: (context) {
-                      return InkWell(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: const Icon(
-                            Icons.sort_outlined,
-                            color: Colors.black,
+            child: SingleChildScrollView(
+              controller: chatsScrollController,
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  CupertinoListTile(
+                    // onTap: (){
+                    //     context.go('/home/AIMenuPage/AllAIChatHistoryPage', extra: {
+                    //       "isPinnedOnly":true,
+                    //     });
+                    // },
+                    leading: Builder(
+                      builder: (context) {
+                        return InkWell(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: const Icon(
+                              Icons.sort_outlined,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        onTap: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                      );
-                    },
-                  ),
-                  title:
-                      (ref
-                              .watch(aiChatVm)
-                              .allAiChatHistoryConversionsTitlesData !=
-                          null)
-                      ? ref
+                          onTap: () {
+                            Scaffold.of(context).openDrawer();
+                          },
+                        );
+                      },
+                    ),
+                    title:
+                        (ref
                                 .watch(aiChatVm)
-                                .allAiChatHistoryConversionsTitlesData!
-                                .chats
-                                .any((element) => element.isPinned == true)
-                            ? Text(
-                                ref
-                                    .watch(aiChatVm)
-                                    .allAiChatHistoryConversionsTitlesData!
-                                    .chats
-                                    .firstWhere(
-                                      (element) => element.isPinned == true,
-                                    )
-                                    .title,
-                              )
-                            : Text("Pinned")
-                      : Text("Pinned"),
-                  trailing: IconButton(
-                    onPressed: () {
-                      context.go(
-                        '/home/AIMenuPage/AllAIChatHistoryPage',
-                        extra: {"isPinnedOnly": true},
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.push_pin_outlined,
-                      color: Colors.blue,
+                                .allAiChatHistoryConversionsTitlesData !=
+                            null)
+                        ? ref
+                                  .watch(aiChatVm)
+                                  .allAiChatHistoryConversionsTitlesData!
+                                  .chats
+                                  .any((element) => element.isPinned == true)
+                              ? Text(
+                                  ref
+                                      .watch(aiChatVm)
+                                      .allAiChatHistoryConversionsTitlesData!
+                                      .chats
+                                      .firstWhere(
+                                        (element) => element.isPinned == true,
+                                      )
+                                      .title,
+                                )
+                              : Text("Pinned")
+                        : Text("Pinned"),
+                    trailing: IconButton(
+                      onPressed: () {
+                        context.go(
+                          '/home/AIMenuPage/AllAIChatHistoryPage',
+                          extra: {"isPinnedOnly": true},
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.push_pin_outlined,
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
-                ),
-                p.lastAIConversationChats == null ||
-                        p.lastAIConversationChats!.messages.isEmpty
-                    ? Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              AppImages.robo,
-                              width: w > 450 ? w * 0.1 : w * 0.2,
-                            ),
-                            const Text(
-                              ' COPILOT',
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 30,
+                  p.lastAIConversationChats == null ||
+                          p.lastAIConversationChats!.messages.isEmpty
+                      ? Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                AppImages.robo,
+                                width:  (h<w)? w*0.05 : w > 450 ? w * 0.1 : w * 0.2,
                               ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : SizedBox.shrink(),
-                const SizedBox(height: 10),
-
-                if ((p.lastAIConversationChats == null ||
-                        p.lastAIConversationChats!.messages.isEmpty) &&
-                    w > 450)
-                  SizedBox(height: h * 0.2)
-                else
-                  SizedBox(height: h * 0.02),
-                p.lastAIConversationChats == null ||
-                        p.lastAIConversationChats!.messages.isEmpty
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 14),
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          controller: ScrollController(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: w > 450 ? 4 : 2,
+                               Text(
+                                ' COPILOT',
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize:(h<w)? 20: 30,
+                                ),
                               ),
-                          itemCount: menuList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            var data = menuList[index];
-                            return Padding(
-                              padding: EdgeInsets.all(w > 450 ? 20 : 14),
-                              child: InkWell(
-                                onTap: () {
-                                  p.doConversationChatByIdWithAiF(
-                                    context,
-                                    msg: data['query'],
-                                  );
-                                  // if (index == 0) {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) =>
-                                  //         const MovieSuggetinosPage(),
-                                  //   ),
-                                  // );
-                                  // }
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
+                            ],
+                          ),
+                        )
+                      : SizedBox.shrink(),
+              // Text("kkkk"),
+                  if ((p.lastAIConversationChats == null ||
+                          p.lastAIConversationChats!.messages.isEmpty) &&
+                      w > 450 && !(h<w))
+                    SizedBox(height: h * 0.2)
+                  else
+                   if ((p.lastAIConversationChats == null ||
+                          p.lastAIConversationChats!.messages.isEmpty) &&
+                      w > 450 && (h<w))
+                    SizedBox(height: 0)
+                  else
+                    SizedBox(height: h * 0.02),
+                  p.lastAIConversationChats == null ||
+                          p.lastAIConversationChats!.messages.isEmpty
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 14),
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            controller: ScrollController(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: w > 450 ? 4 : 2,
+                                ),
+                            itemCount: menuList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              var data = menuList[index];
+                              return Padding(
+                                padding: EdgeInsets.all(w > 450 ? 20 : 14),
+                                child: InkWell(
+                                  onTap: () {
+                                    p.doConversationChatByIdWithAiF(
+                                      context,
+                                      msg: data['query'],
+                                    );
+                                    // if (index == 0) {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         const MovieSuggetinosPage(),
+                                    //   ),
+                                    // );
+                                    // }
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          data['img'],
+                                          width: w > 450 ? w * 0.08 : w * 0.15,
+                                        ),
+                                        const Divider(),
+                                        Text(
+                                          '${data['title']}',
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        data['img'],
-                                        width: w > 450 ? w * 0.08 : w * 0.15,
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      : Expanded(
+                          // child: Text("bn"),
+                          child: ListView.builder(
+                            controller: chatsScrollController,
+                            itemCount: p.lastAIConversationChats!.messages.length,
+                            itemBuilder: (context, index) {
+                              var chat =
+                                  p.lastAIConversationChats!.messages[index];
+                              return GestureDetector(
+                                onTap: () {
+                                  Get.bottomSheet(
+                                    Container(
+                                      height: h * 0.5,
+                                      decoration: BoxDecoration(
+                                        color: ColorsPallet.blue,
+                                        borderRadius: BorderRadius.circular(20),
                                       ),
-                                      const Divider(),
-                                      Text(
-                                        '${data['title']}',
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.abc_outlined),
+                                            SizedBox(height: 12),
+                                            Text(
+                                              chat.content,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            SizedBox(height: 7),
+                                          ],
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      )
-                    : Expanded(
-                        // child: Text("bn"),
-                        child: ListView.builder(
-                          controller: chatsScrollController,
-                          itemCount: p.lastAIConversationChats!.messages.length,
-                          itemBuilder: (context, index) {
-                            var chat =
-                                p.lastAIConversationChats!.messages[index];
-                            return GestureDetector(
-                              onTap: () {
-                                Get.bottomSheet(
-                                  Container(
-                                    height: h * 0.5,
-                                    decoration: BoxDecoration(
-                                      color: ColorsPallet.blue,
-                                      borderRadius: BorderRadius.circular(20),
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.abc_outlined),
-                                          SizedBox(height: 12),
-                                          Text(
-                                            chat.content,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          SizedBox(height: 7),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: BubbleSpecialOne(
-                                text: chat.content,
-                                isSender: chat.type == "user",
-                                color: chat.type == "user"
-                                    ? Colors.blue
-                                    : Colors.grey.shade400,
-                                textStyle: TextStyle(
+                                  );
+                                },
+                                child: BubbleSpecialOne(
+                                  text: chat.content,
+                                  isSender: chat.type == "user",
                                   color: chat.type == "user"
-                                      ? Colors.white
-                                      : Colors.black,
+                                      ? Colors.blue
+                                      : Colors.grey.shade400,
+                                  textStyle: TextStyle(
+                                    color: chat.type == "user"
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                  tail: true,
+                                  sent: chat.type == "user" ? true : false,
                                 ),
-                                tail: true,
-                                sent: chat.type == "user" ? true : false,
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
