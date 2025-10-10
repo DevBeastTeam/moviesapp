@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
+import '../pages/ai/aIAllChatHistoryPage.dart';
 import '../pages/ai/aiChat.dart';
 import '../pages/ai/aiChat2.dart';
 import '../pages/auth/auth_page.dart';
@@ -324,11 +325,11 @@ GoRouter appRoutes = GoRouter(
           },
           routes: [
             GoRoute(
-              path: 'AIChatPage',
+              path: 'AllAIChatHistoryPage',
               pageBuilder: (context, state) {
                 return CustomTransitionPage(
                   key: UniqueKey(),
-                  child: const AIChatPage(),
+                  child: const AllAIChatHistoryPage(),
                   transitionDuration: const Duration(milliseconds: 500),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {

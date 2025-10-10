@@ -32,8 +32,8 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((v) {
       ref
-          .watch(chatWithAiVm)
-          .getChatWithAiF(
+          .watch(aiChatVm)
+          .getAllAiChatsF(
             context,
             scrollController: chatsScrollController,
             loadingFor: "getAllChats",
@@ -42,7 +42,6 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
     super.initState();
   }
 
-  List<DateTime> messageDates = [];
   TextEditingController msgController = TextEditingController();
   ScrollController chatsScrollController = ScrollController();
 
@@ -74,7 +73,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    var p = ref.watch(chatWithAiVm);
+    var p = ref.watch(aiChatVm);
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
@@ -156,6 +155,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
+                context.go('/home/AIMenuPage/AllAIChatHistoryPage');
               },
             ),
             Divider(height: 2, color: Colors.grey.shade700),
@@ -209,7 +209,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               icon: const Icon(Icons.edit, color: Colors.white),
               onPressed: () {
                 Navigator.pop(context);
-                ref.watch(chatWithAiVm).clearChatsList();
+                ref.watch(aiChatVm).clearChatsList();
               },
               label: const Text(
                 'New Chat',
@@ -262,7 +262,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                     ),
                   ),
                 ),
-                p.chatAiList.isEmpty
+                p.lastAIChats.isEmpty
                     ? Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -300,7 +300,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                 //   ),
                 // ),
                 // const SizedBox(height: 16),
-                p.chatAiList.isEmpty
+                p.lastAIChats.isEmpty
                     ? Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 14),
                         child: GridView.builder(
@@ -358,9 +358,9 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                         // child: Text("bn"),
                         child: ListView.builder(
                           controller: chatsScrollController,
-                          itemCount: p.chatAiList.length,
+                          itemCount: p.lastAIChats.length,
                           itemBuilder: (context, index) {
-                            var chat = p.chatAiList[index];
+                            var chat = p.lastAIChats[index];
                             return GestureDetector(
                               onTap: () {
                                 Get.bottomSheet(

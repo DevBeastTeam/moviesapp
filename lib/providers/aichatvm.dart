@@ -5,13 +5,14 @@ import 'package:edutainment/models/aichatModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/api_helper.dart';
+import '../models/AiChatHistoryConversionsTitleModel.dart';
 
 
-var chatWithAiVm = ChangeNotifierProvider<ChatWithAiVm>(
-  (ref) => ChatWithAiVm(),
+var aiChatVm = ChangeNotifierProvider<AiChatVm>(
+  (ref) => AiChatVm(),
 );
 
-class ChatWithAiVm extends ChangeNotifier {
+class AiChatVm extends ChangeNotifier {
   String _loadingFor = "";
   String get loadingFor => _loadingFor;
   void setLoadingF([String name = ""]) {
@@ -29,7 +30,7 @@ class ChatWithAiVm extends ChangeNotifier {
   //////////////////////////
   var baseApi = ApiHelper();
 
-  List<ChatAiModel> chatAiList = [
+  List<ChatAiModel> lastAIChats = [
     // ChatAiModel(msg: '', isSender: false),
   ];
 
@@ -38,12 +39,13 @@ class ChatWithAiVm extends ChangeNotifier {
   ];
 
   clearChatsList(){
-    chatAiList.clear();
+    lastAIChats.clear();
     getedchatAiList.clear();
     notifyListeners();
   }
 
-  Future getChatWithAiF(
+AiChatHistoryConversionsTitleModel? allAiChatHistoryConversionsTitlesData;
+  Future getAllAiChatsF(
     context, {
     String loadingFor = '',
     ScrollController? scrollController,
@@ -52,12 +54,30 @@ class ChatWithAiVm extends ChangeNotifier {
       setLoadingF(loadingFor);
       var data = await baseApi.get('/chat', context);
       log('👉 ai chat getChatWithAiF : $data');
-      // scrollController!.jumpTo(scrollController.position.maxScrollExtent);
-      getedchatAiList.add(AiChatModel.fromJson(data));
-
+      allAiChatHistoryConversionsTitlesData = AiChatHistoryConversionsTitleModel.fromJson(data);
       setLoadingF();
     } catch (e, st) {
       log('💥 try catch when: getChatWithAiF Error: $e, st:$st');
+    } finally {
+      setLoadingF();
+    }
+  }
+
+  ///// 
+  Future getAiChatByIdF(
+    context, {
+     required String chatId,
+    String loadingFor = '',
+    ScrollController? scrollController,
+  }) async {
+    try {
+      setLoadingF(loadingFor);
+      debugPrint('👉 getAiChatByIdF chatId: $chatId');
+      var data = await baseApi.get('/chat/$chatId', context);
+      log('👉 getAiChatByIdF : $data');
+      setLoadingF();
+    } catch (e, st) {
+      log('💥 try catch when: getAiChatByIdF Error: $e, st:$st');
     } finally {
       setLoadingF();
     }
@@ -72,7 +92,7 @@ class ChatWithAiVm extends ChangeNotifier {
     try {
       print("query: $query");
       setLoadingF(loadingFor);
-      chatAiList.add(ChatAiModel(isSender: true, msg: query.toString()));
+      lastAIChats.add(ChatAiModel(isSender: true, msg: query.toString()));
 
       var data = await baseApi.post('/chat/create', {'chat': query}, context);
       debugPrint('👉 chatWithAiF response : $data');
