@@ -13,11 +13,16 @@ class AppImages {
   static const String noimg = 'assets/images/icons/noimg.png';
   static const String eng = 'assets/images/icons/eng.png';
   static const String fr = 'assets/images/icons/fr.png';
+  static const String unavailable = 'assets/images/icons/unavailable.png';
   //// for ai chat area icon start
   static const String movie = 'assets/images/icons/movie.png';
-  static const String query = 'assets/images/icons/query.png';
   static const String cards = 'assets/images/icons/cards.png';
   static const String chart = 'assets/images/icons/chart.png';
-  static const String unavailable = 'assets/images/icons/unavailable.png';
+  
+  static const String movieblue = 'assets/images/icons/movieblue.png';
+  static const String flashcardsblue = 'assets/images/icons/flashcardsblue.png';
+  static const String track = 'assets/images/icons/track.png';
+  static const String query = 'assets/images/icons/query.png';
+
   //// for ai chat area icon end
 }

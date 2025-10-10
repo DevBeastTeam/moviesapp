@@ -13,7 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-import '../pages/ai/chat.dart';
+import '../pages/ai/aiChat.dart';
+import '../pages/ai/aiChat2.dart';
 import '../pages/auth/auth_page.dart';
 import '../pages/auth/auth_splash_screen.dart';
 import '../pages/entry_quiz/entry_quiz_page.dart';
@@ -304,11 +305,11 @@ GoRouter appRoutes = GoRouter(
           ],
         ),
         GoRoute(
-          path: 'ai',
+          path: 'AIMenuPage',
           pageBuilder: (context, state) {
             return CustomTransitionPage(
               key: UniqueKey(),
-              child: const CopilotMenuPage(),
+              child: const AIMenuPage(),
               transitionDuration: const Duration(milliseconds: 500),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
@@ -323,11 +324,11 @@ GoRouter appRoutes = GoRouter(
           },
           routes: [
             GoRoute(
-              path: 'aichat',
+              path: 'AIChatPage',
               pageBuilder: (context, state) {
                 return CustomTransitionPage(
                   key: UniqueKey(),
-                  child: const ChatAiPage(),
+                  child: const AIChatPage(),
                   transitionDuration: const Duration(milliseconds: 500),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {

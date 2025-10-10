@@ -37,6 +37,12 @@ class ChatWithAiVm extends ChangeNotifier {
     // ChatAiModel(msg: '', isSender: false),
   ];
 
+  clearChatsList(){
+    chatAiList.clear();
+    getedchatAiList.clear();
+    notifyListeners();
+  }
+
   Future getChatWithAiF(
     context, {
     String loadingFor = '',

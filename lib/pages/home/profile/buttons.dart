@@ -118,7 +118,8 @@ class ProfileButtons extends StatelessWidget {
                     colors: const [Color(0xff02eac1), Color(0xff2992f9)],
                     onPressed: () {
                       // context.go('/home/ai');
-                      context.go('/home/ai/aichat');
+                      // context.go('/home/AIMenuPage/AIChatPage');
+                      context.go('/home/AIMenuPage');
                     },
                   ),
                 ),
