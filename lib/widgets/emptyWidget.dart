@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class EmptyWidget extends StatelessWidget {
   String text = '';
   double paddingTop ;
-   EmptyWidget({super.key, this.text = "", this.paddingTop =  200});
+   EmptyWidget({super.key, this.text = "", this.paddingTop =  30});
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:edutainment/models/pLevelCatgModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/api_helper.dart';
@@ -11,15 +12,11 @@ var pronounciationVm = ChangeNotifierProvider<PronounciationVm>(
 
 class PronounciationVm extends ChangeNotifier {
   String isLoadingFor = '';
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-  void setLoadingF([bool v = true, String? name]) {
-    _isLoading = v;
-    if (v) {
-      isLoadingFor = name ?? '';
-    } else {
-      isLoadingFor = '';
-    }
+
+  String _loadingFor = "";
+  String get loadingFor => _loadingFor;
+  void setLoadingF([String name = ""]) {
+    _loadingFor = name;
     notifyListeners();
   }
 
@@ -33,31 +30,30 @@ class PronounciationVm extends ChangeNotifier {
   //////////////////////////
   var baseApi = ApiHelper();
 
-  List<GrammerModel> pronounciationList = [];
+  // List<GrammerModel> pronounciationList = [];
+  PLevelCatgModel? pLevelCatgModelData;
   void getPronounciationF(
     context, {
     bool isLoading = true,
-    bool showLoading = true,
     String loadingFor = '',
+    bool isRefresh = false,
   }) async {
     try {
-      if (pronounciationList.isNotEmpty) return;
-      if (showLoading) {
-        setLoadingF(true, loadingFor);
-      }
+      if (!isRefresh && pLevelCatgModelData != null) return;
+      setLoadingF(loadingFor);
       var data = await baseApi.get('/lessons/pronunciation', context);
       debugPrint('👉 pronounciationList: $data');
-      log('👉 pronounciationList: $data');
+      // log('👉 pronounciationList: $data');
       if (data['success'].toString() == 'true') {
-        pronounciationList.clear();
-        pronounciationList.add(GrammerModel.fromJson(data['data']));
+        pLevelCatgModelData = PLevelCatgModel.fromJson(data);
+        // pronounciationList.clear();
+        // pronounciationList.add(GrammerModel.fromJson(data['data']));
       }
-      setLoadingF(false);
-      notifyListeners();
+      setLoadingF();
     } catch (e, st) {
       log('💥 try catch when: getPronounciationF Error: $e, st:$st');
     } finally {
-      setLoadingF(false);
+      setLoadingF();
       notifyListeners();
     }
   }
@@ -80,36 +76,32 @@ class PronounciationVm extends ChangeNotifier {
     }
   }
 
-  List<GrammerDetailModel> grammerSingleData = [];
+  List<GrammerDetailModel> pronSelectedCatgOptions = [];
 
-  void getPronounciationFSingleByIdF(
+  bool called = false;
+  void getPronBySelectedCatgOptionsByIdF(
     context, {
     required String id,
-    bool showLoading = true,
     String loadingFor = '',
+    bool isRefresh = false,
   }) async {
     try {
-      if (showLoading) {
-        setLoadingF(true, loadingFor);
-      }
-
-      log('👉 grammerSingleData id: $id');
-      // /lessons/exercises/lessonId/questions --> 652969624622968d66f2e888
-      var data = await baseApi.get('/lessons/pronunciation/travel', context);
-      log('👉 grammerSingleData: $data');
+      // if (!isRefresh && pronSelectedCatgOptions != null) return;
+      // if(called) return;
+      called = true;
+      setLoadingF(loadingFor);
+      debugPrint('👉 getPronounciationFSingleByIdF id: $id');
+      var data = await baseApi.get('/lessons/pronunciation/$id', context);
+      log('👉 getPronounciationFSingleByIdF: $data');
       if (data['success'].toString() == 'true') {
-        grammerSingleData.clear();
-        grammerSingleData.add(GrammerDetailModel.fromJson(data['data']));
+        // pronSelectedCatgOptions.clear();
+        // pronSelectedCatgOptions.add(GrammerDetailModel.fromJson(data['data']));
       }
-      setLoadingF(false);
-
-      // toast(context, msg: 'grammers geted');
-      notifyListeners();
+      setLoadingF();
     } catch (e, st) {
-      log('💥 try catch when: getGrammersSingleByIdF Error: $e, st:$st');
+      log('💥 try catch when: getPronounciationFSingleByIdF Error: $e, st:$st');
     } finally {
-      setLoadingF(false);
-      notifyListeners();
+      setLoadingF();
     }
   }
 }

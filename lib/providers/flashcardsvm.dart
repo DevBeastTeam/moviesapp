@@ -131,7 +131,7 @@ class FlashCardsVM extends ChangeNotifier {
         context,
       );
       // debugPrint('👉 getFlashCardMoviesList: $data');
-      log('👉 getFlashCardDetailsByIds: $data');
+      // log('👉 getFlashCardDetailsByIds: $data');
 
       if (data['success'].toString() == 'true') {
         flashCardsDetailsList.clear();

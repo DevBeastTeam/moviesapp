@@ -1,11 +1,12 @@
 import 'package:edutainment/constants/appimages.dart';
-import 'package:edutainment/pages/ponounciations/pselectcatg.dart';
+import 'package:edutainment/pages/ponounciations/PronCatgPage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../theme/colors.dart';
 import '../../../utils/assets/assets_icons.dart';
 import '../../../widgets/icon/gradient_icon.dart';
+import '../../ponounciations/pronLevels.dart';
 
 class ProfileButtons extends StatelessWidget {
   const ProfileButtons({super.key});
@@ -129,14 +130,17 @@ class ProfileButtons extends StatelessWidget {
                     icon: EdutainmentIcons.pronunciation,
                     colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          // builder: (context) => const PeonounciationsPage(),
-                          // builder: (context) => const PlevelsPage(),
-                          builder: (context) => const PSelectCatgPage(),
-                        ),
-                      );
+                      context.go('/home/PronlevelsPage');
+                    // ref.watch(pronounciationVm).getPronounciationF();
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     // builder: (context) => const PeonounciationsPage(),
+                      //     builder: (context) => const PronlevelsPage(),
+                      //     // builder: (context) => const PSelectCatgPage(),
+                      //   ),
+                      // );
+
                       // AwesomeDialog(
                       //         context: context,
                       //         dialogType: DialogType.info,
