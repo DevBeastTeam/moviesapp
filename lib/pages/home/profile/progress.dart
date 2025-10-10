@@ -1,3 +1,4 @@
+import 'package:edutainment/constants/appimages.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/colors.dart';
@@ -10,7 +11,34 @@ class ProfileProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+        var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
+    bool isTablet = w > 450 ? true : false;
+
+    if(isTablet){
+return Container(
+      margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+      padding: const EdgeInsets.all(10),
+        width: w*0.3,
+      height: w*0.3,
+      decoration: BoxDecoration(
+        color: ColorsPallet.darkComponentBackground,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+Center(child: Image.asset(AppImages.mb, width: w*0.07)),
+          _buildComponentForTablet(context, text: 'GRAMMAR', value: .5),
+          const Divider(color: Colors.transparent, height: 10),
+          _buildComponentForTablet(context, text: 'COMPREHENSION', value: .35),
+          const Divider(color: Colors.transparent, height: 10),
+          _buildComponentForTablet(context, text: 'GLOBAL KNOWLEDGE', value: .7),
+        ],
+      ),
+    );
+    }else{
+return Container(
       margin: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       padding: const EdgeInsets.all(16),
       width: MediaQuery.of(context).size.width,
@@ -31,8 +59,40 @@ class ProfileProgress extends StatelessWidget {
         ],
       ),
     );
+    }
+    
   }
 
+  Widget _buildComponentForTablet(
+    context, {
+    required String text,
+    required double value,
+  }) {
+    return SizedBox(
+      height: 30,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text,
+            textAlign: TextAlign.left,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
+          const Divider(color: Colors.transparent, height: 1),
+          CustomProgressBar(
+            height: 5,
+            width: MediaQuery.of(context).size.width,
+            value: value,
+            radius: 5,
+            backgroundColor: ColorsPallet.blue,
+            accentColor: ColorsPallet.blueAccent,
+            gradient: const LinearGradient(colors: ColorsPallet.yyo),
+          ),
+        ],
+      ),
+    );
+  }
   Widget _buildComponent(
     context, {
     required String text,
@@ -51,7 +111,7 @@ class ProfileProgress extends StatelessWidget {
           ),
           const Divider(color: Colors.transparent, height: 5),
           CustomProgressBar(
-            height: 20,
+            height: 10,
             width: MediaQuery.of(context).size.width,
             value: value,
             radius: 16,

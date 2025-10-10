@@ -11,6 +11,86 @@ class ProfileButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+         var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
+    bool isTablet = w > 450 ? true : false;
+    
+    if(isTablet){
+         return Container(
+
+      margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+         decoration: BoxDecoration(
+          color: ColorsPallet.darkComponentBackground,
+          borderRadius: BorderRadius.circular(10),
+        ),
+      alignment: Alignment.center,
+        width: w*0.3,
+      height: w*0.3,
+      child: GridView(
+        shrinkWrap: true,
+        controller: ScrollController(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+          childAspectRatio: 1.5,
+        ),
+        padding: const EdgeInsets.all(8),
+        children: [
+          _buildComponentForTablet(
+            context: context,
+            text: 'Ai CHAT',
+            assetImg: AppImages.ai2,
+            isImg: true,
+            // icon: EdutainmentIcons.writing,
+            colors: const [Color(0xff02eac1), Color(0xff2992f9)],
+            onPressed: () {
+              context.go('/home/AIMenuPage');
+            },
+          ),
+          _buildComponentForTablet(
+            context: context,
+            text: 'PRONUNCIATION',
+            icon: EdutainmentIcons.pronunciation,
+            colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+            onPressed: () {
+              context.go('/home/PronlevelsPage');
+            },
+          ),
+          _buildComponentForTablet(
+            context: context,
+            text: 'FLASHCARDS',
+            assetImg: AppImages.flashcards,
+            isImg: true,
+            colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+            onPressed: () {
+              context.go('/home/fc'); 
+            },
+          ),
+          _buildComponentForTablet(
+            context: context,
+            // text: 'GRAMMAR',
+            text: 'LESSONS',
+            icon: EdutainmentIcons.grammar,
+            colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+            onPressed: () async {
+              context.go('/home/GrammerPage');
+            },
+          ),
+          _buildComponentForTablet(
+            context: context,
+            text: 'EXERCISES',
+            icon: EdutainmentIcons.exercices,
+            colors: const [Color(0xfffd6378), Color(0xffa11111)],
+            onPressed: () {
+              context.go('/home/ExcersisesPage');
+            },
+          ),
+        ],
+      ),
+    );
+ 
+    }
     return Container(
       margin: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       alignment: Alignment.center,
@@ -186,6 +266,51 @@ class ProfileButtons extends StatelessWidget {
     );
   }
 
+  Widget _buildComponentForTablet({
+    required BuildContext context,
+    required String text,
+    IconData? icon,
+    String? assetImg,
+    required List<Color> colors,
+    bool isImg = false,
+    required VoidCallback onPressed,
+  }) {
+    return RawMaterialButton(
+      hoverElevation: 0,
+      elevation: 0,
+      focusElevation: 0,
+      splashColor: Colors.white.withOpacity(.1),
+      highlightColor: Colors.white.withOpacity(.09),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      onPressed: onPressed,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width *0.13,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            isImg
+                ? Image.asset(assetImg ?? "", width: 35)
+                : GradientIcon(
+                    icon: icon!,
+                    size: 35,
+                    gradient: LinearGradient(colors: colors),
+                  ),
+                  SizedBox(height: 10),
+            Text(
+              text,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.fade,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   Widget _buildComponent({
     required BuildContext context,
     required String text,
