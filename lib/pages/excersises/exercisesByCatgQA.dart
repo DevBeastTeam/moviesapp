@@ -399,7 +399,7 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
                         ),
                       ),
                     );
-                  }).toList(),
+                  }),
                   const SizedBox(height: 20),
                   // Next Button (optional, since we auto-advance after feedback)
                   if (_showFeedback)

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/api_helper.dart';
 import '../models/grammerDetailModel.dart';
-import '../models/grammerModel.dart';
 
 var pronounciationVm = ChangeNotifierProvider<PronounciationVm>(
   (ref) => PronounciationVm(),

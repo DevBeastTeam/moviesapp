@@ -7,7 +7,6 @@ import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../widgets/emptyWIdget.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
-import '../../widgets/loaders/dotloader.dart';
 
 class ExcersisesPage extends ConsumerStatefulWidget {
   const ExcersisesPage({super.key});

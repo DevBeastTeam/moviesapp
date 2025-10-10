@@ -3,7 +3,6 @@ import 'package:edutainment/pages/excersises/excersise.dart';
 import 'package:edutainment/pages/flashcards/flashcardslist.dart';
 import 'package:edutainment/pages/grammer/grammer.dart';
 import 'package:edutainment/pages/home/profile/profile_settings_page.dart';
-import 'package:edutainment/pages/home/writings/writingsmenu.dart';
 import 'package:edutainment/pages/grammer/grammerdetail.dart';
 import 'package:edutainment/pages/grammer/grammerCatg.dart';
 import 'package:edutainment/pages/ponounciations/pronLevels.dart';
@@ -15,7 +14,6 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../pages/ai/aIAllChatHistoryPage.dart';
 import '../pages/ai/aiChat.dart';
-import '../pages/ai/aiChat2.dart';
 import '../pages/auth/auth_page.dart';
 import '../pages/auth/auth_splash_screen.dart';
 import '../pages/entry_quiz/entry_quiz_page.dart';

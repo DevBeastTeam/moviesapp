@@ -83,6 +83,36 @@ class ApiHelper {
     return responseJson;
   }
 
+  Future<dynamic> delete(String url, ctx) async {
+    await fillHeaders();
+    dynamic responseJson;
+    try {
+      var response = await _dio.delete(url);
+      responseJson = _returnResponse(response);
+    } on SocketException {
+      // print('No net');
+      // throw FetchDataException('No Internet connection');
+    } on DioException catch (e) {
+      debugPrint("e:$e");
+      if (ctx == null) {
+        return Future.error(
+            'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.');
+      }
+      await AwesomeDialog(
+          context: ctx,
+          dialogType: DialogType.error,
+          title: 'Error',
+          desc:
+              'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
+          btnOkOnPress: () {},
+          btnOk: PrimaryButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            text: 'Close',
+          )).show();
+    }
+    return responseJson;
+  }
+
   Future<dynamic> post(String url, dynamic body, ctx,
       [responseType = ResponseType.json]) async {
     await fillHeaders();

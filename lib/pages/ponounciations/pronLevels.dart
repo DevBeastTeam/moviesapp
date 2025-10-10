@@ -1,4 +1,3 @@
-import 'package:edutainment/pages/ponounciations/PronCatgPage.dart';
 import 'package:edutainment/providers/pronounciationVM.dart';
 import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
@@ -8,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../widgets/header_bar/custom_header_bar.dart';
-import '../../widgets/loaders/dotloader.dart';
 
 class PronlevelsPage extends ConsumerStatefulWidget {
   const PronlevelsPage({super.key});

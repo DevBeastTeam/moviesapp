@@ -1,6 +1,5 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:edutainment/constants/appimages.dart';
-import 'package:edutainment/pages/home/writings/moviesug.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../../widgets/header_bar/custom_header_bar.dart';
 import '../../providers/aichatvm.dart';
@@ -30,14 +30,25 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((v) {
-      ref
-          .watch(aiChatVm)
-          .getAllAiChatsF(
-            context,
-            scrollController: chatsScrollController,
-            loadingFor: "getAllChats",
-          );
+    WidgetsBinding.instance.addPostFrameCallback((v) async {
+      // await ref
+      //     .watch(aiChatVm)
+      //     .getAllAiChatsF(
+      //       context,
+      //       scrollController: chatsScrollController,
+      //       loadingFor: "getAllChats",
+      //       isSetInToLastAlso: true,
+      //     )
+      //     .then((v) {
+      //       ref
+      //           .watch(aiChatVm)
+      //           .getAiChatByIdF(
+      //             context,
+      //             chatId: ref.watch(aiChatVm).lastAIConversationChats!.id,
+      //             scrollController: chatsScrollController,
+      //             loadingFor: "getAiChatByIdF",
+      //           );
+      //     });
     });
     super.initState();
   }
@@ -117,7 +128,10 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                           await EasyLoading.showInfo('Write Something');
                         } else {
                           await p
-                              .chatWithAiF(context, query: msgController.text)
+                              .doConversationChatByIdWithAiF(
+                                context,
+                                msg: msgController.text,
+                              )
                               .then((value) {
                                 msgController.clear();
                                 if (chatsScrollController.hasClients) {
@@ -155,7 +169,10 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                context.go('/home/AIMenuPage/AllAIChatHistoryPage');
+                context.go(
+                  '/home/AIMenuPage/AllAIChatHistoryPage',
+                  extra: {"isPinnedOnly": false},
+                );
               },
             ),
             Divider(height: 2, color: Colors.grey.shade700),
@@ -167,6 +184,10 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
+                context.go(
+                  '/home/AIMenuPage/AllAIChatHistoryPage',
+                  extra: {"isPinnedOnly": true},
+                );
               },
             ),
             Divider(height: 2, color: Colors.grey.shade700),
@@ -182,11 +203,16 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
+                context.go(
+                  '/home/AIMenuPage/AllAIChatHistoryPage',
+                  extra: {"isPinnedOnly": false},
+                );
               },
             ),
             Divider(height: 2, color: Colors.grey.shade700),
             CupertinoListTile(
-              title: Text("Last 7 days", style: TextStyle(color: Colors.grey),)),
+              title: Text("Last 7 days", style: TextStyle(color: Colors.grey)),
+            ),
             ListTile(
               leading: const Icon(Icons.chat, color: Colors.black),
               title: const Text(
@@ -195,6 +221,10 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
+                context.go(
+                  '/home/AIMenuPage/AllAIChatHistoryPage',
+                  extra: {"isPinnedOnly": false},
+                );
               },
             ),
             Divider(height: 2, color: Colors.grey.shade700),
@@ -210,13 +240,14 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               onPressed: () {
                 Navigator.pop(context);
                 ref.watch(aiChatVm).clearChatsList();
+                ref.watch(aiChatVm).createNewChatWithAiF(context);
               },
               label: const Text(
                 'New Chat',
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            SizedBox(height: 30)
+            SizedBox(height: 30),
           ],
         ),
       ),
@@ -231,7 +262,12 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
             centerTitle: false,
             title: 'Back',
           ),
-          const SizedBox(height: 20),
+
+          ref.watch(aiChatVm).loadingFor == "refresh" ||
+                  ref.watch(aiChatVm).loadingFor == "getAiChatByIdF"
+              ? QuickTikTokLoader()
+              : SizedBox.shrink(),
+
           Container(
             decoration: BoxDecoration(color: Colors.blueGrey.shade50),
             width: double.infinity,
@@ -239,13 +275,21 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
             child: Column(
               children: [
                 CupertinoListTile(
+                  // onTap: (){
+                  //     context.go('/home/AIMenuPage/AllAIChatHistoryPage', extra: {
+                  //       "isPinnedOnly":true,
+                  //     });
+                  // },
                   leading: Builder(
                     builder: (context) {
                       return InkWell(
                         borderRadius: BorderRadius.circular(50),
-                        child: const Icon(
-                          Icons.sort_outlined,
-                          color: Colors.black,
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: const Icon(
+                            Icons.sort_outlined,
+                            color: Colors.black,
+                          ),
                         ),
                         onTap: () {
                           Scaffold.of(context).openDrawer();
@@ -253,16 +297,42 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                       );
                     },
                   ),
-                  title: Text("pinned"),
+                  title:
+                      (ref
+                              .watch(aiChatVm)
+                              .allAiChatHistoryConversionsTitlesData !=
+                          null)
+                      ? ref
+                                .watch(aiChatVm)
+                                .allAiChatHistoryConversionsTitlesData!
+                                .chats
+                                .any((element) => element.isPinned == true)
+                            ? Text(
+                                ref
+                                    .watch(aiChatVm)
+                                    .allAiChatHistoryConversionsTitlesData!
+                                    .chats
+                                    .firstWhere(
+                                      (element) => element.isPinned == true,
+                                    )
+                                    .title,
+                              )
+                            : Text("Pinned")
+                      : Text("Pinned"),
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.go(
+                        '/home/AIMenuPage/AllAIChatHistoryPage',
+                        extra: {"isPinnedOnly": true},
+                      );
+                    },
                     icon: const Icon(
                       Icons.push_pin_outlined,
                       color: Colors.blue,
                     ),
                   ),
                 ),
-                p.lastAIChats.isEmpty
+                p.lastAIConversationChats == null
                     ? Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -300,7 +370,8 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                 //   ),
                 // ),
                 // const SizedBox(height: 16),
-                p.lastAIChats.isEmpty
+                p.lastAIConversationChats == null ||
+                        p.lastAIConversationChats!.messages.isEmpty
                     ? Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 14),
                         child: GridView.builder(
@@ -317,7 +388,10 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                               padding: const EdgeInsets.all(14),
                               child: InkWell(
                                 onTap: () {
-                                  p.chatWithAiF(context, query: data['query']);
+                                  p.doConversationChatByIdWithAiF(
+                                    context,
+                                    msg: data['query'],
+                                  );
                                   // if (index == 0) {
                                   // Navigator.push(
                                   //   context,
@@ -358,9 +432,10 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                         // child: Text("bn"),
                         child: ListView.builder(
                           controller: chatsScrollController,
-                          itemCount: p.lastAIChats.length,
+                          itemCount: p.lastAIConversationChats!.messages.length,
                           itemBuilder: (context, index) {
-                            var chat = p.lastAIChats[index];
+                            var chat =
+                                p.lastAIConversationChats!.messages[index];
                             return GestureDetector(
                               onTap: () {
                                 Get.bottomSheet(
@@ -381,7 +456,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                                           Icon(Icons.abc_outlined),
                                           SizedBox(height: 12),
                                           Text(
-                                            chat.msg,
+                                            chat.content,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -394,18 +469,18 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                                 );
                               },
                               child: BubbleSpecialOne(
-                                text: chat.msg,
-                                isSender: chat.isSender,
-                                color: chat.isSender
+                                text: chat.content,
+                                isSender: chat.type == "user",
+                                color: chat.type == "user"
                                     ? Colors.blue
                                     : Colors.grey.shade400,
                                 textStyle: TextStyle(
-                                  color: chat.isSender
+                                  color: chat.type == "user"
                                       ? Colors.white
                                       : Colors.black,
                                 ),
                                 tail: true,
-                                sent: true,
+                                sent: chat.type == "user" ? true : false,
                               ),
                             );
                           },

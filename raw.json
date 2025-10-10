@@ -1,22 +1,11 @@
-{chats: [
-        {_id: 68e8b950283a03a4aa67f4ca, User: 650d968f04ff9eb2acd503e9, messages: [], title: New Chat, isPinned: false, createdAt: 2025-10-10T07: 44: 16.928Z, updatedAt: 2025-10-10T07: 44: 16.928Z, __v: 0, id: 68e8b950283a03a4aa67f4ca
+{_id: 6891facd66a16e16b096b214, User: 650d968f04ff9eb2acd503e9, messages: [
+        {type: user, content: Qui est Iron Man ?, _id: 6891facd66a16e16b096b215, timestamp: 2025-08-05T12: 36: 29.101Z
         },
-        {_id: 68e8b94c56d92b6b043e5e2c, User: 650d968f04ff9eb2acd503e9, messages: [], title: New Chat, isPinned: false, createdAt: 2025-10-10T07: 44: 12.292Z, updatedAt: 2025-10-10T07: 44: 12.292Z, __v: 0, id: 68e8b94c56d92b6b043e5e2c
+        {type: bot, content: Iron Man, également connu sous le nom de Tony Stark, est un personnage mythologique créé par Marvel Comics. Il est un ingénieur et un entrepreneur de défense qui a créé une armure personnelle avec l'aide d'un générateur de pouvoirs appelé "arc-reacteur" développé par sa mère, Betty., _id: 6891fad2c6fbcc021597f779, timestamp: 2025-08-05T12: 36: 34.374Z
         },
-        {_id: 68e8ae07283a03a4aa67f491, User: 650d968f04ff9eb2acd503e9, messages: [], title: New Chat, isPinned: false, createdAt: 2025-10-10T06: 56: 07.927Z, updatedAt: 2025-10-10T06: 56: 07.927Z, __v: 0, id: 68e8ae07283a03a4aa67f491
+        {type: user, content: Qui est l'acteur principale dans 8 mile ?, _id: 6891fb3866a16e16b096b21b, timestamp: 2025-08-05T12: 38: 16.548Z
         },
-        {_id: 68e89c0356d92b6b043e5ddc, User: 650d968f04ff9eb2acd503e9, messages: [], title: New Chat, isPinned: false, createdAt: 2025-10-10T05: 39: 15.279Z, updatedAt: 2025-10-10T05: 39: 15.279Z, __v: 0, id: 68e89c0356d92b6b043e5ddc
-        },
-        {_id: 6891facd66a16e16b096b214, User: 650d968f04ff9eb2acd503e9, messages: [
-                {type: user, content: Qui est Iron Man ?, _id: 6891facd66a16e16b096b215, timestamp: 2025-08-05T12: 36: 29.101Z
-                },
-                {type: bot, content: Iron Man, également connu sous le nom de Tony Stark, est un personnage mythologique créé par Marvel Comics. Il est un ingénieur et un entrepreneur de défense qui a créé une armure personnelle avec l'aide d'un générateur de pouvoirs appelé "arc-reacteur" développé par sa mère, Betty., _id: 6891fad2c6fbcc021597f779, timestamp: 2025-08-05T12: 36: 34.374Z
-                },
-                {type: user, content: Qui est l'acteur principale dans 8 mile ?, _id: 6891fb3866a16e16b096b21b, timestamp: 2025-08-05T12: 38: 16.548Z
-                },
-                {type: bot, content: L'acteur principal dans le film "8 Mile" est Eminem, un rappeur américain. Il incarne le personnage de B-Rabbit, un jeune rappeur amateur qui se lance à la recherche du succès et de l'amour. Le film, sorti en 2002, suit sa carrière de rappeur et ses défis personnels tout au long de son parcours de 8 mois dans une chanson de rue., _id: 6891fb3c21be0efacba2b644, timestamp: 2025-08-05T12: 38: 20.194Z
-                }
-            ], title: Qui est Iron Ma..., isPinned: false, createdAt: 2025-08-05T12: 36: 29.102Z, updatedAt: 2025-08-05T12: 38: 20.195Z, __v: 3, id: 6891facd66a16e16b096b214
+        {type: bot, content: L'acteur principal dans le film "8 Mile" est Eminem, un rappeur américain. Il incarne le personnage de B-Rabbit, un jeune rappeur amateur qui se lance à la recherche du succès et de l'amour. Le film, sorti en 2002, suit sa carrière de rappeur et ses défis personnels tout au long de son parcours de 8 mois dans une chanson de rue., _id: 6891fb3c21be0efacba2b644, timestamp: 2025-08-05T12: 38: 20.194Z
         }
-    ], userName: Jimmy
+    ], title: Qui est Iron Ma..., isPinned: true, createdAt: 2025-08-05T12: 36: 29.102Z, updatedAt: 2025-10-10T13: 47: 46.134Z, __v: 3, id: 6891facd66a16e16b096b214
 }

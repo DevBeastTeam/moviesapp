@@ -1,5 +1,3 @@
-import 'package:edutainment/pages/ponounciations/PronLevelsCatgSelectionPage.dart';
-import 'package:edutainment/providers/pronounciationVM.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';

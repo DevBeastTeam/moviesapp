@@ -3,14 +3,12 @@
 import 'dart:developer';
 import 'package:edutainment/models/aichatModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/api_helper.dart';
 import '../models/AiChatHistoryConversionsTitleModel.dart';
 
-
-var aiChatVm = ChangeNotifierProvider<AiChatVm>(
-  (ref) => AiChatVm(),
-);
+var aiChatVm = ChangeNotifierProvider<AiChatVm>((ref) => AiChatVm());
 
 class AiChatVm extends ChangeNotifier {
   String _loadingFor = "";
@@ -30,43 +28,118 @@ class AiChatVm extends ChangeNotifier {
   //////////////////////////
   var baseApi = ApiHelper();
 
-  List<ChatAiModel> lastAIChats = [
-    // ChatAiModel(msg: '', isSender: false),
-  ];
+  AiChatModel? lastAIConversationChats;
 
-  List<AiChatModel> getedchatAiList = [
-    // ChatAiModel(msg: '', isSender: false),
-  ];
-
-  clearChatsList(){
-    lastAIChats.clear();
-    getedchatAiList.clear();
+  clearChatsList() {
+    lastAIConversationChats = null;
     notifyListeners();
   }
 
-AiChatHistoryConversionsTitleModel? allAiChatHistoryConversionsTitlesData;
-  Future getAllAiChatsF(
+  Future createNewChatWithAiF(
     context, {
     String loadingFor = '',
+    // required String msg,
     ScrollController? scrollController,
   }) async {
     try {
+      // debugPrint("createChatWithAiF msg: $msg");
       setLoadingF(loadingFor);
-      var data = await baseApi.get('/chat', context);
-      log('👉 ai chat getChatWithAiF : $data');
-      allAiChatHistoryConversionsTitlesData = AiChatHistoryConversionsTitleModel.fromJson(data);
+
+      var data = await baseApi.post(
+        '/chat/create',
+        //  {'chat': msg},
+        {},
+        context,
+      );
+      debugPrint('👉 createChatWithAiF response : $data');
+      lastAIConversationChats = AiChatModel.fromJson(data);
+      // scrollController!.jumpTo(scrollController.position.maxScrollExtent);
       setLoadingF();
     } catch (e, st) {
-      log('💥 try catch when: getChatWithAiF Error: $e, st:$st');
+      debugPrint('💥 try catch when: createChatWithAiF Error: $e, st:$st');
     } finally {
       setLoadingF();
     }
   }
 
-  ///// 
+  Future doConversationChatByIdWithAiF(
+    context, {
+    String loadingFor = '',
+    required String msg,
+    // required String conversationId,
+    ScrollController? scrollController,
+  }) async {
+    try {
+      String conversationId = lastAIConversationChats!.id;
+      debugPrint(
+        "doConversationChatByIdWithAiF conversationId: $conversationId",
+      );
+      setLoadingF(loadingFor);
+      // body : {
+      //       userMessage : string,
+      //       botMessage: string,
+      //   }
+
+      var data = await baseApi.post('/chat/messages/new/$conversationId', {
+        'userMessage': msg,
+      }, context);
+      debugPrint('👉 doConversationChatByIdWithAiF response : $data');
+      getAiChatByIdF(context, chatId: conversationId);
+      // scrollController!.jumpTo(scrollController.position.maxScrollExtent);
+      setLoadingF();
+    } catch (e, st) {
+      debugPrint(
+        '💥 try catch when: doConversationChatByIdWithAiF Error: $e, st:$st',
+      );
+    } finally {
+      setLoadingF();
+    }
+  }
+
+  AiChatHistoryConversionsTitleModel? allAiChatHistoryConversionsTitlesData;
+  Future getAllAiChatsF(
+    context, {
+    String loadingFor = '',
+    ScrollController? scrollController,
+    bool isSetInToLastAlso = false,
+  }) async {
+    try {
+      setLoadingF(loadingFor);
+      var data = await baseApi.get('/chat', context);
+      log('👉 getAllAiChatsF : $data');
+      allAiChatHistoryConversionsTitlesData =
+          AiChatHistoryConversionsTitleModel.fromJson(data);
+      if (isSetInToLastAlso) {
+        if (allAiChatHistoryConversionsTitlesData!.chats.isEmpty) {
+          lastAIConversationChats = null;
+        } else {
+          var data = allAiChatHistoryConversionsTitlesData!.chats.first;
+          lastAIConversationChats = AiChatModel(
+            id: data.id,
+            user: data.user,
+            messages: data.messages
+                .map((e) => Msgs.fromJson(e.toJson()))
+                .toList(),
+            title: data.title,
+            isPinned: data.isPinned,
+            createdAt: data.createdAt,
+            updatedAt: data.updatedAt,
+            version: data.version,
+          );
+        }
+      }
+      setLoadingF();
+    } catch (e, st) {
+      debugPrint('💥 try catch when: getAllAiChatsF Error: $e, st:$st');
+    } finally {
+      setLoadingF();
+    }
+  }
+
+  /////
   Future getAiChatByIdF(
     context, {
-     required String chatId,
+    required String chatId,
     String loadingFor = '',
     ScrollController? scrollController,
   }) async {
@@ -75,49 +148,98 @@ AiChatHistoryConversionsTitleModel? allAiChatHistoryConversionsTitlesData;
       debugPrint('👉 getAiChatByIdF chatId: $chatId');
       var data = await baseApi.get('/chat/$chatId', context);
       log('👉 getAiChatByIdF : $data');
+      lastAIConversationChats = AiChatModel.fromJson(data);
       setLoadingF();
     } catch (e, st) {
-      log('💥 try catch when: getAiChatByIdF Error: $e, st:$st');
+      debugPrint('💥 try catch when: getAiChatByIdF Error: $e, st:$st');
     } finally {
       setLoadingF();
     }
   }
 
-  Future chatWithAiF(
+  /////
+  Future updateConversationChatsTitleByIdF(
     context, {
+    required String conversationId,
+    required String newTitle,
     String loadingFor = '',
-    required String query,
     ScrollController? scrollController,
   }) async {
     try {
-      print("query: $query");
+      if (newTitle.isEmpty) return;
       setLoadingF(loadingFor);
-      lastAIChats.add(ChatAiModel(isSender: true, msg: query.toString()));
-
-      var data = await baseApi.post('/chat/create', {'chat': query}, context);
-      debugPrint('👉 chatWithAiF response : $data');
-      // scrollController!.jumpTo(scrollController.position.maxScrollExtent);
-
+      debugPrint(
+        '👉 updateConversationChatsTitleByIdF conversationId: $conversationId',
+      );
+      var data = await baseApi.post('/chat/$conversationId/title', {
+        "title": newTitle,
+      }, context);
+      debugPrint('👉 updateConversationChatsTitleByIdF : $data');
+      EasyLoading.showSuccess("Success!");
+      getAllAiChatsF(context, loadingFor: "refresh");
       setLoadingF();
     } catch (e, st) {
-      log('💥 try catch when: chatWithAiF Error: $e, st:$st');
+      debugPrint(
+        '💥 try catch when: updateConversationChatsTitleByIdF Error: $e, st:$st',
+      );
     } finally {
       setLoadingF();
     }
   }
-}
 
-class ChatAiModel {
-  final bool isSender;
-  final String msg;
-
-  ChatAiModel({required this.isSender, required this.msg});
-
-  factory ChatAiModel.fromJson(Map<String, dynamic> json) {
-    return ChatAiModel(isSender: json['isSender'], msg: json['msg']);
+  /////
+  Future toggleConversationChatsPinByIdF(
+    context, {
+    required String conversationId,
+    String loadingFor = '',
+    ScrollController? scrollController,
+  }) async {
+    try {
+      setLoadingF(loadingFor);
+      debugPrint(
+        '👉 toggleConversationChatsPinByIdF conversationId: $conversationId',
+      );
+      var data = await baseApi.post(
+        '/chat/toggle-pin/$conversationId',
+        {},
+        context,
+      );
+      debugPrint('👉 toggleConversationChatsPinByIdF : $data');
+      EasyLoading.showSuccess("Success!");
+      getAllAiChatsF(context, loadingFor: "refresh");
+      setLoadingF();
+    } catch (e, st) {
+      debugPrint(
+        '💥 try catch when: toggleConversationChatsPinByIdF Error: $e, st:$st',
+      );
+    } finally {
+      setLoadingF();
+    }
   }
 
-  Map<String, dynamic> toJson() {
-    return {'isSender': isSender};
+  /////
+  Future deleteConversationChatsByIdF(
+    context, {
+    required String conversationId,
+    String loadingFor = '',
+    ScrollController? scrollController,
+  }) async {
+    try {
+      setLoadingF(loadingFor);
+      debugPrint(
+        '👉 deleteConversationChatsByIdF conversationId: $conversationId',
+      );
+      var data = await baseApi.delete('/chat/delete/$conversationId', context);
+      debugPrint('👉 deleteConversationChatsByIdF : $data');
+      EasyLoading.showSuccess("Deleted!");
+      getAllAiChatsF(context, loadingFor: "refresh");
+      setLoadingF();
+    } catch (e, st) {
+      debugPrint(
+        '💥 try catch when: deleteConversationChatsByIdF Error: $e, st:$st',
+      );
+    } finally {
+      setLoadingF();
+    }
   }
 }

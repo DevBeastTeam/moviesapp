@@ -1,12 +1,10 @@
 import 'package:edutainment/constants/appimages.dart';
-import 'package:edutainment/pages/ponounciations/PronCatgPage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../theme/colors.dart';
 import '../../../utils/assets/assets_icons.dart';
 import '../../../widgets/icon/gradient_icon.dart';
-import '../../ponounciations/pronLevels.dart';
 
 class ProfileButtons extends StatelessWidget {
   const ProfileButtons({super.key});
