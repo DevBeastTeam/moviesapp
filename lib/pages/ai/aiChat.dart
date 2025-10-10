@@ -31,24 +31,26 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((v) async {
-      // await ref
-      //     .watch(aiChatVm)
-      //     .getAllAiChatsF(
-      //       context,
-      //       scrollController: chatsScrollController,
-      //       loadingFor: "getAllChats",
-      //       isSetInToLastAlso: true,
-      //     )
-      //     .then((v) {
-      //       ref
-      //           .watch(aiChatVm)
-      //           .getAiChatByIdF(
-      //             context,
-      //             chatId: ref.watch(aiChatVm).lastAIConversationChats!.id,
-      //             scrollController: chatsScrollController,
-      //             loadingFor: "getAiChatByIdF",
-      //           );
-      //     });
+      if (ref.watch(aiChatVm).lastAIConversationChats == null) {
+        await ref
+            .watch(aiChatVm)
+            .getAllAiChatsF(
+              context,
+              scrollController: chatsScrollController,
+              loadingFor: "getAllChats",
+              isSetInToLastAlso: true,
+            )
+            .then((v) {
+              ref
+                  .watch(aiChatVm)
+                  .getAiChatByIdF(
+                    context,
+                    chatId: ref.watch(aiChatVm).lastAIConversationChats!.id,
+                    scrollController: chatsScrollController,
+                    loadingFor: "getAiChatByIdF",
+                  );
+            });
+      }
     });
     super.initState();
   }
@@ -332,20 +334,21 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                     ),
                   ),
                 ),
-                p.lastAIConversationChats == null
+                p.lastAIConversationChats == null ||
+                        p.lastAIConversationChats!.messages.isEmpty
                     ? Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
                               AppImages.robo,
-                              width: MediaQuery.of(context).size.width * 0.2,
+                              width: w > 450 ? w * 0.1 : w * 0.2,
                             ),
                             const Text(
-                              'COPILOT',
+                              ' COPILOT',
                               style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
+                                color: Colors.black54,
+                                fontWeight: FontWeight.w600,
                                 fontSize: 30,
                               ),
                             ),
@@ -354,22 +357,13 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                       )
                     : SizedBox.shrink(),
                 const SizedBox(height: 10),
-                // Flashcard Button with number (red background)
-                // Container(
-                //   padding: const EdgeInsets.symmetric(
-                //     horizontal: 20,
-                //     vertical: 8,
-                //   ),
-                //   decoration: BoxDecoration(
-                //     color: Colors.redAccent,
-                //     borderRadius: BorderRadius.circular(20),
-                //   ),
-                //   child: Text(
-                //     '$flashcardsLeft Flashcards to Watch',
-                //     style: const TextStyle(color: Colors.white, fontSize: 16),
-                //   ),
-                // ),
-                // const SizedBox(height: 16),
+
+                if ((p.lastAIConversationChats == null ||
+                        p.lastAIConversationChats!.messages.isEmpty) &&
+                    w > 450)
+                  SizedBox(height: h * 0.2)
+                else
+                  SizedBox(height: h * 0.02),
                 p.lastAIConversationChats == null ||
                         p.lastAIConversationChats!.messages.isEmpty
                     ? Padding(
@@ -378,14 +372,14 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                           shrinkWrap: true,
                           controller: ScrollController(),
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: w > 450 ? 4 : 2,
                               ),
                           itemCount: menuList.length,
                           itemBuilder: (BuildContext context, int index) {
                             var data = menuList[index];
                             return Padding(
-                              padding: const EdgeInsets.all(14),
+                              padding: EdgeInsets.all(w > 450 ? 20 : 14),
                               child: InkWell(
                                 onTap: () {
                                   p.doConversationChatByIdWithAiF(
@@ -410,7 +404,10 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Image.asset(data['img'], width: w * 0.15),
+                                      Image.asset(
+                                        data['img'],
+                                        width: w > 450 ? w * 0.08 : w * 0.15,
+                                      ),
                                       const Divider(),
                                       Text(
                                         '${data['title']}',

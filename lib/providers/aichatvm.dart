@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/api_helper.dart';
-import '../models/AiChatHistoryConversionsTitleModel.dart';
+import '../models/aiallChatHistoryConversionsTitleModel.dart';
+// import '../models/AiChatHistoryConversionsTitleModel.dart';
 
 var aiChatVm = ChangeNotifierProvider<AiChatVm>((ref) => AiChatVm());
 
