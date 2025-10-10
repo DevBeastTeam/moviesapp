@@ -147,6 +147,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 40),
             ListTile(
               leading: const Icon(Icons.close_rounded, color: Colors.black),
               title: const Text(
@@ -184,6 +185,8 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               },
             ),
             Divider(height: 2, color: Colors.grey.shade700),
+            CupertinoListTile(
+              title: Text("Last 7 days", style: TextStyle(color: Colors.grey),)),
             ListTile(
               leading: const Icon(Icons.chat, color: Colors.black),
               title: const Text(
@@ -213,6 +216,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                 style: TextStyle(color: Colors.white),
               ),
             ),
+            SizedBox(height: 30)
           ],
         ),
       ),
