@@ -22,6 +22,7 @@ class AppImages {
   static const String chart = 'assets/images/icons/chart.png';
   
   static const String movieblue = 'assets/images/icons/movieblue.png';
+  static const String flashcardsLight = 'assets/images/icons/flashcard.jpeg';
   static const String flashcardsblue = 'assets/images/icons/flashcardsblue.png';
   static const String track = 'assets/images/icons/track.png';
   static const String query = 'assets/images/icons/query.png';

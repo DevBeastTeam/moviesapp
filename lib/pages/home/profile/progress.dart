@@ -11,56 +11,63 @@ class ProfileProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        var h = MediaQuery.of(context).size.height;
+    var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     bool isTablet = w > 450 ? true : false;
 
-    if(isTablet){
-return Container(
-      margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
-      padding: const EdgeInsets.all(10),
-        width: w*0.3,
-      height: w*0.3,
-      decoration: BoxDecoration(
-        color: ColorsPallet.darkComponentBackground,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-Center(child: Image.asset(AppImages.mb, width: w*0.07)),
-          _buildComponentForTablet(context, text: 'GRAMMAR', value: .5),
-          const Divider(color: Colors.transparent, height: 10),
-          _buildComponentForTablet(context, text: 'COMPREHENSION', value: .35),
-          const Divider(color: Colors.transparent, height: 10),
-          _buildComponentForTablet(context, text: 'GLOBAL KNOWLEDGE', value: .7),
-        ],
-      ),
-    );
-    }else{
-return Container(
-      margin: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
-      padding: const EdgeInsets.all(16),
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        color: ColorsPallet.darkComponentBackground,
-        borderRadius: BorderRadius.circular(32),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildComponent(context, text: 'GRAMMAR', value: .5),
-          const Divider(color: Colors.transparent, height: 10),
-          _buildComponent(context, text: 'COMPREHENSION', value: .35),
-          const Divider(color: Colors.transparent, height: 10),
-          _buildComponent(context, text: 'GLOBAL KNOWLEDGE', value: .7),
-        ],
-      ),
-    );
+    if (isTablet) {
+      return Container(
+        margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+        padding: const EdgeInsets.all(10),
+        width: w * 0.3,
+        height: w * 0.3,
+        decoration: BoxDecoration(
+          color: ColorsPallet.darkComponentBackground,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Center(child: Image.asset(AppImages.mb, width: w * 0.07)),
+            _buildComponentForTablet(context, text: 'GRAMMAR', value: .5),
+            const Divider(color: Colors.transparent, height: 10),
+            _buildComponentForTablet(
+              context,
+              text: 'COMPREHENSION',
+              value: .35,
+            ),
+            const Divider(color: Colors.transparent, height: 10),
+            _buildComponentForTablet(
+              context,
+              text: 'GLOBAL KNOWLEDGE',
+              value: .7,
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Container(
+        margin: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
+        padding: const EdgeInsets.all(16),
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: ColorsPallet.darkComponentBackground,
+          borderRadius: BorderRadius.circular(32),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildComponent(context, text: 'GRAMMAR', value: .5),
+            const Divider(color: Colors.transparent, height: 10),
+            _buildComponent(context, text: 'COMPREHENSION', value: .35),
+            const Divider(color: Colors.transparent, height: 10),
+            _buildComponent(context, text: 'GLOBAL KNOWLEDGE', value: .7),
+          ],
+        ),
+      );
     }
-    
   }
 
   Widget _buildComponentForTablet(
@@ -93,6 +100,7 @@ return Container(
       ),
     );
   }
+
   Widget _buildComponent(
     context, {
     required String text,

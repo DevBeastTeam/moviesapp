@@ -3,6 +3,7 @@ import 'package:edutainment/icons/icons_light.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../constants/appimages.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/indicators/custom_progress_bar.dart';
@@ -44,6 +45,8 @@ class ProfileHeader extends StatelessWidget {
                       },
                       child: const Icon(AppIconsLight.gear, size: 18),
                     ),
+                    SizedBox(width: 8),
+                    Image.asset(AppImages.flashcardsblue, width: 30, color: Colors.white)
                   ],
                 ),
                 SizedBox(height: 10),
@@ -210,6 +213,8 @@ class ProfileHeader extends StatelessWidget {
                               fontSize: 22,
                             ),
                           ),
+                          SizedBox(width: 10),
+                           Image.asset(AppImages.flashcardsblue, width: 30, color: Colors.white)
                           // Image.network('name')
                         ],
                       ),

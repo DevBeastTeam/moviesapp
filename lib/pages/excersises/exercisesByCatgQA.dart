@@ -159,7 +159,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../providers/exercisesVm.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
-import '../../widgets/loaders/dotloader.dart';
 
 class ExcerciseByCatgQAPage extends ConsumerStatefulWidget {
   final String labelTitle;
