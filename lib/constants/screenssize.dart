@@ -1,7 +1,27 @@
-import 'package:edutainment/main.dart';
 import 'package:flutter/material.dart';
 
-class ScreenSize {
-  static var width = MediaQuery.of(globalKey.currentState!.context).size.width;
-  static var height = MediaQuery.of(globalKey.currentState!.context).size.height;
+class Screen {
+  static width(BuildContext context) {
+    return MediaQuery.of(context).size.width;
+  }
+
+  static height(BuildContext context) {
+    return MediaQuery.of(context).size.height;
+  }
+
+  static bool isPortrait(BuildContext context) {
+    return MediaQuery.of(context).orientation == Orientation.portrait;
+  }
+
+  static bool isLandscape(BuildContext context) {
+    return MediaQuery.of(context).orientation == Orientation.landscape;
+  }
+
+  static bool isTablet(BuildContext context) {
+    return MediaQuery.of(context).size.shortestSide >= 600;
+  }
+
+  static bool isPhone(BuildContext context) {
+    return !isTablet(context);
+  }
 }
