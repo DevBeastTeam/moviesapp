@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:humanize_duration/humanize_duration.dart';
 
 import '../../../theme/colors.dart';
+import '../../../utils/screen_utils.dart';
 import '../../../utils/assets/assets_icons.dart';
 import '../../../widgets/icon/gradient_icon.dart';
 
@@ -18,92 +19,91 @@ class ProfileStatistics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
-    bool isTablet = w > 450 ? true : false;
-    
-    if(isTablet){
-          return Container(
-      margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
-      padding: const EdgeInsets.all(10),
-      width: w* 0.3,
-      height: w* 0.3,
-      decoration: BoxDecoration(
-        color: ColorsPallet.darkComponentBackground,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: ListView(
-        shrinkWrap: true,
-        controller: ScrollController(),
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildComponentForTablet(
-                text: 'COMPLETED QUESTIONS',
-                value: '${getIn(statistics, 'questions', 0)}',
-                icon: EdutainmentIcons.question,
-                colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
-              ),
-              _buildComponentForTablet(
-                text: 'VALIDATED QUESTIONS',
-                value: '${getIn(statistics, 'questions_validated', 0)}',
-                icon: EdutainmentIcons.check,
-                colors: const [Color(0xff1df370), Color(0xff2589e0)],
-              ),
-            ],
-          ),
-          const Divider(color: Colors.transparent, height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildComponentForTablet(
-                text: 'TIME SPENT',
-                value: humanizeDuration(
-                  Duration(seconds: getIn(statistics, 'time', 0)),
-                ),
-                icon: EdutainmentIcons.clock,
-                colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
-              ),
-              _buildComponentForTablet(
-                text: 'FINISHED MOVIES',
-                value: '${getIn(statistics, 'movies', 0)}',
-                icon: EdutainmentIcons.movie,
-                colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
-              ),
-            ],
-          ),
-          const Divider(color: Colors.transparent, height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildComponentForTablet(
-                text: 'PASSED TESTS',
-                value: '${getIn(statistics, 'quizz', 0)}',
-                icon: EdutainmentIcons.validateTest,
-                colors: const [Color(0xff1df370), Color(0xff2589e0)],
-              ),
-              _buildComponentForTablet(
-                text: 'COMPLETED LESSONS',
-                value: '${getIn(statistics, 'lessons', 0)}',
-                icon: EdutainmentIcons.validateLesson,
-                colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+    final screen = ScreenUtils(context);
 
+    if (screen.isTablet) {
+      return Container(
+        margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+        padding: const EdgeInsets.all(10),
+        width: screen.width * 0.3,
+        height: screen.width * 0.3,
+        decoration: BoxDecoration(
+          color: ColorsPallet.darkComponentBackground,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: ListView(
+          shrinkWrap: true,
+          controller: ScrollController(),
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildComponentForTablet(
+                  text: 'COMPLETED QUESTIONS',
+                  value: '${getIn(statistics, 'questions', 0)}',
+                  icon: EdutainmentIcons.question,
+                  colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                ),
+                _buildComponentForTablet(
+                  text: 'VALIDATED QUESTIONS',
+                  value: '${getIn(statistics, 'questions_validated', 0)}',
+                  icon: EdutainmentIcons.check,
+                  colors: const [Color(0xff1df370), Color(0xff2589e0)],
+                ),
+              ],
+            ),
+            const Divider(color: Colors.transparent, height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildComponentForTablet(
+                  text: 'TIME SPENT',
+                  value: humanizeDuration(
+                    Duration(seconds: getIn(statistics, 'time', 0)),
+                  ),
+                  icon: EdutainmentIcons.clock,
+                  colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                ),
+                _buildComponentForTablet(
+                  text: 'FINISHED MOVIES',
+                  value: '${getIn(statistics, 'movies', 0)}',
+                  icon: EdutainmentIcons.movie,
+                  colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                ),
+              ],
+            ),
+            const Divider(color: Colors.transparent, height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildComponentForTablet(
+                  text: 'PASSED TESTS',
+                  value: '${getIn(statistics, 'quizz', 0)}',
+                  icon: EdutainmentIcons.validateTest,
+                  colors: const [Color(0xff1df370), Color(0xff2589e0)],
+                ),
+                _buildComponentForTablet(
+                  text: 'COMPLETED LESSONS',
+                  value: '${getIn(statistics, 'lessons', 0)}',
+                  icon: EdutainmentIcons.validateLesson,
+                  colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
     }
     return Container(
-      margin: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
+      margin: screen.isLandscape
+          ? const EdgeInsets.all(8)
+          : const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       padding: const EdgeInsets.all(16),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
@@ -181,7 +181,7 @@ class ProfileStatistics extends StatelessWidget {
     );
   }
 
-    Widget _buildComponentForTablet({
+  Widget _buildComponentForTablet({
     required String text,
     required IconData icon,
     required List<Color> colors,
@@ -230,8 +230,6 @@ class ProfileStatistics extends StatelessWidget {
       ),
     );
   }
-
-
 
   Widget _buildComponent({
     required String text,
@@ -282,6 +280,4 @@ class ProfileStatistics extends StatelessWidget {
       ),
     );
   }
-
-
 }

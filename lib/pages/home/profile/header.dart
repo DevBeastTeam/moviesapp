@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../constants/appimages.dart';
+import '../../../utils/screen_utils.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/indicators/custom_progress_bar.dart';
@@ -15,16 +16,14 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
-    bool isTablet = w > 450 ? true : false;
+    final screen = ScreenUtils(context);
 
-    if (isTablet) {
+    if (screen.isTablet) {
       return Container(
         margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
         padding: const EdgeInsets.all(10),
-          width: w*0.3,
-      height: w*0.3,
+        width: screen.width * 0.3,
+        height: screen.width * 0.3,
         // constraints: const BoxConstraints(maxHeight: 225),
         decoration: BoxDecoration(
           color: ColorsPallet.darkComponentBackground,
@@ -46,7 +45,11 @@ class ProfileHeader extends StatelessWidget {
                       child: const Icon(AppIconsLight.gear, size: 18),
                     ),
                     SizedBox(width: 8),
-                    Image.asset(AppImages.flashcardsblue, width: 30, color: Colors.white)
+                    Image.asset(
+                      AppImages.flashcardsblue,
+                      width: 30,
+                      color: Colors.white,
+                    ),
                   ],
                 ),
                 SizedBox(height: 10),
@@ -135,7 +138,7 @@ class ProfileHeader extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 10)
+                SizedBox(height: 10),
               ],
             ),
           ],
@@ -143,7 +146,9 @@ class ProfileHeader extends StatelessWidget {
       );
     } else {
       return Container(
-        margin: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
+        margin: screen.isLandscape
+            ? const EdgeInsets.all(8)
+            : const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
         padding: const EdgeInsets.all(24),
         width: MediaQuery.of(context).size.width,
         // constraints: const BoxConstraints(maxHeight: 225),
@@ -214,7 +219,11 @@ class ProfileHeader extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 10),
-                           Image.asset(AppImages.flashcardsblue, width: 30, color: Colors.white)
+                          Image.asset(
+                            AppImages.flashcardsblue,
+                            width: 30,
+                            color: Colors.white,
+                          ),
                           // Image.network('name')
                         ],
                       ),
@@ -275,6 +284,5 @@ class ProfileHeader extends StatelessWidget {
         ),
       );
     }
-
   }
 }

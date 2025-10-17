@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../theme/colors.dart';
+import '../../../utils/screen_utils.dart';
 import '../../../utils/assets/assets_icons.dart';
 import '../../../widgets/icon/gradient_icon.dart';
 
@@ -11,88 +12,86 @@ class ProfileButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-         var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
-    bool isTablet = w > 450 ? true : false;
-    
-    if(isTablet){
-         return Container(
+    final screen = ScreenUtils(context);
 
-      margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
-         decoration: BoxDecoration(
+    if (screen.isTablet) {
+      return Container(
+        margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+        decoration: BoxDecoration(
           color: ColorsPallet.darkComponentBackground,
           borderRadius: BorderRadius.circular(10),
         ),
-      alignment: Alignment.center,
-        width: w*0.3,
-      height: w*0.3,
-      child: GridView(
-        shrinkWrap: true,
-        controller: ScrollController(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
-          childAspectRatio: 1.5,
+        alignment: Alignment.center,
+        width: screen.width * 0.3,
+        height: screen.width * 0.3,
+        child: GridView(
+          shrinkWrap: true,
+          controller: ScrollController(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            childAspectRatio: 1.5,
+          ),
+          padding: const EdgeInsets.all(8),
+          children: [
+            _buildComponentForTablet(
+              context: context,
+              text: 'Ai CHAT',
+              assetImg: AppImages.ai2,
+              isImg: true,
+              // icon: EdutainmentIcons.writing,
+              colors: const [Color(0xff02eac1), Color(0xff2992f9)],
+              onPressed: () {
+                context.go('/home/AIMenuPage');
+              },
+            ),
+            _buildComponentForTablet(
+              context: context,
+              text: 'PRONUNCIATION',
+              icon: EdutainmentIcons.pronunciation,
+              colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+              onPressed: () {
+                context.go('/home/PronlevelsPage');
+              },
+            ),
+            _buildComponentForTablet(
+              context: context,
+              text: 'FLASHCARDS',
+              assetImg: AppImages.flashcards,
+              isImg: true,
+              colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+              onPressed: () {
+                context.go('/home/fc');
+              },
+            ),
+            _buildComponentForTablet(
+              context: context,
+              // text: 'GRAMMAR',
+              text: 'LESSONS',
+              icon: EdutainmentIcons.grammar,
+              colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+              onPressed: () async {
+                context.go('/home/GrammerPage');
+              },
+            ),
+            _buildComponentForTablet(
+              context: context,
+              text: 'EXERCISES',
+              icon: EdutainmentIcons.exercices,
+              colors: const [Color(0xfffd6378), Color(0xffa11111)],
+              onPressed: () {
+                context.go('/home/ExcersisesPage');
+              },
+            ),
+          ],
         ),
-        padding: const EdgeInsets.all(8),
-        children: [
-          _buildComponentForTablet(
-            context: context,
-            text: 'Ai CHAT',
-            assetImg: AppImages.ai2,
-            isImg: true,
-            // icon: EdutainmentIcons.writing,
-            colors: const [Color(0xff02eac1), Color(0xff2992f9)],
-            onPressed: () {
-              context.go('/home/AIMenuPage');
-            },
-          ),
-          _buildComponentForTablet(
-            context: context,
-            text: 'PRONUNCIATION',
-            icon: EdutainmentIcons.pronunciation,
-            colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
-            onPressed: () {
-              context.go('/home/PronlevelsPage');
-            },
-          ),
-          _buildComponentForTablet(
-            context: context,
-            text: 'FLASHCARDS',
-            assetImg: AppImages.flashcards,
-            isImg: true,
-            colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
-            onPressed: () {
-              context.go('/home/fc'); 
-            },
-          ),
-          _buildComponentForTablet(
-            context: context,
-            // text: 'GRAMMAR',
-            text: 'LESSONS',
-            icon: EdutainmentIcons.grammar,
-            colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
-            onPressed: () async {
-              context.go('/home/GrammerPage');
-            },
-          ),
-          _buildComponentForTablet(
-            context: context,
-            text: 'EXERCISES',
-            icon: EdutainmentIcons.exercices,
-            colors: const [Color(0xfffd6378), Color(0xffa11111)],
-            onPressed: () {
-              context.go('/home/ExcersisesPage');
-            },
-          ),
-        ],
-      ),
-    );
- 
+      );
     }
     return Container(
-      margin: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
+      margin: screen.isLandscape
+          ? const EdgeInsets.all(8)
+          : const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width,
       child: Column(
@@ -210,7 +209,7 @@ class ProfileButtons extends StatelessWidget {
                     colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                     onPressed: () {
                       context.go('/home/PronlevelsPage');
-                    // ref.watch(pronounciationVm).getPronounciationF();
+                      // ref.watch(pronounciationVm).getPronounciationF();
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(
@@ -246,7 +245,7 @@ class ProfileButtons extends StatelessWidget {
               children: [
                 // SizedBox.fromSize(size: const Size(8, 8)),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.45,
+                  width: MediaQuery.of(context).size.width * 0.42,
                   child: _buildComponent(
                     context: context,
                     text: 'FLASHCARDS',
@@ -254,7 +253,7 @@ class ProfileButtons extends StatelessWidget {
                     isImg: true,
                     colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                     onPressed: () {
-                      context.go('/home/fc'); 
+                      context.go('/home/fc');
                     },
                   ),
                 ),
@@ -284,7 +283,7 @@ class ProfileButtons extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       onPressed: onPressed,
       child: SizedBox(
-        width: MediaQuery.of(context).size.width *0.13,
+        width: MediaQuery.of(context).size.width * 0.13,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -297,7 +296,7 @@ class ProfileButtons extends StatelessWidget {
                     size: 35,
                     gradient: LinearGradient(colors: colors),
                   ),
-                  SizedBox(height: 10),
+            SizedBox(height: 10),
             Text(
               text,
               style: const TextStyle(
@@ -311,6 +310,7 @@ class ProfileButtons extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildComponent({
     required BuildContext context,
     required String text,
