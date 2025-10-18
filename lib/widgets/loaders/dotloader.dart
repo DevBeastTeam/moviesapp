@@ -4,7 +4,7 @@ import 'dart:math' as math show sin, pi;
 class DotLoader extends StatefulWidget {
   const DotLoader({
     super.key,
-    this.color = const Color.fromARGB(193, 255, 230, 0),
+    this.color = Colors.blue,
     this.size = 27.0,
     this.itemBuilder,
     this.duration = const Duration(milliseconds: 1100),
@@ -34,9 +34,10 @@ class _DotLoaderState extends State<DotLoader>
   void initState() {
     super.initState();
 
-    _controller = (widget.controller ??
-        AnimationController(vsync: this, duration: widget.duration))
-      ..repeat();
+    _controller =
+        (widget.controller ??
+              AnimationController(vsync: this, duration: widget.duration))
+          ..repeat();
   }
 
   @override
@@ -75,8 +76,11 @@ class _DotLoaderState extends State<DotLoader>
   Widget _itemBuilder(int index) => widget.itemBuilder != null
       ? widget.itemBuilder!(context, index)
       : DecoratedBox(
-          decoration:
-              BoxDecoration(color: widget.color, shape: BoxShape.circle));
+          decoration: BoxDecoration(
+            color: widget.color,
+            shape: BoxShape.circle,
+          ),
+        );
 }
 
 ////////////

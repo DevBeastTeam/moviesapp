@@ -12,7 +12,9 @@ import '../widgets/ui/primary_button.dart';
 class ApiHelper {
   // static const String _baseUrl = 'https://dev.play.e-dutainment.com';
   // static const String _baseUrl = 'https://terminator.e-dutainment.com'; // was worked with this
+  //  New base api = play.e-dutainment.com (for all endpoint)
   static const String _baseUrl = 'https://play.e-dutainment.com';
+
   // static const String _baseUrl = 'https://play.e-dutainment.com';
   static const String _basePath = '/api/1.0';
   late Dio _dio;
@@ -26,25 +28,27 @@ class ApiHelper {
   }
 
   void initDio() {
-    _dio = Dio(BaseOptions(
-      baseUrl: _baseUrl + _basePath,
-      headers: {
-        'x-auth-type': 'jwt',
-      },
-    ));
-    _dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
-        print(options.uri);
-        // print(options.headers[HttpHeaders.authorizationHeader]);
-        return handler.next(options);
-      },
-      onResponse: (Response response, ResponseInterceptorHandler handler) {
-        return handler.next(response);
-      },
-      onError: (DioException e, ErrorInterceptorHandler handler) {
-        return handler.next(e);
-      },
-    ));
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: _baseUrl + _basePath,
+        headers: {'x-auth-type': 'jwt'},
+      ),
+    );
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
+          print(options.uri);
+          // print(options.headers[HttpHeaders.authorizationHeader]);
+          return handler.next(options);
+        },
+        onResponse: (Response response, ResponseInterceptorHandler handler) {
+          return handler.next(response);
+        },
+        onError: (DioException e, ErrorInterceptorHandler handler) {
+          return handler.next(e);
+        },
+      ),
+    );
   }
 
   Future fillHeaders() async {
@@ -66,19 +70,21 @@ class ApiHelper {
       print(e);
       if (ctx == null) {
         return Future.error(
-            'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.');
+          'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
+        );
       }
       await AwesomeDialog(
-          context: ctx,
-          dialogType: DialogType.error,
-          title: 'Error',
-          desc:
-              'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
-          btnOkOnPress: () {},
-          btnOk: PrimaryButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            text: 'Close',
-          )).show();
+        context: ctx,
+        dialogType: DialogType.error,
+        title: 'Error',
+        desc:
+            'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
+        btnOkOnPress: () {},
+        btnOk: PrimaryButton(
+          onPressed: () => Navigator.of(ctx).pop(),
+          text: 'Close',
+        ),
+      ).show();
     }
     return responseJson;
   }
@@ -96,25 +102,31 @@ class ApiHelper {
       debugPrint("e:$e");
       if (ctx == null) {
         return Future.error(
-            'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.');
+          'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
+        );
       }
       await AwesomeDialog(
-          context: ctx,
-          dialogType: DialogType.error,
-          title: 'Error',
-          desc:
-              'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
-          btnOkOnPress: () {},
-          btnOk: PrimaryButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            text: 'Close',
-          )).show();
+        context: ctx,
+        dialogType: DialogType.error,
+        title: 'Error',
+        desc:
+            'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
+        btnOkOnPress: () {},
+        btnOk: PrimaryButton(
+          onPressed: () => Navigator.of(ctx).pop(),
+          text: 'Close',
+        ),
+      ).show();
     }
     return responseJson;
   }
 
-  Future<dynamic> post(String url, dynamic body, ctx,
-      [responseType = ResponseType.json]) async {
+  Future<dynamic> post(
+    String url,
+    dynamic body,
+    ctx, [
+    responseType = ResponseType.json,
+  ]) async {
     await fillHeaders();
     dynamic responseJson;
     print(url);
@@ -130,20 +142,22 @@ class ApiHelper {
     } on DioException {
       if (ctx == null) {
         return Future.error(
-            'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.');
+          'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
+        );
       }
 
       await AwesomeDialog(
-          context: ctx,
-          dialogType: DialogType.error,
-          title: 'Error',
-          desc:
-              'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
-          btnOkOnPress: () {},
-          btnOk: PrimaryButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            text: 'Close',
-          )).show();
+        context: ctx,
+        dialogType: DialogType.error,
+        title: 'Error',
+        desc:
+            'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
+        btnOkOnPress: () {},
+        btnOk: PrimaryButton(
+          onPressed: () => Navigator.of(ctx).pop(),
+          text: 'Close',
+        ),
+      ).show();
     }
     // print('api post.');
     return responseJson;

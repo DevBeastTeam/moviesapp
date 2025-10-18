@@ -1,3 +1,5 @@
+import 'package:edutainment/helpers/forstrings.dart';
+
 class GrammerModel {
   final Map<String, List<Lesson>> groupLessons;
   final List<AllowedCategory> allowedLessonCategory;
@@ -85,10 +87,10 @@ class AllowedCategory {
 
   factory AllowedCategory.fromJson(Map<String, dynamic> json) =>
       AllowedCategory(
-        id: json['_id'] as String,
-        reference: json['reference'] as String,
-        label: json['label'] as String,
-        level: json['level'] as String?,
+        id: json['_id'].toString().toNullString(),
+        reference: json['reference'].toString().toNullString(),
+        label: json['label'].toString().toNullString(),
+        level: json['level'].toString().toNullString(),
       );
 
   Map<String, dynamic> toJson() => {

@@ -35,14 +35,11 @@ class GrammerData extends ChangeNotifier {
   }
 
   ////////
-  void getGrammersF(
-    context, {
-    String loadingFor = '',
-  }) async {
+  void getGrammersF(context, {String loadingFor = ''}) async {
     try {
-      if (grammersList.isNotEmpty) return;
-          setLoadingF(loadingFor);
-      
+      // if (grammersList.isNotEmpty) return;
+      setLoadingF(loadingFor);
+
       var data = await baseApi.get('/lessons/grammar', context);
       // debugPrint('👉 grammersList: $data');
       log('👉 grammersList: $data');
@@ -62,7 +59,7 @@ class GrammerData extends ChangeNotifier {
     }
   }
 
-   ////////
+  ////////
   //  List grammersCatgList = [] ;
   //  getGrammersByIdForCatgListF(
   //   context, {
@@ -72,7 +69,7 @@ class GrammerData extends ChangeNotifier {
   //   try {
   //     // if (grammersList.isNotEmpty) return;
   //       setLoadingF(loadingFor);
-      
+
   //     // debugPrint('👉 grammersList: $data');
   //     var data = await baseApi.get('/lessons/grammar/$levelId', context);
 
@@ -94,8 +91,6 @@ class GrammerData extends ChangeNotifier {
   //   }
   // }
 
-
-
   int get sletedLableIndexIs => _slectedLableIndexIs;
 
   set setSelctedLableIndexIs(int index) {
@@ -114,19 +109,24 @@ class GrammerData extends ChangeNotifier {
     }
   }
 
-   getGrammerSingleByIdF(
+  getGrammerSingleByIdF(
     context, {
     required String id,
     String loadingFor = '',
   }) async {
     try {
-        setLoadingF(loadingFor);
+      setLoadingF(loadingFor);
 
       log('👉 getGrammerSingleByIdF id: $id');
       // /lessons/exercises/lessonId/questions --> 652969624622968d66f2e888
+      //  '/lessons/grammar/6891e84d712218729f256029',   working
       var data = await baseApi.get('/lessons/grammar/$id', context);
+      // var data = await baseApi.get(
+      //   '/lessons/grammar/63f0ba7fe75faea17ab6c556',
+      //   context,
+      // );
       // var data = await baseApi.get('/lessons/grammar?category=b1', context);
-      
+
       log('👉 getGrammerSingleByIdF data: $data');
 
       if (data['success'].toString() == 'true') {
@@ -145,7 +145,7 @@ class GrammerData extends ChangeNotifier {
     }
   }
 
-////////////////////////
+  ////////////////////////
 
   Timer? _timer;
   int remainingSeconds = 10;
@@ -173,7 +173,7 @@ class GrammerData extends ChangeNotifier {
 
       if (remainingSeconds <= 1) {
         remainingSeconds = 10;
-        
+
         if (sletedLableIndexIs < labelsLessons.length - 1) {
           setSelctedLableIndexIs = sletedLableIndexIs + 1;
           getGrammerSingleByIdF(
@@ -188,7 +188,7 @@ class GrammerData extends ChangeNotifier {
       } else {
         remainingSeconds--;
       }
-      
+
       _safeNotify();
     });
   }
@@ -206,54 +206,50 @@ class GrammerData extends ChangeNotifier {
     super.dispose();
   }
 
+  ////////////////////////
+  // Timer? timer;
+  //   int remainingSeconds = 4;
+  //   bool isTimerStart = false;
 
+  //   void stopTimer() {
+  //     timer?.cancel();
+  //     isTimerStart = false;
+  //     notifyListeners();
+  //   }
 
+  //   void playTimer(BuildContext context, {List labelsLessons = const []}) {
+  //     if (isTimerStart) return; // Prevent multiple timers
 
-////////////////////////
-// Timer? timer;
-//   int remainingSeconds = 4;
-//   bool isTimerStart = false;
+  //     isTimerStart = true;
+  //     notifyListeners();
 
-//   void stopTimer() {
-//     timer?.cancel();
-//     isTimerStart = false;
-//     notifyListeners();
-//   }
+  //     timer = Timer.periodic(Duration(seconds: 1), (timer) {
+  //       if (remainingSeconds <= 1) {
+  //         remainingSeconds = 4;
 
-//   void playTimer(BuildContext context, {List labelsLessons = const []}) {
-//     if (isTimerStart) return; // Prevent multiple timers
-    
-//     isTimerStart = true;
-//     notifyListeners();
+  //         // Check if we can move to next item
+  //         if (sletedLableIndexIs < labelsLessons.length - 1) {
+  //           setSelctedLableIndexIs = sletedLableIndexIs + 1;
+  //           getGrammerSingleByIdF(
+  //             context,
+  //             loadingFor: 'next',
+  //             id: labelsLessons[sletedLableIndexIs + 1].id,
+  //           );
+  //         } else {
+  //           toast(context, msg: "Maximum Reached");
+  //           stopTimer();
+  //         }
+  //       } else {
+  //         remainingSeconds--;
+  //       }
 
-//     timer = Timer.periodic(Duration(seconds: 1), (timer) {
-//       if (remainingSeconds <= 1) {
-//         remainingSeconds = 4;
-        
-//         // Check if we can move to next item
-//         if (sletedLableIndexIs < labelsLessons.length - 1) {
-//           setSelctedLableIndexIs = sletedLableIndexIs + 1;
-//           getGrammerSingleByIdF(
-//             context,
-//             loadingFor: 'next',
-//             id: labelsLessons[sletedLableIndexIs + 1].id,
-//           );
-//         } else {
-//           toast(context, msg: "Maximum Reached");
-//           stopTimer();
-//         }
-//       } else {
-//         remainingSeconds--;
-//       }
-      
-//       notifyListeners();
-//     });
-//   }
+  //       notifyListeners();
+  //     });
+  //   }
 
-//   @override
-//   void dispose() {
-//     timer?.cancel();
-//     super.dispose();
-//   }
-
+  //   @override
+  //   void dispose() {
+  //     timer?.cancel();
+  //     super.dispose();
+  //   }
 }

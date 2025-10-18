@@ -1,8 +1,10 @@
+import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quick_widgets/widgets/tiktok.dart';
 import '../../providers/grammerVm.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
@@ -23,7 +25,7 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
 
   void syncFirstF() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(grammerData).getGrammersF(context,loadingFor: "grammer");
+      ref.read(grammerData).getGrammersF(context, loadingFor: "grammer");
     });
   }
 
@@ -49,6 +51,9 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
               title: 'Lessons',
             ),
 
+            if (ref.watch(grammerData).loadingFor == "grammer")
+              QuickTikTokLoader(),
+
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Text(
@@ -61,25 +66,8 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
               ),
             ),
 
-            if (ref.watch(grammerData).loadingFor=="grammer")
-              Padding(
-                padding: EdgeInsets.only(top: h * 0.45),
-                child: const Center(child: DotLoader()),
-              )
-            else if (ref.watch(grammerData).grammersList.isEmpty)
-              Padding(
-                padding: EdgeInsets.only(top: h * 0.45),
-                child: Center(
-                  child: Text(
-                    'Empty',
-                    style: t.titleMedium!.copyWith(
-                      color: Colors.orange,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
-                    ),
-                  ),
-                ),
-              )
+            if (ref.watch(grammerData).grammersList.isEmpty)
+              EmptyWidget()
             else
               Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -102,15 +90,21 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
                     return buildLevelBox(
                       level.label,
                       // subtitle: "",
-                      onTap: () async{
-                        // in future if need 
-                      //  await ref.read(grammerData).getGrammersByIdForCatgListF(context, levelId:level.id , loadingFor: "grammerCatg");
-                       await ref.read(grammerData).getGrammerSingleByIdF(context, id:level.id , loadingFor: "grammerCatg");
-                        
-                        context.go('/home/GrammerPage/grammerCatg', extra: {
-                          "id":level.id.toString(),
-                          "level": level,
-                        });
+                      onTap: () async {
+                        // in future if need
+                        //  await ref.read(grammerData).getGrammersByIdForCatgListF(context, levelId:level.id , loadingFor: "grammerCatg");
+                        await ref
+                            .read(grammerData)
+                            .getGrammerSingleByIdF(
+                              context,
+                              id: level.id,
+                              loadingFor: "grammerCatg",
+                            );
+
+                        context.go(
+                          '/home/GrammerPage/grammerCatg',
+                          extra: {"id": level.id.toString(), "level": level},
+                        );
 
                         // Navigator.push(
                         //   context,

@@ -1,6 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:edutainment/constants/appimages.dart';
-import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/icons/icons_light.dart';
 import 'package:edutainment/utils/utils.dart';
 import 'package:edutainment/widgets/ui/primary_button.dart';
@@ -45,13 +44,13 @@ class _AuthPage extends State<AuthPage> {
 
   EdgeInsets getResponsivePadding() {
     if (isTablet) {
-      return isLandscape 
-        ? const EdgeInsets.symmetric(horizontal: 120, vertical: 20)
-        : const EdgeInsets.symmetric(horizontal: 80, vertical: 40);
+      return isLandscape
+          ? const EdgeInsets.symmetric(horizontal: 120, vertical: 20)
+          : const EdgeInsets.symmetric(horizontal: 80, vertical: 40);
     } else {
-      return isLandscape 
-        ? const EdgeInsets.symmetric(horizontal: 60, vertical: 10)
-        : const EdgeInsets.symmetric(horizontal: 40, vertical: 20);
+      return isLandscape
+          ? const EdgeInsets.symmetric(horizontal: 60, vertical: 10)
+          : const EdgeInsets.symmetric(horizontal: 40, vertical: 20);
     }
   }
 
@@ -87,10 +86,12 @@ class _AuthPage extends State<AuthPage> {
               if (isLandscape && isTablet)
                 _buildLandscapeTabletLayout(constraints)
               else
-                PageView(children: [
-                  _buildBannerPage(constraints), 
-                  _buildFieldsPage(constraints)
-                ]),
+                PageView(
+                  children: [
+                    _buildBannerPage(constraints),
+                    _buildFieldsPage(constraints),
+                  ],
+                ),
             ],
           );
         },
@@ -101,30 +102,25 @@ class _AuthPage extends State<AuthPage> {
   Widget _buildLandscapeTabletLayout(BoxConstraints constraints) {
     return Row(
       children: [
-        Expanded(
-          flex: 1,
-          child: _buildBannerPage(constraints),
-        ),
-        Expanded(
-          flex: 1,
-          child: _buildFieldsPage(constraints),
-        ),
+        Expanded(flex: 1, child: _buildBannerPage(constraints)),
+        Expanded(flex: 1, child: _buildFieldsPage(constraints)),
       ],
     );
   }
+
   Widget _buildBannerPage(BoxConstraints constraints) {
-    final logoSize = isTablet 
-      ? (isLandscape ? 120.0 : 180.0)
-      : (isLandscape ? 80.0 : 150.0);
-    
+    final logoSize = isTablet
+        ? (isLandscape ? 120.0 : 180.0)
+        : (isLandscape ? 80.0 : 150.0);
+
     final titleSize = getResponsiveSize(
-      isLandscape ? 24.0 : 32.0, 
-      isLandscape ? 32.0 : 40.0
+      isLandscape ? 24.0 : 32.0,
+      isLandscape ? 32.0 : 40.0,
     );
-    
+
     final textSize = getResponsiveSize(
-      isLandscape ? 12.0 : 14.0, 
-      isLandscape ? 14.0 : 16.0
+      isLandscape ? 12.0 : 14.0,
+      isLandscape ? 14.0 : 16.0,
     );
 
     return Stack(
@@ -150,8 +146,8 @@ class _AuthPage extends State<AuthPage> {
                   child: Text(
                     'E-DUTAINMENT',
                     style: TextStyle(
-                      fontSize: titleSize, 
-                      fontFamily: 'Football Attack'
+                      fontSize: titleSize,
+                      fontFamily: 'Football Attack',
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -187,13 +183,13 @@ e-dutainment.com.
   }
 
   Widget _buildFieldsPage(BoxConstraints constraints) {
-    final logoSize = isTablet 
-      ? (isLandscape ? 100.0 : 140.0)
-      : (isLandscape ? 70.0 : 120.0);
-    
-    final bannerWidth = isTablet 
-      ? (isLandscape ? 200.0 : 280.0)
-      : (isLandscape ? 150.0 : 230.0);
+    final logoSize = isTablet
+        ? (isLandscape ? 100.0 : 140.0)
+        : (isLandscape ? 70.0 : 120.0);
+
+    final bannerWidth = isTablet
+        ? (isLandscape ? 200.0 : 280.0)
+        : (isLandscape ? 150.0 : 230.0);
 
     return Stack(
       alignment: Alignment.center,
@@ -261,7 +257,7 @@ e-dutainment.com.
                     maxWidth: isTablet ? 400 : double.infinity,
                   ),
                   margin: EdgeInsets.symmetric(
-                    vertical: getResponsiveSize(8, 16)
+                    vertical: getResponsiveSize(8, 16),
                   ),
                   child: PrimaryButton(
                     radius: 25,
@@ -321,14 +317,10 @@ e-dutainment.com.
                 SizedBox(height: getResponsiveSize(8, 16)),
                 Text(
                   'a service by',
-                  style: TextStyle(
-                    fontSize: getResponsiveSize(12, 14),
-                  ),
+                  style: TextStyle(fontSize: getResponsiveSize(12, 14)),
                 ),
                 SizedBox(height: getResponsiveSize(4, 8)),
-                AssetsImage.bannerColor.toImage(
-                  width: bannerWidth,
-                ),
+                AssetsImage.bannerColor.toImage(width: bannerWidth),
                 SizedBox(height: getResponsiveSize(16, 24)),
               ],
             ),

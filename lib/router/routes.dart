@@ -1,10 +1,10 @@
 import 'package:edutainment/pages/excersises/excerciseCatg.dart';
 import 'package:edutainment/pages/excersises/excersise.dart';
 import 'package:edutainment/pages/flashcards/flashcardslist.dart';
-import 'package:edutainment/pages/grammer/grammer.dart';
+import 'package:edutainment/pages/lessons/grammer.dart';
 import 'package:edutainment/pages/home/profile/profile_settings_page.dart';
-import 'package:edutainment/pages/grammer/grammerdetail.dart';
-import 'package:edutainment/pages/grammer/grammerCatg.dart';
+import 'package:edutainment/pages/lessons/grammerdetail.dart';
+import 'package:edutainment/pages/lessons/grammerCatg.dart';
 import 'package:edutainment/pages/ponounciations/pronLevels.dart';
 import 'package:edutainment/pages/tests/tests_base_page.dart';
 import 'package:edutainment/utils/boxes.dart';
