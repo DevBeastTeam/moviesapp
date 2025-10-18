@@ -51,8 +51,8 @@ class ProfileProgress extends StatelessWidget {
       return Container(
         margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
         padding: const EdgeInsets.all(10),
-        width: screen.width * 0.43,
-        height: screen.width * 0.43,
+        width: screen.width * 0.99,
+        height: screen.height * 0.22,
         decoration: BoxDecoration(
           color: ColorsPallet.darkComponentBackground,
           borderRadius: BorderRadius.circular(20),

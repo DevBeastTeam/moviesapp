@@ -68,7 +68,7 @@ class _HomePage extends ConsumerState<HomePage> {
       // },
       child: DefaultScaffold(
         currentPage: 'profile',
-        hideBottomBar: screen.isTablet || screen.isLandscape,
+        hideBottomBar: screen.isTablet && !screen.isLandscape,
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(
@@ -209,92 +209,19 @@ class _HomePage extends ConsumerState<HomePage> {
                     )
                   : screen.isTablet && !screen.isLandscape
                   ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Row(
-                            children: [
-                              SizedBox(width: screen.width * 0.05),
-                              Image.asset(AppImages.lion, width: 25),
-                              Text(
-                                ' E-DUTAINMENT  ',
-                                style: TextStyle(
-                                  fontFamily: 'Football Attack',
-                                  color: Colors.white,
-                                  height: 0,
-                                  fontWeight: Theme.of(
-                                    context,
-                                  ).textTheme.titleLarge?.fontWeight!,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  context.go("/home");
-                                },
-                                child: Text("PROFILES"),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  context.go("/movies");
-                                },
-                                child: Text("FILMS"),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  context.go("/tests");
-                                },
-                                child: Text("TEST"),
-                              ),
-                            ],
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: "       Welcome Back, ",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "Jimmy ",
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ProfileHeader(user: userData),
-                              ProfileProgress(user: userData),
-                            ],
-                          ),
+                          ProfileHeader(user: userData),
+                          ProfileProgress(user: userData),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const ProfileButtons(),
-
-                              ProfileBadges(
-                                badges: badgesData,
-                                historyBadges: historyBadgesData,
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //   children: [
+                          //   ],
+                          // ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -303,6 +230,12 @@ class _HomePage extends ConsumerState<HomePage> {
                                 statistics: statisticsData,
                               ),
 
+                              const ProfileButtons(),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
                               InkWell(
                                 onTap: () => context.go("/movies"),
                                 child: Container(
@@ -341,6 +274,11 @@ class _HomePage extends ConsumerState<HomePage> {
                                     ],
                                   ),
                                 ),
+                              ),
+
+                              ProfileBadges(
+                                badges: badgesData,
+                                historyBadges: historyBadgesData,
                               ),
                             ],
                           ),

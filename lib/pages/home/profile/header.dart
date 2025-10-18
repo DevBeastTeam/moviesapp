@@ -149,12 +149,12 @@ class ProfileHeader extends StatelessWidget {
       return Container(
         margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
         padding: const EdgeInsets.all(10),
-        width: screen.width * 0.43,
-        height: screen.width * 0.43,
+        width: screen.width * 1,
+        height: screen.height * 0.28,
         // constraints: const BoxConstraints(maxHeight: 225),
         decoration: BoxDecoration(
           color: ColorsPallet.darkComponentBackground,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Stack(
           children: [
@@ -180,38 +180,11 @@ class ProfileHeader extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          '${getIn(user, 'name.given_name', '')}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            overflow: TextOverflow.fade,
-                          ),
-                        ),
-                        Text(
-                          getIn(user, 'Level.label', ''),
-                          style: const TextStyle(
-                            shadows: [
-                              Shadow(
-                                color: ColorsPallet.shadow,
-                                blurRadius: 16,
-                              ),
-                            ],
-                            color: ColorsPallet.blueComponent,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(128),
                       child: CachedNetworkImage(
@@ -230,6 +203,26 @@ class ProfileHeader extends StatelessWidget {
                             const CircularProgressIndicator(),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      '${getIn(user, 'name.given_name', '')}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        overflow: TextOverflow.fade,
+                      ),
+                    ),
+                    Text(
+                      getIn(user, 'Level.label', ''),
+                      style: const TextStyle(
+                        shadows: [
+                          Shadow(color: ColorsPallet.shadow, blurRadius: 16),
+                        ],
+                        color: ColorsPallet.blueComponent,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
                     ),
                   ],
