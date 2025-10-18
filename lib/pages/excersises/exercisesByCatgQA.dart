@@ -149,8 +149,6 @@
 //   }
 // }
 import 'dart:async';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/models/excLessonsStepsModel.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
@@ -220,7 +218,9 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
       _showFeedback = true;
       _timer?.cancel(); // Stop the timer when an answer is selected-
       // update answer on backend
-      ref.watch(excerVm).submitExcercisesAnswerF(context, answerId: answer.id.toString());
+      ref
+          .watch(excerVm)
+          .submitExcercisesAnswerF(context, answerId: answer.id.toString());
     });
 
     // Automatically move to the next question after a short delay
@@ -313,39 +313,39 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
                   ),
                   const SizedBox(height: 15),
                   // Placeholder for media (image/video)
-                  Opacity(
-                    opacity: 0.5,
-                    child: DottedBorder(
-                      options: RectDottedBorderOptions(
-                        dashPattern: [10, 5],
-                        strokeWidth: 2,
-                        color: Colors.grey.shade800,
-                        padding: EdgeInsets.all(16),
-                        gradient: LinearGradient(
-                          begin:Alignment.bottomCenter,
-                          end:Alignment.topCenter,
-                          colors: [
-                          Colors.blue.shade900, 
-                          Colors.grey, 
-                          Colors.grey, 
-                          // Colors.red.shade900, 
-                        ], tileMode: TileMode.decal),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 40,
-                          vertical: 10,
-                        ),
-                        child: Image.asset(
-                          AppImages.unavailable,
-                          height: 70,
-                          // width: 70,
-                          opacity: AlwaysStoppedAnimation(0.4),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Opacity(
+                  //   opacity: 0.5,
+                  //   child: DottedBorder(
+                  //     options: RectDottedBorderOptions(
+                  //       dashPattern: [10, 5],
+                  //       strokeWidth: 2,
+                  //       color: Colors.grey.shade800,
+                  //       padding: EdgeInsets.all(16),
+                  //       gradient: LinearGradient(
+                  //         begin:Alignment.bottomCenter,
+                  //         end:Alignment.topCenter,
+                  //         colors: [
+                  //         Colors.blue.shade900,
+                  //         Colors.grey,
+                  //         Colors.grey,
+                  //         // Colors.red.shade900,
+                  //       ], tileMode: TileMode.decal),
+                  //     ),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.symmetric(
+                  //         horizontal: 40,
+                  //         vertical: 10,
+                  //       ),
+                  //       child: Image.asset(
+                  //         AppImages.unavailable,
+                  //         height: 70,
+                  //         // width: 70,
+                  //         opacity: AlwaysStoppedAnimation(0.4),
+                  //         fit: BoxFit.cover,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(height: 15),
                   // Feedback Section
                   if (_showFeedback)
@@ -378,7 +378,9 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
                               color: isSelected
-                                  ? (_isAnswerCorrect ? Colors.green : Colors.red)
+                                  ? (_isAnswerCorrect
+                                        ? Colors.green
+                                        : Colors.red)
                                   : Colors.grey,
                             ),
                           ),
@@ -388,7 +390,9 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
                               child: Text(
                                 answer.label,
                                 style: TextStyle(
-                                  color: isSelected ? Colors.black : Colors.blue,
+                                  color: isSelected
+                                      ? Colors.black
+                                      : Colors.blue,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                 ),

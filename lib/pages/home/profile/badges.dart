@@ -28,12 +28,98 @@ class ProfileBadgesState extends State<ProfileBadges> {
   Widget build(BuildContext context) {
     final screen = ScreenUtils(context);
 
-    if (screen.isTablet) {
+    if (screen.isTablet && screen.isLandscape) {
       return Container(
         margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
         padding: const EdgeInsets.all(10),
         width: screen.width * 0.3,
         height: screen.width * 0.3,
+        decoration: BoxDecoration(
+          color: ColorsPallet.darkComponentBackground,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomButton(
+                  splashColor: Colors.white.withOpacity(.1),
+                  highlightColor: Colors.white.withOpacity(.09),
+                  onPressed: () => setState(() => showMine = true),
+                  child: Container(
+                    decoration: !showMine
+                        ? null
+                        : const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: ColorsPallet.blueAccent,
+                                width: 2,
+                              ),
+                            ),
+                          ),
+                    child: const Text(
+                      'MINE',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                CustomButton(
+                  splashColor: Colors.white.withOpacity(.1),
+                  highlightColor: Colors.white.withOpacity(.09),
+                  onPressed: () => setState(() => showMine = false),
+                  child: Container(
+                    decoration: showMine
+                        ? null
+                        : const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: ColorsPallet.blueAccent,
+                                width: 2,
+                              ),
+                            ),
+                          ),
+                    child: const Text(
+                      'TO UNLOCK',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 150,
+              child: GridView.count(
+                primary: false,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+                crossAxisCount: 3,
+                children: [
+                  if (showMine)
+                    for (var history in widget.historyBadges)
+                      if (history['Badge'] != null)
+                        _buildComponent(badge: history['Badge']),
+                  if (!showMine)
+                    for (var badge in widget.badges)
+                      _buildComponent(badge: badge),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    if (screen.isTablet && !screen.isLandscape) {
+      return Container(
+        margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+        padding: const EdgeInsets.all(10),
+        width: screen.width * 0.43,
+        height: screen.width * 0.43,
         decoration: BoxDecoration(
           color: ColorsPallet.darkComponentBackground,
           borderRadius: BorderRadius.circular(20),

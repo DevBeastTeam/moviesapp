@@ -38,102 +38,105 @@ class _PronCatgPageState extends ConsumerState<PronCatgPage> {
 
     return DefaultScaffold(
       currentPage: 'PronCatgPage',
-      child: Column(
-        children: [
-          SizedBox(
-            // height: MediaQuery.of(context).size.height * 0.18,
-            child: Column(
-              children: [
-                CustomHeaderBar(
-                  onBack: () async {
-                    // Get.back();
-                    Navigator.pop(context);
-                  },
-                  centerTitle: false,
-                  title: 'Select A Category'.toUpperCase(),
-                ),
-                const SizedBox(height: 20),
-              ],
+      child: SingleChildScrollView(
+        controller: ScrollController(),
+
+        child: Column(
+          children: [
+            SizedBox(
+              // height: MediaQuery.of(context).size.height * 0.18,
+              child: Column(
+                children: [
+                  CustomHeaderBar(
+                    onBack: () async {
+                      // Get.back();
+                      Navigator.pop(context);
+                    },
+                    centerTitle: false,
+                    title: 'Select A Category'.toUpperCase(),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
-          ),
 
-          categories.isEmpty
-              ? EmptyWidget()
-              : Padding(
-                  padding: const EdgeInsets.all(14),
-                  child: ListView.builder(
-                    itemCount: categories.length,
-                    shrinkWrap: true,
-                    controller: ScrollController(),
-                    physics: const ScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      var data = categories[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: InkWell(
-                          onTap: () {
-                           
+            categories.isEmpty
+                ? EmptyWidget()
+                : Padding(
+                    padding: const EdgeInsets.all(14),
+                    child: ListView.builder(
+                      itemCount: categories.length,
+                      shrinkWrap: true,
+                      controller: ScrollController(),
+                      physics: const ScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        var data = categories[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: InkWell(
+                            onTap: () {
+                              // get data
+                              // WidgetsBinding.instance.addPostFrameCallback((_) {
+                              //   ref
+                              //       .read(pronounciationVm)
+                              //       .getPronBySelectedCatgOptionsByIdF(
+                              //         context,
+                              //         id: data.id,
+                              //         loadingFor: "getPronBySelectedCatgOptionsByIdF",
+                              //       );
+                              // });
 
-    // get data
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   ref
-    //       .read(pronounciationVm)
-    //       .getPronBySelectedCatgOptionsByIdF(
-    //         context,
-    //         id: data.id,
-    //         loadingFor: "getPronBySelectedCatgOptionsByIdF",
-    //       );
-    // });
-
-
-                            context.go(
-                              "/home/PronlevelsPage/PronLevelsCatgSelectionPage",
-                              extra: {
-                                "selectedlabel": selectedlabel,
-                                "allLevels": allLevels,
-                                "categories": categories,
-                                "selectedCatg": data,
-                              },
-                            );
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                              context.go(
+                                "/home/PronlevelsPage/PronLevelsCatgSelectionPage",
+                                extra: {
+                                  "selectedlabel": selectedlabel,
+                                  "allLevels": allLevels,
+                                  "categories": categories,
+                                  "selectedCatg": data,
+                                },
+                              );
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
                               ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    data.icon,
-                                    style: const TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
+                              child: Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      data.icon,
+                                      style: const TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 15),
-                                  Text(
-                                    // "${data['title']}",
-                                    data.label.toUpperCase(),
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ],
+                                    const SizedBox(width: 15),
+                                    Text(
+                                      // "${data['title']}",
+                                      data.label.toUpperCase(),
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
-        ],
+          ],
+        ),
       ),
     );
   }

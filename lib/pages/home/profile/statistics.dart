@@ -21,12 +21,91 @@ class ProfileStatistics extends StatelessWidget {
   Widget build(BuildContext context) {
     final screen = ScreenUtils(context);
 
-    if (screen.isTablet) {
+    if (screen.isTablet && screen.isLandscape) {
       return Container(
         margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
         padding: const EdgeInsets.all(10),
         width: screen.width * 0.3,
         height: screen.width * 0.3,
+        decoration: BoxDecoration(
+          color: ColorsPallet.darkComponentBackground,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: ListView(
+          shrinkWrap: true,
+          controller: ScrollController(),
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildComponentForTablet(
+                  text: 'COMPLETED QUESTIONS',
+                  value: '${getIn(statistics, 'questions', 0)}',
+                  icon: EdutainmentIcons.question,
+                  colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                ),
+                _buildComponentForTablet(
+                  text: 'VALIDATED QUESTIONS',
+                  value: '${getIn(statistics, 'questions_validated', 0)}',
+                  icon: EdutainmentIcons.check,
+                  colors: const [Color(0xff1df370), Color(0xff2589e0)],
+                ),
+              ],
+            ),
+            const Divider(color: Colors.transparent, height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildComponentForTablet(
+                  text: 'TIME SPENT',
+                  value: humanizeDuration(
+                    Duration(seconds: getIn(statistics, 'time', 0)),
+                  ),
+                  icon: EdutainmentIcons.clock,
+                  colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                ),
+                _buildComponentForTablet(
+                  text: 'FINISHED MOVIES',
+                  value: '${getIn(statistics, 'movies', 0)}',
+                  icon: EdutainmentIcons.movie,
+                  colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                ),
+              ],
+            ),
+            const Divider(color: Colors.transparent, height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildComponentForTablet(
+                  text: 'PASSED TESTS',
+                  value: '${getIn(statistics, 'quizz', 0)}',
+                  icon: EdutainmentIcons.validateTest,
+                  colors: const [Color(0xff1df370), Color(0xff2589e0)],
+                ),
+                _buildComponentForTablet(
+                  text: 'COMPLETED LESSONS',
+                  value: '${getIn(statistics, 'lessons', 0)}',
+                  icon: EdutainmentIcons.validateLesson,
+                  colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+    if (screen.isTablet && !screen.isLandscape) {
+      return Container(
+        margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+        padding: const EdgeInsets.all(10),
+        width: screen.width * 0.43,
+        height: screen.width * 0.43,
         decoration: BoxDecoration(
           color: ColorsPallet.darkComponentBackground,
           borderRadius: BorderRadius.circular(20),

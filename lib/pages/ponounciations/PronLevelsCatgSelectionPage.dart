@@ -1,3 +1,4 @@
+import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/pages/ponounciations/pronoundetails.dart';
 import 'package:edutainment/providers/pronounciationVM.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
@@ -56,128 +57,61 @@ class _PronLevelsCatgSelectionPageState
 
     return DefaultScaffold(
       currentPage: 'PronLevelsCatgSelectionPage',
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (ref.watch(pronounciationVm).loadingFor ==
-              "getPronBySelectedCatgOptionsByIdF")
-            QuickTikTokLoader(),
+      child: SingleChildScrollView(
+        controller: ScrollController(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (ref.watch(pronounciationVm).loadingFor ==
+                "getPronBySelectedCatgOptionsByIdF")
+              QuickTikTokLoader(),
 
-          Column(
-            children: [
-              CustomHeaderBar(
-                onBack: () async {
-                  // Get.back();
-                  Navigator.pop(context);
-                },
-                centerTitle: false,
-                title: 'Pronounciations'.toUpperCase(),
-              ),
-              const SizedBox(height: 10),
-            ],
-          ),
-          SizedBox(
-            height: h * 0.08,
-            child: ListView.builder(
-              itemCount: allLevels.length,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              physics: const ScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                var data = allLevels[index];
-                return Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: selectedlabel.toLowerCase() == data.toLowerCase()
-                          ? Colors.blue
-                          : Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    width: 50,
-                    height: 40,
-                    child: Center(
-                      child: Text(
-                        data,
-                        style: TextStyle(
-                          color:
-                              selectedlabel.toLowerCase() == data.toLowerCase()
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(14),
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.87,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: CupertinoListTile(
-                title: Text(
-                  selectedCatg.label,
-                  style: TextStyle(color: Colors.black),
+            Column(
+              children: [
+                CustomHeaderBar(
+                  onBack: () async {
+                    // Get.back();
+                    Navigator.pop(context);
+                  },
+                  centerTitle: false,
+                  title: 'Pronounciations'.toUpperCase(),
                 ),
-                trailing: Icon(
-                  Icons.keyboard_arrow_down_rounded,
-                  color: Colors.blue,
-                ),
-              ),
+                const SizedBox(height: 10),
+              ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(14),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.65,
+            SizedBox(
+              height: Screen.isPhone(context) && Screen.isLandscape(context)
+                  ? h * 0.15
+                  : h * 0.08,
               child: ListView.builder(
-                itemCount: catgList.length,
+                itemCount: allLevels.length,
                 shrinkWrap: true,
-                controller: ScrollController(),
+                scrollDirection: Axis.horizontal,
                 physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  var data = catgList[index];
+                  var data = allLevels[index];
                   return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 7,
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const PronounciationsDetailsPage(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(width: 1, color: Colors.blue),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: CupertinoListTile(
-                          title: Text(
-                            data['title'],
-                            style: const TextStyle(color: Colors.blue),
-                          ),
-                          leading: SizedBox(
-                            width: 25,
-                            child: Image.asset(data['icon'], width: 25),
-                          ),
-                          trailing: SizedBox(
-                            width: 25,
-                            child: Image.asset(AppImages.playIcon, width: 25),
+                    padding: const EdgeInsets.all(6),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: selectedlabel.toLowerCase() == data.toLowerCase()
+                            ? Colors.blue
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      width: 50,
+                      height: 40,
+                      child: Center(
+                        child: Text(
+                          data.toUpperCase(),
+                          style: TextStyle(
+                            color:
+                                selectedlabel.toLowerCase() ==
+                                    data.toLowerCase()
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -186,8 +120,84 @@ class _PronLevelsCatgSelectionPageState
                 },
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(14),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.87,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: CupertinoListTile(
+                  onTap: () {
+                    context.pop();
+                  },
+                  title: Text(
+                    selectedCatg.label,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  trailing: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(14),
+              child: SizedBox(
+                // height: MediaQuery.of(context).size.height * 0.65,
+                child: ListView.builder(
+                  itemCount: catgList.length,
+                  shrinkWrap: true,
+                  controller: ScrollController(),
+                  physics: const ScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    var data = catgList[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 7,
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PronounciationsDetailsPage(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(width: 1, color: Colors.blue),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: CupertinoListTile(
+                            title: Text(
+                              data['title'],
+                              style: const TextStyle(color: Colors.blue),
+                            ),
+                            leading: SizedBox(
+                              width: 25,
+                              child: Image.asset(data['icon'], width: 25),
+                            ),
+                            // trailing: SizedBox(
+                            //   width: 25,
+                            //   child: Image.asset(AppImages.playIcon, width: 25),
+                            // ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

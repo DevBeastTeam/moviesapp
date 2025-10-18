@@ -74,6 +74,7 @@ dependencies:
   flutter_animate: ^4.5.2
   quick_widgets: ^0.0.1
   dotted_border: ^3.1.0
+  hexcolor: ^3.0.1
 
 
 

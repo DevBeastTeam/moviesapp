@@ -1,3 +1,4 @@
+import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/providers/exercisesVm.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -52,122 +53,139 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(height: 20),
+              SizedBox(
+                height: Screen.isPhone(context) && Screen.isLandscape(context)
+                    ? 0
+                    : 20,
+              ),
               const Text(
-                'Levels',
+                'LEVELS',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
-              const SizedBox(height: 50),
+              SizedBox(
+                height: Screen.isPhone(context) && Screen.isLandscape(context)
+                    ? Screen.height(context) * 0.02
+                    : 50,
+              ),
               (p.excersiseList.isEmpty ||
                       p.excersiseList.first.allowedLessonCategory.isEmpty)
-                  ? EmptyWidget(paddingTop: 30)
-                  : Wrap(
-                      runSpacing: 15,
-                      spacing: 15,
-                      children: List.generate(
-                        p.excersiseList.first.allowedLessonCategory.length,
-                        (index) {
-                          var data = p
-                              .excersiseList
-                              .first
-                              .allowedLessonCategory[index];
-                          bool isLocked =
-                              p.excersiseList.first.userLevel.index < index;
-                          return InkWell(
-                            onTap:
-                                // isLocked
-                                //     ? null
-                                //     :
-                                () {
-                                  //   Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //       builder: (context) => ExcerciseByCatgQAPage(
-                                  //       // builder: (context) => ExcersiseLessonsPage(
-                                  //         labelTitle:
-                                  //             data.label[0].toUpperCase() +
-                                  //             data.label.substring(1),
-                                  //         // lableOptionsList:
-                                  //         //     p.excersiseList.first.allowedLessonCategory,
-                                  //       ),
-                                  //     ),
-                                  //   );
+                  ? EmptyWidget(
+                      paddingTop:
+                          Screen.isPhone(context) && Screen.isLandscape(context)
+                          ? 5
+                          : 30,
+                    )
+                  : Center(
+                      child: Wrap(
+                        runSpacing: 15,
+                        spacing: 15,
+                        children: List.generate(
+                          p.excersiseList.first.allowedLessonCategory.length,
+                          (index) {
+                            var data = p
+                                .excersiseList
+                                .first
+                                .allowedLessonCategory[index];
+                            bool isLocked =
+                                p.excersiseList.first.userLevel.index < index;
+                            return InkWell(
+                              onTap:
+                                  // isLocked
+                                  //     ? null
+                                  //     :
+                                  () {
+                                    //   Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //       builder: (context) => ExcerciseByCatgQAPage(
+                                    //       // builder: (context) => ExcersiseLessonsPage(
+                                    //         labelTitle:
+                                    //             data.label[0].toUpperCase() +
+                                    //             data.label.substring(1),
+                                    //         // lableOptionsList:
+                                    //         //     p.excersiseList.first.allowedLessonCategory,
+                                    //       ),
+                                    //     ),
+                                    //   );
 
-                                  p.getExcercisesCatgLessonsStepsF(
-                                    context,
-                                    catgRef: data.reference.toString(),
-                                    loadingFor: "getExcercisesByCatg",
-                                  );
-                                  context.go(
-                                    '/home/ExcersisesPage/ExcerciseCatgPage',
-                                    extra: {
-                                      "labelTitle":
-                                          data.label[0].toUpperCase() +
-                                          data.label.substring(1),
-                                    },
-                                  );
-
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => ExcerciseCatgPage(
-                                  //       labelTitle: data.label[0].toUpperCase() +
-                                  //           data.label.substring(1),
-                                  //     )
-                                  //   ),
-                                  // );
-                                },
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    gradient: LinearGradient(
-                                      colors: isLocked
-                                          ? [
-                                              Colors.orangeAccent.withOpacity(
-                                                0.5,
-                                              ),
-                                              Colors.deepOrange.withOpacity(
-                                                0.5,
-                                              ),
-                                            ]
-                                          : [
-                                              Colors.orangeAccent,
-                                              Colors.deepOrange,
-                                            ],
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(40),
-                                    child: Center(
-                                      child: Text(
-                                        data.label[0].toUpperCase() +
+                                    p.getExcercisesCatgLessonsStepsF(
+                                      context,
+                                      catgRef: data.reference.toString(),
+                                      loadingFor: "getExcercisesByCatg",
+                                    );
+                                    context.go(
+                                      '/home/ExcersisesPage/ExcerciseCatgPage',
+                                      extra: {
+                                        "labelTitle":
+                                            data.label[0].toUpperCase() +
                                             data.label.substring(1),
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.bold,
+                                      },
+                                    );
+
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => ExcerciseCatgPage(
+                                    //       labelTitle: data.label[0].toUpperCase() +
+                                    //           data.label.substring(1),
+                                    //     )
+                                    //   ),
+                                    // );
+                                  },
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: Screen.isLandscape(context)
+                                        ? Screen.width(context) * 0.25
+                                        : MediaQuery.of(context).size.width *
+                                              0.4,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      gradient: LinearGradient(
+                                        colors: isLocked
+                                            ? [
+                                                Colors.orangeAccent.withOpacity(
+                                                  0.5,
+                                                ),
+                                                Colors.deepOrange.withOpacity(
+                                                  0.5,
+                                                ),
+                                              ]
+                                            : [
+                                                Colors.orangeAccent,
+                                                Colors.deepOrange,
+                                              ],
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(40),
+                                      child: Center(
+                                        child: Text(
+                                          data.label[0].toUpperCase() +
+                                              data.label.substring(1),
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 26,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                if (isLocked)
-                                  const Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Icon(Icons.lock_clock),
+                                  if (isLocked)
+                                    const Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Icon(Icons.lock_clock),
+                                      ),
                                     ),
-                                  ),
-                              ],
-                            ),
-                          );
-                        },
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
             ],

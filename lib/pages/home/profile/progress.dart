@@ -14,12 +14,45 @@ class ProfileProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     final screen = ScreenUtils(context);
 
-    if (screen.isTablet) {
+    if (screen.isTablet && screen.isLandscape) {
       return Container(
         margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
         padding: const EdgeInsets.all(10),
         width: screen.width * 0.3,
         height: screen.width * 0.3,
+        decoration: BoxDecoration(
+          color: ColorsPallet.darkComponentBackground,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Center(
+              child: Image.asset(AppImages.mb, width: screen.width * 0.07),
+            ),
+            _buildComponentForTablet(context, text: 'GRAMMAR', value: .5),
+            const Divider(color: Colors.transparent, height: 10),
+            _buildComponentForTablet(
+              context,
+              text: 'COMPREHENSION',
+              value: .35,
+            ),
+            const Divider(color: Colors.transparent, height: 10),
+            _buildComponentForTablet(
+              context,
+              text: 'GLOBAL KNOWLEDGE',
+              value: .7,
+            ),
+          ],
+        ),
+      );
+    }
+    if (screen.isTablet && !screen.isLandscape) {
+      return Container(
+        margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+        padding: const EdgeInsets.all(10),
+        width: screen.width * 0.43,
+        height: screen.width * 0.43,
         decoration: BoxDecoration(
           color: ColorsPallet.darkComponentBackground,
           borderRadius: BorderRadius.circular(20),

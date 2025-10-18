@@ -3,7 +3,8 @@ class AppImages {
   static const String playIcon = 'assets/images/icons/playicon.png';
   static const String pause = 'assets/images/icons/pause.png';
   static const String check = 'assets/images/icons/check.png';
-  static const String uncheck = 'assets/images/icons/uncheck.png';
+  // static const String uncheck = 'assets/images/icons/uncheck.png';
+  static const String uncheck = 'assets/images/icons/uncheckradius.png';
   static const String uncheckradius = 'assets/images/icons/uncheckradius.png';
   static const String robo = 'assets/images/icons/robo.png';
   static const String video1 = 'assets/images/video1.png';
@@ -20,7 +21,7 @@ class AppImages {
   static const String movie = 'assets/images/icons/movie.png';
   static const String cards = 'assets/images/icons/cards.png';
   static const String chart = 'assets/images/icons/chart.png';
-  
+
   static const String movieblue = 'assets/images/icons/movieblue.png';
   static const String flashcardsLight = 'assets/images/icons/flashcard.jpeg';
   static const String flashcardsblue = 'assets/images/icons/flashcardsblue.png';

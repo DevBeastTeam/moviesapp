@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../utils/utils.dart';
+import '../../utils/movies.dart';
 import '../../utils/screen_utils.dart';
 import '../../theme/colors.dart';
 import '../../utils/boxes.dart';
@@ -27,6 +28,33 @@ class _HomePage extends ConsumerState<HomePage> {
   final dynamic statisticsData = statisticsBox.get('data');
   final dynamic badgesData = badgesBox.get('data');
   final dynamic historyBadgesData = badgesBox.get('history');
+  final dynamic statusGroupMovies = moviesBox.get('statusGroupMovies');
+
+  @override
+  void initState() {
+    super.initState();
+    lastVideo();
+  }
+
+  var pausedMovie = <dynamic>[];
+  lastVideo() {
+    if (statusGroupMovies['paused'] != null) {
+      var dummyPausedMovies = [...statusGroupMovies['paused']];
+      if (dummyPausedMovies.isNotEmpty) {
+        pausedMovie.add(
+          dummyPausedMovies.first,
+          // dummyPausedMovies.sublist(
+          //   0,
+          //   0 + 10 > dummyPausedMovies.length
+          //       ? dummyPausedMovies.length
+          //       : 0 + 10,
+          // ),
+        );
+      }
+    }
+    // for use
+    // buildMovieFrame(movie: pausedMovie.first, context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +74,7 @@ class _HomePage extends ConsumerState<HomePage> {
           child: Container(
             alignment: Alignment.center,
             child: SafeArea(
-              child: screen.isTablet
+              child: screen.isTablet && screen.isLandscape
                   ? Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Column(
@@ -144,16 +172,173 @@ class _HomePage extends ConsumerState<HomePage> {
                                     right: 5,
                                     bottom: 5,
                                   ),
-                                  padding: const EdgeInsets.all(10),
+                                  // padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                     color: ColorsPallet.darkComponentBackground,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   height: screen.width * 0.3,
                                   width: screen.width * 0.3,
-                                  child: Image.asset(
-                                    AppImages.playerlight,
-                                    width: 20,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      pausedMovie.isNotEmpty
+                                          ? buildMovieFrame(
+                                              movie: pausedMovie.first,
+                                              context: context,
+                                              fullSize: true,
+                                              showPlayerLogo: true,
+                                            )
+                                          : Image.asset(
+                                              AppImages.playerlight,
+                                              width: 20,
+                                            ),
+                                      SizedBox(height: 10),
+                                      Text("Continue Watching"),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  : screen.isTablet && !screen.isLandscape
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              SizedBox(width: screen.width * 0.05),
+                              Image.asset(AppImages.lion, width: 25),
+                              Text(
+                                ' E-DUTAINMENT  ',
+                                style: TextStyle(
+                                  fontFamily: 'Football Attack',
+                                  color: Colors.white,
+                                  height: 0,
+                                  fontWeight: Theme.of(
+                                    context,
+                                  ).textTheme.titleLarge?.fontWeight!,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  context.go("/home");
+                                },
+                                child: Text("PROFILES"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  context.go("/movies");
+                                },
+                                child: Text("FILMS"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  context.go("/tests");
+                                },
+                                child: Text("TEST"),
+                              ),
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "       Welcome Back, ",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: "Jimmy ",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ProfileHeader(user: userData),
+                              ProfileProgress(user: userData),
+                            ],
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const ProfileButtons(),
+
+                              ProfileBadges(
+                                badges: badgesData,
+                                historyBadges: historyBadgesData,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ProfileStatistics(
+                                user: userData,
+                                statistics: statisticsData,
+                              ),
+
+                              InkWell(
+                                onTap: () => context.go("/movies"),
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                    top: 5,
+                                    left: 5,
+                                    right: 5,
+                                    bottom: 5,
+                                  ),
+                                  // padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: ColorsPallet.darkComponentBackground,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  height: screen.width * 0.43,
+                                  width: screen.width * 0.43,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      pausedMovie.isNotEmpty
+                                          ? buildMovieFrame(
+                                              movie: pausedMovie.first,
+                                              context: context,
+                                              fullSize: true,
+                                              showPlayerLogo: true,
+                                            )
+                                          : Image.asset(
+                                              AppImages.playerlight,
+                                              width: 20,
+                                            ),
+                                      SizedBox(height: 10),
+                                      Text("Continue Watching"),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -208,6 +393,49 @@ class _HomePage extends ConsumerState<HomePage> {
                                             badges: badgesData,
                                             historyBadges: historyBadgesData,
                                           ),
+                                          InkWell(
+                                            onTap: () => context.go("/movies"),
+                                            child: Container(
+                                              margin: const EdgeInsets.only(
+                                                top: 5,
+                                                left: 5,
+                                                right: 5,
+                                                bottom: 5,
+                                              ),
+                                              padding: const EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                color: ColorsPallet
+                                                    .darkComponentBackground,
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              height: screen.height * 0.6,
+                                              width: screen.width * 0.42,
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  pausedMovie.isNotEmpty
+                                                      ? buildMovieFrame(
+                                                          movie:
+                                                              pausedMovie.first,
+                                                          context: context,
+                                                          fullSize: true,
+                                                          showPlayerLogo: true,
+                                                        )
+                                                      : Image.asset(
+                                                          AppImages.playerlight,
+                                                          width: 20,
+                                                        ),
+                                                  SizedBox(height: 10),
+                                                  Text("Continue Watching"),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -247,6 +475,47 @@ class _HomePage extends ConsumerState<HomePage> {
                                 ProfileBadges(
                                   badges: badgesData,
                                   historyBadges: historyBadgesData,
+                                ),
+                                InkWell(
+                                  onTap: () => context.go("/movies"),
+                                  child: Container(
+                                    margin: const EdgeInsets.only(
+                                      top: 5,
+                                      left: 5,
+                                      right: 5,
+                                      bottom: 5,
+                                    ),
+                                    padding: const EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      color:
+                                          ColorsPallet.darkComponentBackground,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    height: screen.height * 0.35,
+                                    width: screen.width * 0.84,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        pausedMovie.isNotEmpty
+                                            ? buildMovieFrame(
+                                                movie: pausedMovie.first,
+                                                context: context,
+                                                fullSize: true,
+                                                showPlayerLogo: true,
+                                              )
+                                            : Image.asset(
+                                                AppImages.playerlight,
+                                                width: 20,
+                                              ),
+                                        SizedBox(height: 10),
+                                        Text("Continue Watching"),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),

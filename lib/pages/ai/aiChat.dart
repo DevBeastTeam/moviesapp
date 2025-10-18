@@ -1,5 +1,6 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:edutainment/constants/appimages.dart';
+import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,10 @@ import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../../widgets/header_bar/custom_header_bar.dart';
 import '../../providers/aichatvm.dart';
+import '../../providers/user_providers.dart';
 import '../../theme/colors.dart';
+import '../../utils/utils.dart';
+import '../../widgets/geradientText.dart';
 
 class AIMenuPage extends ConsumerStatefulWidget {
   const AIMenuPage({super.key});
@@ -158,16 +162,16 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
         ),
       ),
       drawer: Drawer(
-        backgroundColor: Colors.white,
+        backgroundColor: ColorsPallet.darkBlue,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 40),
             ListTile(
-              leading: const Icon(Icons.close_rounded, color: Colors.black),
+              leading: const Icon(Icons.close_rounded, color: Colors.grey),
               title: const Text(
                 'Previous Conversations',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white70),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -179,10 +183,10 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
             ),
             Divider(height: 2, color: Colors.grey.shade700),
             ListTile(
-              leading: const Icon(Icons.push_pin_outlined, color: Colors.black),
+              leading: const Icon(Icons.push_pin_outlined, color: Colors.grey),
               title: const Text(
                 'Pinned Conversations',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white70),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -194,14 +198,14 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
             ),
             Divider(height: 2, color: Colors.grey.shade700),
             ListTile(
-              leading: const Icon(Icons.chat, color: Colors.black),
+              leading: const Icon(Icons.chat, color: Colors.grey),
               trailing: const Icon(
                 Icons.delete_outline_outlined,
-                color: Colors.black,
+                color: Colors.blueGrey,
               ),
               title: const Text(
                 'Can Your Recommended',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white70),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -216,10 +220,10 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               title: Text("Last 7 days", style: TextStyle(color: Colors.grey)),
             ),
             ListTile(
-              leading: const Icon(Icons.chat, color: Colors.black),
+              leading: const Icon(Icons.chat, color: Colors.grey),
               title: const Text(
                 'My Recent Grammar',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white70),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -337,106 +341,173 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                       ),
                     ),
                   ),
-                  p.lastAIConversationChats == null ||
-                          p.lastAIConversationChats!.messages.isEmpty
+                  Screen.isLandscape(context) && Screen.isPhone(context)
+                      ? SizedBox.shrink()
+                      : (p.lastAIConversationChats == null ||
+                            p.lastAIConversationChats!.messages.isEmpty)
                       ? Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
                                 AppImages.robo,
-                                width:  (h<w)? w*0.05 : w > 450 ? w * 0.1 : w * 0.2,
+                                width: (h < w)
+                                    ? w * 0.05
+                                    : w > 450
+                                    ? w * 0.1
+                                    : w * 0.15,
                               ),
-                               Text(
+                              Text(
                                 ' COPILOT',
                                 style: TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w600,
-                                  fontSize:(h<w)? 20: 30,
+                                  fontSize: (h < w) ? 15 : 25,
                                 ),
                               ),
                             ],
                           ),
                         )
                       : SizedBox.shrink(),
-              // Text("kkkk"),
-                  if ((p.lastAIConversationChats == null ||
-                          p.lastAIConversationChats!.messages.isEmpty) &&
-                      w > 450 && !(h<w))
-                    SizedBox(height: h * 0.2)
-                  else
-                   if ((p.lastAIConversationChats == null ||
-                          p.lastAIConversationChats!.messages.isEmpty) &&
-                      w > 450 && (h<w))
-                    SizedBox(height: 0)
-                  else
-                    SizedBox(height: h * 0.02),
+                  SizedBox(height: 5),
+                  GradientText(
+                    // text: "${ref.watch(userProvider)['name.given_name']}",
+                    text:
+                        'Hello ${getIn(ref.watch(userProvider), 'name.given_name', '')}',
+                    // text: 'Hello Name',
+                    colors: [
+                      Color(0xFF60A5FA), // HexColor("#60A5FA")
+                      Color(0xFFA855F7), // HexColor("#A855F7")
+                      Color(0xFFF87171), // HexColor("#F87171")
+                    ],
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  // Text("kkkk"),
+                  // if ((p.lastAIConversationChats == null ||
+                  //         p.lastAIConversationChats!.messages.isEmpty) &&
+                  //     w > 450 &&
+                  //     !(h < w))
+                  //   SizedBox(height: h * 0.2)
+                  // else if ((p.lastAIConversationChats == null ||
+                  //         p.lastAIConversationChats!.messages.isEmpty) &&
+                  //     w > 450 &&
+                  //     (h < w))
+                  //   SizedBox(height: 0)
+                  // else
+                  //   SizedBox(height: h * 0.02),
+                  (p.lastAIConversationChats == null ||
+                          p.lastAIConversationChats!.messages.isEmpty &&
+                              Screen.isPhone(context) &&
+                              Screen.isPortrait(context))
+                      ? SizedBox(height: Screen.height(context) * 0.27)
+                      : (p.lastAIConversationChats == null ||
+                            p.lastAIConversationChats!.messages.isEmpty &&
+                                Screen.isPhone(context) &&
+                                Screen.isLandscape(context))
+                      ? SizedBox(height: Screen.height(context) * 0)
+                      : (p.lastAIConversationChats == null ||
+                            p.lastAIConversationChats!.messages.isEmpty &&
+                                !Screen.isPhone(context) &&
+                                Screen.isTablet(context))
+                      ? SizedBox(height: Screen.height(context) * 0.27)
+                      : SizedBox(),
+
+                  // Text("Hello Name"),
+                  // GradientText(
+                  //   'Hello Name',
+                  //   gradient: LinearGradient(colors: [
+                  //     HexColor("#60A5FA"),
+                  //     HexColor("#A855F7"),
+                  //     HexColor("#F87171"),
+                  //   ]),
+                  //   style: TextStyle(
+                  //     fontSize: 20,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
                   p.lastAIConversationChats == null ||
                           p.lastAIConversationChats!.messages.isEmpty
                       ? Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 14),
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            controller: ScrollController(),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: w > 450 ? 4 : 2,
-                                ),
-                            itemCount: menuList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              var data = menuList[index];
-                              return Padding(
-                                padding: EdgeInsets.all(w > 450 ? 20 : 14),
-                                child: InkWell(
-                                  onTap: () {
-                                    p.doConversationChatByIdWithAiF(
-                                      context,
-                                      msg: data['query'],
-                                    );
-                                    // if (index == 0) {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         const MovieSuggetinosPage(),
-                                    //   ),
-                                    // );
-                                    // }
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          data['img'],
-                                          width: w > 450 ? w * 0.08 : w * 0.15,
-                                        ),
-                                        const Divider(),
-                                        Text(
-                                          '${data['title']}',
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
+                          child: SizedBox(
+                            height:
+                                Screen.isPhone(context) &&
+                                    Screen.isLandscape(context)
+                                ? Screen.height(context) * 0.35
+                                : !Screen.isPhone(context) &&
+                                      Screen.isTablet(context)
+                                ? Screen.height(context) * 0.24
+                                : Screen.height(context) * 0.2,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              controller: ScrollController(),
+                              // gridDelegate:
+                              //     SliverGridDelegateWithFixedCrossAxisCount(
+                              //       crossAxisCount: w > 450 ? 4 : 2,
+                              //     ),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: menuList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                var data = menuList[index];
+                                return Padding(
+                                  padding: EdgeInsets.all(w > 450 ? 10 : 10),
+                                  child: InkWell(
+                                    onTap: () {
+                                      p.doConversationChatByIdWithAiF(
+                                        context,
+                                        msg: data['query'],
+                                      );
+                                      // if (index == 0) {
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) =>
+                                      //         const MovieSuggetinosPage(),
+                                      //   ),
+                                      // );
+                                      // }
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: ColorsPallet.darkBlue,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            data['img'],
+                                            width: w > 450
+                                                ? w * 0.08
+                                                : w * 0.15,
                                           ),
-                                        ),
-                                      ],
+                                          const Divider(),
+                                          Text(
+                                            '  ${data['title']}  ',
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
                         )
                       : Expanded(
                           // child: Text("bn"),
                           child: ListView.builder(
                             controller: chatsScrollController,
-                            itemCount: p.lastAIConversationChats!.messages.length,
+                            itemCount:
+                                p.lastAIConversationChats!.messages.length,
                             itemBuilder: (context, index) {
                               var chat =
                                   p.lastAIConversationChats!.messages[index];
