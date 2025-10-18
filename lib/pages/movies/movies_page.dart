@@ -23,14 +23,12 @@ class _MoviesPage extends State<MoviesPage> {
   final dynamic subjects = moviesBox.get('subjects');
   final dynamic groupMovies = moviesBox.get('groupMovies');
   final dynamic statusGroupMovies = moviesBox.get('statusGroupMovies');
-  final dynamic movieHeaders = moviesBox.get('movieHeaders');
   final dynamic movieTags = moviesBox.get('tags');
 
-  dynamic currentHeaderMobile;
-  dynamic currentHeaderWeb;
+  dynamic featuredMovie;
 
-  late String currentSubject = '63f0ba743c2816767892cf1e';
-  late String currentSubjectRef = 'entertainment';
+  late String currentSubject = 'all';
+  late String currentSubjectRef = 'all';
 
   var movies = <dynamic>[];
   var pausedMovies = <dynamic>[];
@@ -43,8 +41,18 @@ class _MoviesPage extends State<MoviesPage> {
     moviesByTag = [];
     var localmoviesByTag = <String, List<dynamic>>{};
     final moviesRefs = <String>[];
+    dynamic movieToFeature;
 
     if (currentSubjectRef == 'all') {
+      if (groupMovies.isNotEmpty) {
+        for (final key in groupMovies.keys) {
+          final movies = groupMovies[key];
+          if (movies is List && movies.isNotEmpty) {
+            movieToFeature = movies.first;
+            break;
+          }
+        }
+      }
       groupMovies.forEach((key, value) {
         value.forEach((movie) {
           movie['tags'].forEach((tag) {
@@ -57,30 +65,39 @@ class _MoviesPage extends State<MoviesPage> {
         });
       });
     } else {
-      groupMovies[currentSubjectRef]!.forEach((movie) {
-        moviesRefs.add(movie['_id']);
-        movie!['tags']!.forEach((tag) {
-          if (!localmoviesByTag.containsKey(tag)) {
-            localmoviesByTag[tag] = [movie];
-          } else {
-            localmoviesByTag[tag]!.add(movie);
-          }
+      if (groupMovies[currentSubjectRef] != null &&
+          groupMovies[currentSubjectRef]!.isNotEmpty) {
+        movieToFeature = groupMovies[currentSubjectRef]!.first;
+      }
+      if (groupMovies[currentSubjectRef] != null) {
+        groupMovies[currentSubjectRef]!.forEach((movie) {
+          moviesRefs.add(movie['_id']);
+          movie!['tags']!.forEach((tag) {
+            if (!localmoviesByTag.containsKey(tag)) {
+              localmoviesByTag[tag] = [movie];
+            } else {
+              localmoviesByTag[tag]!.add(movie);
+            }
+          });
         });
-      });
+      }
     }
 
     // if landsacpe chunkSize to 5 else 4
     // isOrientationLandscape = Get.context!.isLandscape;
     final chunkSize = isOrientationLandscape ? 10 : 4;
-
+    final maxMoviesPerTag = 36; // Maximum 36 movies per tag
     localmoviesByTag.forEach((key, value) {
       var dummyMovies = <dynamic>[];
       for (var i = 0; i < value.length; i += chunkSize) {
         dummyMovies.add(
-          value.sublist(
-            i,
-            i + chunkSize > value.length ? value.length : i + chunkSize,
-          ),
+          value
+              .sublist(
+                i,
+                i + chunkSize > value.length ? value.length : i + chunkSize,
+              )
+              .take(maxMoviesPerTag)
+              .toList(), // Limit to maxMoviesPerTag
         );
       }
       localmoviesByTag[key] = dummyMovies;
@@ -104,18 +121,24 @@ class _MoviesPage extends State<MoviesPage> {
 
     if (currentSubjectRef == 'all') {
       if (statusGroupMovies['paused'] != null) {
-        dummyPausedMovies = [...statusGroupMovies['paused']];
+        dummyPausedMovies = [
+          ...statusGroupMovies['paused'],
+        ].take(maxMoviesPerTag).toList();
       }
       if (statusGroupMovies['ended'] != null) {
-        dummyWatchedMovies = [...statusGroupMovies['ended']];
+        dummyWatchedMovies = [
+          ...statusGroupMovies['ended'],
+        ].take(maxMoviesPerTag).toList();
       }
     } else {
       if (statusGroupMovies['paused'] != null) {
         for (var movie in statusGroupMovies['paused']) {
           if (movie['Subject']['reference'] == currentSubjectRef) {
-            dummyPausedMovies.add(movie);
+            dummyPausedMovies.add(
+              movie,
+            ); // No need to take here, will be done below
           }
-        }
+        } // No need to take here, will be done below
       }
       if (statusGroupMovies['ended'] != null) {
         for (var movie in statusGroupMovies['ended']) {
@@ -126,27 +149,8 @@ class _MoviesPage extends State<MoviesPage> {
       }
     }
 
-    final filteredMovieHeadersMobile = movieHeaders
-        .where((movieHeaderMobile) => movieHeaderMobile['type'] == 'mobile')
-        .toList();
-
-    final filteredMovieHeadersWeb = movieHeaders
-        .where((movie) => movie['type'] == 'web')
-        .toList();
-    final randomHeaderMobile = filteredMovieHeadersMobile.length > 0
-        ? filteredMovieHeadersMobile[math.Random().nextInt(
-            filteredMovieHeadersMobile.length,
-          )]
-        : null;
-    final randomHeaderWeb = filteredMovieHeadersWeb.length > 0
-        ? filteredMovieHeadersWeb[math.Random().nextInt(
-            filteredMovieHeadersWeb.length,
-          )]
-        : null;
-
     setState(() {
-      currentHeaderMobile = randomHeaderMobile;
-      currentHeaderWeb = randomHeaderWeb;
+      featuredMovie = movieToFeature;
     });
 
     pausedMovies.clear();
@@ -154,22 +158,18 @@ class _MoviesPage extends State<MoviesPage> {
     setState(() {
       for (var i = 0; i < dummyPausedMovies.length; i += chunkSize) {
         pausedMovies.add(
-          dummyPausedMovies.sublist(
-            i,
-            i + chunkSize > dummyPausedMovies.length
-                ? dummyPausedMovies.length
-                : i + chunkSize,
-          ),
+          dummyPausedMovies
+              .sublist(i, math.min(i + chunkSize, dummyPausedMovies.length))
+              .take(maxMoviesPerTag)
+              .toList(),
         );
       }
       for (var i = 0; i < dummyWatchedMovies.length; i += chunkSize) {
         watchedMovies.add(
-          dummyWatchedMovies.sublist(
-            i,
-            i + chunkSize > dummyWatchedMovies.length
-                ? dummyWatchedMovies.length
-                : i + chunkSize,
-          ),
+          dummyWatchedMovies
+              .sublist(i, math.min(i + chunkSize, dummyWatchedMovies.length))
+              .take(maxMoviesPerTag)
+              .toList(),
         );
       }
     });
@@ -224,9 +224,45 @@ class _MoviesPage extends State<MoviesPage> {
               child: Center(
                 child: ListView(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: currentSubject == 'all'
+                              ? ColorsPallet.blueAccent
+                              : Colors.white,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            currentSubject = 'all';
+                            currentSubjectRef = 'all';
+                          });
+                          updateMovies();
+                        },
+                        child: Center(
+                          child: Text(
+                            '  All  ',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: currentSubject == 'all'
+                                  ? ColorsPallet.blueAccent
+                                  : Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     for (var subject in subjects)
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -273,102 +309,127 @@ class _MoviesPage extends State<MoviesPage> {
                 ),
               ),
             ),
-            if (currentHeaderWeb != null && currentHeaderMobile != null)
+
+            if (featuredMovie != null)
               OrientationBuilder(
                 builder: (context, orientation) {
                   final isLandScape = orientation == Orientation.landscape;
-                  final movie = isLandScape
-                      ? currentHeaderWeb
-                      : currentHeaderMobile;
+                  final screenHeight = MediaQuery.of(context).size.height;
+                  final screenWidth = MediaQuery.of(context).size.width;
+                  final movie = featuredMovie;
                   final imageUrl = getIn(movie, 'picture', '');
-                  return Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        child: GestureDetector(
+
+                  final double containerHeight = isLandScape
+                      ? screenWidth / (16 / 9)
+                      : screenHeight * 0.5;
+
+                  return Container(
+                    height: containerHeight,
+                    margin: const EdgeInsets.symmetric(vertical: 12),
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        GestureDetector(
                           onTap: () async {
-                            await movieFetchAndRedirect(
-                              getIn(movie, 'Movie'),
-                              context,
-                            );
+                            await movieFetchAndRedirect(movie, context);
                           },
-                          child: AspectRatio(
-                            aspectRatio: isLandScape ? 16 / 9 : 0.72,
-                            child: CachedNetworkImage(
-                              imageUrl: imageUrl,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [CircularProgressIndicator()],
-                              ),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: const [0.0, 0.3, 0.8, 1.0],
-                              colors: [
-                                Colors.transparent,
-                                Colors.black.withOpacity(.2),
-                                Colors.black,
-                                Colors.black,
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 30,
-                        left: 16,
-                        right: 16,
-                        child: Center(
-                          child: CustomSubmitButton(
-                            width: (MediaQuery.of(context).size.width * .5 > 200
-                                ? 200
-                                : MediaQuery.of(context).size.width * .5),
-                            child: Row(
+                          child: CachedNetworkImage(
+                            imageUrl: imageUrl,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                            placeholder: (context, url) => const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Icon(EdutainmentIcons.playEdutainment),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 4),
-                                  child: Text(
-                                    'PLAY NOW',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: Theme.of(
-                                        context,
-                                      ).textTheme.titleLarge!.fontSize!,
+                              children: [CircularProgressIndicator()],
+                            ),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                          ),
+                        ),
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                stops: const [0.0, 0.3, 0.8, 1.0],
+                                colors: [
+                                  ColorsPallet.darkBlue.withOpacity(0.7),
+                                  Colors.black87,
+                                  Colors.black45,
+                                  Colors.black38,
+                                  Colors.transparent,
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                stops: const [0.0, 0.3, 0.8, 1.0],
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black38,
+                                  Colors.black45,
+                                  Colors.black87,
+                                  ColorsPallet.darkBlue.withOpacity(0.7),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 30,
+                          left: 16,
+                          child: Center(
+                            child: CustomSubmitButton(
+                              width:
+                                  (MediaQuery.of(context).size.width * .5 > 200
+                                  ? 200
+                                  : MediaQuery.of(context).size.width * .5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Icon(EdutainmentIcons.playEdutainment),
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 4),
+                                    child: Text(
+                                      'PLAY NOW',
+                                      // '${imageUrl}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: Theme.of(
+                                          context,
+                                        ).textTheme.titleLarge!.fontSize!,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              onPressed: () async {
+                                await movieFetchAndRedirect(movie, context);
+                              },
                             ),
-                            onPressed: () async {
-                              await movieFetchAndRedirect(
-                                getIn(movie, 'Movie'),
-                                context,
-                              );
-                            },
                           ),
                         ),
-                      ),
-                    ],
+                        // Text("$featuredMovie"),
+                      ],
+                    ),
                   );
                 },
               ),
