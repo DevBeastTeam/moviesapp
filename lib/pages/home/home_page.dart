@@ -68,7 +68,9 @@ class _HomePage extends ConsumerState<HomePage> {
       // },
       child: DefaultScaffold(
         currentPage: 'profile',
-        hideBottomBar: screen.isTablet && !screen.isLandscape,
+        hideBottomBar:
+            (screen.isTablet && screen.isLandscape) ||
+            (screen.isPhone && screen.isLandscape),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(
@@ -131,7 +133,8 @@ class _HomePage extends ConsumerState<HomePage> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: "Jimmy ",
+                                    text:
+                                        "${getIn(userData, 'name.given_name', '')} ",
                                     style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 25,
@@ -289,34 +292,70 @@ class _HomePage extends ConsumerState<HomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Column(
                         children: [
-                          const SizedBox(height: 16),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                const TextSpan(
-                                  text: "Welcome Back, ",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text:
-                                      "${getIn(userData, 'name.given_name', '')} ",
-                                  style: const TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 20),
+                          // const SizedBox(height: 16),
+                          // RichText(
+                          //   text: TextSpan(
+                          //     children: [
+                          //       const TextSpan(
+                          //         text: "Welcome Back, ",
+                          //         style: TextStyle(
+                          //           color: Colors.white,
+                          //           fontSize: 22,
+                          //           fontWeight: FontWeight.w400,
+                          //         ),
+                          //       ),
+                          //       TextSpan(
+                          //         text:
+                          //             "${getIn(userData, 'name.given_name', '')} ",
+                          //         style: const TextStyle(
+                          //           color: Colors.blue,
+                          //           fontSize: 22,
+                          //           fontWeight: FontWeight.w400,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                          const SizedBox(height: 10),
                           if (screen.isLandscape && screen.isPhone)
                             Column(
                               children: [
+                                Row(
+                                  children: [
+                                    SizedBox(width: screen.width * 0.05),
+                                    Image.asset(AppImages.lion, width: 25),
+                                    Text(
+                                      ' E-DUTAINMENT  ',
+                                      style: TextStyle(
+                                        fontFamily: 'Football Attack',
+                                        color: Colors.white,
+                                        height: 0,
+                                        fontWeight: Theme.of(
+                                          context,
+                                        ).textTheme.titleLarge?.fontWeight!,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        context.go("/home");
+                                      },
+                                      child: Text("PROFILES"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        context.go("/movies");
+                                      },
+                                      child: Text("FILMS"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        context.go("/tests");
+                                      },
+                                      child: Text("TEST"),
+                                    ),
+                                  ],
+                                ),
                                 ProfileHeader(user: userData),
                                 const SizedBox(height: 8),
                                 Row(
