@@ -310,6 +310,28 @@ class _MoviesPage extends State<MoviesPage> {
               ),
             ),
 
+            Container(
+              height: 20,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  // stops: const [0.0, 0.3, 0.8, 1.0],
+                  colors: [
+                    Colors.black,
+                    Colors.black,
+                    Colors.black,
+                    Colors.black54,
+                    Colors.black38,
+                    Colors.black26,
+                    Colors.black12,
+                    Colors.transparent,
+                    // ColorsPallet.darkBlue.withOpacity(0.7),
+                  ],
+                ),
+              ),
+            ),
+            // SizedBox(height: 8),
             if (featuredMovie != null)
               OrientationBuilder(
                 builder: (context, orientation) {
@@ -322,10 +344,9 @@ class _MoviesPage extends State<MoviesPage> {
                   final double containerHeight = isLandScape
                       ? screenWidth / (16 / 9)
                       : screenHeight * 0.5;
-
-                  return Container(
+                  return SizedBox(
                     height: containerHeight,
-                    margin: const EdgeInsets.symmetric(vertical: 12),
+                    // margin: const EdgeInsets.symmetric(vertical: 12),
                     child: Stack(
                       alignment: Alignment.bottomCenter,
                       children: [
@@ -356,12 +377,12 @@ class _MoviesPage extends State<MoviesPage> {
                               gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
-                                stops: const [0.0, 0.3, 0.8, 1.0],
+                                stops: const [1.0, 0.8, 0.3, 0.0, 0.0],
                                 colors: [
-                                  ColorsPallet.darkBlue.withOpacity(0.7),
-                                  Colors.black87,
-                                  Colors.black45,
+                                  // ColorsPallet.darkBlue.withOpacity(0.9),
+                                  Colors.black,
                                   Colors.black38,
+                                  Colors.transparent,
                                   Colors.transparent,
                                 ],
                               ),
@@ -378,13 +399,12 @@ class _MoviesPage extends State<MoviesPage> {
                               gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
-                                stops: const [0.0, 0.3, 0.8, 1.0],
+                                // stops: const [0.0, 0.3, 0.8, 1.0],
                                 colors: [
                                   Colors.transparent,
+                                  Colors.transparent,
                                   Colors.black38,
-                                  Colors.black45,
-                                  Colors.black87,
-                                  ColorsPallet.darkBlue.withOpacity(0.7),
+                                  Colors.black,
                                 ],
                               ),
                             ),
@@ -405,7 +425,7 @@ class _MoviesPage extends State<MoviesPage> {
                                 children: [
                                   const Icon(EdutainmentIcons.playEdutainment),
                                   Container(
-                                    margin: const EdgeInsets.only(left: 4),
+                                    margin: const EdgeInsets.only(left: 3),
                                     child: Text(
                                       'PLAY NOW',
                                       // '${imageUrl}',
@@ -433,6 +453,26 @@ class _MoviesPage extends State<MoviesPage> {
                   );
                 },
               ),
+
+            Container(
+              height: 30,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  // stops: const [0.0, 0.3, 0.8, 1.0],
+                  colors: [
+                    Colors.black,
+                    Colors.black54,
+                    Colors.black38,
+                    Colors.black26,
+                    Colors.black12,
+                    Colors.transparent,
+                    // ColorsPallet.darkBlue.withOpacity(0.7),
+                  ],
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               child: Column(

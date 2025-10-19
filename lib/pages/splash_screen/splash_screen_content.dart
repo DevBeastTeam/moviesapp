@@ -1,4 +1,5 @@
 import 'package:edutainment/constants/appimages.dart';
+import 'package:edutainment/constants/screenssize.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/indicators/double_circular_progress_indicator.dart';
@@ -25,11 +26,22 @@ class SplashScreenContent extends StatelessWidget {
               //   width: mediaWidth * 0.4 > 250 ? 250 : mediaWidth * 0.4,
               // ),
               Image.asset(
-                AppImages.playerlight,
-                width: mediaWidth * 0.4 > 250 ? 250 : mediaWidth * 0.4,
+                AppImages.playerlightfit,
+                width: Screen.isPhone(context) && Screen.isLandscape(context)
+                    ? Screen.width(context) * 0.2
+                    : mediaWidth * 0.4 > 250
+                    ? 250
+                    : mediaWidth * 0.4,
               ),
               Container(
-                margin: const EdgeInsets.fromLTRB(30, 50, 30, 0),
+                margin: EdgeInsets.fromLTRB(
+                  30,
+                  Screen.isPhone(context) && Screen.isLandscape(context)
+                      ? 0
+                      : 50,
+                  30,
+                  0,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +61,14 @@ class SplashScreenContent extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.fromLTRB(30, 50, 30, 0),
+                margin: EdgeInsets.fromLTRB(
+                  30,
+                  Screen.isPhone(context) && Screen.isLandscape(context)
+                      ? 15
+                      : 50,
+                  30,
+                  0,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,7 +108,11 @@ class SplashScreenContent extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 50),
+                margin: EdgeInsets.only(
+                  top: Screen.isPhone(context) && Screen.isLandscape(context)
+                      ? 20
+                      : 50,
+                ),
                 child: const DoubleCircularProgressIndicator(),
               ),
             ],

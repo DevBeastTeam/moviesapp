@@ -12,6 +12,7 @@ class AppImages {
   static const String ai2 = 'assets/images/icons/ai2.png';
   static const String playericon = 'assets/images/icons/playericon.png';
   static const String playerlight = 'assets/images/icons/playerlight.png';
+  static const String playerlightfit = 'assets/images/icons/playerlightfit.png';
   static const String noimg = 'assets/images/icons/noimg.png';
   static const String eng = 'assets/images/icons/eng.png';
   static const String fr = 'assets/images/icons/fr.png';
