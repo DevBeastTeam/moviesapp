@@ -2,24 +2,27 @@ import 'dart:math' as math;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/constants/appimages.dart';
+import 'package:edutainment/constants/screenssize.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../theme/colors.dart';
 import '../../utils/assets/assets_icons.dart';
 import '../../utils/boxes.dart';
 import '../../utils/movies.dart';
 import '../../utils/utils.dart';
+import '../../widgets/top_bar/topBar.dart';
 import '../../widgets/ui/custom_submit_button.dart';
 import '../../widgets/ui/default_scaffold.dart';
 
-class MoviesPage extends StatefulWidget {
+class MoviesPage extends ConsumerStatefulWidget {
   const MoviesPage({super.key});
 
   @override
-  State<MoviesPage> createState() => _MoviesPage();
+  ConsumerState<MoviesPage> createState() => _MoviesPage();
 }
 
-class _MoviesPage extends State<MoviesPage> {
+class _MoviesPage extends ConsumerState<MoviesPage> {
   final dynamic subjects = moviesBox.get('subjects');
   final dynamic groupMovies = moviesBox.get('groupMovies');
   final dynamic statusGroupMovies = moviesBox.get('statusGroupMovies');
@@ -185,42 +188,48 @@ class _MoviesPage extends State<MoviesPage> {
   Widget build(BuildContext context) {
     return DefaultScaffold(
       currentPage: 'movies',
+      hideBottomBar: Screen.isTablet(context) || Screen.isLandscape(context),
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           // mainAxisAlignment: MairnAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // AssetsImage.defaultIcon.toImage(width: 24),
-                  Image.asset(AppImages.playerlight, width: 24),
-                  const SizedBox(width: 4),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Text(
-                      'E-DUTAINMENT',
-                      style: TextStyle(
-                        fontFamily: 'Football Attack',
-                        color: Colors.white,
-                        fontWeight: Theme.of(
-                          context,
-                        ).textTheme.titleLarge?.fontWeight!,
-                        fontSize: 20,
-                      ),
+            Screen.isTablet(context) || Screen.isLandscape(context)
+                ? TopBarWidget(paddingLeft: 0)
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 0,
+                      horizontal: 4.0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // AssetsImage.defaultIcon.toImage(width: 24),
+                        Image.asset(AppImages.playerlight, width: 24),
+                        const SizedBox(width: 4),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 4.0),
+                          child: Text(
+                            'E-DUTAINMENT',
+                            style: TextStyle(
+                              fontFamily: 'Football Attack',
+                              color: Colors.white,
+                              fontWeight: Theme.of(
+                                context,
+                              ).textTheme.titleLarge?.fontWeight!,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 3),
             Container(
-              height: 40,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              height: 35,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
               child: Center(
                 child: ListView(
                   shrinkWrap: true,
@@ -311,15 +320,13 @@ class _MoviesPage extends State<MoviesPage> {
             ),
 
             Container(
-              height: 20,
+              height: Screen.isPhone(context) ? 5 : 20,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   // stops: const [0.0, 0.3, 0.8, 1.0],
                   colors: [
-                    Colors.black,
-                    Colors.black,
                     Colors.black,
                     Colors.black54,
                     Colors.black38,
@@ -372,12 +379,12 @@ class _MoviesPage extends State<MoviesPage> {
                           left: 0,
                           right: 0,
                           child: Container(
-                            height: 100,
+                            height: Screen.isPhone(context) ? 10 : 10,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
-                                stops: const [1.0, 0.8, 0.3, 0.0, 0.0],
+                                stops: const [1.0, 0.8, 0.3, 0.0],
                                 colors: [
                                   // ColorsPallet.darkBlue.withOpacity(0.9),
                                   Colors.black,
@@ -500,7 +507,11 @@ class _MoviesPage extends State<MoviesPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               for (var movie in moviesList)
-                                buildMovieFrame(movie: movie, context: context),
+                                buildMovieFrame(
+                                  movie: movie,
+                                  context: context,
+                                  ref: ref,
+                                ),
                             ],
                           ),
                         ),
@@ -527,7 +538,11 @@ class _MoviesPage extends State<MoviesPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               for (var movie in moviesList)
-                                buildMovieFrame(movie: movie, context: context),
+                                buildMovieFrame(
+                                  ref: ref,
+                                  movie: movie,
+                                  context: context,
+                                ),
                             ],
                           ),
                         ),
@@ -561,6 +576,7 @@ class _MoviesPage extends State<MoviesPage> {
                                   children: [
                                     for (var movie in moviesList)
                                       buildMovieFrame(
+                                        ref: ref,
                                         movie: movie,
                                         context: context,
                                       ),

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../constants/screenssize.dart';
 import '../../core/loader.dart';
 import '../../theme/colors.dart';
 import '../../utils/boxes.dart';
+import '../../widgets/top_bar/topBar.dart';
 import '../../widgets/ui/default_scaffold.dart';
 
 class TestsPage extends StatefulWidget {
@@ -21,8 +23,12 @@ class _TestsPage extends State<TestsPage> {
   Widget build(BuildContext context) {
     return DefaultScaffold(
       currentPage: 'tests',
+      hideBottomBar: Screen.isTablet(context) || Screen.isLandscape(context),
       child: Column(
         children: [
+          Screen.isTablet(context) || Screen.isLandscape(context)
+              ? TopBarWidget(paddingLeft: 0)
+              : SizedBox.shrink(),
           AppBar(
             leading: null,
             centerTitle: true,

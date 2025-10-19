@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:humanize_duration/humanize_duration.dart';
 
@@ -11,14 +12,14 @@ import '../../utils/utils.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import '../../widgets/ui/default_scaffold.dart';
 
-class MoviePage extends StatefulWidget {
+class MoviePage extends ConsumerStatefulWidget {
   const MoviePage({super.key});
 
   @override
-  State<MoviePage> createState() => _MoviePage();
+  ConsumerState<MoviePage> createState() => _MoviePage();
 }
 
-class _MoviePage extends State<MoviePage> {
+class _MoviePage extends ConsumerState<MoviePage> {
   final dynamic movie = moviesBox.get('movie');
   final dynamic historyMovie = moviesBox.get('historyMovie');
 
@@ -212,7 +213,11 @@ class _MoviePage extends State<MoviePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         for (var movie in getIn(movie, 'similarMovies', []))
-                          buildMovieFrame(movie: movie, context: context),
+                          buildMovieFrame(
+                            ref: ref,
+                            movie: movie,
+                            context: context,
+                          ),
                       ],
                     ),
                   ),

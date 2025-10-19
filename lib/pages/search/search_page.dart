@@ -1,25 +1,29 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/theme/colors.dart';
 import 'package:edutainment/utils/assets/assets_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
-
 import '../../icons/icons_light.dart';
 import '../../utils/movies.dart';
 import '../../utils/search.dart';
 import '../../utils/utils.dart';
 import '../../widgets/indicators/double_circular_progress_indicator.dart';
+import '../../widgets/top_bar/topBar.dart';
 import '../../widgets/ui/default_scaffold.dart';
 
-class SearchPage extends StatefulWidget {
+class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
 
   @override
-  State<SearchPage> createState() => _SearchPage();
+  ConsumerState<SearchPage> createState() => _SearchPage();
 }
 
-class _SearchPage extends State<SearchPage> {
+class _SearchPage extends ConsumerState<SearchPage> {
   final TextEditingController wordController = TextEditingController();
 
   List<Widget> buildDefinitions(wordData, type) {
@@ -78,18 +82,23 @@ class _SearchPage extends State<SearchPage> {
 
     return DefaultScaffold(
       currentPage: 'search',
+      hideBottomBar: Screen.isTablet(context) || Screen.isLandscape(context),
       child: Column(
         children: [
-          const SizedBox(height: 30), // Added top padding
-          if (isTablet) const SizedBox(height: 60),
+          const SizedBox(height: 5), // Added top padding
+          // if (isTablet) const SizedBox(height: 60),
+          Screen.isTablet(context) || Screen.isLandscape(context)
+              ? TopBarWidget(paddingLeft: 20)
+              : SizedBox.shrink(),
+
           Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 20,
+              horizontal: 10,
             ), // Added left and right padding
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 10,
-                vertical: isTablet ? 20 : 10,
+                vertical: isTablet ? 7 : 7,
               ),
               constraints: isTablet
                   ? const BoxConstraints(maxWidth: 800)
@@ -125,9 +134,13 @@ class _SearchPage extends State<SearchPage> {
                     margin: const EdgeInsets.only(top: 50),
                     child: const DoubleCircularProgressIndicator(),
                   );
+                  // return QuickTikTokLoader();
                 }
                 if (snapshot.hasData) {
                   var result = snapshot.data;
+
+                  log("👉🏻 fetchWord: " + result);
+
                   var movies = getIn(result, 'movies', []);
                   if (movies.length > 15) {
                     movies = movies.sublist(0, 15);
@@ -264,6 +277,7 @@ class _SearchPage extends State<SearchPage> {
                                   children: [
                                     for (var movie in movies)
                                       buildMovieFrame(
+                                        ref: ref,
                                         movie: movie,
                                         context: context,
                                         from: 'search',

@@ -9,6 +9,7 @@ import '../../utils/movies.dart';
 import '../../utils/screen_utils.dart';
 import '../../theme/colors.dart';
 import '../../utils/boxes.dart';
+import '../../widgets/top_bar/topBar.dart';
 import '../../widgets/ui/default_scaffold.dart';
 import 'profile/badges.dart';
 import 'profile/buttons.dart';
@@ -53,7 +54,9 @@ class _HomePage extends ConsumerState<HomePage> {
       }
     }
     // for use
-    // buildMovieFrame(movie: pausedMovie.first, context: context);
+    // buildMovieFrame(
+    //  ref: ref,
+    //movie: pausedMovie.first, context: context);
   }
 
   @override
@@ -190,6 +193,8 @@ class _HomePage extends ConsumerState<HomePage> {
                                     children: [
                                       pausedMovie.isNotEmpty
                                           ? buildMovieFrame(
+                                              ref: ref,
+
                                               movie: pausedMovie.first,
                                               context: context,
                                               fullSize: true,
@@ -263,6 +268,8 @@ class _HomePage extends ConsumerState<HomePage> {
                                     children: [
                                       pausedMovie.isNotEmpty
                                           ? buildMovieFrame(
+                                              ref: ref,
+
                                               movie: pausedMovie.first,
                                               context: context,
                                               fullSize: true,
@@ -320,42 +327,7 @@ class _HomePage extends ConsumerState<HomePage> {
                           if (screen.isLandscape && screen.isPhone)
                             Column(
                               children: [
-                                Row(
-                                  children: [
-                                    SizedBox(width: screen.width * 0.05),
-                                    Image.asset(AppImages.lion, width: 25),
-                                    Text(
-                                      ' E-DUTAINMENT  ',
-                                      style: TextStyle(
-                                        fontFamily: 'Football Attack',
-                                        color: Colors.white,
-                                        height: 0,
-                                        fontWeight: Theme.of(
-                                          context,
-                                        ).textTheme.titleLarge?.fontWeight!,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        context.go("/home");
-                                      },
-                                      child: Text("PROFILES"),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        context.go("/movies");
-                                      },
-                                      child: Text("FILMS"),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        context.go("/tests");
-                                      },
-                                      child: Text("TEST"),
-                                    ),
-                                  ],
-                                ),
+                                TopBarWidget(paddingLeft: 10),
                                 ProfileHeader(user: userData),
                                 const SizedBox(height: 8),
                                 Row(
@@ -397,6 +369,8 @@ class _HomePage extends ConsumerState<HomePage> {
                                                 children: [
                                                   pausedMovie.isNotEmpty
                                                       ? buildMovieFrame(
+                                                          ref: ref,
+
                                                           movie:
                                                               pausedMovie.first,
                                                           context: context,
@@ -479,6 +453,8 @@ class _HomePage extends ConsumerState<HomePage> {
                                       children: [
                                         pausedMovie.isNotEmpty
                                             ? buildMovieFrame(
+                                                ref: ref,
+
                                                 movie: pausedMovie.first,
                                                 context: context,
                                                 fullSize: true,

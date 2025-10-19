@@ -1,8 +1,10 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/constants/appimages.dart';
+import 'package:edutainment/providers/moviesVm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/loader.dart';
@@ -17,6 +19,7 @@ Widget buildMovieFrame({
   String? from,
   bool fullSize = false,
   bool showPlayerLogo = false,
+  required WidgetRef ref,
 }) {
   return Container(
     margin: fullSize ? null : EdgeInsets.only(top: 8, right: 8, bottom: 16),
@@ -25,11 +28,20 @@ Widget buildMovieFrame({
       splashColor: Colors.white.withOpacity(.1),
       highlightColor: Colors.white.withOpacity(.09),
       onPressed: () async {
-        if (from == 'search') {
-          await movieFetchAndRedirectPlayer(getIn(movie, '_id'), context);
-        } else {
-          await movieFetchAndRedirect(getIn(movie, '_id'), context);
-        }
+        ref
+            .watch(moviesVm)
+            .getMovieByIdF(
+              context,
+              movieId: getIn(movie, '_id').toString(),
+              isRefresh: true,
+              loadingFor: "movie",
+            );
+
+        // if (from == 'search') {
+        //   await movieFetchAndRedirectPlayer(getIn(movie, '_id'), context);
+        // } else {
+        //   await movieFetchAndRedirect(getIn(movie, '_id'), context);
+        // }
       },
       child: ClipRRect(
         // borderRadius: BorderRadius.circular(16),
@@ -62,57 +74,67 @@ Widget buildMovieFrame({
 }
 
 Future<void> movieFetchAndRedirect(id, BuildContext context) async {
-  EasyLoading.show();
-  var movieFetch = await fetchMovie(id);
-  EasyLoading.dismiss();
-  if (getIn(movieFetch, 'success') == false) {
-    if (context.mounted) {
-      await AwesomeDialog(
-        context: context,
-        dialogType: DialogType.error,
-        title: 'Error',
-        desc:
-            'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
-        btnOkOnPress: () {},
-        btnOk: PrimaryButton(
-          onPressed: () => {Navigator.of(context).pop()},
-          text: 'Close',
-        ),
-      ).show();
+  try {
+    EasyLoading.show();
+    var movieFetch = await fetchMovie(id);
+    EasyLoading.dismiss();
+    if (getIn(movieFetch, 'success') == false) {
+      if (context.mounted) {
+        await AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          title: 'Error',
+          desc:
+              'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
+          btnOkOnPress: () {},
+          btnOk: PrimaryButton(
+            onPressed: () => {Navigator.of(context).pop()},
+            text: 'Close',
+          ),
+        ).show();
+      }
+    } else {
+      await moviesBox.put('movie', getIn(movieFetch, 'movie'));
+      await moviesBox.put('historyMovie', getIn(movieFetch, 'historyMovie'));
+      if (context.mounted) {
+        context.push('/movies/movie');
+      }
     }
-  } else {
-    await moviesBox.put('movie', getIn(movieFetch, 'movie'));
-    await moviesBox.put('historyMovie', getIn(movieFetch, 'historyMovie'));
-    if (context.mounted) {
-      context.push('/movies/movie');
-    }
+  } catch (e) {
+    EasyLoading.dismiss();
+    debugPrint("movieFetchAndRedirect try catch error:$e");
   }
 }
 
 Future<void> movieFetchAndRedirectPlayer(id, BuildContext context) async {
-  EasyLoading.show();
-  var movieFetch = await fetchMovie(id);
-  EasyLoading.dismiss();
-  if (getIn(movieFetch, 'success') == false) {
-    if (context.mounted) {
-      await AwesomeDialog(
-        context: context,
-        dialogType: DialogType.error,
-        title: 'Error',
-        desc:
-            'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
-        btnOkOnPress: () {},
-        btnOk: PrimaryButton(
-          onPressed: () => {Navigator.of(context).pop()},
-          text: 'Close',
-        ),
-      ).show();
+  try {
+    EasyLoading.show();
+    var movieFetch = await fetchMovie(id);
+    EasyLoading.dismiss();
+    if (getIn(movieFetch, 'success') == false) {
+      if (context.mounted) {
+        await AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          title: 'Error',
+          desc:
+              'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
+          btnOkOnPress: () {},
+          btnOk: PrimaryButton(
+            onPressed: () => {Navigator.of(context).pop()},
+            text: 'Close',
+          ),
+        ).show();
+      }
+    } else {
+      await moviesBox.put('movie', getIn(movieFetch, 'movie'));
+      await moviesBox.put('historyMovie', getIn(movieFetch, 'historyMovie'));
+      if (context.mounted) {
+        context.go('/movies/movie/player');
+      }
     }
-  } else {
-    await moviesBox.put('movie', getIn(movieFetch, 'movie'));
-    await moviesBox.put('historyMovie', getIn(movieFetch, 'historyMovie'));
-    if (context.mounted) {
-      context.go('/movies/movie/player');
-    }
+  } catch (e) {
+    EasyLoading.dismiss();
+    debugPrint("movieFetchAndRedirectPlayer try catch Error: $e");
   }
 }
