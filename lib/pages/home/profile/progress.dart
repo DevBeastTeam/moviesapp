@@ -18,8 +18,8 @@ class ProfileProgress extends StatelessWidget {
       return Container(
         margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
         padding: const EdgeInsets.all(10),
-        width: screen.width * 0.3,
-        height: screen.width * 0.3,
+        width: screen.width * 0.58,
+        height: screen.height * 0.3,
         decoration: BoxDecoration(
           color: ColorsPallet.borderCardBgColor,
           borderRadius: BorderRadius.circular(32),
@@ -28,26 +28,29 @@ class ProfileProgress extends StatelessWidget {
             color: ColorsPallet.borderCardBorderColor,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Center(
-              child: Image.asset(AppImages.mb, width: screen.width * 0.07),
-            ),
-            _buildComponentForTablet(context, text: 'GRAMMAR', value: .5),
-            const Divider(color: Colors.transparent, height: 10),
-            _buildComponentForTablet(
-              context,
-              text: 'COMPREHENSION',
-              value: .35,
-            ),
-            const Divider(color: Colors.transparent, height: 10),
-            _buildComponentForTablet(
-              context,
-              text: 'GLOBAL KNOWLEDGE',
-              value: .7,
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // Center(
+              //   child: Image.asset(AppImages.mb, width: screen.width * 0.07),
+              // ),
+              _buildComponentForTablet(context, text: 'GRAMMAR', value: .5),
+              const Divider(color: Colors.transparent, height: 5),
+              _buildComponentForTablet(
+                context,
+                text: 'COMPREHENSION',
+                value: .35,
+              ),
+              const Divider(color: Colors.transparent, height: 5),
+              _buildComponentForTablet(
+                context,
+                text: 'GLOBAL KNOWLEDGE',
+                value: .7,
+              ),
+            ],
+          ),
         ),
       );
     }
@@ -136,7 +139,7 @@ class ProfileProgress extends StatelessWidget {
           ),
           const Divider(color: Colors.transparent, height: 1),
           CustomProgressBar(
-            height: 5,
+            height: 13,
             width: MediaQuery.of(context).size.width,
             value: value,
             radius: 5,

@@ -15,15 +15,9 @@ class ProfileButtons extends StatelessWidget {
     final screen = ScreenUtils(context);
 
     if (screen.isTablet && screen.isLandscape) {
-      return Container(
-        margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
-        decoration: BoxDecoration(
-          color: ColorsPallet.darkComponentBackground,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        alignment: Alignment.center,
-        width: screen.width * 0.3,
-        height: screen.width * 0.3,
+      return SizedBox(
+        height: screen.height * 0.35,
+        width: screen.width * 0.35,
         child: GridView(
           shrinkWrap: true,
           controller: ScrollController(),
@@ -31,53 +25,63 @@ class ProfileButtons extends StatelessWidget {
             crossAxisCount: 2,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
-            childAspectRatio: screen.isLandscape ? 1.5 : 1.1,
+            childAspectRatio: 1.2,
           ),
           padding: const EdgeInsets.all(8),
           children: [
-            _buildComponentForTablet(
+            _buildComponent(
               context: context,
               text: 'COPILOT',
               assetImg: AppImages.ai2,
               isImg: true,
+              imgSize: 45,
+              fontSize: 11,
               // icon: EdutainmentIcons.writing,
               colors: const [Color(0xff02eac1), Color(0xff2992f9)],
               onPressed: () {
                 context.go('/home/AIMenuPage');
               },
             ),
-            _buildComponentForTablet(
+            _buildComponent(
+              fontSize: 11,
               context: context,
               text: 'PRONUNCIATION',
+              imgSize: 45,
               icon: EdutainmentIcons.pronunciation,
               colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
               onPressed: () {
                 context.go('/home/PronlevelsPage');
               },
             ),
-            // _buildComponentForTablet(
+            // _buildComponent(
+            // fontSize: 11,
             //   context: context,
             //   text: 'FLASHCARDS',
             //   assetImg: AppImages.flashcards,
             //   isImg: true,
+            // imgSize: 45,
             //   colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
             //   onPressed: () {
             //     context.go('/home/fc');
             //   },
             // ),
-            _buildComponentForTablet(
+            _buildComponent(
+              fontSize: 11,
               context: context,
               // text: 'GRAMMAR',
               text: 'LESSONS',
+              imgSize: 45,
               icon: EdutainmentIcons.grammar,
               colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
               onPressed: () async {
                 context.go('/home/GrammerPage');
               },
             ),
-            _buildComponentForTablet(
+            _buildComponent(
+              fontSize: 11,
               context: context,
               text: 'EXERCISES',
+              imgSize: 45,
               icon: EdutainmentIcons.exercices,
               colors: const [Color(0xfffd6378), Color(0xffa11111)],
               onPressed: () {
@@ -111,10 +115,14 @@ class ProfileButtons extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: ColorsPallet.darkComponentBackground,
-                borderRadius: BorderRadius.circular(10),
+                color: ColorsPallet.borderCardBgColor,
+                borderRadius: BorderRadius.circular(32),
+                border: Border.all(
+                  width: 1,
+                  color: ColorsPallet.borderCardBorderColor,
+                ),
               ),
-              child: _buildComponentForTablet(
+              child: _buildComponent(
                 context: context,
                 text: 'EXERCISES',
                 icon: EdutainmentIcons.exercices,
@@ -126,10 +134,14 @@ class ProfileButtons extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: ColorsPallet.darkComponentBackground,
-                borderRadius: BorderRadius.circular(10),
+                color: ColorsPallet.borderCardBgColor,
+                borderRadius: BorderRadius.circular(32),
+                border: Border.all(
+                  width: 1,
+                  color: ColorsPallet.borderCardBorderColor,
+                ),
               ),
-              child: _buildComponentForTablet(
+              child: _buildComponent(
                 context: context,
                 // text: 'GRAMMAR',
                 text: 'LESSONS',
@@ -143,10 +155,14 @@ class ProfileButtons extends StatelessWidget {
 
             Container(
               decoration: BoxDecoration(
-                color: ColorsPallet.darkComponentBackground,
-                borderRadius: BorderRadius.circular(10),
+                color: ColorsPallet.borderCardBgColor,
+                borderRadius: BorderRadius.circular(32),
+                border: Border.all(
+                  width: 1,
+                  color: ColorsPallet.borderCardBorderColor,
+                ),
               ),
-              child: _buildComponentForTablet(
+              child: _buildComponent(
                 context: context,
                 text: 'COPILOT',
                 assetImg: AppImages.ai2,
@@ -160,10 +176,14 @@ class ProfileButtons extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: ColorsPallet.darkComponentBackground,
-                borderRadius: BorderRadius.circular(10),
+                color: ColorsPallet.borderCardBgColor,
+                borderRadius: BorderRadius.circular(32),
+                border: Border.all(
+                  width: 1,
+                  color: ColorsPallet.borderCardBorderColor,
+                ),
               ),
-              child: _buildComponentForTablet(
+              child: _buildComponent(
                 context: context,
                 text: 'PRONUNCIATION',
                 icon: EdutainmentIcons.pronunciation,
@@ -178,7 +198,7 @@ class ProfileButtons extends StatelessWidget {
             //     color: ColorsPallet.darkComponentBackground,
             //     borderRadius: BorderRadius.circular(10),
             //   ),
-            //   child: _buildComponentForTablet(
+            //   child: _buildComponent(
             //     context: context,
             //     text: 'FLASHCARDS',
             //     assetImg: AppImages.flashcards,
@@ -370,52 +390,6 @@ class ProfileButtons extends StatelessWidget {
     );
   }
 
-  Widget _buildComponentForTablet({
-    required BuildContext context,
-    required String text,
-    IconData? icon,
-    String? assetImg,
-    required List<Color> colors,
-    bool isImg = false,
-    required VoidCallback onPressed,
-  }) {
-    return RawMaterialButton(
-      hoverElevation: 0,
-      elevation: 0,
-      focusElevation: 0,
-      splashColor: Colors.white.withOpacity(.1),
-      highlightColor: Colors.white.withOpacity(.09),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      onPressed: onPressed,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.13,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            isImg
-                ? Image.asset(assetImg ?? "", width: 35)
-                : GradientIcon(
-                    icon: icon!,
-                    size: 35,
-                    gradient: LinearGradient(colors: colors),
-                  ),
-            SizedBox(height: 10),
-            Text(
-              text,
-              style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-                overflow: TextOverflow.fade,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildComponent({
     required BuildContext context,
     required String text,
@@ -424,6 +398,8 @@ class ProfileButtons extends StatelessWidget {
     required List<Color> colors,
     bool isImg = false,
     required VoidCallback onPressed,
+    double imgSize = 70,
+    double fontSize = 14,
   }) {
     return RawMaterialButton(
       hoverElevation: 0,
@@ -450,16 +426,16 @@ class ProfileButtons extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             isImg
-                ? Image.asset(assetImg ?? "", width: 70)
+                ? Image.asset(assetImg ?? "", width: imgSize)
                 : GradientIcon(
                     icon: icon!,
-                    size: 80,
+                    size: imgSize,
                     gradient: LinearGradient(colors: colors),
                   ),
             Text(
               text,
-              style: const TextStyle(
-                fontSize: 14,
+              style: TextStyle(
+                fontSize: fontSize,
                 fontWeight: FontWeight.bold,
                 overflow: TextOverflow.fade,
               ),

@@ -32,8 +32,8 @@ class ProfileBadgesState extends State<ProfileBadges> {
       return Container(
         margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
         padding: const EdgeInsets.all(10),
-        width: screen.width * 0.3,
-        height: screen.width * 0.3,
+        width: screen.width * 0.47,
+        height: screen.height * 0.35,
         decoration: BoxDecoration(
           color: ColorsPallet.borderCardBgColor,
           borderRadius: BorderRadius.circular(32),
