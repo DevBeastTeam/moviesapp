@@ -12,6 +12,8 @@ class ColorsPallet {
   static const Color lightBlueComponent = Color(0xff29bbf9);
 
   static const Color darkComponentBackground = Color(0x6114477b);
+  static const Color borderCardBgColor = Color.fromARGB(116, 24, 44, 63);
+  static Color borderCardBorderColor = Colors.grey.shade700;
   static const Color componentBackground = Color(0xff0b2845);
   static const Color componentBackgroundAccent = Color(0xff14477b);
 
@@ -19,7 +21,7 @@ class ColorsPallet {
 
   static const List<Color> dbba = [
     ColorsPallet.darkBlue,
-    ColorsPallet.blueAccent
+    ColorsPallet.blueAccent,
   ];
 
   static const List<Color> bdb = [Colors.black, ColorsPallet.darkBlue];

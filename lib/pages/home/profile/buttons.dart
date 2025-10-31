@@ -37,7 +37,7 @@ class ProfileButtons extends StatelessWidget {
           children: [
             _buildComponentForTablet(
               context: context,
-              text: 'Ai CHAT',
+              text: 'COPILOT',
               assetImg: AppImages.ai2,
               isImg: true,
               // icon: EdutainmentIcons.writing,
@@ -55,16 +55,16 @@ class ProfileButtons extends StatelessWidget {
                 context.go('/home/PronlevelsPage');
               },
             ),
-            _buildComponentForTablet(
-              context: context,
-              text: 'FLASHCARDS',
-              assetImg: AppImages.flashcards,
-              isImg: true,
-              colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
-              onPressed: () {
-                context.go('/home/fc');
-              },
-            ),
+            // _buildComponentForTablet(
+            //   context: context,
+            //   text: 'FLASHCARDS',
+            //   assetImg: AppImages.flashcards,
+            //   isImg: true,
+            //   colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+            //   onPressed: () {
+            //     context.go('/home/fc');
+            //   },
+            // ),
             _buildComponentForTablet(
               context: context,
               // text: 'GRAMMAR',
@@ -148,7 +148,7 @@ class ProfileButtons extends StatelessWidget {
               ),
               child: _buildComponentForTablet(
                 context: context,
-                text: 'Ai CHAT',
+                text: 'COPILOT',
                 assetImg: AppImages.ai2,
                 isImg: true,
                 // icon: EdutainmentIcons.writing,
@@ -173,22 +173,22 @@ class ProfileButtons extends StatelessWidget {
                 },
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: ColorsPallet.darkComponentBackground,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: _buildComponentForTablet(
-                context: context,
-                text: 'FLASHCARDS',
-                assetImg: AppImages.flashcards,
-                isImg: true,
-                colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
-                onPressed: () {
-                  context.go('/home/fc');
-                },
-              ),
-            ),
+            // Container(
+            //   decoration: BoxDecoration(
+            //     color: ColorsPallet.darkComponentBackground,
+            //     borderRadius: BorderRadius.circular(10),
+            //   ),
+            //   child: _buildComponentForTablet(
+            //     context: context,
+            //     text: 'FLASHCARDS',
+            //     assetImg: AppImages.flashcards,
+            //     isImg: true,
+            //     colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+            //     onPressed: () {
+            //       context.go('/home/fc');
+            //     },
+            //   ),
+            // ),
           ],
         ),
       );
@@ -293,7 +293,7 @@ class ProfileButtons extends StatelessWidget {
                 Expanded(
                   child: _buildComponent(
                     context: context,
-                    text: 'Ai CHAT',
+                    text: 'COPILOT',
                     assetImg: AppImages.ai2,
                     isImg: true,
                     // icon: EdutainmentIcons.writing,
@@ -341,30 +341,30 @@ class ProfileButtons extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              // mainAxisSize: MainAxisSize.min,
-              children: [
-                // SizedBox.fromSize(size: const Size(8, 8)),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.42,
-                  child: _buildComponent(
-                    context: context,
-                    text: 'FLASHCARDS',
-                    assetImg: AppImages.flashcards,
-                    isImg: true,
-                    colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
-                    onPressed: () {
-                      context.go('/home/fc');
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   margin: const EdgeInsets.only(top: 8),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     // mainAxisSize: MainAxisSize.min,
+          //     children: [
+          //       // SizedBox.fromSize(size: const Size(8, 8)),
+          //       SizedBox(
+          //         width: MediaQuery.of(context).size.width * 0.42,
+          //         child: _buildComponent(
+          //           context: context,
+          //           text: 'FLASHCARDS',
+          //           assetImg: AppImages.flashcards,
+          //           isImg: true,
+          //           colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+          //           onPressed: () {
+          //             context.go('/home/fc');
+          //           },
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
@@ -437,8 +437,12 @@ class ProfileButtons extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: 150,
         decoration: BoxDecoration(
-          color: ColorsPallet.darkComponentBackground,
-          borderRadius: BorderRadius.circular(16),
+          color: ColorsPallet.borderCardBgColor,
+          borderRadius: BorderRadius.circular(32),
+          border: Border.all(
+            width: 1,
+            color: ColorsPallet.borderCardBorderColor,
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

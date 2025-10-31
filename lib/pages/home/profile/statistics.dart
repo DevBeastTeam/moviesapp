@@ -28,8 +28,12 @@ class ProfileStatistics extends StatelessWidget {
         width: screen.width * 0.3,
         height: screen.width * 0.3,
         decoration: BoxDecoration(
-          color: ColorsPallet.darkComponentBackground,
-          borderRadius: BorderRadius.circular(20),
+          color: ColorsPallet.borderCardBgColor,
+          borderRadius: BorderRadius.circular(32),
+          border: Border.all(
+            width: 1,
+            color: ColorsPallet.borderCardBorderColor,
+          ),
         ),
         child: ListView(
           shrinkWrap: true,
@@ -107,8 +111,12 @@ class ProfileStatistics extends StatelessWidget {
         width: screen.width * 0.43,
         height: screen.width * 0.43,
         decoration: BoxDecoration(
-          color: ColorsPallet.darkComponentBackground,
-          borderRadius: BorderRadius.circular(20),
+          color: ColorsPallet.borderCardBgColor,
+          borderRadius: BorderRadius.circular(32),
+          border: Border.all(
+            width: 1,
+            color: ColorsPallet.borderCardBorderColor,
+          ),
         ),
         child: ListView(
           shrinkWrap: true,
@@ -186,8 +194,9 @@ class ProfileStatistics extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: ColorsPallet.darkComponentBackground,
+        color: ColorsPallet.borderCardBgColor,
         borderRadius: BorderRadius.circular(32),
+        border: Border.all(width: 1, color: ColorsPallet.borderCardBorderColor),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

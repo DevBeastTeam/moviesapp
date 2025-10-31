@@ -21,8 +21,12 @@ class ProfileProgress extends StatelessWidget {
         width: screen.width * 0.3,
         height: screen.width * 0.3,
         decoration: BoxDecoration(
-          color: ColorsPallet.darkComponentBackground,
-          borderRadius: BorderRadius.circular(20),
+          color: ColorsPallet.borderCardBgColor,
+          borderRadius: BorderRadius.circular(32),
+          border: Border.all(
+            width: 1,
+            color: ColorsPallet.borderCardBorderColor,
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -54,8 +58,12 @@ class ProfileProgress extends StatelessWidget {
         width: screen.width * 0.99,
         height: screen.height * 0.22,
         decoration: BoxDecoration(
-          color: ColorsPallet.darkComponentBackground,
-          borderRadius: BorderRadius.circular(20),
+          color: ColorsPallet.borderCardBgColor,
+          borderRadius: BorderRadius.circular(32),
+          border: Border.all(
+            width: 1,
+            color: ColorsPallet.borderCardBorderColor,
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -87,8 +95,12 @@ class ProfileProgress extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: ColorsPallet.darkComponentBackground,
+          color: ColorsPallet.borderCardBgColor,
           borderRadius: BorderRadius.circular(32),
+          border: Border.all(
+            width: 1,
+            color: ColorsPallet.borderCardBorderColor,
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -155,7 +167,7 @@ class ProfileProgress extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           CustomProgressBar(
-            height: 10,
+            height: 19,
             width: MediaQuery.of(context).size.width,
             value: value,
             radius: 16,

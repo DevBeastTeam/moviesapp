@@ -11,9 +11,10 @@ import '../widgets/ui/primary_button.dart';
 
 class ApiHelper {
   // static const String _baseUrl = 'https://dev.play.e-dutainment.com';
+  static const String _baseUrl = 'https://dev.play.e-dutainment.com';
   // static const String _baseUrl = 'https://terminator.e-dutainment.com'; // was worked with this
   //  New base api = play.e-dutainment.com (for all endpoint)
-  static const String _baseUrl = 'https://play.e-dutainment.com';
+  // static const String _baseUrl = 'https://play.e-dutainment.com';
 
   // static const String _baseUrl = 'https://play.e-dutainment.com';
   static const String _basePath = '/api/1.0';

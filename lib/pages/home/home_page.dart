@@ -180,8 +180,12 @@ class _HomePage extends ConsumerState<HomePage> {
                                   ),
                                   // padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    color: ColorsPallet.darkComponentBackground,
-                                    borderRadius: BorderRadius.circular(20),
+                                    color: ColorsPallet.borderCardBgColor,
+                                    borderRadius: BorderRadius.circular(32),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: ColorsPallet.borderCardBorderColor,
+                                    ),
                                   ),
                                   height: screen.width * 0.3,
                                   width: screen.width * 0.3,
@@ -194,7 +198,6 @@ class _HomePage extends ConsumerState<HomePage> {
                                       pausedMovie.isNotEmpty
                                           ? buildMovieFrame(
                                               ref: ref,
-
                                               movie: pausedMovie.first,
                                               context: context,
                                               fullSize: true,
@@ -255,8 +258,12 @@ class _HomePage extends ConsumerState<HomePage> {
                                   ),
                                   // padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    color: ColorsPallet.darkComponentBackground,
-                                    borderRadius: BorderRadius.circular(20),
+                                    color: ColorsPallet.borderCardBgColor,
+                                    borderRadius: BorderRadius.circular(32),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: ColorsPallet.borderCardBorderColor,
+                                    ),
                                   ),
                                   height: screen.width * 0.43,
                                   width: screen.width * 0.43,
@@ -299,179 +306,162 @@ class _HomePage extends ConsumerState<HomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Column(
                         children: [
-                          // const SizedBox(height: 16),
-                          // RichText(
-                          //   text: TextSpan(
+                          const SizedBox(height: 10),
+                          // if (screen.isLandscape && screen.isPhone)
+                          //   Column(
                           //     children: [
-                          //       const TextSpan(
-                          //         text: "Welcome Back, ",
-                          //         style: TextStyle(
-                          //           color: Colors.white,
-                          //           fontSize: 22,
-                          //           fontWeight: FontWeight.w400,
-                          //         ),
-                          //       ),
-                          //       TextSpan(
-                          //         text:
-                          //             "${getIn(userData, 'name.given_name', '')} ",
-                          //         style: const TextStyle(
-                          //           color: Colors.blue,
-                          //           fontSize: 22,
-                          //           fontWeight: FontWeight.w400,
-                          //         ),
+                          //       TopBarWidget(paddingLeft: 10),
+                          //       ProfileHeader(user: userData),
+                          //       const SizedBox(height: 8),
+                          //       Row(
+                          //         crossAxisAlignment: CrossAxisAlignment.start,
+                          //         children: [
+                          //           Expanded(
+                          //             child: Column(
+                          //               children: [
+                          //                 ProfileProgress(user: userData),
+                          //                 const SizedBox(height: 8),
+                          //                 ProfileBadges(
+                          //                   badges: badgesData,
+                          //                   historyBadges: historyBadgesData,
+                          //                 ),
+                          //                 InkWell(
+                          //                   onTap: () => context.go("/movies"),
+                          //                   child: Container(
+                          //                     margin: const EdgeInsets.only(
+                          //                       top: 5,
+                          //                       left: 5,
+                          //                       right: 5,
+                          //                       bottom: 5,
+                          //                     ),
+                          //                     padding: const EdgeInsets.all(10),
+                          //                     decoration: BoxDecoration(
+                          //                       color: ColorsPallet
+                          //                           .borderCardBgColor,
+                          //                       borderRadius:
+                          //                           BorderRadius.circular(32),
+                          //                       border: Border.all(
+                          //                         width: 1,
+                          //                         color: ColorsPallet
+                          //                             .borderCardBorderColor,
+                          //                       ),
+                          //                     ),
+                          //                     height: screen.height * 0.6,
+                          //                     width: screen.width * 0.42,
+                          //                     child: Column(
+                          //                       mainAxisSize: MainAxisSize.min,
+                          //                       mainAxisAlignment:
+                          //                           MainAxisAlignment.center,
+                          //                       crossAxisAlignment:
+                          //                           CrossAxisAlignment.center,
+                          //                       children: [
+                          //                         pausedMovie.isNotEmpty
+                          //                             ? buildMovieFrame(
+                          //                                 ref: ref,
+
+                          //                                 movie:
+                          //                                     pausedMovie.first,
+                          //                                 context: context,
+                          //                                 fullSize: true,
+                          //                                 showPlayerLogo: true,
+                          //                               )
+                          //                             : Image.asset(
+                          //                                 AppImages.playerlight,
+                          //                                 width: 20,
+                          //                               ),
+                          //                         SizedBox(height: 10),
+                          //                         Text("Continue Watching"),
+                          //                       ],
+                          //                     ),
+                          //                   ),
+                          //                 ),
+                          //               ],
+                          //             ),
+                          //           ),
+                          //           const SizedBox(width: 8),
+                          //           Expanded(
+                          //             child: Column(
+                          //               children: [
+                          //                 ProfileStatistics(
+                          //                   user: userData,
+                          //                   statistics: statisticsData,
+                          //                 ),
+                          //                 const SizedBox(height: 8),
+                          //                 const ProfileButtons(),
+                          //               ],
+                          //             ),
+                          //           ),
+                          //         ],
                           //       ),
                           //     ],
-                          //   ),
-                          // ),
-                          const SizedBox(height: 10),
-                          if (screen.isLandscape && screen.isPhone)
-                            Column(
-                              children: [
-                                TopBarWidget(paddingLeft: 10),
-                                ProfileHeader(user: userData),
-                                const SizedBox(height: 8),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        children: [
-                                          ProfileProgress(user: userData),
-                                          const SizedBox(height: 8),
-                                          ProfileBadges(
-                                            badges: badgesData,
-                                            historyBadges: historyBadgesData,
-                                          ),
-                                          InkWell(
-                                            onTap: () => context.go("/movies"),
-                                            child: Container(
-                                              margin: const EdgeInsets.only(
-                                                top: 5,
-                                                left: 5,
-                                                right: 5,
-                                                bottom: 5,
-                                              ),
-                                              padding: const EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                color: ColorsPallet
-                                                    .darkComponentBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              height: screen.height * 0.6,
-                                              width: screen.width * 0.42,
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  pausedMovie.isNotEmpty
-                                                      ? buildMovieFrame(
-                                                          ref: ref,
-
-                                                          movie:
-                                                              pausedMovie.first,
-                                                          context: context,
-                                                          fullSize: true,
-                                                          showPlayerLogo: true,
-                                                        )
-                                                      : Image.asset(
-                                                          AppImages.playerlight,
-                                                          width: 20,
-                                                        ),
-                                                  SizedBox(height: 10),
-                                                  Text("Continue Watching"),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Expanded(
-                                      child: Column(
-                                        children: [
-                                          ProfileStatistics(
-                                            user: userData,
-                                            statistics: statisticsData,
-                                          ),
-                                          const SizedBox(height: 8),
-                                          const ProfileButtons(),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                          else
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                ProfileHeader(user: userData),
-                                const SizedBox(height: 8),
-                                ProfileProgress(user: userData),
-                                const SizedBox(height: 8),
-                                ProfileStatistics(
-                                  user: userData,
-                                  statistics: statisticsData,
-                                ),
-                                const SizedBox(height: 8),
-                                const ProfileButtons(),
-                                const SizedBox(height: 8),
-                                ProfileBadges(
-                                  badges: badgesData,
-                                  historyBadges: historyBadgesData,
-                                ),
-                                InkWell(
-                                  onTap: () => context.go("/movies"),
-                                  child: Container(
-                                    margin: const EdgeInsets.only(
-                                      top: 5,
-                                      left: 5,
-                                      right: 5,
-                                      bottom: 5,
-                                    ),
-                                    padding: const EdgeInsets.all(20),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          ColorsPallet.darkComponentBackground,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    height: screen.height * 0.35,
-                                    width: screen.width * 0.84,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        pausedMovie.isNotEmpty
-                                            ? buildMovieFrame(
-                                                ref: ref,
-
-                                                movie: pausedMovie.first,
-                                                context: context,
-                                                fullSize: true,
-                                                showPlayerLogo: true,
-                                              )
-                                            : Image.asset(
-                                                AppImages.playerlight,
-                                                width: 20,
-                                              ),
-                                        SizedBox(height: 10),
-                                        Text("Continue Watching"),
-                                      ],
+                          //   )
+                          // else
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              ProfileHeader(user: userData),
+                              const SizedBox(height: 8),
+                              ProfileProgress(user: userData),
+                              const SizedBox(height: 8),
+                              const ProfileButtons(),
+                              const SizedBox(height: 8),
+                              ProfileStatistics(
+                                user: userData,
+                                statistics: statisticsData,
+                              ),
+                              const SizedBox(height: 8),
+                              ProfileBadges(
+                                badges: badgesData,
+                                historyBadges: historyBadgesData,
+                              ),
+                              InkWell(
+                                onTap: () => context.go("/movies"),
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                    top: 5,
+                                    left: 5,
+                                    right: 5,
+                                    bottom: 5,
+                                  ),
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    color: ColorsPallet.borderCardBgColor,
+                                    borderRadius: BorderRadius.circular(32),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: ColorsPallet.borderCardBorderColor,
                                     ),
                                   ),
+                                  height: screen.height * 0.35,
+                                  width: screen.width * 0.84,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      pausedMovie.isNotEmpty
+                                          ? buildMovieFrame(
+                                              ref: ref,
+
+                                              movie: pausedMovie.first,
+                                              context: context,
+                                              fullSize: true,
+                                              showPlayerLogo: true,
+                                            )
+                                          : Image.asset(
+                                              AppImages.playerlight,
+                                              width: 20,
+                                            ),
+                                      SizedBox(height: 10),
+                                      Text("Continue Watching"),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),

@@ -51,16 +51,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      // scaffoldMessengerKey: scaffoldMessengerKey,
-      key: globalKey,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 600) {
+          // Phone-sized device
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+          ]);
+        }
+        return MaterialApp.router(
+          // scaffoldMessengerKey: scaffoldMessengerKey,
+          key: globalKey,
 
-      title: 'E-Dutainment',
-      debugShowCheckedModeBanner: false,
-      theme: appTheme,
-      themeMode: ThemeMode.light,
-      routerConfig: appRoutes,
-      builder: EasyLoading.init(),
+          title: 'E-Dutainment',
+          debugShowCheckedModeBanner: false,
+          theme: appTheme,
+          themeMode: ThemeMode.light,
+          routerConfig: appRoutes,
+          builder: EasyLoading.init(),
+        );
+      },
     );
   }
 }

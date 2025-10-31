@@ -26,8 +26,12 @@ class ProfileHeader extends StatelessWidget {
         height: screen.width * 0.3,
         // constraints: const BoxConstraints(maxHeight: 225),
         decoration: BoxDecoration(
-          color: ColorsPallet.darkComponentBackground,
-          borderRadius: BorderRadius.circular(20),
+          color: ColorsPallet.borderCardBgColor,
+          borderRadius: BorderRadius.circular(32),
+          border: Border.all(
+            width: 1,
+            color: ColorsPallet.borderCardBorderColor,
+          ),
         ),
         child: Stack(
           children: [
@@ -153,8 +157,12 @@ class ProfileHeader extends StatelessWidget {
         height: screen.height * 0.28,
         // constraints: const BoxConstraints(maxHeight: 225),
         decoration: BoxDecoration(
-          color: ColorsPallet.darkComponentBackground,
-          borderRadius: BorderRadius.circular(10),
+          color: ColorsPallet.borderCardBgColor,
+          borderRadius: BorderRadius.circular(32),
+          border: Border.all(
+            width: 1,
+            color: ColorsPallet.borderCardBorderColor,
+          ),
         ),
         child: Stack(
           children: [
@@ -273,8 +281,12 @@ class ProfileHeader extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         // constraints: const BoxConstraints(maxHeight: 225),
         decoration: BoxDecoration(
-          color: ColorsPallet.darkComponentBackground,
+          color: ColorsPallet.borderCardBgColor,
           borderRadius: BorderRadius.circular(32),
+          border: Border.all(
+            width: 1,
+            color: ColorsPallet.borderCardBorderColor,
+          ),
         ),
         child: Stack(
           children: [
