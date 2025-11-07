@@ -14,6 +14,7 @@ import '../../utils/utils.dart';
 import '../../widgets/top_bar/topBar.dart';
 import '../../widgets/ui/custom_submit_button.dart';
 import '../../widgets/ui/default_scaffold.dart';
+import 'widgets/tabButtonWidget.dart';
 
 class MoviesPage extends ConsumerStatefulWidget {
   const MoviesPage({super.key});
@@ -188,154 +189,134 @@ class _MoviesPage extends ConsumerState<MoviesPage> {
   Widget build(BuildContext context) {
     return DefaultScaffold(
       currentPage: 'movies',
-      hideBottomBar: Screen.isTablet(context) || Screen.isLandscape(context),
+      // hideBottomBar: Screen.isTablet(context) || Screen.isLandscape(context),
+      hideBottomBar: false,
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           // mainAxisAlignment: MairnAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Screen.isTablet(context) || Screen.isLandscape(context)
-                ? TopBarWidget(paddingLeft: 0)
-                : Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 0,
-                      horizontal: 4.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // AssetsImage.defaultIcon.toImage(width: 24),
-                        Image.asset(AppImages.playerlight, width: 24),
-                        const SizedBox(width: 4),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 4.0),
-                          child: Text(
-                            'E-DUTAINMENT',
-                            style: TextStyle(
-                              fontFamily: 'Football Attack',
-                              color: Colors.white,
-                              fontWeight: Theme.of(
-                                context,
-                              ).textTheme.titleLarge?.fontWeight!,
-                              fontSize: 20,
+            // Screen.isTablet(context) || Screen.isLandscape(context)
+            //     ? TopBarWidget(paddingLeft: 0)
+            //     : Padding(
+            //         padding: const EdgeInsets.symmetric(
+            //           vertical: 0,
+            //           horizontal: 4.0,
+            //         ),
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           crossAxisAlignment: CrossAxisAlignment.center,
+            //           children: [
+            //             // AssetsImage.defaultIcon.toImage(width: 24),
+            //             Image.asset(AppImages.playerlight, width: 24),
+            //             const SizedBox(width: 4),
+            //             Padding(
+            //               padding: const EdgeInsets.only(bottom: 4.0),
+            //               child: Text(
+            //                 'E-DUTAINMENT',
+            //                 style: TextStyle(
+            //                   fontFamily: 'Football Attack',
+            //                   color: Colors.white,
+            //                   fontWeight: Theme.of(
+            //                     context,
+            //                   ).textTheme.titleLarge?.fontWeight!,
+            //                   fontSize: 20,
+            //                 ),
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            // const SizedBox(height: 3),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(
+                  AppImages.playerlight,
+                  width: Screen.isTablet(context)
+                      ? Screen.width(context) * 0.07
+                      : Screen.width(context) * 0.12,
+                ),
+                Container(
+                  height: 47,
+                  width: Screen.isTablet(context)
+                      ? Screen.width(context) * 0.8
+                      : Screen.width(context) * 0.85,
+                  decoration: BoxDecoration(
+                    color: ColorsPallet.filmsTabBgColor,
+                    border: Border.all(color: Colors.white, width: 1),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 2,
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: SingleChildScrollView(
+                        controller: ScrollController(),
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            FilmTabBtnWidget(
+                              label: "All",
+                              isActive: currentSubject == 'all',
+                              onTap: () {
+                                setState(() {
+                                  currentSubject = 'all';
+                                  currentSubjectRef = 'all';
+                                });
+                                updateMovies();
+                              },
                             ),
-                          ),
+
+                            for (var subject in subjects)
+                              FilmTabBtnWidget(
+                                label: subject['label'].replaceAll(
+                                  'videos',
+                                  '',
+                                ),
+                                isActive:
+                                    currentSubject.toLowerCase() ==
+                                    subject['_id'].toString().toLowerCase(),
+                                onTap: () {
+                                  setState(() {
+                                    currentSubject = subject['_id'];
+                                    currentSubjectRef = subject['reference'];
+                                  });
+                                  updateMovies();
+                                },
+                              ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-            const SizedBox(height: 3),
-            Container(
-              height: 35,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-              child: Center(
-                child: ListView(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: currentSubject == 'all'
-                              ? ColorsPallet.blueAccent
-                              : Colors.white,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            currentSubject = 'all';
-                            currentSubjectRef = 'all';
-                          });
-                          updateMovies();
-                        },
-                        child: Center(
-                          child: Text(
-                            '  All  ',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: currentSubject == 'all'
-                                  ? ColorsPallet.blueAccent
-                                  : Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    for (var subject in subjects)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: currentSubject == subject['_id']
-                                ? ColorsPallet.blueAccent
-                                : Colors.white,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              // if(currentSubject == subject['_id']) {
-                              //   currentSubject = 'all';
-                              //   currentSubjectRef = 'all';
-                              // } else {
-                              currentSubject = subject['_id'];
-                              currentSubjectRef = subject['reference'];
-                              // }
-                            });
-                            updateMovies();
-                          },
-                          child: Center(
-                            child: Text(
-                              subject['label'].replaceAll('videos', ''),
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: currentSubject == subject['_id']
-                                    ? ColorsPallet.blueAccent
-                                    : Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                  ],
                 ),
-              ),
+              ],
             ),
 
             Container(
               height: Screen.isPhone(context) ? 5 : 20,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  // stops: const [0.0, 0.3, 0.8, 1.0],
-                  colors: [
-                    Colors.black,
-                    Colors.black54,
-                    Colors.black38,
-                    Colors.black26,
-                    Colors.black12,
-                    Colors.transparent,
-                    // ColorsPallet.darkBlue.withOpacity(0.7),
-                  ],
-                ),
+                // gradient: LinearGradient(
+                //   begin: Alignment.bottomCenter,
+                //   end: Alignment.topCenter,
+                //   // stops: const [0.0, 0.3, 0.8, 1.0],
+                //   colors: [
+                //     Colors.black,
+                //     Colors.black54,
+                //     Colors.black38,
+                //     Colors.black26,
+                //     Colors.black12,
+                //     Colors.transparent,
+                //     // ColorsPallet.darkBlue.withOpacity(0.7),
+                //   ],
+                // ),
               ),
             ),
             // SizedBox(height: 8),
@@ -350,112 +331,125 @@ class _MoviesPage extends ConsumerState<MoviesPage> {
 
                   final double containerHeight = isLandScape
                       ? screenWidth / (16 / 9)
+                      : Screen.isTablet(context)
+                      ? Screen.height(context) * 0.6
                       : screenHeight * 0.5;
-                  return SizedBox(
-                    height: containerHeight,
-                    // margin: const EdgeInsets.symmetric(vertical: 12),
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                            await movieFetchAndRedirect(movie, context);
-                          },
-                          child: CachedNetworkImage(
-                            imageUrl: imageUrl,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
-                            placeholder: (context, url) => const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [CircularProgressIndicator()],
-                            ),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          child: Container(
-                            height: Screen.isPhone(context) ? 10 : 10,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                stops: const [1.0, 0.8, 0.3, 0.0],
-                                colors: [
-                                  // ColorsPallet.darkBlue.withOpacity(0.9),
-                                  Colors.black,
-                                  Colors.black38,
-                                  Colors.transparent,
-                                  Colors.transparent,
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          child: Container(
-                            height: 100,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                // stops: const [0.0, 0.3, 0.8, 1.0],
-                                colors: [
-                                  Colors.transparent,
-                                  Colors.transparent,
-                                  Colors.black38,
-                                  Colors.black,
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 30,
-                          left: 16,
-                          child: Center(
-                            child: CustomSubmitButton(
-                              width:
-                                  (MediaQuery.of(context).size.width * .5 > 200
-                                  ? 200
-                                  : MediaQuery.of(context).size.width * .5),
-                              child: Row(
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      height: containerHeight,
+                      // margin: const EdgeInsets.symmetric(vertical: 12),
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              await movieFetchAndRedirect(movie, context);
+                            },
+                            child: CachedNetworkImage(
+                              imageUrl: imageUrl,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                              placeholder: (context, url) => const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Icon(EdutainmentIcons.playEdutainment),
-                                  Container(
-                                    margin: const EdgeInsets.only(left: 3),
-                                    child: Text(
-                                      'PLAY NOW',
-                                      // '${imageUrl}',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        fontSize: Theme.of(
-                                          context,
-                                        ).textTheme.titleLarge!.fontSize!,
+                                children: [CircularProgressIndicator()],
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
+                          ),
+                          // Positioned(
+                          //   top: 0,
+                          //   left: 0,
+                          //   right: 0,
+                          //   child: Container(
+                          //     height: Screen.isPhone(context) ? 10 : 10,
+                          //     decoration: BoxDecoration(
+                          //       gradient: LinearGradient(
+                          //         begin: Alignment.topCenter,
+                          //         end: Alignment.bottomCenter,
+                          //         stops: const [1.0, 0.8, 0.3, 0.0],
+                          //         colors: [
+                          //           // ColorsPallet.darkBlue.withOpacity(0.9),
+                          //           Colors.black,
+                          //           Colors.black38,
+                          //           Colors.transparent,
+                          //           Colors.transparent,
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              height: 100,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  // stops: const [0.0, 0.3, 0.8, 1.0],
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.transparent,
+                                    Colors.black38,
+                                    Colors.black,
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 30,
+                            left: 0,
+                            right: 0,
+                            child: Center(
+                              child: CustomSubmitButton(
+                                width:
+                                    (MediaQuery.of(context).size.width * .5 >
+                                        200
+                                    ? 200
+                                    : MediaQuery.of(context).size.width * .5),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      EdutainmentIcons.playEdutainment,
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 3),
+                                      child: Text(
+                                        'PLAY NOW',
+                                        // '${imageUrl}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          fontSize: Theme.of(
+                                            context,
+                                          ).textTheme.titleLarge!.fontSize!,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
+                                onPressed: () async {
+                                  await movieFetchAndRedirect(movie, context);
+                                },
                               ),
-                              onPressed: () async {
-                                await movieFetchAndRedirect(movie, context);
-                              },
                             ),
                           ),
-                        ),
-                        // Text("$featuredMovie"),
-                      ],
+                          // Text("$featuredMovie"),
+                        ],
+                      ),
                     ),
                   );
                 },

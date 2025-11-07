@@ -27,6 +27,7 @@ class _MoviePage extends ConsumerState<MoviePage> {
   Widget build(BuildContext context) {
     return DefaultScaffold(
       currentPage: 'movies/movie',
+      hideBottomBar: false,
       child: Column(
         children: [
           CustomHeaderBar(

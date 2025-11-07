@@ -4,6 +4,7 @@ class ColorsPallet {
   ColorsPallet._();
 
   static const Color darkBlue = Color(0xff0b2845);
+  static const Color filmsTabBgColor = Color(0xff0E1B26);
   static const Color blue = Color(0xff14477b);
   static const Color blueAccent = Color(0xff145c97);
 

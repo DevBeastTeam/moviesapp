@@ -243,7 +243,7 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                 if (!isTablet && !isLandscape) const SizedBox(height: 20),
 
                 p.flashCardsList.first.movies.isEmpty
-                    ? EmptyWidget(paddingTop: 30)
+                    ? EmptyWidget(paddingTop: 30, text: "Empty")
                     : Expanded(
                         child: SingleChildScrollView(
                           controller: ScrollController(),

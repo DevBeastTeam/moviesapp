@@ -66,15 +66,32 @@ class _TestsBasePageState extends State<TestsBasePage>
         children: [
           AppBar(
             centerTitle: true,
-            title: Text(
-              '${getIn(quizCategory, 'label')} - $quizType',
-              style: const TextStyle(fontWeight: FontWeight.bold),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "TEST",
+                  style: const TextStyle(
+                    // fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                  ),
+                ),
+                Text(
+                  '${getIn(quizCategory, 'label')} - $quizType',
+                  style: const TextStyle(
+                    // fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                  ),
+                ),
+                Text(""),
+                Text(""),
+              ],
             ),
             elevation: 0,
             backgroundColor: ColorsPallet.darkBlue,
           ),
           TabBar(
-            indicatorColor: ColorsPallet.blueComponent,
+            indicatorColor: ColorsPallet.orangeA031,
             indicatorWeight: 4,
             controller: _tabController,
             onTap: (int tab) {

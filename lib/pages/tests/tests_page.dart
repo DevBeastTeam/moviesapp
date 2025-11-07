@@ -24,6 +24,17 @@ class _TestsPage extends State<TestsPage> {
     return DefaultScaffold(
       currentPage: 'tests',
       hideBottomBar: Screen.isTablet(context) || Screen.isLandscape(context),
+      bgWidget: Container(
+        width: Screen.width(context),
+        height: Screen.height(context),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: FractionalOffset.bottomCenter,
+            end: FractionalOffset.topCenter,
+            colors: [Colors.blueGrey, ColorsPallet.darkBlue],
+          ),
+        ),
+      ),
       child: Column(
         children: [
           Screen.isTablet(context) || Screen.isLandscape(context)
@@ -31,13 +42,14 @@ class _TestsPage extends State<TestsPage> {
               : SizedBox.shrink(),
           AppBar(
             leading: null,
-            centerTitle: true,
+            centerTitle: false,
             title: const Text(
-              'Quiz',
+              'TEST',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             elevation: 0,
-            backgroundColor: ColorsPallet.darkBlue,
+            backgroundColor: Colors.transparent,
+            // backgroundColor: ColorsPallet.darkBlue,
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -54,7 +66,7 @@ class _TestsPage extends State<TestsPage> {
                         // padding: const EdgeInsets.symmetric(vertical: 24),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
-                          color: ColorsPallet.blueComponent,
+                          // color: ColorsPallet.blueComponent,
                         ),
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         child: InkWell(
@@ -68,31 +80,31 @@ class _TestsPage extends State<TestsPage> {
                             }
                           },
                           child: Container(
-                            margin: const EdgeInsets.only(left: 12),
+                            // margin: const EdgeInsets.only(left: 12),
                             padding: const EdgeInsets.symmetric(
                               vertical: 24,
                               horizontal: 8,
                             ),
                             color: Colors.white,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   category['label'],
                                   style: const TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.blue,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 16,
                                   ),
                                 ),
-                                const Text(
-                                  'Open',
-                                  style: TextStyle(
-                                    color: ColorsPallet.blueComponent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
+                                // const Text(
+                                //   'Open',
+                                //   style: TextStyle(
+                                //     color: ColorsPallet.blueComponent,
+                                //     fontWeight: FontWeight.bold,
+                                //     fontSize: 16,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),

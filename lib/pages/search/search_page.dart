@@ -15,6 +15,7 @@ import '../../utils/utils.dart';
 import '../../widgets/indicators/double_circular_progress_indicator.dart';
 import '../../widgets/top_bar/topBar.dart';
 import '../../widgets/ui/default_scaffold.dart';
+import '../movies/widgets/tabButtonWidget.dart';
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
@@ -24,6 +25,7 @@ class SearchPage extends ConsumerStatefulWidget {
 }
 
 class _SearchPage extends ConsumerState<SearchPage> {
+  String currentSubject = 'ALL';
   final TextEditingController wordController = TextEditingController();
 
   List<Widget> buildDefinitions(wordData, type) {
@@ -82,15 +84,15 @@ class _SearchPage extends ConsumerState<SearchPage> {
 
     return DefaultScaffold(
       currentPage: 'search',
-      hideBottomBar: Screen.isTablet(context) || Screen.isLandscape(context),
+
+      // hideBottomBar: Screen.isTablet(context) || Screen.isLandscape(context),
       child: Column(
         children: [
           const SizedBox(height: 5), // Added top padding
           // if (isTablet) const SizedBox(height: 60),
-          Screen.isTablet(context) || Screen.isLandscape(context)
-              ? TopBarWidget(paddingLeft: 20)
-              : SizedBox.shrink(),
-
+          // Screen.isTablet(context) || Screen.isLandscape(context)
+          //     ? TopBarWidget(paddingLeft: 20)
+          //     : SizedBox.shrink(),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 10,
@@ -105,7 +107,8 @@ class _SearchPage extends ConsumerState<SearchPage> {
                   : null,
               child: Container(
                 decoration: BoxDecoration(
-                  color: ColorsPallet.blueAccent.withOpacity(.4),
+                  // color: ColorsPallet.blueAccent.withOpacity(.4),
+                  border: Border.all(width: 1, color: Colors.white38),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -125,6 +128,53 @@ class _SearchPage extends ConsumerState<SearchPage> {
               ),
             ),
           ),
+          Container(
+            height: 47,
+            width: Screen.isTablet(context)
+                ? Screen.width(context) * 0.93
+                : Screen.width(context) * 0.9,
+            decoration: BoxDecoration(
+              color: ColorsPallet.filmsTabBgColor,
+              border: Border.all(color: Colors.white, width: 1),
+              borderRadius: BorderRadius.circular(25),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: SingleChildScrollView(
+                  controller: ScrollController(),
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children:
+                        [
+                              "ALL",
+                              "DEFINITIONS",
+                              "PRONUNCIATION AND SENTENCES ",
+                              "FILMS",
+                              "EXTRACTS",
+                            ]
+                            .map(
+                              (e) => FilmTabBtnWidget(
+                                label: e,
+                                isActive: currentSubject == e,
+                                onTap: () {
+                                  setState(() {
+                                    currentSubject = e;
+                                  });
+                                  fetchWord(e);
+                                },
+                              ),
+                            )
+                            .toList(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
           if (wordController.text != '')
             FutureBuilder(
               future: fetchWord(wordController.text),

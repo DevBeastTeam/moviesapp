@@ -10,6 +10,7 @@ class DefaultScaffold extends StatelessWidget {
   const DefaultScaffold({
     super.key,
     required this.child,
+    this.bgWidget,
     required this.currentPage,
     this.hideBottomBar = false,
     this.customBgColors,
@@ -18,6 +19,7 @@ class DefaultScaffold extends StatelessWidget {
     this.floatingBtn,
   });
 
+  final Widget? bgWidget;
   final Widget child;
   final String currentPage;
   final bool hideBottomBar;
@@ -38,17 +40,18 @@ class DefaultScaffold extends StatelessWidget {
       drawer: isShowDrawer ? drawer : null,
       body: Stack(
         children: [
-          Container(
-            width: mediaWidth,
-            height: mediaHeight,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: FractionalOffset.bottomCenter,
-                end: FractionalOffset.topCenter,
-                colors: customBgColors ?? ColorsPallet.bdb,
+          bgWidget ??
+              Container(
+                width: mediaWidth,
+                height: mediaHeight,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: FractionalOffset.bottomCenter,
+                    end: FractionalOffset.topCenter,
+                    colors: customBgColors ?? ColorsPallet.bdb,
+                  ),
+                ),
               ),
-            ),
-          ),
           SafeArea(
             bottom: false,
             child: CustomBottomBar(
@@ -95,7 +98,7 @@ class DefaultScaffold extends StatelessWidget {
           ),
         ],
       ),
-    floatingActionButton: 
+      floatingActionButton:
           floatingQuestionAllowed && !hideBottomBar && currentPage == 'profile'
           ? const FloatingQuestionButton()
           : floatingBtn,

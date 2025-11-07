@@ -49,8 +49,8 @@ class CustomBottomBar extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: backgroundColor,
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      topRight: Radius.circular(16),
+                      topLeft: Radius.circular(0),
+                      topRight: Radius.circular(0),
                     ),
                   ),
                 ),
