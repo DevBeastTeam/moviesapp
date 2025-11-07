@@ -162,16 +162,17 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
         ),
       ),
       drawer: Drawer(
-        backgroundColor: ColorsPallet.darkBlue,
+        // backgroundColor: ColorsPallet.darkBlue,
+        backgroundColor: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 40),
             ListTile(
-              leading: const Icon(Icons.close_rounded, color: Colors.grey),
+              leading: const Icon(Icons.close_rounded, color: Colors.black),
               title: const Text(
                 'Previous Conversations',
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(color: Colors.black),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -183,10 +184,10 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
             ),
             Divider(height: 2, color: Colors.grey.shade700),
             ListTile(
-              leading: const Icon(Icons.push_pin_outlined, color: Colors.grey),
+              leading: const Icon(Icons.push_pin_outlined, color: Colors.black),
               title: const Text(
                 'Pinned Conversations',
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(color: Colors.black),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -198,14 +199,14 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
             ),
             Divider(height: 2, color: Colors.grey.shade700),
             ListTile(
-              leading: const Icon(Icons.chat, color: Colors.grey),
+              leading: const Icon(Icons.chat, color: Colors.black),
               trailing: const Icon(
                 Icons.delete_outline_outlined,
-                color: Colors.blueGrey,
+                color: Colors.black,
               ),
               title: const Text(
                 'Can Your Recommended',
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(color: Colors.black),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -217,13 +218,16 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
             ),
             Divider(height: 2, color: Colors.grey.shade700),
             CupertinoListTile(
-              title: Text("Last 7 days", style: TextStyle(color: Colors.grey)),
+              title: Text(
+                "Last 7 days",
+                style: TextStyle(color: Colors.black54),
+              ),
             ),
             ListTile(
-              leading: const Icon(Icons.chat, color: Colors.grey),
+              leading: const Icon(Icons.chat, color: Colors.black),
               title: const Text(
                 'My Recent Grammar',
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(color: Colors.black),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -239,7 +243,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(40),
                 ),
               ),
               icon: const Icon(Icons.edit, color: Colors.white),
@@ -370,19 +374,19 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                         )
                       : SizedBox.shrink(),
                   SizedBox(height: 5),
-                  GradientText(
-                    // text: "${ref.watch(userProvider)['name.given_name']}",
-                    text:
-                        'Hello ${getIn(ref.watch(userProvider), 'name.given_name', '')}',
-                    // text: 'Hello Name',
-                    colors: [
-                      Color(0xFF60A5FA), // HexColor("#60A5FA")
-                      Color(0xFFA855F7), // HexColor("#A855F7")
-                      Color(0xFFF87171), // HexColor("#F87171")
-                    ],
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  // GradientText(
+                  //   // text: "${ref.watch(userProvider)['name.given_name']}",
+                  //   text:
+                  //       'Hello ${getIn(ref.watch(userProvider), 'name.given_name', '')}',
+                  //   // text: 'Hello Name',
+                  //   colors: [
+                  //     Color(0xFF60A5FA), // HexColor("#60A5FA")
+                  //     Color(0xFFA855F7), // HexColor("#A855F7")
+                  //     Color(0xFFF87171), // HexColor("#F87171")
+                  //   ],
+                  //   fontSize: 25,
+                  //   fontWeight: FontWeight.bold,
+                  // ),
                   // Text("kkkk"),
                   // if ((p.lastAIConversationChats == null ||
                   //         p.lastAIConversationChats!.messages.isEmpty) &&
@@ -396,22 +400,27 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                   //   SizedBox(height: 0)
                   // else
                   //   SizedBox(height: h * 0.02),
-                  (p.lastAIConversationChats == null ||
-                          p.lastAIConversationChats!.messages.isEmpty &&
-                              Screen.isPhone(context) &&
-                              Screen.isPortrait(context))
-                      ? SizedBox(height: Screen.height(context) * 0.27)
-                      : (p.lastAIConversationChats == null ||
-                            p.lastAIConversationChats!.messages.isEmpty &&
-                                Screen.isPhone(context) &&
-                                Screen.isLandscape(context))
+                  ((p.lastAIConversationChats == null ||
+                              p.lastAIConversationChats!.messages.isEmpty) &&
+                          Screen.isPhone(context) &&
+                          Screen.isPortrait(context))
+                      ? SizedBox(height: Screen.height(context) * 0.07)
+                      : ((p.lastAIConversationChats == null ||
+                                p.lastAIConversationChats!.messages.isEmpty) &&
+                            Screen.isPhone(context) &&
+                            Screen.isLandscape(context))
                       ? SizedBox(height: Screen.height(context) * 0)
-                      : (p.lastAIConversationChats == null ||
-                            p.lastAIConversationChats!.messages.isEmpty &&
-                                !Screen.isPhone(context) &&
-                                Screen.isTablet(context))
-                      ? SizedBox(height: Screen.height(context) * 0.27)
-                      : SizedBox(),
+                      : ((p.lastAIConversationChats == null ||
+                                p.lastAIConversationChats!.messages.isEmpty) &&
+                            Screen.isTablet(context) &&
+                            Screen.isPortrait(context))
+                      ? SizedBox(height: Screen.height(context) * 0.07)
+                      : ((p.lastAIConversationChats == null ||
+                                p.lastAIConversationChats!.messages.isEmpty) &&
+                            Screen.isTablet(context) &&
+                            Screen.isLandscape(context))
+                      ? SizedBox(height: Screen.height(context) * 0.25)
+                      : SizedBox(height: 0),
 
                   // Text("Hello Name"),
                   // GradientText(
@@ -429,77 +438,159 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                   p.lastAIConversationChats == null ||
                           p.lastAIConversationChats!.messages.isEmpty
                       ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 14),
+                          padding: EdgeInsets.symmetric(
+                            horizontal:
+                                (Screen.isTablet(context) &&
+                                    Screen.isPortrait(context))
+                                ? Screen.width(context) * 0.2
+                                : 14,
+                          ),
                           child: SizedBox(
                             height:
-                                Screen.isPhone(context) &&
-                                    Screen.isLandscape(context)
-                                ? Screen.height(context) * 0.35
-                                : !Screen.isPhone(context) &&
-                                      Screen.isTablet(context)
+                                // Screen.isPhone(context) &&
+                                //     Screen.isLandscape(context)
+                                // ? Screen.height(context) * 0.35
+                                // :
+                                (Screen.isTablet(context) &&
+                                    Screen.isPortrait(context))
+                                ? Screen.height(context) * 0.6
+                                : Screen.isTablet(context) &&
+                                      Screen.isLandscape(context)
                                 ? Screen.height(context) * 0.24
-                                : Screen.height(context) * 0.2,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const BouncingScrollPhysics(),
-                              controller: ScrollController(),
-                              // gridDelegate:
-                              //     SliverGridDelegateWithFixedCrossAxisCount(
-                              //       crossAxisCount: w > 450 ? 4 : 2,
-                              //     ),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: menuList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                var data = menuList[index];
-                                return Padding(
-                                  padding: EdgeInsets.all(w > 450 ? 10 : 10),
-                                  child: InkWell(
-                                    onTap: () {
-                                      p.doConversationChatByIdWithAiF(
-                                        context,
-                                        msg: data['query'],
-                                      );
-                                      // if (index == 0) {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) =>
-                                      //         const MovieSuggetinosPage(),
-                                      //   ),
-                                      // );
-                                      // }
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: ColorsPallet.darkBlue,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            data['img'],
-                                            width: w > 450
-                                                ? w * 0.08
-                                                : w * 0.15,
-                                          ),
-                                          const Divider(),
-                                          Text(
-                                            '  ${data['title']}  ',
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
+                                : Screen.height(context) * 0.7,
+                            child:
+                                Screen.isPhone(context) ||
+                                    (Screen.isTablet(context) &&
+                                        Screen.isPortrait(context))
+                                ? GridView.builder(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 10,
+                                          mainAxisSpacing: 10,
+                                          childAspectRatio: 1,
+                                        ),
+                                    itemCount: menuList.length,
+                                    shrinkWrap: true,
+                                    physics: const BouncingScrollPhysics(),
+                                    itemBuilder: (BuildContext context, int index) {
+                                      var data = menuList[index];
+                                      return Padding(
+                                        padding: EdgeInsets.all(
+                                          w > 450 ? 10 : 10,
+                                        ),
+                                        child: InkWell(
+                                          onTap: () {
+                                            p.doConversationChatByIdWithAiF(
+                                              context,
+                                              msg: data['query'],
+                                            );
+                                            // if (index == 0) {
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //     builder: (context) =>
+                                            //         const MovieSuggetinosPage(),
+                                            //   ),
+                                            // );
+                                            // }
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  data['img'],
+                                                  width: w > 450
+                                                      ? w * 0.08
+                                                      : w * 0.15,
+                                                ),
+                                                const Divider(),
+                                                Text(
+                                                  '  ${data['title']}  ',
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const BouncingScrollPhysics(),
+                                    controller: ScrollController(),
+                                    // gridDelegate:
+                                    //     SliverGridDelegateWithFixedCrossAxisCount(
+                                    //       crossAxisCount: w > 450 ? 4 : 2,
+                                    //     ),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: menuList.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      var data = menuList[index];
+                                      return Padding(
+                                        padding: EdgeInsets.all(
+                                          w > 450 ? 10 : 10,
+                                        ),
+                                        child: InkWell(
+                                          onTap: () {
+                                            p.doConversationChatByIdWithAiF(
+                                              context,
+                                              msg: data['query'],
+                                            );
+                                            // if (index == 0) {
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //     builder: (context) =>
+                                            //         const MovieSuggetinosPage(),
+                                            //   ),
+                                            // );
+                                            // }
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  data['img'],
+                                                  width: w > 450
+                                                      ? w * 0.08
+                                                      : w * 0.15,
+                                                ),
+                                                const Divider(),
+                                                Text(
+                                                  '  ${data['title']}  ',
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
                           ),
                         )
                       : Expanded(

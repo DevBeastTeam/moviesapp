@@ -49,10 +49,15 @@ class ProfileHeader extends StatelessWidget {
                       child: const Icon(AppIconsLight.gear, size: 18),
                     ),
                     SizedBox(width: 8),
-                    Image.asset(
-                      AppImages.flashcardsblue,
-                      width: 30,
-                      color: Colors.white,
+                    GestureDetector(
+                      onTap: () {
+                        context.go('/home/fc');
+                      },
+                      child: Image.asset(
+                        AppImages.flashcardsblue,
+                        width: 30,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
@@ -180,10 +185,15 @@ class ProfileHeader extends StatelessWidget {
                       child: const Icon(AppIconsLight.gear, size: 18),
                     ),
                     SizedBox(width: 8),
-                    Image.asset(
-                      AppImages.flashcardsblue,
-                      width: 30,
-                      color: Colors.white,
+                    GestureDetector(
+                      onTap: () {
+                        context.go('/home/fc');
+                      },
+                      child: Image.asset(
+                        AppImages.flashcardsblue,
+                        width: 30,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
@@ -351,10 +361,15 @@ class ProfileHeader extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 10),
-                          Image.asset(
-                            AppImages.flashcardsblue,
-                            width: 30,
-                            color: Colors.white,
+                          GestureDetector(
+                            onTap: () {
+                              context.go('/home/fc');
+                            },
+                            child: Image.asset(
+                              AppImages.flashcardsblue,
+                              width: 30,
+                              color: Colors.white,
+                            ),
                           ),
                           // Image.network('name')
                         ],
