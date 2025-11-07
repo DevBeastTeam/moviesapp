@@ -50,7 +50,7 @@ class ProfileButtons extends StatelessWidget {
               icon: EdutainmentIcons.pronunciation,
               colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
               onPressed: () {
-                context.go('/home/PronlevelsPage');
+                context.go('/home/PronlevelsPage1');
               },
             ),
             // _buildComponent(
@@ -189,7 +189,7 @@ class ProfileButtons extends StatelessWidget {
                 icon: EdutainmentIcons.pronunciation,
                 colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                 onPressed: () {
-                  context.go('/home/PronlevelsPage');
+                  context.go('/home/PronlevelsPage1');
                 },
               ),
             ),
@@ -333,7 +333,7 @@ class ProfileButtons extends StatelessWidget {
                     icon: EdutainmentIcons.pronunciation,
                     colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                     onPressed: () {
-                      context.go('/home/PronlevelsPage');
+                      context.go('/home/PronlevelsPage1');
                       // ref.watch(pronounciationVm).getPronounciationF();
                       // Navigator.push(
                       //   context,

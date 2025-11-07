@@ -52,20 +52,20 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
               : SizedBox.shrink(),
           Column(
             mainAxisSize: MainAxisSize.min,
+
             children: [
-              SizedBox(
-                height: Screen.isPhone(context) && Screen.isLandscape(context)
-                    ? 0
-                    : 20,
-              ),
+              SizedBox(height: Screen.height(context) * 0.02),
               const Text(
                 'LEVELS',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               SizedBox(
-                height: Screen.isPhone(context) && Screen.isLandscape(context)
-                    ? Screen.height(context) * 0.02
-                    : 50,
+                height: Screen.isTablet(context) && !Screen.isLandscape(context)
+                    ? Screen.height(context) * 0.1
+                    : Screen.height(context) * 0.02,
+                // height: Screen.isPhone(context) && Screen.isLandscape(context)
+                //     ? Screen.height(context) * 0.02
+                //     : 50,
               ),
               (p.excersiseList.isEmpty ||
                       p.excersiseList.first.allowedLessonCategory.isEmpty)
@@ -76,12 +76,31 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
                           : 30,
                     )
                   : Center(
-                      child: Wrap(
-                        runSpacing: 15,
-                        spacing: 15,
-                        children: List.generate(
-                          p.excersiseList.first.allowedLessonCategory.length,
-                          (index) {
+                      child: SizedBox(
+                        width: Screen.isPhone(context)
+                            ? Screen.width(context) * 0.8
+                            : MediaQuery.of(context).size.width * 0.4,
+                        height:
+                            Screen.isTablet(context) &&
+                                !Screen.isLandscape(context)
+                            ? Screen.height(context) * 0.6
+                            : Screen.height(context) * 0.7,
+
+                        child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 30,
+                                mainAxisSpacing: 15,
+                              ),
+                          shrinkWrap: true,
+                          controller: ScrollController(),
+                          itemCount: p
+                              .excersiseList
+                              .first
+                              .allowedLessonCategory
+                              .length,
+                          itemBuilder: (context, index) {
                             var data = p
                                 .excersiseList
                                 .first
@@ -94,20 +113,6 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
                                   //     ? null
                                   //     :
                                   () {
-                                    //   Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //       builder: (context) => ExcerciseByCatgQAPage(
-                                    //       // builder: (context) => ExcersiseLessonsPage(
-                                    //         labelTitle:
-                                    //             data.label[0].toUpperCase() +
-                                    //             data.label.substring(1),
-                                    //         // lableOptionsList:
-                                    //         //     p.excersiseList.first.allowedLessonCategory,
-                                    //       ),
-                                    //     ),
-                                    //   );
-
                                     p.getExcercisesCatgLessonsStepsF(
                                       context,
                                       catgRef: data.reference.toString(),
@@ -121,39 +126,34 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
                                             data.label.substring(1),
                                       },
                                     );
-
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) => ExcerciseCatgPage(
-                                    //       labelTitle: data.label[0].toUpperCase() +
-                                    //           data.label.substring(1),
-                                    //     )
-                                    //   ),
-                                    // );
                                   },
                               child: Stack(
                                 children: [
                                   Container(
-                                    width: Screen.isLandscape(context)
-                                        ? Screen.width(context) * 0.25
-                                        : MediaQuery.of(context).size.width *
-                                              0.4,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
                                         colors: isLocked
                                             ? [
-                                                Colors.orangeAccent.withOpacity(
-                                                  0.5,
-                                                ),
-                                                Colors.deepOrange.withOpacity(
+                                                Colors.orange.shade200
+                                                    .withOpacity(0.5),
+                                                Colors.orange.shade200
+                                                    .withOpacity(0.5),
+                                                Colors.deepOrange.shade300
+                                                    .withOpacity(0.5),
+                                                Colors.red.withOpacity(0.5),
+                                                Colors.red.shade800.withOpacity(
                                                   0.5,
                                                 ),
                                               ]
                                             : [
-                                                Colors.orangeAccent,
-                                                Colors.deepOrange,
+                                                Colors.orange.shade200,
+                                                Colors.orange.shade200,
+                                                Colors.deepOrange.shade300,
+                                                Colors.red,
+                                                Colors.red.shade800,
                                               ],
                                       ),
                                     ),

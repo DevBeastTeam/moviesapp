@@ -5,7 +5,7 @@ import 'package:edutainment/pages/lessons/grammer.dart';
 import 'package:edutainment/pages/home/profile/profile_settings_page.dart';
 import 'package:edutainment/pages/lessons/grammerdetail.dart';
 import 'package:edutainment/pages/lessons/grammerCatg.dart';
-import 'package:edutainment/pages/ponounciations/pronLevels.dart';
+import 'package:edutainment/pages/ponounciations/pronLevels1.dart';
 import 'package:edutainment/pages/tests/tests_base_page.dart';
 import 'package:edutainment/utils/boxes.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +26,10 @@ import '../pages/home/profile/edit.dart';
 import '../pages/movies/movie_page.dart';
 import '../pages/movies/movie_play_page.dart';
 import '../pages/movies/movies_page.dart';
-import '../pages/ponounciations/PronCatgPage.dart';
-import '../pages/ponounciations/PronLevelsCatgSelectionPage.dart';
+import '../pages/ponounciations/pronCatgPage2.dart';
+import '../pages/ponounciations/pronCatgLessonsPage3.dart';
+import '../pages/ponounciations/pronParacticePage4.dart';
+import '../pages/ponounciations/pronResult5.dart';
 import '../pages/search/search_page.dart';
 import '../pages/splash_screen/splash_screen_page.dart';
 import '../pages/start/start_page.dart';
@@ -202,66 +204,6 @@ GoRouter appRoutes = GoRouter(
             ),
           ],
         ),
-        ///// pronounciations
-        GoRoute(
-          path: 'PronlevelsPage',
-          pageBuilder: (context, state) {
-            return CustomTransitionPage(
-              key: UniqueKey(),
-              child: PronlevelsPage(),
-              transitionDuration: const Duration(milliseconds: 500),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                    return FadeTransition(
-                      opacity: CurveTween(
-                        curve: Curves.easeInOut,
-                      ).animate(animation),
-                      child: child,
-                    );
-                  },
-            );
-          },
-          routes: [
-            GoRoute(
-              path: 'PronCatgPage',
-              pageBuilder: (context, state) {
-                return CustomTransitionPage(
-                  key: UniqueKey(),
-                  child: const PronCatgPage(),
-                  transitionDuration: const Duration(milliseconds: 500),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: CurveTween(
-                            curve: Curves.easeInOut,
-                          ).animate(animation),
-                          child: child,
-                        );
-                      },
-                );
-              },
-            ),
-            GoRoute(
-              path: 'PronLevelsCatgSelectionPage',
-              pageBuilder: (context, state) {
-                return CustomTransitionPage(
-                  key: UniqueKey(),
-                  child: const PronLevelsCatgSelectionPage(),
-                  transitionDuration: const Duration(milliseconds: 500),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: CurveTween(
-                            curve: Curves.easeInOut,
-                          ).animate(animation),
-                          child: child,
-                        );
-                      },
-                );
-              },
-            ),
-          ],
-        ),
 
         GoRoute(
           path: 'settings',
@@ -340,6 +282,35 @@ GoRouter appRoutes = GoRouter(
                       },
                 );
               },
+            ),
+          ],
+        ),
+        ///// pronunciation
+        GoRoute(
+          path: 'PronlevelsPage1',
+          builder: (context, state) => const PronlevelsPage1(),
+          routes: [
+            GoRoute(
+              path: '2',
+              builder: (context, state) => const PronCatgPage2(),
+              routes: [
+                GoRoute(
+                  path: '3',
+                  builder: (context, state) => const PronCatgLessonsPage3(),
+                  routes: [
+                    GoRoute(
+                      path: '4',
+                      builder: (context, state) => const PronParacticePage4(),
+                      routes: [
+                        GoRoute(
+                          path: '5',
+                          builder: (context, state) => const PronResultsPage5(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),

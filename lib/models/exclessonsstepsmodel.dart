@@ -1,11 +1,10 @@
+import 'package:edutainment/helpers/forstrings.dart';
+
 class ExerciseLessonsStepModel {
   final bool success;
   final Data data;
 
-  ExerciseLessonsStepModel({
-    required this.success,
-    required this.data,
-  });
+  ExerciseLessonsStepModel({required this.success, required this.data});
 
   factory ExerciseLessonsStepModel.fromJson(Map<String, dynamic> json) {
     return ExerciseLessonsStepModel(
@@ -15,10 +14,7 @@ class ExerciseLessonsStepModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'success': success,
-      'data': data.toJson(),
-    };
+    return {'success': success, 'data': data.toJson()};
   }
 }
 
@@ -26,17 +22,18 @@ class Data {
   final List<Lesson> lessons;
   final double progressPercentage;
 
-  Data({
-    required this.lessons,
-    required this.progressPercentage,
-  });
+  Data({required this.lessons, required this.progressPercentage});
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
       lessons: (json['lessons'] as List<dynamic>)
           .map((e) => Lesson.fromJson(e as Map<String, dynamic>))
           .toList(),
-      progressPercentage: (json['progressPercentage'] as num).toDouble(),
+      progressPercentage:
+          double.tryParse(
+            json['progressPercentage'].toString().toNullString(),
+          ) ??
+          0.0,
     );
   }
 

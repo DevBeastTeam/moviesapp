@@ -26,3 +26,9 @@ extension ToNullIntExtension on int? {
     return int.parse(parsedInt.toString());
   }
 }
+
+subStringText(text, [int from = 0, int max = 10]) {
+  return text.toString().length > max
+      ? '${text.toString().substring(from, max - 1)}...'
+      : text.toString();
+}

@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../utils/utils.dart';
 import '../../utils/movies.dart';
 import '../../utils/screen_utils.dart';
 import '../../theme/colors.dart';
 import '../../utils/boxes.dart';
-import '../../widgets/top_bar/topBar.dart';
 import '../../widgets/ui/default_scaffold.dart';
 import 'profile/badges.dart';
 import 'profile/buttons.dart';
@@ -223,7 +221,6 @@ class _HomePage extends ConsumerState<HomePage> {
                                   pausedMovie.isNotEmpty
                                       ? buildMovieFrame(
                                           ref: ref,
-
                                           movie: pausedMovie.first,
                                           context: context,
                                           fullSize: true,

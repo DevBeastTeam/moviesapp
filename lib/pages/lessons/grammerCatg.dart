@@ -6,14 +6,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../constants/screenssize.dart';
+import '../../models/grammerModel.dart';
 import '../../providers/grammerVm.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
 class GrammerCatgPage extends ConsumerStatefulWidget {
   // AllowedCategory? level;
   // String id = "";
-  const GrammerCatgPage({super.key, 
-  // this.id = "", this.level, 
+  const GrammerCatgPage({
+    super.key,
+    // this.id = "", this.level,
   });
 
   @override
@@ -33,6 +36,8 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
     });
   }
 
+  List<String> allLevels = ["A1", "A2", "B1", "B2", "C1", "C2"];
+
   @override
   Widget build(BuildContext context) {
     var p = ref.watch(grammerData);
@@ -50,11 +55,11 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
       );
     }
 
-    final id = extra['id'].toString().toNullString(); 
-    // final level = extra['level'] as AllowedCategory ?? AllowedCategory(id: "1", label: "abc", reference: "abc", level: "a1"); 
+    final id = extra['id'].toString().toNullString();
+    final level =
+        extra['level'] as AllowedCategory ??
+        AllowedCategory(id: "1", label: "abc", reference: "abc", level: "a1");
     ///////////
-
-
 
     return DefaultScaffold(
       currentPage: '/home/GrammerPage/grammerCatg',
@@ -65,24 +70,81 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
           children: [
             CustomHeaderBar(
               onBack: () async {
-                // context.pop();
+                context.pop();
                 // Get.back();
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
               centerTitle: false,
               title: 'LESSONS',
             ),
             ///////////////
-            const Text(
-              'LESSONS CATEGORIES',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            
+
             // Text("id: ${widget.id}"),
             // Text("level: ${widget.level!.label.toString()}"),
             // Text("level: ${widget.level!.level.toString()}"),
             // Text("level: ${widget.level!.reference.toString()}"),
-            p.loadingFor=="grammerCatg"
+            SizedBox(
+              height: Screen.isPhone(context) && Screen.isLandscape(context)
+                  ? h * 0.15
+                  : h * 0.08,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: allLevels.map((data) {
+                  return Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        // color:
+                        // level.toString().toString().toLowerCase() ==
+                        //     data.toString().toLowerCase()
+                        // ? Colors.blue
+                        // : Colors.white,
+                        color: Colors.white,
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors:
+                              level.label.toString().toString().toLowerCase() ==
+                                  data.toString().toLowerCase()
+                              ? [
+                                  Colors.orange.shade200,
+                                  Colors.deepOrange.shade300,
+                                  Colors.red,
+                                  Colors.red.shade800,
+                                ]
+                              : [Colors.white, Colors.white],
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      width: 45,
+                      height: 55,
+                      child: Center(
+                        child: Text(
+                          data.toUpperCase(),
+                          style: TextStyle(
+                            color:
+                                level.label.toString().toLowerCase() ==
+                                    data.toString().toLowerCase()
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+
+            SizedBox(height: 15),
+            const Text(
+              'LESSONS CATEGORIES',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            SizedBox(height: 15),
+            p.loadingFor == "grammerCatg"
                 ? Padding(
                     padding: EdgeInsets.only(top: h * 0.45),
                     child: const Center(child: DotLoader()),
@@ -163,17 +225,18 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                                       p.getGrammerSingleByIdF(
                                         context,
                                         id: e.id,
-                                        loadingFor: "next"
+                                        loadingFor: "next",
                                       );
 
-                                      context.go('/home/GrammerPage/grammerCatg/grammerdetail', extra: {
-                                        'labelsLessons': data,
-                                      });
+                                      context.go(
+                                        '/home/GrammerPage/grammerCatg/grammerdetail',
+                                        extra: {'labelsLessons': data},
+                                      );
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(20),
+                                        borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: CupertinoListTile(
                                         // title: Text('hjk',

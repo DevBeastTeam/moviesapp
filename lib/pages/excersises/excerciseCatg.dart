@@ -1,4 +1,5 @@
 import 'package:edutainment/providers/exercisesVm.dart';
+import 'package:edutainment/widgets/thermameter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -94,55 +95,67 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
                                 color: Colors.blueAccent,
                               ),
                             ),
+                            Expanded(
+                              child: LessonTimelineWidget(
+                                lessons: [
+                                  LessonModel(
+                                    title: "Lesson 1",
+                                    subtitle: "1",
+                                    isCompleted: true,
+                                  ),
+                                ],
+                                onLessonTap: (index, v) {},
+                              ),
+                            ),
 
                             // Timeline items
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: ref
-                                  .watch(excerVm)
-                                  .excercisesCatgLessonsSteps!
-                                  .data
-                                  .lessons
-                                  .length,
-                              controller: ScrollController(),
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: (BuildContext context, index) {
-                                var data = ref
-                                    .watch(excerVm)
-                                    .excercisesCatgLessonsSteps!
-                                    .data
-                                    .lessons[index];
-                                if (index.isOdd) {
-                                  return lessonsToolTip(
-                                    left: data.label.split(":").first,
-                                    isCompleted: data.completed,
-                                    onTap: () {
-                                      context.go(
-                                        "/home/ExcersisesPage/ExcerciseByCatgQAPage",
-                                        extra: {
-                                          "q": data.questions,
-                                          "labelTitle": widget.labelTitle,
-                                        },
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return lessonsToolTip(
-                                    right: data.label.split(":").first,
-                                    isCompleted: data.completed,
-                                    onTap: () {
-                                      context.go(
-                                        "/home/ExcersisesPage/ExcerciseByCatgQAPage",
-                                        extra: {
-                                          "q": data.questions,
-                                          "labelTitle": widget.labelTitle,
-                                        },
-                                      );
-                                    },
-                                  );
-                                }
-                              },
-                            ),
+                            // ListView.builder(
+                            //   shrinkWrap: true,
+                            //   itemCount: ref
+                            //       .watch(excerVm)
+                            //       .excercisesCatgLessonsSteps!
+                            //       .data
+                            //       .lessons
+                            //       .length,
+                            //   controller: ScrollController(),
+                            //   physics: const BouncingScrollPhysics(),
+                            //   itemBuilder: (BuildContext context, index) {
+                            //     var data = ref
+                            //         .watch(excerVm)
+                            //         .excercisesCatgLessonsSteps!
+                            //         .data
+                            //         .lessons[index];
+                            //     if (index.isOdd) {
+                            //       return lessonsToolTip(
+                            //         left: data.label.split(":").first,
+                            //         isCompleted: data.completed,
+                            //         onTap: () {
+                            //           context.go(
+                            //             "/home/ExcersisesPage/ExcerciseByCatgQAPage",
+                            //             extra: {
+                            //               "q": data.questions,
+                            //               "labelTitle": widget.labelTitle,
+                            //             },
+                            //           );
+                            //         },
+                            //       );
+                            //     } else {
+                            //       return lessonsToolTip(
+                            //         right: data.label.split(":").first,
+                            //         isCompleted: data.completed,
+                            //         onTap: () {
+                            //           context.go(
+                            //             "/home/ExcersisesPage/ExcerciseByCatgQAPage",
+                            //             extra: {
+                            //               "q": data.questions,
+                            //               "labelTitle": widget.labelTitle,
+                            //             },
+                            //           );
+                            //         },
+                            //       );
+                            //     }
+                            //   },
+                            // ),
                           ],
                         ),
                       ),
@@ -154,135 +167,269 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
     );
   }
 
-  Widget lessonsToolTip({
-    String left = "",
-    String right = "",
-    bool isCompleted = false,
-    Function? onTap,
-  }) {
-    var t = Theme.of(context).textTheme;
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // Left box
-          if (left.isNotEmpty)
-            InkWell(
-              onTap: () {
-                if (onTap != null) {
-                  onTap();
-                }
-              },
-              child: Container(
-                width: w * 0.35,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 10,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  gradient: LinearGradient(
-                    colors: isCompleted
-                        ? [
-                            Color.fromARGB(255, 223, 255, 201),
-                            Color.fromARGB(255, 200, 255, 155),
-                          ]
-                        : [
-                            Color.fromARGB(255, 255, 204, 201),
-                            Color.fromARGB(255, 255, 155, 155),
-                          ],
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    left,
-                    style: TextStyle(
-                      color: isCompleted ? Colors.green : Colors.red,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-            )
-          else
-            SizedBox(width: w * 0.35),
+  // Widget lessonsToolTip({
+  //   String left = "",
+  //   String right = "",
+  //   bool isCompleted = false,
+  //   Function? onTap,
+  // }) {
+  //   var t = Theme.of(context).textTheme;
+  //   var h = MediaQuery.of(context).size.height;
+  //   var w = MediaQuery.of(context).size.width;
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 5),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         // Left box
+  //         if (left.isNotEmpty)
+  //           InkWell(
+  //             onTap: () {
+  //               if (onTap != null) {
+  //                 onTap();
+  //               }
+  //             },
+  //             child: Container(
+  //               width: w * 0.35,
+  //               padding: const EdgeInsets.symmetric(
+  //                 vertical: 12,
+  //                 horizontal: 10,
+  //               ),
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(10),
+  //                 gradient: LinearGradient(
+  //                   colors: isCompleted
+  //                       ? [
+  //                           Color.fromARGB(255, 223, 255, 201),
+  //                           Color.fromARGB(255, 200, 255, 155),
+  //                         ]
+  //                       : [
+  //                           Color.fromARGB(255, 255, 204, 201),
+  //                           Color.fromARGB(255, 255, 155, 155),
+  //                         ],
+  //                 ),
+  //               ),
+  //               child: Center(
+  //                 child: Text(
+  //                   left,
+  //                   style: TextStyle(
+  //                     color: isCompleted ? Colors.green : Colors.red,
+  //                     fontSize: 16,
+  //                     fontWeight: FontWeight.w600,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           )
+  //         else
+  //           SizedBox(width: w * 0.35),
 
-          // Blue dot in the middle
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              // vertical line
-              SizedBox(
-                height: 70,
-                child: VerticalDivider(
-                  color: isCompleted
-                      ? Colors.blueAccent
-                      : Colors.blue.withOpacity(0.4),
-                  thickness: 1,
-                  width: 2,
-                ),
-              ),
-              Container(
-                height: 10,
-                width: 10,
-                decoration: BoxDecoration(
-                  color: isCompleted
-                      ? Colors.blueAccent
-                      : Colors.blue.withOpacity(0.4),
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ],
-          ),
+  //         // ThermometerIndicator(value: 0.2),
+  //         // Blue dot in the middle
+  //         // Stack(
+  //         //   alignment: Alignment.center,
+  //         //   children: [
+  //         //     // vertical line
+  //         //     Container(
+  //         //       height: 70, // Height of the vertical line
+  //         //       width: 10, // Thickness of the vertical line
+  //         //       decoration: BoxDecoration(color: Colors.white),
+  //         //     ),
+  //         //     Container(
+  //         //       height: 70, // Height of the vertical line
+  //         //       width: 10, // Thickness of the vertical line
+  //         //       decoration: BoxDecoration(
+  //         //         color: isCompleted
+  //         //             ? Colors.orange
+  //         //             : Colors.red.withOpacity(0.4),
+  //         //         gradient: LinearGradient(
+  //         //           begin: Alignment.topCenter,
+  //         //           end: Alignment.bottomCenter,
+  //         //           colors: [Colors.orange, Colors.red.shade800],
+  //         //         ),
+  //         //       ),
+  //         //     ),
+  //         //   ],
+  //         // ),
 
-          // Right box
-          if (right.isNotEmpty)
-            InkWell(
-              onTap: () {
-                if (onTap != null) {
-                  onTap();
-                }
-              },
-              child: Container(
-                width: w * 0.35,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 10,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  gradient: LinearGradient(
-                    colors: isCompleted
-                        ? [
-                            Color.fromARGB(255, 223, 255, 201),
-                            Color.fromARGB(255, 200, 255, 155),
-                          ]
-                        : [
-                            Color.fromARGB(255, 255, 204, 201),
-                            Color.fromARGB(255, 255, 155, 155),
-                          ],
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    right,
-                    style: TextStyle(
-                      color: isCompleted ? Colors.green : Colors.red,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-            )
-          else
-            SizedBox(width: w * 0.35),
-        ],
-      ),
-    );
-  }
+  //         // Right box
+  //         if (right.isNotEmpty)
+  //           InkWell(
+  //             onTap: () {
+  //               if (onTap != null) {
+  //                 onTap();
+  //               }
+  //             },
+  //             child: Container(
+  //               width: w * 0.35,
+  //               padding: const EdgeInsets.symmetric(
+  //                 vertical: 12,
+  //                 horizontal: 10,
+  //               ),
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(10),
+  //                 gradient: LinearGradient(
+  //                   colors: isCompleted
+  //                       ? [
+  //                           Color.fromARGB(255, 223, 255, 201),
+  //                           Color.fromARGB(255, 200, 255, 155),
+  //                         ]
+  //                       : [
+  //                           Color.fromARGB(255, 255, 204, 201),
+  //                           Color.fromARGB(255, 255, 155, 155),
+  //                         ],
+  //                 ),
+  //               ),
+  //               child: Center(
+  //                 child: Text(
+  //                   right,
+  //                   style: TextStyle(
+  //                     color: isCompleted ? Colors.green : Colors.red,
+  //                     fontSize: 16,
+  //                     fontWeight: FontWeight.w600,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           )
+  //         else
+  //           SizedBox(width: w * 0.35),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
+
+
+
+  // Widget lessonsToolTip({
+  //   String left = "",
+  //   String right = "",
+  //   bool isCompleted = false,
+  //   Function? onTap,
+  // }) {
+  //   var t = Theme.of(context).textTheme;
+  //   var h = MediaQuery.of(context).size.height;
+  //   var w = MediaQuery.of(context).size.width;
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 5),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         // Left box
+  //         if (left.isNotEmpty)
+  //           InkWell(
+  //             onTap: () {
+  //               if (onTap != null) {
+  //                 onTap();
+  //               }
+  //             },
+  //             child: Container(
+  //               width: w * 0.35,
+  //               padding: const EdgeInsets.symmetric(
+  //                 vertical: 12,
+  //                 horizontal: 10,
+  //               ),
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(10),
+  //                 gradient: LinearGradient(
+  //                   colors: isCompleted
+  //                       ? [
+  //                           Color.fromARGB(255, 223, 255, 201),
+  //                           Color.fromARGB(255, 200, 255, 155),
+  //                         ]
+  //                       : [
+  //                           Color.fromARGB(255, 255, 204, 201),
+  //                           Color.fromARGB(255, 255, 155, 155),
+  //                         ],
+  //                 ),
+  //               ),
+  //               child: Center(
+  //                 child: Text(
+  //                   left,
+  //                   style: TextStyle(
+  //                     color: isCompleted ? Colors.green : Colors.red,
+  //                     fontSize: 16,
+  //                     fontWeight: FontWeight.w600,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           )
+  //         else
+  //           SizedBox(width: w * 0.35),
+
+  //         // Blue dot in the middle
+  //         Stack(
+  //           alignment: Alignment.center,
+  //           children: [
+  //             // vertical line
+  //             SizedBox(
+  //               height: 70,
+  //               child: VerticalDivider(
+  //                 color: isCompleted
+  //                     ? Colors.blueAccent
+  //                     : Colors.blue.withOpacity(0.4),
+  //                 thickness: 1,
+  //                 width: 2,
+  //               ),
+  //             ),
+  //             Container(
+  //               height: 10,
+  //               width: 10,
+  //               decoration: BoxDecoration(
+  //                 color: isCompleted
+  //                     ? Colors.blueAccent
+  //                     : Colors.blue.withOpacity(0.4),
+  //                 shape: BoxShape.circle,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+
+  //         // Right box
+  //         if (right.isNotEmpty)
+  //           InkWell(
+  //             onTap: () {
+  //               if (onTap != null) {
+  //                 onTap();
+  //               }
+  //             },
+  //             child: Container(
+  //               width: w * 0.35,
+  //               padding: const EdgeInsets.symmetric(
+  //                 vertical: 12,
+  //                 horizontal: 10,
+  //               ),
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(10),
+  //                 gradient: LinearGradient(
+  //                   colors: isCompleted
+  //                       ? [
+  //                           Color.fromARGB(255, 223, 255, 201),
+  //                           Color.fromARGB(255, 200, 255, 155),
+  //                         ]
+  //                       : [
+  //                           Color.fromARGB(255, 255, 204, 201),
+  //                           Color.fromARGB(255, 255, 155, 155),
+  //                         ],
+  //                 ),
+  //               ),
+  //               child: Center(
+  //                 child: Text(
+  //                   right,
+  //                   style: TextStyle(
+  //                     color: isCompleted ? Colors.green : Colors.red,
+  //                     fontSize: 16,
+  //                     fontWeight: FontWeight.w600,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           )
+  //         else
+  //           SizedBox(width: w * 0.35),
+  //       ],
+  //     ),
+  //   );
+  // }

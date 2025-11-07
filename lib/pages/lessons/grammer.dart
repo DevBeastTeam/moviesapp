@@ -1,3 +1,4 @@
+import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class GrammerPage extends ConsumerStatefulWidget {
 }
 
 class GrammerPageState extends ConsumerState<GrammerPage> {
+  bool _isPopping = false;
+
   @override
   void initState() {
     super.initState();
@@ -43,80 +46,86 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
         child: Column(
           children: [
             CustomHeaderBar(
-              onBack: () async {
+              onBack: () {
+                if (_isPopping) return;
+                _isPopping = true;
                 Navigator.pop(context);
               },
               centerTitle: false,
-              title: 'Lessons',
+              title: 'SELECT YOUR LEVEL',
             ),
 
             if (ref.watch(grammerData).loadingFor == "grammer")
               QuickTikTokLoader(),
 
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Text(
-                'SELECT YOUR LEVEL',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-
+            // const Padding(
+            //   padding: EdgeInsets.symmetric(vertical: 10),
+            //   child: Text(
+            //     'SELECT YOUR LEVEL',
+            //     style: TextStyle(
+            //       fontWeight: FontWeight.bold,
+            //       fontSize: 18,
+            //       color: Colors.white,
+            //     ),
+            //   ),
+            // ),
             if (ref.watch(grammerData).grammersList.isEmpty)
               EmptyWidget()
             else
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: ref
-                      .watch(grammerData)
-                      .grammersList
-                      .first
-                      .allowedLessonCategory
-                      .length,
-                  controller: ScrollController(),
-                  physics: BouncingScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    var level = ref
+                child: SizedBox(
+                  width: Screen.width(context) > 450
+                      ? Screen.width(context) * 0.7
+                      : null,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: ref
                         .watch(grammerData)
                         .grammersList
                         .first
-                        .allowedLessonCategory[index];
-                    return buildLevelBox(
-                      level.label,
-                      // subtitle: "",
-                      onTap: () async {
-                        // in future if need
-                        //  await ref.read(grammerData).getGrammersByIdForCatgListF(context, levelId:level.id , loadingFor: "grammerCatg");
-                        await ref
-                            .read(grammerData)
-                            .getGrammerSingleByIdF(
-                              context,
-                              id: level.id,
-                              loadingFor: "grammerCatg",
-                            );
+                        .allowedLessonCategory
+                        .length,
+                    controller: ScrollController(),
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      var level = ref
+                          .watch(grammerData)
+                          .grammersList
+                          .first
+                          .allowedLessonCategory[index];
+                      return buildLevelBox(
+                        level.label,
+                        // subtitle: "",
+                        onTap: () async {
+                          // in future if need
+                          //  await ref.read(grammerData).getGrammersByIdForCatgListF(context, levelId:level.id , loadingFor: "grammerCatg");
+                          await ref
+                              .read(grammerData)
+                              .getGrammerSingleByIdF(
+                                context,
+                                id: level.id,
+                                loadingFor: "grammerCatg",
+                              );
 
-                        context.go(
-                          '/home/GrammerPage/grammerCatg',
-                          extra: {"id": level.id.toString(), "level": level},
-                        );
+                          context.go(
+                            '/home/GrammerPage/grammerCatg',
+                            extra: {"id": level.id.toString(), "level": level},
+                          );
 
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => GrammerCatgPage(
-                        //       id: level.id.toString(),
-                        //       level: level,
-                        //     ),
-                        //   ),
-                        // );
-                      },
-                    );
-                  },
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => GrammerCatgPage(
+                          //       id: level.id.toString(),
+                          //       level: level,
+                          //     ),
+                          //   ),
+                          // );
+                        },
+                      );
+                    },
+                  ),
                 ),
               ),
           ],
@@ -130,32 +139,39 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
     String subtitle = "Select this level",
     required Function onTap,
   }) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: ListTile(
-        title: Center(
-          child: Text(
-            level,
-            style: const TextStyle(
-              color: Colors.blue,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Center(
+                child: Text(
+                  level,
+                  style: const TextStyle(
+                    color: Colors.blue,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 4.0),
+                  child: Text(subtitle, style: TextStyle(color: Colors.grey)),
+                ),
+              ),
+            ],
           ),
         ),
-        subtitle: Center(
-          child: Padding(
-            padding: EdgeInsets.only(top: 4.0),
-            child: Text(subtitle, style: TextStyle(color: Colors.grey)),
-          ),
-        ),
-        onTap: () {
-          onTap();
-        },
       ),
     );
   }
