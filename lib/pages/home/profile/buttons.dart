@@ -30,14 +30,42 @@ class ProfileButtons extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           children: [
             _buildComponent(
+              fontSize: 11,
+              context: context,
+              // text: 'GRAMMAR',
+              text: 'LESSONS',
+              imgSize: 45,
+              isImg: true,
+              assetImg: AppImages.book,
+              // icon: EdutainmentIcons.grammar,
+              // colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+              onPressed: () async {
+                context.go('/home/GrammerPage');
+              },
+            ),
+            _buildComponent(
+              fontSize: 11,
+              context: context,
+              text: 'EXERCISES',
+              imgSize: 45,
+              isImg: true,
+              assetImg: AppImages.question2,
+              // icon: EdutainmentIcons.exercices,
+              // colors: const [Color(0xfffd6378), Color(0xffa11111)],
+              onPressed: () {
+                context.go('/home/ExcersisesPage');
+              },
+            ),
+            _buildComponent(
               context: context,
               text: 'COPILOT',
-              assetImg: AppImages.ai2,
+              assetImg: AppImages.chatbot,
               isImg: true,
               imgSize: 45,
               fontSize: 11,
+
               // icon: EdutainmentIcons.writing,
-              colors: const [Color(0xff02eac1), Color(0xff2992f9)],
+              // colors: const [Color(0xff02eac1), Color(0xff2992f9)],
               onPressed: () {
                 context.go('/home/AIMenuPage');
               },
@@ -47,8 +75,10 @@ class ProfileButtons extends StatelessWidget {
               context: context,
               text: 'PRONUNCIATION',
               imgSize: 45,
-              icon: EdutainmentIcons.pronunciation,
-              colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+              isImg: true,
+              assetImg: AppImages.mic,
+              // icon: EdutainmentIcons.pronunciation,
+              // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
               onPressed: () {
                 context.go('/home/PronlevelsPage1');
               },
@@ -65,29 +95,6 @@ class ProfileButtons extends StatelessWidget {
             //     context.go('/home/fc');
             //   },
             // ),
-            _buildComponent(
-              fontSize: 11,
-              context: context,
-              // text: 'GRAMMAR',
-              text: 'LESSONS',
-              imgSize: 45,
-              icon: EdutainmentIcons.grammar,
-              colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
-              onPressed: () async {
-                context.go('/home/GrammerPage');
-              },
-            ),
-            _buildComponent(
-              fontSize: 11,
-              context: context,
-              text: 'EXERCISES',
-              imgSize: 45,
-              icon: EdutainmentIcons.exercices,
-              colors: const [Color(0xfffd6378), Color(0xffa11111)],
-              onPressed: () {
-                context.go('/home/ExcersisesPage');
-              },
-            ),
           ],
         ),
       );
@@ -125,8 +132,13 @@ class ProfileButtons extends StatelessWidget {
               child: _buildComponent(
                 context: context,
                 text: 'EXERCISES',
-                icon: EdutainmentIcons.exercices,
-                colors: const [Color(0xfffd6378), Color(0xffa11111)],
+                isImg: true,
+                assetImg: AppImages.book,
+                imgSize: 45,
+                fontSize: 12,
+
+                // icon: EdutainmentIcons.exercices,
+                // colors: const [Color(0xfffd6378), Color(0xffa11111)],
                 onPressed: () {
                   context.go('/home/ExcersisesPage');
                 },
@@ -145,8 +157,13 @@ class ProfileButtons extends StatelessWidget {
                 context: context,
                 // text: 'GRAMMAR',
                 text: 'LESSONS',
-                icon: EdutainmentIcons.grammar,
-                colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                isImg: true,
+                assetImg: AppImages.question2,
+                imgSize: 45,
+                fontSize: 12,
+
+                // icon: EdutainmentIcons.grammar,
+                // colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
                 onPressed: () async {
                   context.go('/home/GrammerPage');
                 },
@@ -165,10 +182,13 @@ class ProfileButtons extends StatelessWidget {
               child: _buildComponent(
                 context: context,
                 text: 'COPILOT',
-                assetImg: AppImages.ai2,
+                assetImg: AppImages.chatbot,
+                imgSize: 45,
                 isImg: true,
+                fontSize: 12,
+
                 // icon: EdutainmentIcons.writing,
-                colors: const [Color(0xff02eac1), Color(0xff2992f9)],
+                // colors: const [Color(0xff02eac1), Color(0xff2992f9)],
                 onPressed: () {
                   context.go('/home/AIMenuPage');
                 },
@@ -186,8 +206,12 @@ class ProfileButtons extends StatelessWidget {
               child: _buildComponent(
                 context: context,
                 text: 'PRONUNCIATION',
-                icon: EdutainmentIcons.pronunciation,
-                colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                assetImg: AppImages.mic,
+                imgSize: 45,
+                fontSize: 12,
+                isImg: true,
+                // icon: EdutainmentIcons.pronunciation,
+                // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                 onPressed: () {
                   context.go('/home/PronlevelsPage1');
                 },
@@ -234,8 +258,11 @@ class ProfileButtons extends StatelessWidget {
                   context: context,
                   // text: 'GRAMMAR',
                   text: 'LESSONS',
-                  icon: EdutainmentIcons.grammar,
-                  colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                  imgSize: 70,
+                  isImg: true,
+                  assetImg: AppImages.book,
+                  // icon: EdutainmentIcons.grammar,
+                  // colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
                   onPressed: () async {
                     // Provider.of(context, listen: false).
                     // await context
@@ -277,8 +304,11 @@ class ProfileButtons extends StatelessWidget {
                 child: _buildComponent(
                   context: context,
                   text: 'EXERCISES',
-                  icon: EdutainmentIcons.exercices,
-                  colors: const [Color(0xfffd6378), Color(0xffa11111)],
+                  imgSize: 70,
+                  isImg: true,
+                  assetImg: AppImages.question2,
+                  // icon: EdutainmentIcons.exercices,
+                  // colors: const [Color(0xfffd6378), Color(0xffa11111)],
                   onPressed: () {
                     context.go('/home/ExcersisesPage');
                     // Navigator.push(
@@ -314,10 +344,10 @@ class ProfileButtons extends StatelessWidget {
                   child: _buildComponent(
                     context: context,
                     text: 'COPILOT',
-                    assetImg: AppImages.ai2,
+                    assetImg: AppImages.chatbot,
                     isImg: true,
                     // icon: EdutainmentIcons.writing,
-                    colors: const [Color(0xff02eac1), Color(0xff2992f9)],
+                    // colors: const [Color(0xff02eac1), Color(0xff2992f9)],
                     onPressed: () {
                       // context.go('/home/ai');
                       // context.go('/home/AIMenuPage/AIChatPage');
@@ -330,8 +360,11 @@ class ProfileButtons extends StatelessWidget {
                   child: _buildComponent(
                     context: context,
                     text: 'PRONUNCIATION',
+                    imgSize: 70,
+                    isImg: true,
+                    assetImg: AppImages.mic,
                     icon: EdutainmentIcons.pronunciation,
-                    colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                    // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                     onPressed: () {
                       context.go('/home/PronlevelsPage1');
                       // ref.watch(pronounciationVm).getPronounciationF();
@@ -395,7 +428,7 @@ class ProfileButtons extends StatelessWidget {
     required String text,
     IconData? icon,
     String? assetImg,
-    required List<Color> colors,
+    List<Color>? colors,
     bool isImg = false,
     required VoidCallback onPressed,
     double imgSize = 70,
@@ -430,7 +463,7 @@ class ProfileButtons extends StatelessWidget {
                 : GradientIcon(
                     icon: icon!,
                     size: imgSize,
-                    gradient: LinearGradient(colors: colors),
+                    gradient: LinearGradient(colors: colors!),
                   ),
             Text(
               text,

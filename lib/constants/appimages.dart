@@ -29,6 +29,18 @@ class AppImages {
   static const String flashcardsblue = 'assets/images/icons/flashcardsblue.png';
   static const String track = 'assets/images/icons/track.png';
   static const String query = 'assets/images/icons/query.png';
-
   //// for ai chat area icon end
+
+  //// new version 2 icons
+  static const String book = "assets/icons/book.png";
+  static const String chatbot = "assets/icons/chatbot.png";
+  static const String check2 = "assets/icons/check.png";
+  static const String clock = "assets/icons/clock.png";
+  static const String mic = "assets/icons/mic.png";
+  static const String movie2 = "assets/icons/movie.png";
+  static const String question = "assets/icons/question.png";
+  static const String question2 = "assets/icons/question2.png";
+  static const String test = "assets/icons/test.png";
+  static const String testCheck = "assets/icons/testcheck.png";
+  //// new version 2 icons
 }

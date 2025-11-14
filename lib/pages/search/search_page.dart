@@ -13,7 +13,6 @@ import '../../utils/movies.dart';
 import '../../utils/search.dart';
 import '../../utils/utils.dart';
 import '../../widgets/indicators/double_circular_progress_indicator.dart';
-import '../../widgets/top_bar/topBar.dart';
 import '../../widgets/ui/default_scaffold.dart';
 import '../movies/widgets/tabButtonWidget.dart';
 

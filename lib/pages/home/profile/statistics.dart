@@ -1,3 +1,4 @@
+import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:humanize_duration/humanize_duration.dart';
@@ -48,25 +49,28 @@ class ProfileStatistics extends StatelessWidget {
                   _buildComponent(
                     text: 'COMPLETED QUESTIONS',
                     value: '${getIn(statistics, 'questions', 0)}',
-                    icon: EdutainmentIcons.question,
-                    iconSize: 25,
-                    colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                    iconSize: 45,
+                    img: AppImages.question,
+                    // icon: EdutainmentIcons.question,
+                    // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                   ),
                   _buildComponent(
                     text: 'VALIDATED QUESTIONS',
                     value: '${getIn(statistics, 'questions_validated', 0)}',
-                    icon: EdutainmentIcons.check,
-                    iconSize: 25,
-                    colors: const [Color(0xff1df370), Color(0xff2589e0)],
+                    img: AppImages.check2,
+                    iconSize: 45,
+                    // icon: EdutainmentIcons.check,
+                    // colors: const [Color(0xff1df370), Color(0xff2589e0)],
                   ),
                   _buildComponent(
                     text: 'TIME SPENT',
+                    img: AppImages.clock,
                     value: humanizeDuration(
                       Duration(seconds: getIn(statistics, 'time', 0)),
                     ),
-                    iconSize: 25,
-                    icon: EdutainmentIcons.clock,
-                    colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                    iconSize: 45,
+                    // icon: EdutainmentIcons.clock,
+                    // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                   ),
                 ],
               ),
@@ -79,23 +83,26 @@ class ProfileStatistics extends StatelessWidget {
                   _buildComponent(
                     text: 'FINISHED MOVIES',
                     value: '${getIn(statistics, 'movies', 0)}',
-                    icon: EdutainmentIcons.movie,
-                    iconSize: 25,
-                    colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                    iconSize: 45,
+                    img: AppImages.movie2,
+                    // icon: EdutainmentIcons.movie,
+                    // colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
                   ),
                   _buildComponent(
                     text: 'PASSED TESTS',
                     value: '${getIn(statistics, 'quizz', 0)}',
-                    icon: EdutainmentIcons.validateTest,
-                    iconSize: 25,
-                    colors: const [Color(0xff1df370), Color(0xff2589e0)],
+                    iconSize: 45,
+                    img: AppImages.testCheck,
+                    // icon: EdutainmentIcons.validateTest,
+                    // colors: const [Color(0xff1df370), Color(0xff2589e0)],
                   ),
                   _buildComponent(
                     text: 'COMPLETED LESSONS',
+                    img: AppImages.test,
                     value: '${getIn(statistics, 'lessons', 0)}',
-                    icon: EdutainmentIcons.validateLesson,
-                    iconSize: 25,
-                    colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                    iconSize: 45,
+                    // icon: EdutainmentIcons.validateLesson,
+                    // colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
                   ),
                 ],
               ),
@@ -130,14 +137,21 @@ class ProfileStatistics extends StatelessWidget {
                 _buildComponent(
                   text: 'COMPLETED QUESTIONS',
                   value: '${getIn(statistics, 'questions', 0)}',
-                  icon: EdutainmentIcons.question,
-                  colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                  img: AppImages.question,
+                  iconSize: 70,
+                  fontSize: 15,
+                  // icon: EdutainmentIcons.question,
+                  // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                 ),
                 _buildComponent(
                   text: 'VALIDATED QUESTIONS',
                   value: '${getIn(statistics, 'questions_validated', 0)}',
-                  icon: EdutainmentIcons.check,
-                  colors: const [Color(0xff1df370), Color(0xff2589e0)],
+                  img: AppImages.check2,
+                  iconSize: 70,
+                  fontSize: 15,
+
+                  // img: EdutainmentIcons.check,
+                  // colors: const [Color(0xff1df370), Color(0xff2589e0)],
                 ),
               ],
             ),
@@ -148,17 +162,25 @@ class ProfileStatistics extends StatelessWidget {
               children: [
                 _buildComponent(
                   text: 'TIME SPENT',
+                  img: AppImages.clock,
+                  iconSize: 70,
+                  fontSize: 15,
+
                   value: humanizeDuration(
                     Duration(seconds: getIn(statistics, 'time', 0)),
                   ),
-                  icon: EdutainmentIcons.clock,
-                  colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                  // icon: EdutainmentIcons.clock,
+                  // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                 ),
                 _buildComponent(
                   text: 'FINISHED MOVIES',
+                  img: AppImages.movie2,
+                  iconSize: 70,
+                  fontSize: 15,
+
                   value: '${getIn(statistics, 'movies', 0)}',
-                  icon: EdutainmentIcons.movie,
-                  colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                  // icon: EdutainmentIcons.movie,
+                  // colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
                 ),
               ],
             ),
@@ -168,15 +190,23 @@ class ProfileStatistics extends StatelessWidget {
               children: [
                 _buildComponent(
                   text: 'PASSED TESTS',
+                  img: AppImages.testCheck,
+                  iconSize: 70,
+                  fontSize: 15,
+
                   value: '${getIn(statistics, 'quizz', 0)}',
-                  icon: EdutainmentIcons.validateTest,
-                  colors: const [Color(0xff1df370), Color(0xff2589e0)],
+                  // icon: EdutainmentIcons.validateTest,
+                  // colors: const [Color(0xff1df370), Color(0xff2589e0)],
                 ),
                 _buildComponent(
                   text: 'COMPLETED LESSONS',
+                  img: AppImages.test,
+                  iconSize: 70,
+                  fontSize: 15,
+
                   value: '${getIn(statistics, 'lessons', 0)}',
-                  icon: EdutainmentIcons.validateLesson,
-                  colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                  // icon: EdutainmentIcons.validateLesson,
+                  // colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
                 ),
               ],
             ),
@@ -196,68 +226,74 @@ class ProfileStatistics extends StatelessWidget {
         border: Border.all(width: 1, color: ColorsPallet.borderCardBorderColor),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
+            // mainAxisSize: MainAxisSize.min,
             children: [
               _buildComponent(
                 text: 'COMPLETED QUESTIONS',
+                img: AppImages.question,
                 value: '${getIn(statistics, 'questions', 0)}',
-                icon: EdutainmentIcons.question,
-                colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                // icon: EdutainmentIcons.question,
+                // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
               ),
               _buildComponent(
                 text: 'VALIDATED QUESTIONS',
+                img: AppImages.check2,
                 value: '${getIn(statistics, 'questions_validated', 0)}',
-                icon: EdutainmentIcons.check,
-                colors: const [Color(0xff1df370), Color(0xff2589e0)],
+                // icon: EdutainmentIcons.check,
+                // colors: const [Color(0xff1df370), Color(0xff2589e0)],
               ),
             ],
           ),
           const Divider(color: Colors.transparent, height: 10),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
+            // mainAxisSize: MainAxisSize.min,
             children: [
               _buildComponent(
                 text: 'TIME SPENT',
+                img: AppImages.clock,
                 value: humanizeDuration(
                   Duration(seconds: getIn(statistics, 'time', 0)),
                 ),
-                icon: EdutainmentIcons.clock,
-                colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
+                // icon: EdutainmentIcons.clock,
+                // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
               ),
               _buildComponent(
                 text: 'FINISHED MOVIES',
+                img: AppImages.movie2,
                 value: '${getIn(statistics, 'movies', 0)}',
-                icon: EdutainmentIcons.movie,
-                colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                // icon: EdutainmentIcons.movie,
+                // colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
               ),
             ],
           ),
           const Divider(color: Colors.transparent, height: 10),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
+            // mainAxisSize: MainAxisSize.min,
             children: [
               _buildComponent(
                 text: 'PASSED TESTS',
+                img: AppImages.testCheck,
                 value: '${getIn(statistics, 'quizz', 0)}',
-                icon: EdutainmentIcons.validateTest,
-                colors: const [Color(0xff1df370), Color(0xff2589e0)],
+                // icon: EdutainmentIcons.validateTest,
+                // colors: const [Color(0xff1df370), Color(0xff2589e0)],
               ),
               _buildComponent(
                 text: 'COMPLETED LESSONS',
+                img: AppImages.test,
                 value: '${getIn(statistics, 'lessons', 0)}',
-                icon: EdutainmentIcons.validateLesson,
-                colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
+                // icon: EdutainmentIcons.validateLesson,
+                // colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
               ),
             ],
           ),
@@ -268,10 +304,11 @@ class ProfileStatistics extends StatelessWidget {
 
   Widget _buildComponent({
     required String text,
-    required IconData icon,
-    required List<Color> colors,
+    required String img,
+    List<Color>? colors,
     required String value,
     double iconSize = 47,
+    double fontSize = 10,
   }) {
     return SizedBox(
       width: 125,
@@ -280,22 +317,23 @@ class ProfileStatistics extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          GradientIcon(
-            icon: icon,
-            size: iconSize,
-            gradient: LinearGradient(colors: colors),
-          ),
+          // GradientIcon(
+          //   icon: icon,
+          //   size: iconSize,
+          //   gradient: LinearGradient(colors: colors),
+          // ),
+          Image.asset(img, width: iconSize),
           const Divider(color: Colors.transparent, height: 5),
           Text(
             value,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 12,
               fontWeight: FontWeight.bold,
-              color: colors.first,
+              color: colors?.first,
             ),
           ),
-          const Divider(color: Colors.transparent, height: 5),
+          const Divider(color: Colors.transparent, height: 1),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -304,9 +342,9 @@ class ProfileStatistics extends StatelessWidget {
               for (String str in text.split(' '))
                 Text(
                   str,
-                  style: const TextStyle(
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.bold,
+                  style: TextStyle(
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.w500,
                     overflow: TextOverflow.fade,
                   ),
                 ),

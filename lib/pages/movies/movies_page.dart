@@ -11,7 +11,6 @@ import '../../utils/assets/assets_icons.dart';
 import '../../utils/boxes.dart';
 import '../../utils/movies.dart';
 import '../../utils/utils.dart';
-import '../../widgets/top_bar/topBar.dart';
 import '../../widgets/ui/custom_submit_button.dart';
 import '../../widgets/ui/default_scaffold.dart';
 import 'widgets/tabButtonWidget.dart';

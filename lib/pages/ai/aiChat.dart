@@ -12,10 +12,7 @@ import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../../widgets/header_bar/custom_header_bar.dart';
 import '../../providers/aichatvm.dart';
-import '../../providers/user_providers.dart';
 import '../../theme/colors.dart';
-import '../../utils/utils.dart';
-import '../../widgets/geradientText.dart';
 
 class AIMenuPage extends ConsumerStatefulWidget {
   const AIMenuPage({super.key});
