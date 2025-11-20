@@ -38,7 +38,7 @@ class ExcerVm extends ChangeNotifier {
       setLoadingF(loadingFor);
       var data = await baseApi.get('/lessons/exercises', context);
       // debugPrint('👉 excersiseList: $data');
-      log('👉 excersiseList: $data');
+      log('👉 getExcerF excersiseList: $data');
       if (data['success'].toString() == 'true') {
         excersiseList.clear();
         excersiseList.add(ExcersisesModel.fromJson(data['data']));
@@ -61,7 +61,7 @@ class ExcerVm extends ChangeNotifier {
     bool isRefresh = false,
   }) async {
     try {
-      if (!isRefresh && excercisesCatgLessonsSteps != null) return;
+      // if (!isRefresh && excercisesCatgLessonsSteps != null) return;
       setLoadingF(loadingFor);
       catgRefTemp = catgRef;
 
@@ -71,7 +71,7 @@ class ExcerVm extends ChangeNotifier {
         context,
       );
 
-      debugPrint('👉 excersiseList: $data');
+      debugPrint('👉 getExcercisesCatgLessonsStepsF: $data');
       // log('👉 getExcerByCatgRef: $data');
       if (data['success'].toString() == 'true') {
         if (data['data'] != null) {
@@ -96,14 +96,18 @@ class ExcerVm extends ChangeNotifier {
     try {
       if (excercisesCatgLessonsSteps != null) return;
       setLoadingF(loadingFor);
-      var data = await baseApi.post('/lessons/exercises/$answerId',{
-        "answers":[answerId]
+      var data = await baseApi.post('/lessons/exercises/$answerId', {
+        "answers": [answerId],
       }, context);
 
       debugPrint('👉 submitExcercisesAnswerF: $data');
       if (data['success'].toString() == 'true') {
         // relaod lessona
-        getExcercisesCatgLessonsStepsF(context, catgRef: catgRefTemp, isRefresh:true);
+        getExcercisesCatgLessonsStepsF(
+          context,
+          catgRef: catgRefTemp,
+          isRefresh: true,
+        );
       }
       setLoadingF();
     } catch (e, st) {

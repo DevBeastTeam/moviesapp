@@ -1,5 +1,5 @@
 import 'package:edutainment/constants/screenssize.dart';
-import 'package:edutainment/helpers/forstrings.dart';
+import 'package:edutainment/helpers/safe_converters.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +21,13 @@ class _PronParacticePage4State extends State<PronParacticePage4> {
   Widget build(BuildContext context) {
     // Get the extra data passed from GoRouter
     final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
-    final selectedlabel = extra?['selectedlabel'].toString().toNullString();
-    final categoryId = extra?['categoryId'].toString().toNullString();
+    final selectedlabel = extra?['selectedlabel'].toSafeString();
+    final categoryId = extra?['categoryId'].toSafeString();
     final selectedCatg = extra?['selectedCatg'] as Category?;
-    final selectedLesson = extra?['selectedLesson'].toString().toNullString();
+    final selectedLesson = extra?['selectedLesson'].toSafeString();
     final selectedLessonId = extra?['selectedLessonId']
         .toString()
-        .toNullString();
+        .toSafeString();
     final selectedLessonIndex = extra?['selectedLessonIndex'] as int?;
 
     return DefaultScaffold(

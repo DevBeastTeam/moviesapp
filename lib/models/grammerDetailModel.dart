@@ -1,4 +1,4 @@
-import 'package:edutainment/helpers/forstrings.dart';
+import 'package:edutainment/helpers/safe_converters.dart';
 
 class GrammerDetailModel {
   lessonDetail? lesson;
@@ -12,9 +12,7 @@ class GrammerDetailModel {
             : lessonDetail.fromJson(json['lesson']),
       );
 
-  Map<String, dynamic> toJson() => {
-        'lesson': lesson?.toJson(),
-      };
+  Map<String, dynamic> toJson() => {'lesson': lesson?.toJson()};
 }
 
 class lessonDetail {
@@ -49,40 +47,38 @@ class lessonDetail {
   });
 
   factory lessonDetail.fromJson(Map<String, dynamic> json) => lessonDetail(
-        id: json['_id'].toString().toNullString(),
-        reference: json['reference'].toString().toNullString(),
-        content: json['content'].toString().toNullString(),
-        contenten: json['contenten'].toString().toNullString(),
-        contentfr: json['contentfr'].toString().toNullString(),
-        createdAt: json['createdAt'].toString().toNullString(),
-        enabled: json['enabled'] as bool?,
-        label: json['label'].toString().toNullString(),
-        profiles: json['profiles'] == null
-            ? null
-            : List<String>.from(json['profiles'] as List),
-        questions: json['questions'] as List<dynamic>?,
-        tags: json['tags'] == null
-            ? null
-            : List<String>.from(json['tags'] as List),
-        type: json['type'].toString().toNullString(),
-        updatedAt: json['updatedAt'].toString().toNullString(),
-      );
+    id: json['_id'].toSafeString(),
+    reference: json['reference'].toSafeString(),
+    content: json['content'].toSafeString(),
+    contenten: json['contenten'].toSafeString(),
+    contentfr: json['contentfr'].toSafeString(),
+    createdAt: json['createdAt'].toSafeString(),
+    enabled: json['enabled'] as bool?,
+    label: json['label'].toSafeString(),
+    profiles: json['profiles'] == null
+        ? null
+        : List<String>.from(json['profiles'] as List),
+    questions: json['questions'] as List<dynamic>?,
+    tags: json['tags'] == null ? null : List<String>.from(json['tags'] as List),
+    type: json['type'].toSafeString(),
+    updatedAt: json['updatedAt'].toSafeString(),
+  );
 
   Map<String, dynamic> toJson() => {
-        '_id': id,
-        'reference': reference,
-        'content': content,
-        'contenten': contenten,
-        'contentfr': contentfr,
-        'createdAt': createdAt,
-        'enabled': enabled,
-        'label': label,
-        'profiles': profiles,
-        'questions': questions,
-        'tags': tags,
-        'type': type,
-        'updatedAt': updatedAt,
-      };
+    '_id': id,
+    'reference': reference,
+    'content': content,
+    'contenten': contenten,
+    'contentfr': contentfr,
+    'createdAt': createdAt,
+    'enabled': enabled,
+    'label': label,
+    'profiles': profiles,
+    'questions': questions,
+    'tags': tags,
+    'type': type,
+    'updatedAt': updatedAt,
+  };
 }
 
 

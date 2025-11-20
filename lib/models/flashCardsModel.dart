@@ -1,5 +1,3 @@
-import 'package:edutainment/helpers/forstrings.dart';
-
 class FlashCardsModel {
   final bool success;
   final List<FlashCardsMovie> movies;
@@ -55,14 +53,15 @@ class FlashCardsMovie {
 
   factory FlashCardsMovie.fromJson(Map<String, dynamic> json) {
     return FlashCardsMovie(
-      id: json['_id'].toString().toNullString(),
-      reference: json['reference'].toString().toNullString(),
-      label: json['label'].toString().toNullString(),
+      id: json['_id'].toSafeString(),
+      reference: json['reference'].toSafeString(),
+      label: json['label'].toSafeString(),
       tags:
           (json['tags'] as List<dynamic>?)?.map((e) => e.toString()).toList() ??
           [],
-      subject: json['Subject'].toString().toNullString(), // Note the capital 'S' to match your JSON
-      picture: json['picture'].toString().toNullString(),
+      subject: json['Subject']
+          .toSafeString(), // Note the capital 'S' to match your JSON
+      picture: json['picture'].toSafeString(),
     );
   }
 
@@ -101,10 +100,10 @@ class Subject {
 
   factory Subject.fromJson(Map<String, dynamic> json) {
     return Subject(
-      id: json['_id'].toString().toNullString(),
-      reference: json['reference'].toString().toNullString(),
-      label: json['label'].toString().toNullString(),
-      description: json['description'].toString().toNullString(),
+      id: json['_id'].toSafeString(),
+      reference: json['reference'].toSafeString(),
+      label: json['label'].toSafeString(),
+      description: json['description'].toSafeString(),
       enabled: json['enabled'] ?? false,
       createdOn: DateTime.parse(
         json['created_on'] ?? DateTime.now().toIso8601String(),

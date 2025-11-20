@@ -115,7 +115,10 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
                                   () {
                                     p.getExcercisesCatgLessonsStepsF(
                                       context,
-                                      catgRef: data.reference.toString(),
+                                      // catgRef: data.reference.toString(),
+                                      catgRef: data.reference
+                                          // .toUpperCase()
+                                          .toString(),
                                       loadingFor: "getExcercisesByCatg",
                                     );
                                     context.go(

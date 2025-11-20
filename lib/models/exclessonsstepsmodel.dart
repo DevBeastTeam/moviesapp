@@ -1,4 +1,4 @@
-import 'package:edutainment/helpers/forstrings.dart';
+import 'package:edutainment/helpers/safe_converters.dart';
 
 class ExerciseLessonsStepModel {
   final bool success;
@@ -8,7 +8,7 @@ class ExerciseLessonsStepModel {
 
   factory ExerciseLessonsStepModel.fromJson(Map<String, dynamic> json) {
     return ExerciseLessonsStepModel(
-      success: json['success'] as bool,
+      success: json['success'].toString().toSafeString() == "true",
       data: Data.fromJson(json['data'] as Map<String, dynamic>),
     );
   }
@@ -30,10 +30,7 @@ class Data {
           .map((e) => Lesson.fromJson(e as Map<String, dynamic>))
           .toList(),
       progressPercentage:
-          double.tryParse(
-            json['progressPercentage'].toString().toNullString(),
-          ) ??
-          0.0,
+          double.tryParse(json['progressPercentage'].toSafeString()) ?? 0.0,
     );
   }
 
@@ -50,7 +47,7 @@ class Lesson {
   final String reference;
   final String label;
   final List<Question> questions;
-  final int lessonNumber;
+  final String lessonNumber;
   final bool completed;
   final bool available;
 
@@ -59,22 +56,27 @@ class Lesson {
     required this.reference,
     required this.label,
     required this.questions,
-    required this.lessonNumber,
+    this.lessonNumber = "",
     required this.completed,
     required this.available,
   });
 
   factory Lesson.fromJson(Map<String, dynamic> json) {
     return Lesson(
-      id: json['_id'] as String,
-      reference: json['reference'] as String,
-      label: json['label'] as String,
+      id: json['_id'].toSafeString(),
+      reference: json['reference'].toString().toSafeString(),
+      label: json['label'].toString().toSafeString(),
       questions: (json['questions'] as List<dynamic>)
+          .toSafeList()
           .map((e) => Question.fromJson(e as Map<String, dynamic>))
           .toList(),
-      lessonNumber: json['lessonNumber'] as int,
-      completed: json['completed'] as bool,
-      available: json['available'] as bool,
+      lessonNumber: json['lessonNumber'].toString().toSafeString(),
+      completed: json['completed'].toString().toSafeString() == "true"
+          ? true
+          : false,
+      available: json['available'].toString().toSafeString() == "true"
+          ? true
+          : false,
     );
   }
 
@@ -100,7 +102,7 @@ class Question {
   final bool enabled;
   final bool examination;
   final String label;
-  final int score;
+  final String score;
   final bool showAnswers;
   final bool shuffleAnswers;
   final int time;
@@ -126,22 +128,25 @@ class Question {
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
-      id: json['_id'] as String,
-      reference: json['reference'] as String,
+      id: json['_id'].toString().toSafeString(),
+      reference: json['reference'].toString().toSafeString(),
       answers: (json['answers'] as List<dynamic>)
           .map((e) => Answer.fromJson(e as Map<String, dynamic>))
           .toList(),
-      category: json['category'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      enabled: json['enabled'] as bool,
-      examination: json['examination'] as bool,
-      label: json['label'] as String,
-      score: json['score'] as int,
-      showAnswers: json['show_answers'] as bool,
-      shuffleAnswers: json['shuffle_answers'] as bool,
-      time: json['time'] as int,
-      type: json['type'] as String,
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      category: json['category'].toString().toSafeString(),
+      createdAt: DateTime.parse(json['createdAt'].toString().toSafeString()),
+      enabled: json['enabled'].toString().toSafeString() == "true",
+      examination: json['examination'].toString().toSafeString() == "true",
+      label: json['label'].toString().toSafeString(),
+      score: json['score'].toString().toSafeString(),
+      showAnswers: json['show_answers'].toString().toSafeString() == "true",
+      shuffleAnswers:
+          json['shuffle_answers'].toString().toSafeString() == "true",
+      time: json['time'].toString().toSafeString().isEmpty
+          ? 0
+          : int.parse(json['time'].toString().toSafeString()),
+      type: json['type'].toString().toSafeString(),
+      updatedAt: DateTime.parse(json['updatedAt'].toString().toSafeString()),
     );
   }
 
@@ -186,13 +191,13 @@ class Answer {
 
   factory Answer.fromJson(Map<String, dynamic> json) {
     return Answer(
-      reference: json['reference'] as String,
-      answer: json['answer'] as String,
-      label: json['label'] as String,
-      isAnswer: json['is_answer'] as bool,
-      id: json['_id'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      reference: json['reference'].toString().toSafeString(),
+      answer: json['answer'].toString().toSafeString(),
+      label: json['label'].toString().toSafeString(),
+      isAnswer: json['is_answer'].toString().toSafeString() == "true",
+      id: json['_id'].toString().toSafeString(),
+      createdAt: DateTime.parse(json['createdAt'].toString().toSafeString()),
+      updatedAt: DateTime.parse(json['updatedAt'].toString().toSafeString()),
     );
   }
 

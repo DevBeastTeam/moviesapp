@@ -128,7 +128,7 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
                                     .map(
                                       (e) => LessonModel(
                                         title: e.label,
-                                        subtitle: "${e.lessonNumber}",
+                                        subtitle: e.lessonNumber,
                                         isCompleted: e.completed,
                                       ),
                                     )

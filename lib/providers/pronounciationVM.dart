@@ -40,7 +40,7 @@ class PronounciationVm extends ChangeNotifier {
     try {
       if (!isRefresh && pLevelCatgModelData != null) return;
       setLoadingF(loadingFor);
-      var data = await baseApi.get('/lessons/pronunciation', context);
+      var data = await baseApi.get('/pronunciations', context);
       debugPrint('👉 pronounciationList: $data');
       // log('👉 pronounciationList: $data');
       if (data['success'].toString() == 'true') {

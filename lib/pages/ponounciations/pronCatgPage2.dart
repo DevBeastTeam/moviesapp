@@ -1,4 +1,4 @@
-import 'package:edutainment/helpers/forstrings.dart';
+import 'package:edutainment/helpers/safe_converters.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -119,8 +119,7 @@ class _PronCatgPage2State extends ConsumerState<PronCatgPage2> {
                                   Text(
                                     Screen.isTablet(context) &&
                                             Screen.isLandscape(context)
-                                        ? subStringText(
-                                            data.label.toString(),
+                                        ? data.label.toString().toSubStringText(
                                             0,
                                             20,
                                           )

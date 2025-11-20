@@ -1,15 +1,10 @@
-import 'package:edutainment/helpers/forstrings.dart';
-
 import 'excLessonsStepsModel.dart'; // Import the Lesson model from the previous response
 
 class PLevelCatgModel {
   final bool success;
   final Data data;
 
-  PLevelCatgModel({
-    required this.success,
-    required this.data,
-  });
+  PLevelCatgModel({required this.success, required this.data});
 
   factory PLevelCatgModel.fromJson(Map<String, dynamic> json) {
     return PLevelCatgModel(
@@ -19,10 +14,7 @@ class PLevelCatgModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'success': success,
-      'data': data.toJson(),
-    };
+    return {'success': success, 'data': data.toJson()};
   }
 }
 
@@ -50,8 +42,8 @@ class Data {
       lessons: (json['lessons'] as List<dynamic>)
           .map((e) => Lesson.fromJson(e as Map<String, dynamic>))
           .toList(),
-      currentLevel: json['currentLevel'].toString().toNullString(),
-      currentFilter: json['currentFilter'].toString().toNullString(),
+      currentLevel: json['currentLevel'].toSafeString(),
+      currentFilter: json['currentFilter'].toSafeString(),
     );
   }
 
@@ -71,11 +63,7 @@ class Category {
   final String label;
   final String icon;
 
-  Category({
-    required this.id,
-    required this.label,
-    required this.icon,
-  });
+  Category({required this.id, required this.label, required this.icon});
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
@@ -86,10 +74,6 @@ class Category {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'label': label,
-      'icon': icon,
-    };
+    return {'id': id, 'label': label, 'icon': icon};
   }
 }

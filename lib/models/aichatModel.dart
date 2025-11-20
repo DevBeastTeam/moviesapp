@@ -1,7 +1,3 @@
-import 'package:edutainment/helpers/forstrings.dart';
-
-
-
 class AiChatModel {
   final String id;
   final String user;
@@ -25,15 +21,15 @@ class AiChatModel {
 
   factory AiChatModel.fromJson(Map<String, dynamic> json) {
     return AiChatModel(
-      id: json['_id'].toString().toNullString(),
-      user: json['User'].toString().toNullString(),
+      id: json['_id'].toSafeString(),
+      user: json['User'].toSafeString(),
       messages: (json['messages'] as List)
           .map((msg) => Msgs.fromJson(msg as Map<String, dynamic>))
           .toList(),
-      title: json['title'].toString().toNullString(),
+      title: json['title'].toSafeString(),
       isPinned: json['isPinned'] as bool,
-      createdAt: DateTime.parse(json['createdAt'].toString().toNullString()),
-      updatedAt: DateTime.parse(json['updatedAt'].toString().toNullString()),
+      createdAt: DateTime.parse(json['createdAt'].toSafeString()),
+      updatedAt: DateTime.parse(json['updatedAt'].toSafeString()),
       version: json['__v'] as int,
     );
   }

@@ -39,12 +39,23 @@ Base URL: `https://dev.play.e-dutainment.com/api/1.0`
 
 ## Lessons
 - `GET /lessons/grammar` - List grammar lessons ✅
-- `GET /lessons/grammar/{id}` - Get grammar lesson details ✅
-- `GET /lessons/exercises` - List exercises
-- `GET /lessons/exercises/category/{catgRef}` - List exercises by category
-- `POST /lessons/exercises/{answerId}` - Submit exercise answer
-- `GET /lessons/pronunciation` - List pronunciation lessons
-- `GET /lessons/pronunciation/{id}` - Get pronunciation lesson details
+- `GET /lessons/grammar/{id}` - Get grammar lesson details ❌
+-  need submit api endpoint for this lesson. when reading done 🕣
+## exercises
+- `GET /lessons/exercises` - List exercises ✅
+
+- `GET /lessons/exercises/category/{catgRef}` - List exercises by category -> 🗑️ EMPTY --> need data in lessons List for proper test {success: true, data: {lessons: [], progressPercentage: null}}
+https://dev.play.e-dutainment.com/api/1.0/lessons/exercises/category/c2 --> a1,a2,b1,b2,c1,c2,d1,d2
+
+- `POST /lessons/exercises/{answerId}` - Submit exercise answer ✅
+## pronunciation
+// old
+- `GET /lessons/pronunciation` - List pronunciation 
+- `GET /lessons/pronunciation/{id}` - Get pronunciation details
+
+// new
+- `GET /pronunciation` - List pronunciation ✅
+- `GET /pronunciation/{id}` - Get pronunciation details
 
 ## Flashcards
 - `GET /flashcard/` - List flashcards
@@ -59,3 +70,7 @@ Base URL: `https://dev.play.e-dutainment.com/api/1.0`
 - `POST /chat/{conversationId}/title` - Update chat title
 - `POST /chat/toggle-pin/{conversationId}` - Toggle pin chat
 - `DELETE /chat/delete/{conversationId}` - Delete chat
+
+
+
+
