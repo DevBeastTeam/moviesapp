@@ -3,6 +3,7 @@ import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/models/grammerDetailModel.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:html_to_flutter/html_to_flutter.dart';
@@ -85,9 +86,9 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
     final isTablet =
         mediaQuery.size.shortestSide >= 600; // Common tablet threshold
 
-    var lessonDetailData = p.grammerSingleData.isNotEmpty
-        ? p.grammerSingleData[0]
-        : GrammerDetailModel();
+    // var lessonDetailData = p.grammerSingleData.isNotEmpty
+    //     ? p.grammerSingleData[0]
+    //     : GrammerDetailModel();
 
     final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
 
@@ -97,7 +98,10 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
       );
     }
 
-    final labelsLessons = extra['labelsLessons'] as List<Lesson>;
+    final catgName = extra['catgName'] as String;
+    final subCatgName = extra['subCatgName'] as String;
+    final subLessons = extra['subLessons'] as List<Lesson>;
+    final lesson = extra['selectedLesson'] as Lesson;
 
     return DefaultScaffold(
       currentPage: '/home/GrammerPage/grammerCatg/grammerDetail',
@@ -112,10 +116,10 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
               // Navigator.pop(context);
             },
             centerTitle: false,
-            title: 'Lessons',
+            title: 'Select A Lesson',
           ),
           ////////////////////
-          const Text('DAILY', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(catgName, style: TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 20),
 
           // if (isTablet && isLandscape)
@@ -407,12 +411,34 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            lessonDetailData != null
-                                ? '${lessonDetailData.lesson!.label}'
-                                : "Empty",
+                            subCatgName,
+                            // lessonDetailData != null
+                            //     ? '${lessonDetailData.lesson!.label}'
+                            //     : "Empty",
                             style: const TextStyle(color: Colors.blue),
                           ),
-                          Image.asset(AppImages.check, width: 20),
+
+                          p.lessonReadedId == lesson.id
+                              ? Image.asset(AppImages.check, width: 20)
+                                    .animate(
+                                      onPlay: (controller) =>
+                                          controller.repeat(reverse: true),
+                                    )
+                                    .scale(
+                                      begin: Offset(0.7, 0.7),
+                                      end: Offset(1, 1),
+                                    )
+                              : !lesson.isRead
+                              ? Image.asset(AppImages.uncheck, width: 20)
+                              : Image.asset(AppImages.check, width: 20)
+                                    .animate(
+                                      onPlay: (controller) =>
+                                          controller.repeat(reverse: true),
+                                    )
+                                    .scale(
+                                      begin: Offset(0.7, 0.7),
+                                      end: Offset(1, 1),
+                                    ),
                         ],
                       ),
                     ),
@@ -432,163 +458,162 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                p.isLoadingFor == 'grammerDetails'
-                    ? const SizedBox.shrink()
-                    : Stack(
-                        children: [
-                          // Image.network(lessonDetailData.lesson!.)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  if (p.sletedLableIndexIs > 0) {
-                                    p.stopTimer();
+                // p.isLoadingFor == 'grammerDetails'
+                //     ? const SizedBox.shrink()
+                //     : Stack(
+                //         children: [
+                //           // Image.network(lessonDetailData.lesson!.)
+                //           Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //             crossAxisAlignment: CrossAxisAlignment.center,
+                //             children: [
+                //               InkWell(
+                //                 onTap: () {
+                //                   if (p.sletedLableIndexIs > 0) {
+                //                     p.stopTimer();
 
-                                    p.setSelctedLableIndexIs =
-                                        p.sletedLableIndexIs - 1;
-                                    p.getGrammerSingleByIdF(
-                                      context,
-                                      loadingFor: 'previous',
-                                      id:
-                                          labelsLessons[p.sletedLableIndexIs -
-                                                  1]
-                                              .id,
-                                    );
-                                  }
-                                },
-                                borderRadius: BorderRadius.circular(50),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: p.isLoadingFor == 'previous'
-                                      ? const SizedBox(
-                                          width: 20,
-                                          height: 20,
-                                          child:
-                                              CircularProgressIndicator.adaptive(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation(
-                                                      Colors.yellow,
-                                                    ),
-                                                // backgroundColor: Colors.yellow,
-                                                strokeWidth: 1,
-                                              ),
-                                        )
-                                      : Icon(
-                                          Icons.replay_10_rounded,
-                                          color: p.sletedLableIndexIs == 0
-                                              ? Colors.grey
-                                              : null,
-                                        ),
-                                ),
-                              ),
-                              Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Image.asset(
-                                    p.slectedTabBtnIs == 0
-                                        ? AppImages.eng
-                                        : AppImages.fr,
-                                    width: 150,
-                                    opacity: AlwaysStoppedAnimation(0.6),
-                                  ),
-                                  p.isTimerStart == true &&
-                                          p.remainingSeconds >= 1
-                                      ? GestureDetector(
-                                          onTap: () {
-                                            p.stopTimer();
-                                          },
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                "${p.remainingSeconds}",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  shadows: [
-                                                    BoxShadow(
-                                                      color: Colors.black26,
-                                                      offset: Offset(2, 2),
-                                                      blurRadius: 5,
-                                                    ),
-                                                  ],
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                              Image.asset(
-                                                AppImages.pause,
-                                                width: 70,
-                                                color: Colors.yellow,
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      : InkWell(
-                                          onTap: () {
-                                            p.playTimer(
-                                              context,
-                                              labelsLessons: labelsLessons,
-                                            );
-                                          },
-                                          child: Image.asset(
-                                            AppImages.playericon,
-                                            width: 70,
-                                          ),
-                                        ),
-                                ],
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  p.stopTimer();
+                //                     p.setSelctedLableIndexIs =
+                //                         p.sletedLableIndexIs - 1;
+                //                     p.getGrammerSingleByIdF(
+                //                       context,
+                //                       loadingFor: 'previous',
+                //                       id:
+                //                           labelsLessons[p.sletedLableIndexIs -
+                //                                   1]
+                //                               .id,
+                //                     );
+                //                   }
+                //                 },
+                //                 borderRadius: BorderRadius.circular(50),
+                //                 child: Padding(
+                //                   padding: const EdgeInsets.all(8),
+                //                   child: p.isLoadingFor == 'previous'
+                //                       ? const SizedBox(
+                //                           width: 20,
+                //                           height: 20,
+                //                           child:
+                //                               CircularProgressIndicator.adaptive(
+                //                                 valueColor:
+                //                                     AlwaysStoppedAnimation(
+                //                                       Colors.yellow,
+                //                                     ),
+                //                                 // backgroundColor: Colors.yellow,
+                //                                 strokeWidth: 1,
+                //                               ),
+                //                         )
+                //                       : Icon(
+                //                           Icons.replay_10_rounded,
+                //                           color: p.sletedLableIndexIs == 0
+                //                               ? Colors.grey
+                //                               : null,
+                //                         ),
+                //                 ),
+                //               ),
+                //               Stack(
+                //                 alignment: Alignment.center,
+                //                 children: [
+                //                   Image.asset(
+                //                     p.slectedTabBtnIs == 0
+                //                         ? AppImages.eng
+                //                         : AppImages.fr,
+                //                     width: 150,
+                //                     opacity: AlwaysStoppedAnimation(0.6),
+                //                   ),
+                //                   p.isTimerStart == true &&
+                //                           p.remainingSeconds >= 1
+                //                       ? GestureDetector(
+                //                           onTap: () {
+                //                             p.stopTimer();
+                //                           },
+                //                           child: Column(
+                //                             children: [
+                //                               Text(
+                //                                 "${p.remainingSeconds}",
+                //                                 style: TextStyle(
+                //                                   color: Colors.white,
+                //                                   shadows: [
+                //                                     BoxShadow(
+                //                                       color: Colors.black26,
+                //                                       offset: Offset(2, 2),
+                //                                       blurRadius: 5,
+                //                                     ),
+                //                                   ],
+                //                                   fontWeight: FontWeight.bold,
+                //                                   fontSize: 20,
+                //                                 ),
+                //                               ),
+                //                               Image.asset(
+                //                                 AppImages.pause,
+                //                                 width: 70,
+                //                                 color: Colors.yellow,
+                //                               ),
+                //                             ],
+                //                           ),
+                //                         )
+                //                       : InkWell(
+                //                           oTap: () {
+                //                             p.playTimer(
+                //                               context,
+                //                               labelsLessons: labelsLessons,
+                //                             );n
+                //                           },
+                //                           child: Image.asset(
+                //                             AppImages.playericon,
+                //                             width: 70,
+                //                           ),
+                //                         ),
+                //                 ],
+                //               ),
+                //               InkWell(
+                //                 onTap: () {
+                //                   p.stopTimer();
 
-                                  if (p.sletedLableIndexIs <=
-                                      labelsLessons.length) {
-                                    p.setSelctedLableIndexIs =
-                                        p.sletedLableIndexIs + 1;
-                                    p.getGrammerSingleByIdF(
-                                      context,
-                                      loadingFor: 'next',
-                                      id:
-                                          labelsLessons[p.sletedLableIndexIs +
-                                                  1]
-                                              .id,
-                                    );
-                                  }
-                                },
-                                child: Transform.flip(
-                                  flipX: true,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: p.isLoadingFor == 'next'
-                                        ? const SizedBox(
-                                            width: 20,
-                                            height: 20,
-                                            child: CircularProgressIndicator.adaptive(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation(
-                                                    Colors.yellow,
-                                                  ),
-                                              // backgroundColor: Colors.yellow,
-                                              strokeWidth: 1,
-                                            ),
-                                          )
-                                        : Icon(
-                                            Icons.replay_10_rounded,
-                                            color:
-                                                p.sletedLableIndexIs ==
-                                                    labelsLessons.length
-                                                ? Colors.grey
-                                                : null,
-                                          ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-
+                //                   if (p.sletedLableIndexIs <=
+                //                       labelsLessons.length) {
+                //                     p.setSelctedLableIndexIs =
+                //                         p.sletedLableIndexIs + 1;
+                //                     p.getGrammerSingleByIdF(
+                //                       context,
+                //                       loadingFor: 'next',
+                //                       id:
+                //                           labelsLessons[p.sletedLableIndexIs +
+                //                                   1]
+                //                               .id,
+                //                     );
+                //                   }
+                //                 },
+                //                 child: Transform.flip(
+                //                   flipX: true,
+                //                   child: Padding(
+                //                     padding: const EdgeInsets.all(8),
+                //                     child: p.isLoadingFor == 'next'
+                //                         ? const SizedBox(
+                //                             width: 20,
+                //                             height: 20,
+                //                             child: CircularProgressIndicator.adaptive(
+                //                               valueColor:
+                //                                   AlwaysStoppedAnimation(
+                //                                     Colors.yellow,
+                //                                   ),
+                //                               // backgroundColor: Colors.yellow,
+                //                               strokeWidth: 1,
+                //                             ),
+                //                           )
+                //                         : Icon(
+                //                             Icons.replay_10_rounded,
+                //                             color:
+                //                                 p.sletedLableIndexIs ==
+                //                                     labelsLessons.length
+                //                                 ? Colors.grey
+                //                                 : null,
+                //                           ),
+                //                   ),
+                //                 ),
+                //               ),
+                //             ],
+                //           ),
+                //         ],
+                //       ),
                 const SizedBox(height: 20),
                 // Spacer(),
                 Container(
@@ -628,7 +653,9 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                                   ),
                                   padding: const EdgeInsets.all(10),
                                   renderMode: RenderMode.column,
-                                  data: '${lessonDetailData.lesson!.content}',
+                                  data: p.slectedTabBtnIs == 0
+                                      ? lesson.contenten
+                                      : lesson.contentfr,
                                 ),
                                 // Text('Daily Greeting',
                                 //     style:
@@ -700,7 +727,9 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                                   ),
                                   padding: const EdgeInsets.all(10),
                                   renderMode: RenderMode.column,
-                                  data: '${lessonDetailData.lesson!.content}',
+                                  data: p.slectedTabBtnIs == 0
+                                      ? lesson.contenten
+                                      : lesson.contentfr,
                                 ),
                                 // Text('Daily Greeting',
                                 //     style:
@@ -735,57 +764,60 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              InkWell(
-                                onTap: () {
-                                  if (p.sletedLableIndexIs > 0) {
-                                    p.stopTimer();
+                              // InkWell(
+                              //   onTap: () {
+                              //     if (p.sletedLableIndexIs > 0) {
+                              //       p.stopTimer();
 
-                                    p.setSelctedLableIndexIs =
-                                        p.sletedLableIndexIs - 1;
-                                    p.getGrammerSingleByIdF(
-                                      context,
-                                      loadingFor: 'previous',
-                                      id:
-                                          labelsLessons[p.sletedLableIndexIs -
-                                                  1]
-                                              .id,
-                                    );
-                                  }
-                                },
-                                borderRadius: BorderRadius.circular(50),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: p.isLoadingFor == 'previous'
-                                      ? const SizedBox(
-                                          width: 20,
-                                          height: 20,
-                                          child:
-                                              CircularProgressIndicator.adaptive(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation(
-                                                      Colors.yellow,
-                                                    ),
-                                                // backgroundColor: Colors.yellow,
-                                                strokeWidth: 1,
-                                              ),
-                                        )
-                                      : Icon(
-                                          Icons.replay_10_rounded,
-                                          color: p.sletedLableIndexIs == 0
-                                              ? Colors.grey
-                                              : null,
-                                        ),
-                                ),
-                              ),
+                              //       p.setSelctedLableIndexIs =
+                              //           p.sletedLableIndexIs - 1;
+                              //       // p.getGrammerSingleByIdF(
+                              //       //   context,
+                              //       //   loadingFor: 'previous',
+                              //       //   id:
+                              //       //       labelsLessons[p.sletedLableIndexIs -
+                              //       //               1]
+                              //       //           .id,
+                              //       // );
+                              //     }
+                              //   },
+                              //   borderRadius: BorderRadius.circular(50),
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.all(8),
+                              //     child: p.isLoadingFor == 'previous'
+                              //         ? const SizedBox(
+                              //             width: 20,
+                              //             height: 20,
+                              //             child:
+                              //                 CircularProgressIndicator.adaptive(
+                              //                   valueColor:
+                              //                       AlwaysStoppedAnimation(
+                              //                         Colors.yellow,
+                              //                       ),
+                              //                   // backgroundColor: Colors.yellow,
+                              //                   strokeWidth: 1,
+                              //                 ),
+                              //           )
+                              //         : Icon(
+                              //             Icons.replay_10_rounded,
+                              //             color: p.sletedLableIndexIs == 0
+                              //                 ? Colors.grey
+                              //                 : null,
+                              //           ),
+                              //   ),
+                              // ),
                               Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  Image.asset(
-                                    p.slectedTabBtnIs == 0
-                                        ? AppImages.eng
-                                        : AppImages.fr,
-                                    width: Screen.width(context) * 0.25,
-                                    opacity: AlwaysStoppedAnimation(0.6),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: Image.asset(
+                                      p.slectedTabBtnIs == 0
+                                          ? AppImages.eng
+                                          : AppImages.fr,
+                                      width: Screen.width(context) * 0.35,
+                                      opacity: AlwaysStoppedAnimation(0.6),
+                                    ),
                                   ),
                                   p.isTimerStart == true &&
                                           p.remainingSeconds >= 1
@@ -822,7 +854,8 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                                           onTap: () {
                                             p.playTimer(
                                               context,
-                                              labelsLessons: labelsLessons,
+                                              lessonReadingId: lesson.id,
+                                              // lessonsForLoop: subLessons,
                                             );
                                           },
                                           child: Image.asset(
@@ -832,52 +865,52 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
                                         ),
                                 ],
                               ),
-                              InkWell(
-                                onTap: () {
-                                  p.stopTimer();
+                              // InkWell(
+                              //   onTap: () {
+                              //     p.stopTimer();
 
-                                  if (p.sletedLableIndexIs <=
-                                      labelsLessons.length) {
-                                    p.setSelctedLableIndexIs =
-                                        p.sletedLableIndexIs + 1;
-                                    p.getGrammerSingleByIdF(
-                                      context,
-                                      loadingFor: 'next',
-                                      id:
-                                          labelsLessons[p.sletedLableIndexIs +
-                                                  1]
-                                              .id,
-                                    );
-                                  }
-                                },
-                                child: Transform.flip(
-                                  flipX: true,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: p.isLoadingFor == 'next'
-                                        ? const SizedBox(
-                                            width: 20,
-                                            height: 20,
-                                            child: CircularProgressIndicator.adaptive(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation(
-                                                    Colors.yellow,
-                                                  ),
-                                              // backgroundColor: Colors.yellow,
-                                              strokeWidth: 1,
-                                            ),
-                                          )
-                                        : Icon(
-                                            Icons.replay_10_rounded,
-                                            color:
-                                                p.sletedLableIndexIs ==
-                                                    labelsLessons.length
-                                                ? Colors.grey
-                                                : null,
-                                          ),
-                                  ),
-                                ),
-                              ),
+                              //     // if (p.sletedLableIndexIs <=
+                              //     //     labelsLessons.length) {
+                              //     //   p.setSelctedLableIndexIs =
+                              //     //       p.sletedLableIndexIs + 1;
+                              //     //   p.getGrammerSingleByIdF(
+                              //     //     context,
+                              //     //     loadingFor: 'next',
+                              //     //     id:
+                              //     //         labelsLessons[p.sletedLableIndexIs +
+                              //     //                 1]
+                              //     //             .id,
+                              //     //   );
+                              //     // }
+                              //   },
+                              //   child: Transform.flip(
+                              //     flipX: true,
+                              //     child: Padding(
+                              //       padding: const EdgeInsets.all(8),
+                              //       child: p.isLoadingFor == 'next'
+                              //           ? const SizedBox(
+                              //               width: 20,
+                              //               height: 20,
+                              //               child: CircularProgressIndicator.adaptive(
+                              //                 valueColor:
+                              //                     AlwaysStoppedAnimation(
+                              //                       Colors.yellow,
+                              //                     ),
+                              //                 // backgroundColor: Colors.yellow,
+                              //                 strokeWidth: 1,
+                              //               ),
+                              //             )
+                              //           : Icon(
+                              //               Icons.replay_10_rounded,
+                              //               // color:
+                              //               //     p.sletedLableIndexIs ==
+                              //               //         labelsLessons.length
+                              //               //     ? Colors.grey
+                              //               //     : null,
+                              //             ),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ],

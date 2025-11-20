@@ -100,28 +100,22 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
                         onTap: () async {
                           // in future if need
                           //  await ref.read(grammerData).getGrammersByIdForCatgListF(context, levelId:level.id , loadingFor: "grammerCatg");
-                          await ref
+                          // await ref
+                          //     .read(grammerData)
+                          //     .getGrammerSingleByIdF(
+                          //       context,
+                          //       id: level.id,
+                          //       loadingFor: "grammerCatg",
+                          //     );
+                          ref
                               .read(grammerData)
-                              .getGrammerSingleByIdF(
-                                context,
-                                id: level.id,
-                                loadingFor: "grammerCatg",
-                              );
+                              .setSelectedLabelCH(level.label.toString());
 
+                          //////
                           context.go(
                             '/home/GrammerPage/grammerCatg',
-                            extra: {"id": level.id.toString(), "level": level},
+                            // extra: {"id": level.id.toString(), "level": level},
                           );
-
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => GrammerCatgPage(
-                          //       id: level.id.toString(),
-                          //       level: level,
-                          //     ),
-                          //   ),
-                          // );
                         },
                       );
                     },

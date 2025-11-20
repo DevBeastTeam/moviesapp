@@ -1,5 +1,6 @@
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/helpers/forstrings.dart';
+import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
@@ -47,18 +48,24 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
 
     //////////
     // Access the extra data from GoRouterState
-    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+    // final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
 
-    if (extra == null) {
-      return const Scaffold(
-        body: Center(child: Text("Should Pass Extra Data")),
-      );
-    }
+    // if (extra == null) {
+    //   return Scaffold(
+    //     body: Center(child: EmptyWidget(text: "Empty")),
+    //   );
+    // }
 
-    final id = extra['id'].toString().toNullString();
-    final level =
-        extra['level'] as AllowedCategory ??
-        AllowedCategory(id: "1", label: "abc", reference: "abc", level: "a1");
+    // final id = extra['id'].toString().toNullString();
+    // final level = extra['level'] == null
+    //     ? AllowedCategory(id: "1", label: "abc", reference: "abc", level: "a1")
+    //     : extra['level'] as AllowedCategory ??
+    //           AllowedCategory(
+    //             id: "1",
+    //             label: "abc",
+    //             reference: "abc",
+    //             level: "a1",
+    //           );
     ///////////
 
     return DefaultScaffold(
@@ -71,18 +78,12 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
             CustomHeaderBar(
               onBack: () async {
                 context.pop();
-                // Get.back();
-                // Navigator.pop(context);
               },
               centerTitle: false,
               title: 'LESSONS',
             ),
-            ///////////////
 
-            // Text("id: ${widget.id}"),
-            // Text("level: ${widget.level!.label.toString()}"),
-            // Text("level: ${widget.level!.level.toString()}"),
-            // Text("level: ${widget.level!.reference.toString()}"),
+            ///////////////
             SizedBox(
               height: Screen.isPhone(context) && Screen.isLandscape(context)
                   ? h * 0.15
@@ -92,43 +93,50 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                 children: allLevels.map((data) {
                   return Padding(
                     padding: const EdgeInsets.all(6),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        // color:
-                        // level.toString().toString().toLowerCase() ==
-                        //     data.toString().toLowerCase()
-                        // ? Colors.blue
-                        // : Colors.white,
-                        color: Colors.white,
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors:
-                              level.label.toString().toString().toLowerCase() ==
-                                  data.toString().toLowerCase()
-                              ? [
-                                  Colors.orange.shade200,
-                                  Colors.deepOrange.shade300,
-                                  Colors.red,
-                                  Colors.red.shade800,
-                                ]
-                              : [Colors.white, Colors.white],
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      width: 45,
-                      height: 55,
-                      child: Center(
-                        child: Text(
-                          data.toUpperCase(),
-                          style: TextStyle(
-                            color:
-                                level.label.toString().toLowerCase() ==
+                    child: GestureDetector(
+                      onTap: () {
+                        ref
+                            .read(grammerData)
+                            .setSelectedLabelCH(data.toString());
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          // color:
+                          // level.toString().toString().toLowerCase() ==
+                          //     data.toString().toLowerCase()
+                          // ? Colors.blue
+                          // : Colors.white,
+                          color: Colors.white,
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors:
+                                p.selctedLableChIs.toString().toLowerCase() ==
                                     data.toString().toLowerCase()
-                                ? Colors.white
-                                : Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                                ? [
+                                    Colors.orange.shade200,
+                                    Colors.deepOrange.shade300,
+                                    Colors.red,
+                                    Colors.red.shade800,
+                                  ]
+                                : [Colors.white, Colors.white],
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        width: 45,
+                        height: 55,
+                        child: Center(
+                          child: Text(
+                            data.toUpperCase(),
+                            style: TextStyle(
+                              color:
+                                  p.selctedLableChIs.toString().toLowerCase() ==
+                                      data.toString().toLowerCase()
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -150,26 +158,16 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                     child: const Center(child: DotLoader()),
                   )
                 : p.grammersList.isEmpty
-                ? Padding(
-                    padding: EdgeInsets.only(top: h * 0.45),
-                    child: Center(
-                      child: Text(
-                        'Empty',
-                        style: t.titleMedium!.copyWith(
-                          color: Colors.orange,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2,
-                        ),
-                      ),
-                    ),
-                  )
+                ? EmptyWidget(text: "Empty")
                 : ListView.builder(
-                    itemCount: p.grammersList[0].groupLessons.keys.length,
+                    itemCount: p.grammersList[0].tags.length,
                     // itemCount: p.grammersList.length,
                     shrinkWrap: true,
                     controller: ScrollController(),
                     physics: const ScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
+                      var tag = p.grammersList[0].tags[index];
+
                       var key = p.grammersList[0].groupLessons.keys
                           .toList()[index];
                       var data = p.grammersList[0].groupLessons[key];
@@ -195,7 +193,7 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                                 ),
                                 child: CupertinoListTile(
                                   title: Text(
-                                    key,
+                                    tag.label,
                                     style: const TextStyle(color: Colors.white),
                                   ),
                                   trailing: SizedBox(
@@ -213,7 +211,10 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                             ListView(
                               shrinkWrap: true,
                               controller: ScrollController(),
-                              children: data!.map((e) {
+                              children: data!.where((e) => e.id != tag.id).map((
+                                e,
+                              ) {
+                                // return Text("${e.contenten}");
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 10,
@@ -221,16 +222,22 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                                   ),
                                   child: InkWell(
                                     onTap: () {
-                                      // context.go('/lessondetail');
-                                      p.getGrammerSingleByIdF(
-                                        context,
-                                        id: e.id,
-                                        loadingFor: "next",
-                                      );
+                                      // p.getGrammerSingleByIdF(
+                                      //   context,
+                                      //   id: e.id,
+                                      //   loadingFor: "next",
+                                      // );
 
                                       context.go(
                                         '/home/GrammerPage/grammerCatg/grammerdetail',
-                                        extra: {'labelsLessons': data},
+                                        extra: {
+                                          'catgName': tag.label,
+                                          'subCatgName': e.label,
+                                          'subLessons': data
+                                              .where((e) => e.id != tag.id)
+                                              .toList(),
+                                          'selectedLesson': e,
+                                        },
                                       );
                                     },
                                     child: Container(
@@ -239,7 +246,6 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: CupertinoListTile(
-                                        // title: Text('hjk',
                                         title: Text(
                                           e.label,
                                           style: const TextStyle(
@@ -248,10 +254,15 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                                         ),
                                         trailing: SizedBox(
                                           width: 25,
-                                          child: Image.asset(
-                                            AppImages.check,
-                                            width: 25,
-                                          ),
+                                          child: e.isRead
+                                              ? Image.asset(
+                                                  AppImages.check,
+                                                  width: 25,
+                                                )
+                                              : Image.asset(
+                                                  AppImages.uncheck,
+                                                  width: 25,
+                                                ),
                                         ),
                                       ),
                                     ),

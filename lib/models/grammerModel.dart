@@ -28,48 +28,83 @@ class GrammerModel {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    'groupLessons': {
-      for (var entry in groupLessons.entries)
-        entry.key: entry.value.map((e) => e.toJson()).toList(),
-    },
-    'allowedLessonCategory': allowedLessonCategory
-        .map((e) => e.toJson())
-        .toList(),
-    'tags': tags.map((e) => e.toJson()).toList(),
-  };
+  // Map<String, dynamic> toJson() => {
+  //   'groupLessons': {
+  //     for (var entry in groupLessons.entries)
+  //       entry.key: entry.value.map((e) => e.toJson()).toList(),
+  //   },
+  //   'allowedLessonCategory': allowedLessonCategory
+  //       .map((e) => e.toJson())
+  //       .toList(),
+  //   'tags': tags.map((e) => e.toJson()).toList(),
+  // };
 }
 
 class Lesson {
   final String id;
   final String reference;
   final String label;
+  final String contenten;
+  final String contentfr;
+  final LessonCategory? lessonCatg;
   final List<String> tags;
   final bool isRead;
 
   Lesson({
-    required this.id,
-    required this.reference,
-    required this.label,
-    required this.tags,
-    required this.isRead,
+    this.id = "",
+    this.reference = "",
+    this.label = "",
+    this.contenten = "",
+    this.contentfr = "",
+    this.tags = const [],
+    required this.lessonCatg,
+    this.isRead = false,
   });
 
   factory Lesson.fromJson(Map<String, dynamic> json) => Lesson(
     id: json['_id'] as String,
     reference: json['reference'] as String,
     label: json['label'] as String,
+    contenten: json['contenten'] as String,
+    contentfr: json['contentfr'] as String,
+    lessonCatg: LessonCategory.fromJson(json['LessonCategory']),
     tags: (json['tags'] as List).cast<String>(),
     isRead: json['isRead'] as bool,
   );
 
-  Map<String, dynamic> toJson() => {
-    '_id': id,
-    'reference': reference,
-    'label': label,
-    'tags': tags,
-    'isRead': isRead,
-  };
+  // Map<String, dynamic> toJson() => {
+  //   '_id': id,
+  //   'reference': reference,
+  //   'label': label,
+  //   'tags': tags,
+  //   'isRead': isRead,
+  // };
+}
+
+//  "LessonCategory":{
+//                   "_id":63ee6f976f7067cc89e900d0,
+//                   "reference":a1,
+//                   "label":a1,
+//                   "level":"a_wannabe_lion"
+//                },
+class LessonCategory {
+  final String id;
+  final String reference;
+  final String label;
+  final String? level;
+
+  LessonCategory({
+    this.id = "",
+    this.reference = "",
+    this.label = "",
+    this.level,
+  });
+  factory LessonCategory.fromJson(Map<String, dynamic> json) => LessonCategory(
+    id: json['_id'].toString().toNullString(),
+    reference: json['reference'].toString().toNullString(),
+    label: json['label'].toString().toNullString(),
+    level: json['level'].toString().toNullString(),
+  );
 }
 
 class AllowedCategory {

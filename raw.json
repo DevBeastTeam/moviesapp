@@ -1,966 +1,612 @@
-[
-    {
-        "_id": 650f56df4622968d666d2e72,
-        "reference":a58776_e2_ws_xx_xx,
-        "Subject": 63f0ba743c2816767892cf1e,
-        "createdAt": "2023-09-23T21": "21": 35.265Z,
-        "description": "Following the events of Avengers": "Endgame",
-        "Spider-Man must step up to take on new threats in a world that has changed forever.",
-        "duration": 7740,
-        "enabled": true,
-        "label": "Spider-man": "Far from home",
-        "m3u8_link": "https": //e-dutainment.s3-eu-west-1.amazonaws.com/films+convertis+/1790020/A58776_E2_WS_XX_XX/58762283/A58776_E2_WS_XX_XX.m3u8,
-        "mpd_link": "https": //e-dutainment.s3-eu-west-1.amazonaws.com/films+convertis+/1790020/A58776_E2_WS_XX_XX/58762283/A58776_E2_WS_XX_XX.mpd,
-        "picture": "https": //d2cj5ez5n4d4vx.cloudfront.net/pictures/journalismsecrets+–+7.png,
-        "profiles": [
-          1ere_annee,
-          2eme_annee,
-          3eme_annee,
-          4eme_annee,
-          5eme_annee,
-          1ere_annee_toeic,
-          2eme_annee_toeic,
-          3eme_annee_toeic,
-          4eme_annee_toeic,
-          5eme_annee_toeic,
-            "demandeur_emploi",
-            "actif_voyage",
-            "actif_demenagement",
-            "actif_professionnel",
-          1ere_annee_finance,
-          2eme_annee_finance,
-          3eme_annee_finance,
-          4eme_annee_finance,
-          5eme_annee_finance,
-          1ere_annee_digital,
-          2eme_annee_digital,
-          3eme_annee_digital,
-          4eme_annee_digital,
-          5eme_annee_digital,
-          1ere_annee_business,
-          2eme_annee_business,
-          3eme_annee_business,
-          4eme_annee_business,
-          5eme_annee_business,
-          1ere_annee_production,
-          2eme_annee_production,
-          3eme_annee_production,
-          4eme_annee_production,
-          5eme_annee_production,
-          1ere_annee_luxe,
-          2eme_annee_luxe,
-          3eme_annee_luxe,
-          4eme_annee_luxe,
-          5eme_annee_luxe,
-          1ere_annee_luxe_business,
-          2eme_annee_luxe_business,
-          3eme_annee_luxe_business,
-          4eme_annee_luxe_business,
-          5eme_annee_luxe_business,
-          1ere_annee_management,
-          2eme_annee_management,
-          3eme_annee_management,
-          4eme_annee_management,
-          5eme_annee_management,
-          1ere_annee_finance_toeic,
-          2eme_annee_finance_toeic,
-          3eme_annee_finance_toeic,
-          4eme_annee_finance_toeic,
-          5eme_annee_finance_toeic,
-          1ere_annee_digital_toeic,
-          2eme_annee_digital_toeic,
-          3eme_annee_digital_toeic,
-          4eme_annee_digital_toeic,
-          5eme_annee_digital_toeic,
-          1ere_annee_business_toeic,
-          2eme_annee_business_toeic,
-          3eme_annee_business_toeic,
-          4eme_annee_business_toeic,
-          5eme_annee_business_toeic,
-          1ere_annee_production_toeic,
-          2eme_annee_production_toeic,
-          3eme_annee_production_toeic,
-          4eme_annee_production_toeic,
-          5eme_annee_production_toeic,
-          1ere_annee_luxe_toeic,
-          2eme_annee_luxe_toeic,
-          3eme_annee_luxe_toeic,
-          4eme_annee_luxe_toeic,
-          5eme_annee_luxe_toeic,
-          1ere_annee_luxe_business_toeic,
-          2eme_annee_luxe_business_toeic,
-          3eme_annee_luxe_business_toeic,
-          4eme_annee_luxe_business_toeic,
-          5eme_annee_luxe_business_toeic,
-          1ere_annee_management_toeic,
-          2eme_annee_management_toeic,
-          3eme_annee_management_toeic,
-          4eme_annee_management_toeic,
-          5eme_annee_management_toeic
-        ],
-        "tags": [
-            "action"
-        ],
-        "updatedAt": "2025-04-01T09": "48": 32.140Z,
-        "extract_type": ,
-        "is_extract": false
+{
+  "success": true,
+  "data": {
+    "groupLessons": {
+      "6891cb598ce9d1af5bd70c52": [
+        {
+          "_id": 68cad0ec712218729fc02f31,
+          "reference":parts-of-speech-a1-lesson1,
+          "LessonCategory": {
+            "_id":63ee6f976f7067cc89e900d0,
+            "reference":a1,
+            "label":a1,
+            "level": "a_wannabe_lion"
+          },
+          "contenten":"<h2>Parts of Speech</h2>
+     
+     <p>Parts of speech are the different categories that words can belong to based on their grammatical function in a sentence. Understanding parts of speech is essential for structuring a sentence correctly in English.</p>
+     
+     <h3>The different parts of speech</h3>
+     
+     <p>There are eight main parts of speech in English":</p>
+     
+     <ul>
+     
+     <li>Noun</li>
+     
+     <li>Pronoun</li>
+     
+     <li>Verb</li>
+     
+     <li>Adjective</li>
+     
+     <li>Adverb</li>
+     
+     <li>Preposition</li>
+     
+     <li>Conjunction</li>
+     
+     <li>Interjection</li>
+     
+     </ul>
+     
+     <h3>Translation and interpretation techniques</h3>
+     
+     <p>To identify the part of speech of a word in English,
+          "it is important to understand its role in the sentence. For example",
+          "a noun names a person",
+          "place",
+          "thing",
+          "or idea",
+              "while a verb expresses an action or state.</p>
+     
+     <h3>Practical exercise</h3>
+     
+     <p>Here are some sentences to analyze by identifying the part of speech of each word":"</p>
+     
+     <ol>
+     
+     <li>She sings beautifully.</li>
+     
+     <li>The cat chased the mouse.</li>
+     
+     <li>I will go to the store tomorrow.</li>
+     
+     </ol>
+     
+     <h3>Illustrative dialogue</h3>
+     
+     <p>John":"What are you doing this weekend?</p>
+     
+     <p>Sarah":"I am planning to visit my parents. How about you?</p>
+     
+     <p>John":"I will be studying for my exams.</p>","contentfr":"<h2>Les parties du discours</h2>
+     
+     <p>Les parties du discours sont les diff&eacute;rentes cat&eacute;gories auxquelles les mots peuvent appartenir en fonction de leur fonction grammaticale dans une phrase. Comprendre les parties du discours est essentiel pour bien structurer une phrase en anglais.</p>
+     
+     <h3>Les diff&eacute;rentes parties du discours</h3>
+     
+     <p>Il existe huit parties du discours principales en anglais":</p>
+     
+     <ul>
+     
+     <li>Nom (noun)</li>
+     
+     <li>Pronom (pronoun)</li>
+     
+     <li>Verbe (verb)</li>
+     
+     <li>Adjectif (adjective)</li>
+     
+     <li>Adverbe (adverb)</li>
+     
+     <li>Pr&eacute;position (preposition)</li>
+     
+     <li>Conjonction (conjunction)</li>
+     
+     <li>Interjection (interjection)</li>
+     
+     </ul>
+     
+     <h3>Techniques de traduction et d"interpr&eacute;tation</h3>
+     
+     <p>Pour identifier la partie du discours d""un mot en anglais","il est important de comprendre son r&ocirc;le dans la phrase. Par exemple",
+          "un nom d&eacute;signe une personne",
+          "un lieu",
+          "une chose ou une id&eacute;e",
+          "tandis qu""un verbe exprime une action ou un &eacute;tat.</p>
+     
+     <h3>Exercice pratique</h3>
+     
+     <p>Voici quelques phrases &agrave; analyser en identifiant la partie du discours de chaque mot :</p>
+     
+     <ol>
+     
+     <li>She sings beautifully.</li>
+     
+     <li>The cat chased the mouse.</li>
+     
+     <li>I will go to the store tomorrow.</li>
+     
+     </ol>
+     
+     <h3>Dialogue illustratif</h3>
+     
+     <p>John: What are you doing this weekend?</p>
+     
+     <p>Sarah: I am planning to visit my parents. How about you?</p>
+     
+     <p>John: I will be studying for my exams.</p>, label: parts-of-speech - Level a1 - Lesson 1, tags: [
+            6891cb598ce9d1af5bd70c52
+          ], isRead: true
+        },
+        {_id: 68cad0ec712218729fc02f33, reference: parts-of-speech-a1-lesson2, LessonCategory: {_id: 63ee6f976f7067cc89e900d0, reference: a1, label: a1, level: a_wannabe_lion
+          }, contenten: <h1>Lesson on Parts of Speech</h1><p>Parts of speech, or word classes, are the different categories to which words belong based on their grammatical role in a sentence. Understanding parts of speech is essential to grasp the structure of the English language. Here are the main parts of speech:</p><ul><li><strong>Nouns</strong>: Nouns are words that name people, places, things, or ideas. Example: <em>cat, house, love</em>.</li><li><strong>Verbs</strong>: Verbs express an action, state, or process. Example: <em>run, eat, sleep</em>.</li><li><strong>Adjectives</strong>: Adjectives modify or describe nouns. Example: <em>beautiful, tall, happy</em>.</li><li><strong>Adverbs</strong>: Adverbs modify verbs, adjectives, or other adverbs. Example: <em>quickly, very, happily</em>.</li><li><strong>Pronouns</strong>: Pronouns replace nouns. Example: <em>he, she, it</em>.</li><li><strong>Prepositions</strong>: Prepositions establish a relationship between words in a sentence. Example: <em>in, on, at</em>.</li><li><strong>Conjunctions</strong>: Conjunctions link words, phrases, or clauses. Example: <em>and, but, or</em>.</li><li><strong>Articles</strong>: Definite (the) or indefinite (a, an) articles introduce nouns. Example: <em>the cat, a dog</em>.</li></ul>, contentfr: <h1>Cours sur les parties du discours</h1><p>Les parties du discours, ou classes de mots, sont les différentes catégories auxquelles appartiennent les mots en fonction de leur rôle grammatical dans une phrase. Comprendre les parties du discours est essentiel pour bien comprendre la structure de la langue anglaise. Voici les principales parties du discours :</p><ul><li><strong>Noms (Nouns)</strong>: Les noms sont des mots qui désignent des personnes, des lieux, des choses ou des idées. Exemple : <em>cat, house, love</em>.</li><li><strong>Verbes (Verbs)</strong>: Les verbes expriment une action, un état ou un processus. Exemple : <em>run, eat, sleep</em>.</li><li><strong>Adjectifs (Adjectives)</strong>: Les adjectifs modifient ou décrivent des noms. Exemple : <em>beautiful, tall, happy</em>.</li><li><strong>Adverbes (Adverbs)</strong>: Les adverbes modifient des verbes, des adjectifs ou d""autres adverbes. Exemple":"<em>quickly","very",
+          "happily</em>.</li><li><strong>Pronoms (Pronouns)</strong>": "Les pronoms remplacent des noms. Exemple": "<em>he",
+          "she",
+          "it</em>.</li><li><strong>Prépositions (Prepositions)</strong>": "Les prépositions établissent une relation entre des mots dans une phrase. Exemple": "<em>in",
+          "on",
+          "at</em>.</li><li><strong>Conjonctions (Conjunctions)</strong>": "Les conjonctions relient des mots",
+          "des phrases ou des clauses. Exemple": "<em>and",
+          "but",
+          "or</em>.</li><li><strong>Articles (Articles)</strong>": "Les articles définis (the) ou indéfinis (a",
+          "an) introduisent des noms. Exemple": "<em>the cat",
+          "a dog</em>.</li></ul>",
+          "label":parts-of-speech - Level a1 - Lesson 2,
+          "tags": [
+            6891cb598ce9d1af5bd70c52
+          ],
+          "isRead": true
+        }
+      ],
+      "68cad0a6712218729fc02c6b": [
+        {
+          "_id": 68cad0ec712218729fc02f39,
+          "reference":tenses-a1-lesson1,
+          "LessonCategory": {
+            "_id":63ee6f976f7067cc89e900d0,
+            "reference":a1,
+            "label":a1,
+            "level": "a_wannabe_lion"
+          },
+          "contenten":<h2>Lessons on verb tenses in English</h2><p>Verb tenses are an important part of English grammar. They allow us to express when an action takes place. In English,
+          "there are several verb tenses",
+          "each with its own usage and structure.</p><h3>Main verb tenses in English</h3><ul><li>Simple present": "used for habitual actions or general truths</li><li>Present continuous": "used for actions happening at the moment of speaking</li><li>Simple past": "used for completed actions in the past</li><li>Past continuous": "used for actions happening in the past</li><li>Simple future":used for actions that will happen in the future</li></ul><h3>Translation and interpretation techniques</h3><p>To understand verb tenses in English,
+          "it is important to know the nuances of each tense and practice using them in sentences. It is also helpful to translate sentences from English to your native language and vice versa to better grasp the grammatical structures.</p><h3>Practical exercise</h3><p>Conjugate the following verbs in the requested tense": "<br>1. She (to play) tennis every Sunday. (Simple present)<br>2. They (to watch) a movie right now. (Present continuous)<br>3. He (to finish) his homework yesterday. (Simple past)<br>4. We (to study) English when you called. (Past continuous)<br>5. I (to meet) you tomorrow. (Simple future)</p><h3>Illustrative dialogue</h3><p>John": "What are you doing?<br>Mary": "I am reading a book. What about you?<br>John": "I played football yesterday. It was fun!<br>Mary": "Sounds great! Let""s go play together next time.</p>, contentfr: <h2>Leçons sur les temps verbaux en anglais</h2><p>Les temps verbaux sont une partie importante de la grammaire anglaise. Ils permettent d""exprimer le moment où une action se produit. En anglais",
+          "il existe plusieurs temps verbaux",
+          "chacun ayant sa propre utilisation et sa propre structure.</p><h3>Les principaux temps verbaux en anglais</h3><ul><li>Présent simple": "utilisé pour les actions habituelles ou les vérités générales</li><li>Présent continu": "utilisé pour les actions en cours au moment présent</li><li>Passé simple": "utilisé pour les actions terminées dans le passé</li><li>Passé continu": "utilisé pour les actions en cours dans le passé</li><li>Futur simple":utilisé pour les actions qui se produiront dans le futur</li></ul><h3>Techniques de traduction et d"interprétation</h3><p>Pour bien comprendre les temps verbaux en anglais, il est important de connaître les nuances de chaque temps et de pratiquer leur utilisation dans des phrases. Il est également utile de traduire des phrases de l""anglais vers sa langue maternelle et vice-versa pour mieux assimiler les structures grammaticales.</p><h3>Exercice pratique</h3><p>Conjuguez les verbes suivants au temps demandé": "<br>1. She (to play) tennis every Sunday. (Présent simple)<br>2. They (to watch) a movie right now. (Présent continu)<br>3. He (to finish) his homework yesterday. (Passé simple)<br>4. We (to study) English when you called. (Passé continu)<br>5. I (to meet) you tomorrow. (Futur simple)</p><h3>Dialogue illustratif</h3><p>John": "What are you doing?<br>Mary": "I am reading a book. What about you?<br>John": "I played football yesterday. It was fun!<br>Mary": "Sounds great! Let""s go play together next time.</p>, label: tenses - Level a1 - Lesson 1, tags: [68cad0a6712218729fc02c6b], isRead: false}, {_id: 68cad0ec712218729fc02f40, reference: tenses-a1-lesson2, LessonCategory: {_id: 63ee6f976f7067cc89e900d0, reference: a1, label: a1, level: a_wannabe_lion}, contenten: <h2>Lessons on verb tenses in English</h2><p>Verb tenses in English are an essential element for effective communication in the language. There are several different verb tenses, each with its own usage and structure. In this lesson, we will review the most common verb tenses in English for A1 level.</p><h3>Verb tenses in English</h3><p>The most common verb tenses in English are the simple present, present continuous, simple past, and simple future. Each verb tense is used to express an action at a specific moment in time.</p><h4>Simple present</h4><p>The simple present is used to describe habitual actions, general truths, or permanent states. The structure is as follows: subject + base form of the verb.</p><h4>Present continuous</h4><p>The present continuous is used to describe actions currently taking place at the time of speaking. The structure is as follows: subject + ""to be"" in present + verb in -ing.</p><h4>Simple past</h4><p>The simple past is used to describe completed actions in the past. The structure is as follows: subject + regular verb in the past.</p><h4>Simple future</h4><p>The simple future is used to describe actions that will take place in the future. The structure is as follows: subject + ""will"" + base form of the verb.</p><h3>Translation and interpretation techniques</h3><p>A good translation technique involves understanding the context in which the verb tense is used and choosing the appropriate verb tense in the target language. Interpretation involves understanding the overall meaning of the sentence and selecting the verb tense that best expresses that meaning.</p><h3>Practical exercise</h3><p>Conjugate the following verbs in the requested tense:<br>1. I (go) to the park every Sunday. (simple present)<br>2. She (play) tennis right now. (present continuous)<br>3. They (visit) their grandparents last weekend. (simple past)<br>4. We (watch) a movie tomorrow. (simple future)</p><h3>Illustrative dialogue</h3><p>John: What do you usually do on weekends?<br>Mary: I go to the park every Sunday. What about you?<br>John: I usually stay at home and relax.</p>, contentfr: <h2>Leçons sur les temps verbaux en anglais</h2><p>Les temps verbaux en anglais sont un élément essentiel pour communiquer efficacement dans la langue. Il existe plusieurs temps verbaux différents, chacun ayant sa propre utilisation et structure. Dans cette leçon, nous allons passer en revue les temps verbaux les plus courants en anglais pour le niveau A1.</p><h3>Les temps verbaux en anglais</h3><p>Les temps verbaux les plus courants en anglais sont le présent simple, le présent continu, le passé simple et le futur simple. Chaque temps verbal est utilisé pour exprimer une action à un moment spécifique dans le temps.</p><h4>Présent simple</h4><p>Le présent simple est utilisé pour décrire des actions habituelles, des vérités générales ou des états permanents. La structure est la suivante : sujet + verbe à l""infinitif.</p><h4>Présent continu</h4><p>Le présent continu est utilisé pour décrire des actions en cours au moment de la parole. La structure est la suivante": "sujet + verbe""to be""au présent + verbe en -ing.</p><h4>Passé simple</h4><p>Le passé simple est utilisé pour décrire des actions terminées dans le passé. La structure est la suivante": "sujet + verbe régulier au passé.</p><h4>Futur simple</h4><p>Le futur simple est utilisé pour décrire des actions qui se dérouleront dans le futur. La structure est la suivante": "sujet +""will""+ verbe à l""infinitif.</p><h3>Techniques de traduction et d"interprétation</h3><p>Une bonne technique de traduction consiste à comprendre le contexte dans lequel le temps verbal est utilisé et à choisir le temps verbal approprié dans la langue cible. L"interprétation implique de comprendre le sens global de la phrase et de choisir le temps verbal qui convient le mieux pour exprimer ce sens.</p><h3>Exercice pratique</h3><p>Conjuguez les verbes suivants au temps demandé :<br>1. I (go) to the park every Sunday. (présent simple)<br>2. She (play) tennis right now. (présent continu)<br>3. They (visit) their grandparents last weekend. (passé simple)<br>4. We (watch) a movie tomorrow. (futur simple)</p><h3>Dialogue illustratif</h3><p>John: What do you usually do on weekends?<br>Mary: I go to the park every Sunday. What about you?<br>John: I usually stay at home and relax.</p>, label: tenses - Level a1 - Lesson 2, tags: [68cad0a6712218729fc02c6b], isRead: false}], 68cad0a6712218729fc02c71: [{_id: 68cad0ec712218729fc02f45, reference: special-topics-a1-lesson1, LessonCategory: {_id: 63ee6f976f7067cc89e900d0, reference: a1, label: a1, level: a_wannabe_lion}, contenten: <h1>Special Topics Lesson</h1><p>In this lesson, we will cover special topics that can be helpful in improving your vocabulary and understanding of English.</p><h2>Translation and Interpretation Techniques</h2><p>When it comes to translation and interpretation, it is important to understand the context and nuances of words. Use dictionaries and online translation tools to help you find the exact meaning of words. Practice regularly to enhance your skills.</p><h2>Practical Exercise</h2><p>Translate the following sentences into English:</p><ol><li>I am very happy to see you.</li><li>What is your favorite dish?</li><li>How many siblings do you have?</li></ol><h2>Illustrative Dialogue</h2><p>Character 1: Hi, how are you?<br>Character 2: I""m fine",
+          "thank you. And you?<br>Character 1": "I am very happy to see you. What is your favorite dish?<br>Character 2": "My favorite dish is pasta. How about you?<br>Character 1": "I love pizza!<br>Character 2": "That""s good too. How many siblings do you have?<br>Character 1: I have two brothers and one sister. And you?<br>Character 2: I have one brother and one sister.</p>, contentfr: <h1>Cours sur les sujets spéciaux</h1><p>Dans cette leçon, nous allons aborder des sujets spéciaux qui peuvent être utiles pour améliorer votre vocabulaire et votre compréhension de l"anglais.</p><h2>Techniques de traduction et d"interprétation</h2><p>Quand il s""agit de traduction et d""interprétation, il est important de comprendre le contexte et les nuances des mots. Utilisez des dictionnaires et des outils de traduction en ligne pour vous aider à trouver le sens exact des mots. Pratiquez régulièrement pour améliorer vos compétences.</p><h2>Exercice pratique</h2><p>Traduisez les phrases suivantes en anglais :</p><ol><li>Je suis très content de te voir.</li><li>Quel est ton plat préféré ?</li><li>Combien de frères et sœurs as-tu ?</li></ol><h2>Dialogue illustratif</h2><p>Personnage 1: Salut, comment ça va ?<br>Personnage 2: Ça va bien, merci. Et toi ?<br>Personnage 1: Je suis très content de te voir. Quel est ton plat préféré ?<br>Personnage 2: Mon plat préféré est les pâtes. Et toi ?<br>Personnage 1: J""adore la pizza !<br>Personnage 2": "C""est bon aussi. Combien de frères et sœurs as-tu ?<br>Personnage 1: J""ai deux frères et une sœur. Et toi ?<br>Personnage 2": "J""ai un frère et une sœur.</p>, label: special-topics - Level a1 - Lesson 1, tags: [68cad0a6712218729fc02c71], isRead: false}, {_id: 68cad0ec712218729fc02f65, reference: special-topics-a1-lesson2, LessonCategory: {_id: 63ee6f976f7067cc89e900d0, reference: a1, label: a1, level: a_wannabe_lion}, contenten: <h1>Specialized Lesson on Special Topics</h1><p>In this lesson, we will cover special topics that can be useful in various everyday life situations. These topics will include areas such as health, travel, leisure, etc. It is important to master these terms in order to communicate effectively in English.</p><h2>Translation and Interpretation Techniques</h2><p>To translate and interpret specialized terms correctly, it is essential to understand the context in which they are used. It is also helpful to familiarize yourself with the specific vocabulary of each domain. Use specialized dictionaries and online resources to assist you in translation and interpretation.</p><h2>Practical Exercise</h2><p>Translate the following sentences into English:</p><ol><li>I am going to the doctor tomorrow.</li><li>We are planning to go on vacation next week.</li><li>I enjoy hiking in the mountains.</li></ol><h2>Illustrative Dialogue</h2><p>Character 1: Hi, how are you doing?<br>Character 2: I""m doing well",
+          "thank you. I am going to the doctor tomorrow",
+          "I have an appointment for a routine check-up.<br>Character 1": "Oh",
+          "I hope everything is okay. Are you planning to go on vacation soon?<br>Character 2": "Yes",
+          "we are going on vacation next week. We are going hiking in the mountains",
+          "I can""t wait!</p>, contentfr: <h1>Cours spécialisé sur les sujets spéciaux</h1><p>Dans cette leçon, nous allons aborder des sujets spéciaux qui peuvent être utiles dans diverses situations de la vie quotidienne. Ces sujets couvriront des domaines tels que la santé, les voyages, les loisirs, etc. Il est important de maîtriser ces termes pour pouvoir communiquer efficacement en anglais.</p><h2>Techniques de traduction et d"interprétation</h2><p>Pour traduire et interpréter correctement des termes spécialisés,
+          "il est essentiel de comprendre le contexte dans lequel ils sont utilisés. Il est également utile de se familiariser avec le vocabulaire spécifique à chaque domaine. Utilisez des dictionnaires spécialisés et des ressources en ligne pour vous aider dans la traduction et l""interprétation.</p><h2>Exercice pratique</h2><p>Traduisez les phrases suivantes en anglais :</p><ol><li>Je vais chez le médecin demain.</li><li>Nous prévoyons de partir en vacances la semaine prochaine.</li><li>J""aime faire de la randonnée en montagne.</li></ol><h2>Dialogue illustratif</h2><p>Personnage 1": "Salut",
+          "comment ça va ?<br>Personnage 2": "Ça va bien",
+          "merci. Je vais chez le médecin demain",
+          "j""ai un rendez-vous pour un check-up de routine.<br>Personnage 1: Oh, j""espère que tout va bien. Tu prévois de partir en vacances bientôt ?<br>Personnage 2": "Oui",
+          "nous partons en vacances la semaine prochaine. Nous allons faire de la randonnée en montagne",
+          "j""ai hâte !</p>, label: special-topics - Level a1 - Lesson 2, tags: [68cad0a6712218729fc02c71], isRead: false}], 68cad0a6712218729fc02c72: [{_id: 68cad0ec712218729fc02f4a, reference: punctuation-a1-lesson1, LessonCategory: {_id: 63ee6f976f7067cc89e900d0, reference: a1, label: a1, level: a_wannabe_lion}, contenten: <h2>Lesson on Punctuation</h2><p>Punctuation is the set of graphic signs used in writing to indicate pauses, connections, intonations, etc. It is essential to give meaning and clarity to a text in English.</p><h3>The different punctuation marks:</h3><ul><li>The period (.) : it marks the end of a declarative sentence.</li><li>The comma (,) : it indicates a pause in a sentence.</li><li>The question mark (?) : it is used to ask a question.</li><li>The exclamation point (!) : it marks strong emotion or an exclamation.</li><li>The colon (:) : it introduces an explanation, a list, a quotation, etc.</li></ul><h3>Translation and interpretation techniques:</h3><p>It is important to understand the role of each punctuation mark for an accurate translation. Take the time to think about the meaning of each mark in the overall context of the text.</p><h3>Practical exercise:</h3><p>Here is a sentence without punctuation: ""where are you going we are going to the park"" Add the appropriate punctuation to make the sentence correct.</p><h3>Illustrative dialogue:</h3><p>John: Hi, how are you doing<br/>Amy: I""m good",
+          "thanks. How about you?<br/>John": "I""m great. Do you want to go to the movies tonight?<br/>Amy: Sure, what time?<br/>John: Let""s meet at 7 pm at the cinema.<br/>Amy": "Sounds good",
+          "see you then!</p>",
+          "contentfr":<h2>Leçon sur la ponctuation</h2><p>La ponctuation est l"ensemble des signes graphiques utilisés dans l""écriture pour indiquer les pauses",
+          "les liaisons",
+          "les intonations",
+          "etc. Elle est essentielle pour donner du sens et de la clarté à un texte en anglais.</p><h3>Les différents signes de ponctuation": "</h3><ul><li>Le point (.)": "il marque la fin d""une phrase déclarative.</li><li>La virgule (,) : elle indique une pause dans une phrase.</li><li>Le point d""interrogation (?)": "il est utilisé pour poser une question.</li><li>Le point d""exclamation (!) : il marque une forte émotion ou une exclamation.</li><li>Les deux-points (:) : ils introduisent une explication, une liste, une citation, etc.</li></ul><h3>Techniques de traduction et d""interprétation": "</h3><p>Il est important de bien comprendre le rôle de chaque signe de ponctuation pour une traduction précise. Prenez le temps de réfléchir à la signification de chaque signe dans le contexte global du texte.</p><h3>Exercice pratique": "</h3><p>Voici une phrase sans ponctuation": "where are you going we are going to the park""Ajoutez la ponctuation appropriée pour rendre la phrase correcte.</p><h3>Dialogue illustratif": "</h3><p>John": "Hi",
+          "how are you doing<br/>Amy": "I""m good, thanks. How about you?<br/>John: I""m great. Do you want to go to the movies tonight?<br/>Amy": "Sure",
+          "what time?<br/>John": "Let""s meet at 7 pm at the cinema.<br/>Amy: Sounds good, see you then!</p>, label: punctuation - Level a1 - Lesson 1, tags: [68cad0a6712218729fc02c72], isRead: false}, {_id: 68cad0ec712218729fc02f5d, reference: punctuation-a1-lesson2, LessonCategory: {_id: 63ee6f976f7067cc89e900d0, reference: a1, label: a1, level: a_wannabe_lion}, contenten: <h2>Punctuation in English</h2><p>Punctuation in English is very important as it helps to structure sentences and clarify meaning. There are several punctuation marks in English, such as periods, commas, semicolons, question marks, exclamation marks, etc. Each mark has a specific usage and it is crucial to use them correctly for effective communication.</p><h3>The different punctuation marks</h3><p>Here are some examples of the most common punctuation marks in English:</p><ul><li>Period (.) : it marks the end of a declarative sentence.</li><li>Comma (,) : it separates items in a list or marks a pause in a sentence.</li><li>Semicolon (;) : it marks a longer pause than a comma, often used to separate independent but related clauses.</li><li>Question mark (?) : it indicates a question.</li><li>Exclamation mark (!) : it indicates strong emotion or exclamations.</li></ul><h3>Translation and interpretation techniques</h3><p>When translating or interpreting texts in English, it is important to consider punctuation to accurately convey meaning and emotion. Make sure to understand the context and the author""s intent to choose the appropriate punctuation.</p><h3>Practical exercise</h3><p>Here is an exercise to practice using punctuation": "</p><p>Complete the following sentences by adding the appropriate punctuation": "</p><ol><li>What is your name</li><li>I am going to the store do you want anything</li><li>She was happy sad confused and excited all at the same time</li></ol><h3>Illustrative dialogue</h3><p>John": "Hi",
+          "how are you today</p><p>Mary": "I""m good, thanks for asking! How about you</p><p>John: I""m great",
+          "let""s grab a coffee together</p><p>Mary: Sure, that sounds like a good idea</p>, contentfr: <h2>La ponctuation en anglais</h2><p>La ponctuation en anglais est très importante car elle permet de structurer les phrases et de clarifier le sens. Il existe plusieurs signes de ponctuation en anglais, tels que les points, les virgules, les points-virgules, les points d""interrogation",
+          "les points d""exclamation, etc. Chaque signe a une utilisation spécifique et il est essentiel de les utiliser correctement pour une communication efficace.</p><h3>Les différents signes de ponctuation</h3><p>Voici quelques exemples des signes de ponctuation les plus courants en anglais :</p><ul><li>Le point (.) : il marque la fin d""une phrase déclarative.</li><li>La virgule (",
+          ")": "elle sépare les éléments d""une liste ou marque une pause dans une phrase.</li><li>Le point-virgule (;) : il marque une pause plus longue qu""une virgule",
+          "souvent utilisé pour séparer des phrases indépendantes mais liées.</li><li>Le point d""interrogation (?) : il indique une question.</li><li>Le point d""exclamation (!)":il indique une forte émotion ou une exclamations.</li></ul><h3>Techniques de traduction et d"interprétation</h3><p>Lorsque vous traduisez ou interprétez des textes en anglais, il est important de prendre en compte la ponctuation pour transmettre correctement le sens et l""émotion. Assurez-vous de bien comprendre le contexte et l""intention de l"auteur pour choisir la ponctuation appropriée.</p><h3>Exercice pratique</h3><p>Voici un exercice pour pratiquer l"utilisation de la ponctuation :</p><p>Complétez les phrases suivantes en ajoutant la ponctuation appropriée :</p><ol><li>What is your name</li><li>I am going to the store do you want anything</li><li>She was happy sad confused and excited all at the same time</li></ol><h3>Dialogue illustratif</h3><p>John: Hi, how are you today</p><p>Mary: I""m good",
+          "thanks for asking! How about you</p><p>John": "I""m great, let""s grab a coffee together</p><p>Mary": "Sure",
+          "that sounds like a good idea</p>",
+          "label":punctuation - Level a1 - Lesson 2,
+          "tags": [
+            68cad0a6712218729fc02c72
+          ],
+          "isRead": false
+        }
+      ],
+      "68cad0a6712218729fc02c6c": [
+        {
+          "_id": 68cad0ec712218729fc02f4d,
+          "reference":sentence-structure-a1-lesson1,
+          "LessonCategory": {
+            "_id":63ee6f976f7067cc89e900d0,
+            "reference":a1,
+            "label":a1,
+            "level": "a_wannabe_lion"
+          },
+          "contenten": "<h2>Sentence Structure in English</h2><p>The sentence structure in English is essential for communicating clearly and effectively. A sentence in English typically follows a specific order for the different elements that make it up. Here are the basic elements of a sentence in English": "</p><ul><li><b>Subject</b>": "The subject of the sentence",
+          "indicating who or what is performing the action.</li><li><b>Verb</b>": "The verb indicates the action performed by the subject.</li><li><b>Complement</b>": "The complement can be an object",
+          "a preposition",
+          "an adverb",
+          "etc.",
+          "that complements the action of the verb.</li></ul><h3>Example of English sentence structure": "</h3><p>Subject + Verb + Complement</p><p>Example":<i>She reads a book.</i></p><h3>Translation and Interpretation Techniques</h3><p>Understanding the sentence structure in English is important for translating and interpreting correctly. When translating,
+          "make sure to maintain the order of the elements to preserve the meaning of the sentence. For interpretation",
+          "first identify the subject",
+          "verb",
+          "and complement to grasp the overall message.</p><h3>Practical Exercise</h3><p>Create sentences in English using the basic elements": "subject",
+          "verb",
+          "and complement. For example": "<i>They play football.</i></p><h3>Illustrative Dialogue</h3><p><b>Character 1</b>": "What do you do in your free time?<br><b>Character 2</b>": "I read books and watch movies.<br><b>Character 1</b>": "That sounds fun! I also enjoy reading and watching movies.</p>",
+          "contentfr":<h2>Structure des phrases en anglais</h2><p>La structure des phrases en anglais est essentielle pour communiquer de manière claire et efficace. Une phrase en anglais suit généralement un ordre spécifique pour les différents éléments qui la composent. Voici les éléments de base d"une phrase en anglais :</p><ul><li><b>Sujet</b>: Le sujet de la phrase, qui indique qui ou quoi effectue l""action.</li><li><b>Verbe</b>": "Le verbe indique l""action effectuée par le sujet.</li><li><b>Complément</b>: Le complément peut être un objet, une préposition, un adverbe, etc., qui complète l""action du verbe.</li></ul><h3>Exemple de structure de phrase en anglais": "</h3><p>Sujet + Verbe + Complément</p><p>Exemple":<i>She reads a book.</i></p><h3>Techniques de traduction et d"interprétation</h3><p>Il est important de comprendre la structure des phrases en anglais pour les traduire et les interpréter correctement. Lors de la traduction, assurez-vous de conserver l""ordre des éléments pour préserver le sens de la phrase. Pour l""interprétation, identifiez d""abord le sujet",
+          "le verbe et le complément pour comprendre le message global.</p><h3>Exercice pratique</h3><p>Composez des phrases en anglais en utilisant les éléments de base": "sujet",
+          "verbe et complément. Par exemple": "<i>They play football.</i></p><h3>Dialogue illustratif</h3><p><b>Personnage 1</b>": "What do you do in your free time?<br><b>Personnage 2</b>": "I read books and watch movies.<br><b>Personnage 1</b>": "That sounds fun! I also enjoy reading and watching movies.</p>",
+          "label":sentence-structure - Level a1 - Lesson 1,
+          "tags": [
+            68cad0a6712218729fc02c6c
+          ],
+          "isRead": false
+        },
+        {
+          "_id": 68cad0ec712218729fc02f54,
+          "reference":sentence-structure-a1-lesson2,
+          "LessonCategory": {
+            "_id":63ee6f976f7067cc89e900d0,
+            "reference":a1,
+            "label":a1,
+            "level": "a_wannabe_lion"
+          },
+          "contenten":<h2>Sentence Structure in English</h2><p>Sentence structure in English is very important for communicating clearly and effectively. A well-structured sentence typically includes a subject,
+          "a verb",
+          "and possibly an object. Understanding sentence structure will help you to form correct sentences and improve your English communication.</p><h3>Basic elements of a sentence</h3><p>1. <strong>Subject": "</strong> The subject of a sentence is usually a noun or pronoun that performs the action described by the verb. Example": "<em>She</em> dances.</p><p>2. <strong>Verb": "</strong> The verb is the main action of the sentence and indicates what the subject is doing. Example": "She <em>dances</em>.</p><p>3. <strong>Object": "</strong> The object adds additional information to the sentence. Example": "She dances <em>at the party</em>.</p><h3>Example of sentence structure</h3><p>A simple sentence in English typically follows the order": "Subject + Verb + Object. For example":<em>He eats an apple.</em></p><h3>Translation and Interpretation Techniques</h3><p>To translate a sentence correctly into English,
+              it is important to understand the sentence structure in the source language and rephrase it in English sentence structure. Correct interpretation also depends on understanding sentence structure and the meaning of different elements.</p><h3>Practice Exercise</h3><p>Create five sentences in English using different subjects,
+          "verbs",
+          "and objects. Make sure to follow the sentence structure and check grammar and spelling.</p><h3>Illustrative Dialogue</h3><p><strong>Character 1": "</strong> What do you usually do on weekends?</p><p><strong>Character 2": "</strong> I <em>watch</em> movies with my friends or <em>go</em> hiking in the mountains.</p><p><strong>Character 1": "</strong> Sounds like fun! I <em>prefer</em> to relax at home and read a book.</p>",
+          "contentfr":<h2>Structure de phrase en anglais</h2><p>La structure de phrase en anglais est très importante pour communiquer de manière claire et efficace. Une phrase bien structurée comprend généralement un sujet,
+              un verbe et éventuellement un complément. Comprendre la structure de la phrase vous aidera à formuler des phrases correctes et à améliorer votre communication en anglais.</p><h3>Les éléments de base d"une phrase</h3><p>1. <strong>Sujet:</strong> Le sujet d""une phrase est généralement un nom ou un pronom qui effectue l""action décrite par le verbe. Exemple: <em>She</em> dances.</p><p>2. <strong>Verbe:</strong> Le verbe est l""action principale de la phrase et indique ce que fait le sujet. Exemple": "She <em>dances</em>.</p><p>3. <strong>Complément": "</strong> Le complément ajoute des informations supplémentaires à la phrase. Exemple":She dances <em>at the party</em>.</p><h3>Exemple de structure de phrase</h3><p>Une phrase simple en anglais suit généralement l"ordre suivant: Sujet + Verbe + Complément. Par exemple: <em>He eats an apple.</em></p><h3>Techniques de traduction et d"interprétation</h3><p>Pour traduire correctement une phrase en anglais,
+          "il est important de comprendre la structure de la phrase dans la langue source et de la reformuler dans la structure de phrase anglaise. L""interprétation correcte dépend également de la compréhension de la structure de la phrase et de la signification des différents éléments.</p><h3>Exercice pratique</h3><p>Créez cinq phrases en anglais en utilisant différents sujets, verbes et compléments. Assurez-vous de respecter la structure de la phrase et de vérifier la grammaire et l""orthographe.</p><h3>Dialogue illustratif</h3><p><strong>Personnage 1": "</strong> What do you usually do on weekends?</p><p><strong>Personnage 2": "</strong> I <em>watch</em> movies with my friends or <em>go</em> hiking in the mountains.</p><p><strong>Personnage 1": "</strong> Sounds like fun! I <em>prefer</em> to relax at home and read a book.</p>",
+          "label":sentence-structure - Level a1 - Lesson 2,
+          "tags": [
+            68cad0a6712218729fc02c6c
+          ],
+          "isRead": false
+        }
+      ],
+      "68cad0a6712218729fc02c6d": [
+        {
+          "_id": 68cad0ec712218729fc02f5c,
+          "reference":verb-forms-a1-lesson1,
+          "LessonCategory": {
+            "_id":63ee6f976f7067cc89e900d0,
+            "reference":a1,
+            "label":a1,
+            "level": "a_wannabe_lion"
+          },
+          "contenten":<h1>Verb forms in English</h1><p>In this lesson,
+          "we will learn about the different forms of verbs in English. Verbs are words that indicate an action",
+          "state",
+          "or process. In English",
+          "verbs change forms based on tense",
+          "person",
+              and mood.</p><h2>Basic verb forms</h2><p>In English,
+          "verbs have three basic forms": "present",
+          "past",
+          "and past participle. Here are some examples": "</p><ul><li>Present": "<i>to play</i></li><li>Past": "<i>played</i></li><li>Past participle":<i>played</i></li></ul><h2>Translation and interpretation techniques</h2><p>To translate verb forms in English,
+          "it is important to understand the context of the sentence and use the correct verb tenses. It is also helpful to familiarize yourself with the rules of verb conjugation in English.</p><h2>Practice exercise</h2><p>Choose the verb in the correct tense and complete the following sentences": "</p><ol><li>She <input type=""text""> (to sing) beautifully.</li><li>We <input type=""text""> (to eat) dinner when the phone rang.</li><li>They <input type=""text""> (to go) to the beach last weekend.</li></ol><h2>Illustrative dialogue</h2><p>John": "What are you doing this weekend?</p><p>Lisa": "I am going to the movies with my friends. We <input type=""text""> (to watch) a new film.</p><p>John": "Sounds like fun! I <input type=""text""> (to study) for my exams.</p>",
+          "contentfr":<h1>Les formes des verbes en anglais</h1><p>Dans cette leçon,
+          "nous allons apprendre les différentes formes des verbes en anglais. Les verbes sont des mots qui indiquent une action",
+          "un état ou un processus. En anglais",
+          "les verbes changent de forme en fonction du temps",
+              de la personne et du mode.</p><h2>Les formes de base des verbes</h2><p>En anglais,
+          "les verbes ont trois formes de base": "le présent",
+          "le passé et le participe passé. Voici quelques exemples": "</p><ul><li>Présent": "<i>to play</i></li><li>Passé": "<i>played</i></li><li>Participe passé":<i>played</i></li></ul><h2>Techniques de traduction et d"interprétation</h2><p>Pour traduire les formes des verbes en anglais, il est important de comprendre le contexte de la phrase et d""utiliser les bons temps verbaux. Il est également utile de se familiariser avec les règles de conjugaison des verbes en anglais.</p><h2>Exercice pratique</h2><p>Choisissez le verbe au bon temps et complétez les phrases suivantes": "</p><ol><li>She <input type=""text""> (to sing) beautifully.</li><li>We <input type=""text""> (to eat) dinner when the phone rang.</li><li>They <input type=""text""> (to go) to the beach last weekend.</li></ol><h2>Dialogue illustratif</h2><p>John": "What are you doing this weekend?</p><p>Lisa": "I am going to the movies with my friends. We <input type=""text""> (to watch) a new film.</p><p>John": "Sounds like fun! I <input type=""text""> (to study) for my exams.</p>",
+          "label":verb-forms - Level a1 - Lesson 1,
+          "tags": [
+            68cad0a6712218729fc02c6d
+          ],
+          "isRead": false
+        },
+        {
+          "_id": 68cad0ec712218729fc02f64,
+          "reference":verb-forms-a1-lesson2,
+          "LessonCategory": {
+            "_id":63ee6f976f7067cc89e900d0,
+            "reference":a1,
+            "label":a1,
+            "level": "a_wannabe_lion"
+          },
+          "contenten":<h2>Verb Forms in English</h2><p>Verb forms in English are important for effective communication. There are several verb forms in English,
+          "including present",
+          "past",
+          "and future. In this lesson",
+              we will explore these different forms and how to use them correctly.</p><h3>1. Present</h3><p>The present is used to describe actions that are currently happening. To form the simple present,
+          "s""or""es""is added to the end of the verb for the third person singular. For example",
+          "I eat",
+          "He eats".</p><h3>2. Past</h3><p>The past is used to describe actions that happened in the past. To form the simple past,
+          "ed""is added to the end of the verb. For example",
+          "I played",
+          "She danced".</p><h3>3. Future</h3><p>The future is used to describe actions that will happen in the future. To form the simple future,
+          "will""is used followed by the verb in infinitive form. For example",
+          "I will go",
+          "They will eat".</p><h3>Translation and Interpretation Techniques</h3><p>When translating verb forms in English,
+              it is important to understand the context in which they are used. Use dictionaries and online resources to help you translate and interpret verbs correctly.</p><h3>Practical Exercise</h3><p>Conjugate the following verbs in present,
+          "past",
+          "and future tenses": "<br>1. to speak<br>2. to write<br>3. to sing<br>4. to run<br>5. to study</p><h3>Illustrative Dialogue</h3><p>Tom": "What are you doing?<br>Lisa": "I am studying for my exam. What about you?<br>Tom": "I played football earlier",
+          "but now I am going to watch a movie.<br>Lisa": "Sounds like fun! Good luck with your exam.</p>",
+          "contentfr":<h2>Les formes de verbes en anglais</h2><p>Les formes de verbes en anglais sont importantes pour pouvoir communiquer efficacement. Il existe plusieurs formes de verbes en anglais,
+          "y compris le présent",
+          "le passé et le futur. Dans cette leçon",
+              nous allons explorer ces différentes formes et comment les utiliser correctement.</p><h3>1. Le présent</h3><p>Le présent est utilisé pour décrire des actions qui se déroulent actuellement. Pour former le présent simple,
+          "on ajoute""s""ou""es""à la fin du verbe pour la troisième personne du singulier. Par exemple",
+          "I eat",
+          "He eats".</p><h3>2. Le passé</h3><p>Le passé est utilisé pour décrire des actions qui se sont produites dans le passé. Pour former le passé simple,
+          "on ajoute""ed""à la fin du verbe. Par exemple",
+          "I played",
+          "She danced".</p><h3>3. Le futur</h3><p>Le futur est utilisé pour décrire des actions qui se produiront dans le futur. Pour former le futur simple,
+          "on utilise""will""suivi du verbe à l""infinitif. Par exemple, ""I will go"", ""They will eat"".</p><h3>Techniques de traduction et d"interprétation</h3><p>Pour traduire les formes de verbes en anglais,
+              il est important de comprendre le contexte dans lequel elles sont utilisées. Utilisez des dictionnaires et des ressources en ligne pour vous aider à traduire et interpréter correctement les verbes.</p><h3>Exercice pratique</h3><p>Conjuguez les verbes suivants au présent,
+          "au passé et au futur": "<br>1. to speak<br>2. to write<br>3. to sing<br>4. to run<br>5. to study</p><h3>Dialogue illustratif</h3><p>Tom": "What are you doing?<br>Lisa": "I am studying for my exam. What about you?<br>Tom": "I played football earlier",
+          "but now I am going to watch a movie.<br>Lisa": "Sounds like fun! Good luck with your exam.</p>",
+          "label":verb-forms - Level a1 - Lesson 2,
+          "tags": [
+            68cad0a6712218729fc02c6d
+          ],
+          "isRead": false
+        }
+      ],
+      "68cad0a6712218729fc02c6e": [
+        {
+          "_id": 68cad135712218729fc03224,
+          "reference":agreement-and-consistency-a1-lesson1,
+          "LessonCategory": {
+            "_id":63ee6f976f7067cc89e900d0,
+            "reference":a1,
+            "label":a1,
+            "level": "a_wannabe_lion"
+          },
+          "contenten":<h1>Agreement and Consistency in English</h1>
+     <p>In this lesson,
+              we will discuss the concepts of agreement and consistency in English. These two elements are essential for constructing correct and understandable sentences in English.</p>
+     <h2>Agreement</h2>
+     <p>Agreement refers to the fact that the different elements of a sentence must match in gender,
+          "number",
+          "and person. For example",
+          "if the subject of a sentence is singular",
+          "the verb must also be singular. Similarly",
+              pronouns should match in gender and number with the nouns they refer to.</p>
+     <h2>Consistency</h2>
+     <p>Consistency involves ensuring that the different elements of a sentence or text are logically connected to each other. This means that ideas should be presented clearly and in an organized manner for the message to be well understood by the reader or listener.</p>
+     <h3>Translation and Interpretation Techniques</h3>
+     <p>When translating or interpreting text into English,
+              "it is important to maintain agreement and consistency to ensure an accurate translation that stays true to the original text. It is also essential to understand the context and nuances of the language to avoid translation errors.</p>
+     <h2>Practical Exercise</h2>
+     <p>Correct the agreement and consistency errors in the following sentences":"</p>
+     <ol>
+     <li>She <u>is</u> go to the store yesterday.</li>
+     <li>They <u>has</u> a dog and two cats.</li>
+     <li>My brother and <u>I</u> is going to the movies.</li>
+     </ol>
+     <h2>Illustrative Dialogue</h2>
+     <p>Tom":"Hey",
+              "have you seen my keys?</p>
+     <p>Lisa":"No","I haven""t. Did you check the living room?</p>
+     <p>Tom: Yes, but they <u>is</u> not there. Maybe they <u>has</u> fallen behind the couch.</p>
+     <p>Lisa: Let""s look there together.</p>
+     <p>&nbsp;</p>","contentfr":<h1>Accord et coh&eacute;rence en anglais</h1>
+     <p>Dans cette le&ccedil;on,
+          "nous allons aborder les concepts d""accord et de coh&eacute;rence en anglais. Ces deux &eacute;l&eacute;ments sont essentiels pour construire des phrases correctes et compr&eacute;hensibles en anglais.</p>
+     <h2>Accord</h2>
+     <p>L""accord fait r&eacute;f&eacute;rence au fait que les diff&eacute;rents &eacute;l&eacute;ments d""une phrase doivent correspondre en genre, en nombre et en personne. Par exemple, si le sujet d""une phrase est au singulier","le verbe doit &eacute;galement &ecirc;tre au singulier. De m&ecirc;me",
+              les pronoms doivent correspondre en genre et en nombre avec les noms auxquels ils se r&eacute;f&egrave;rent.</p>
+     <h2>Coh&eacute;rence</h2>
+     <p>La coh&eacute;rence implique que les diff&eacute;rents &eacute;l&eacute;ments d"une phrase ou d""un texte doivent &ecirc;tre logiquement li&eacute;s les uns aux autres. Cela signifie que les id&eacute;es doivent &ecirc;tre pr&eacute;sent&eacute;es de mani&egrave;re claire et ordonn&eacute;e pour que le message soit bien compris par le lecteur ou l""auditeur.</p>
+     <h3>Techniques de traduction et d"interpr&eacute;tation</h3>
+     <p>En traduisant ou en interpr&eacute;tant du texte en anglais,
+          "il est important de respecter l""accord et la coh&eacute;rence pour garantir une traduction pr&eacute;cise et fid&egrave;le au texte d"origine. Il est &eacute;galement essentiel de comprendre le contexte et les nuances de la langue pour &eacute;viter les erreurs de traduction.</p>
+     <h2>Exercice pratique</h2>
+     <p>Corrigez les erreurs d"accord et de coh&eacute;rence dans les phrases suivantes :</p>
+     <ol>
+     <p>Agreement involves the matching of elements in a sentence in terms of gender, number, and person. For example, if a subject is singular, the verb associated with it should also be singular. Similarly, pronouns should match in gender and number with the nouns they refer to.</p>
+     <h2>Consistency</h2>
+     <p>Consistency involves maintaining logic and clarity in sentence structure and discourse. This includes avoiding contradictions, redundancies, and inconsistencies that could make the message confusing for the reader or listener.</p>
+     <h3>Translation and Interpretation Techniques</h3>
+     <p>When translating or interpreting, it is essential to maintain agreement and consistency from the source text to ensure the fidelity of the message. It is important to consider language nuances and ensure that the translated elements correspond correctly to the original elements.</p>
+     <h2>Practical Exercise</h2>
+     <p>Here is an exercise to practice agreement and consistency: Complete the following sentences by choosing the correct conjugated verb and ensuring consistency in the sentence.</p>
+     <ol>
+     <li>She _____ (to like) to read books.</li>
+     <li>They _____ (to go) to the beach every summer.</li>
+     <li>He and his brother _____ (to play) football in the park.</li>
+     </ol>
+     <h2>Illustrative Dialogue</h2>
+     <p>Anna: Hi, how are you today?</p>
+     <p>John: I""m good",
+              "thanks. Did you see the movie yesterday?</p>
+     <p>Anna":"Yes",
+              "I did. It was really interesting.</p>
+     <p>John":"I thought so too. Let""s go watch another one next weekend.</p>
+     <p>Anna: Sure, that sounds like a great idea!</p>, contentfr: <h1>Accord et coh&eacute;rence</h1>
+     <p>L""accord et la coh&eacute;rence sont des concepts importants en grammaire anglaise. L""accord se r&eacute;f&egrave;re &agrave; la correspondance entre les diff&eacute;rents &eacute;l&eacute;ments d""une phrase","tandis que la coh&eacute;rence concerne la logique et la clart&eacute; du message. Dans cette le&ccedil;on",
+              nous allons examiner de pr&egrave;s ces deux aspects et comment les appliquer correctement.</p>
+     <h2>L"accord</h2>
+     <p>L""accord concerne la concordance des &eacute;l&eacute;ments dans une phrase en termes de genre","de nombre et de personne. Par exemple",
+          "si un sujet est au singulier",
+          "le verbe qui lui est associ&eacute; doit &eacute;galement &ecirc;tre au singulier. De m&ecirc;me",
+              les pronoms doivent correspondre en genre et en nombre avec les noms auxquels ils se r&eacute;f&egrave;rent.</p>
+     <h2>La coh&eacute;rence</h2>
+     <p>La coh&eacute;rence consiste &agrave; maintenir une logique et une clart&eacute; dans la construction des phrases et du discours. Cela implique d"&eacute;viter les contradictions, les redondances et les incoh&eacute;rences qui pourraient rendre le message confus pour le lecteur ou l"auditeur.</p>
+     <h3>Techniques de traduction et d"interpr&eacute;tation</h3>
+     <p>Lors de la traduction ou de l""interpr&eacute;tation","il est essentiel de respecter l""accord et la coh&eacute;rence du texte source pour garantir la fid&eacute;lit&eacute; du message. Il est donc important de prendre en compte les nuances de la langue et de veiller &agrave; ce que les &eacute;l&eacute;ments traduits correspondent correctement aux &eacute;l&eacute;ments d"origine.</p>
+     <h2>Exercice pratique</h2>
+     <p>Voici un exercice pour mettre en pratique l"accord et la coh&eacute;rence : Compl&eacute;tez les phrases suivantes en choisissant le bon verbe conjugu&eacute; et en veillant &agrave; maintenir la coh&eacute;rence dans la phrase.</p>
+     <ol>
+     <li>She _____ (to like) to read books.</li>
+     <li>They _____ (to go) to the beach every summer.</li>
+     <li>He and his brother _____ (to play) football in the park.</li>
+     </ol>
+     <h2>Dialogue illustratif</h2>
+     <p>Anna: Hi, how are you today?</p>
+     <p>John: I""m good",
+              "thanks. Did you see the movie yesterday?</p>
+     <p>Anna":"Yes",
+              "I did. It was really interesting.</p>
+     <p>John":"I thought so too. Let""s go watch another one next weekend.</p>
+     <p>Anna: Sure, that sounds like a great idea!</p>, label: agreement-and-consistency - Level a1 - Lesson 2, tags: [
+            68cad0a6712218729fc02c6e
+          ], audioen: , audiofr: , isRead: false
+        }
+      ],
+      68cad0a6712218729fc02c70: [
+        {_id: 68cad135712218729fc03230, reference: clauses-and-phrases-a1-lesson1, LessonCategory: {_id: 63ee6f976f7067cc89e900d0, reference: a1, label: a1, level: a_wannabe_lion
+          }, contenten: <h2>Clauses and Phrases in English</h2><p>Clauses and phrases are important elements of English grammar. Understanding the difference between the two can be essential for effective communication in English. A clause is a grammatical unit that contains a subject and a verb. A phrase, on the other hand, can be a combination of words that does not necessarily have a subject and a verb.</p><h3>Clauses</h3><p>An independent clause is a complete sentence that can stand alone and express a complete idea. For example, \"I love to read.\" is an independent clause. A dependent clause, on the other hand, cannot stand alone as a complete sentence and needs to be attached to an independent clause to make sense. For example, \"because I love to read\" is a dependent clause.</p><h3>Phrases</h3><p>A phrase can be a simple sentence that expresses a complete idea, like \"I am happy.\" or a complex sentence that combines multiple ideas into a single unit, like \"Although it was raining, we went for a walk.\" Phrases can be short or long depending on the complexity of the idea they express.</p><h3>Translation and Interpretation Techniques</h3><p>When translating clauses and phrases into English, it is important to understand the context and grammatical structure for accurate translation. Some languages may have grammatical structures different from English, so it is essential to understand the meaning of clauses and phrases to translate them correctly.</p><h3>Practical Exercise</h3><p>1. Identify the independent and dependent clauses in the following sentences:<br>- \"I will go to the store if it stops raining.\"<br>- \"Although she was tired, she went to the party.\"<br>2. Create a complex sentence by combining an independent clause and a dependent clause.</p><h3>Illustrative Dialogue</h3><p>Emily: What are you doing this weekend?<br>Tom: I will go hiking if the weather is nice.<br>Emily: That sounds like a great plan! I hope you have a good time.</p>, contentfr: <h2>Les clauses et les phrases en anglais</h2><p>Les clauses et les phrases sont des éléments importants de la grammaire anglaise. Comprendre la différence entre les deux peut être essentiel pour une communication efficace en anglais. Une clause est une unité grammaticale qui contient un sujet et un verbe. Une phrase, en revanche, peut être une combinaison de mots qui n"a pas nécessairement un sujet et un verbe.</p><h3>Les clauses</h3><p>Une clause indépendante est une phrase complète qui peut se tenir seule et exprimer une idée complète. Par exemple,
+          "I love to read.""est une clause indépendante. Une clause dépendante",
+          "en revanche",
+          "ne peut pas se tenir seule en tant que phrase complète et doit être associée à une clause indépendante pour avoir un sens. Par exemple",
+          "because I love to read"est une clause dépendante.</p><h3>Les phrases</h3><p>Une phrase peut être une simple phrase qui exprime une idée complète,
+          "comme""I am happy.""ou une phrase complexe qui combine plusieurs idées en une seule unité",
+          "comme""Although it was raining, we went for a walk.""Les phrases peuvent être courtes ou longues en fonction de la complexité de l""idée qu"elles expriment.</p><h3>Techniques de traduction et d"interprétation</h3><p>Lors de la traduction de clauses et de phrases en anglais, il est important de comprendre le contexte et la structure grammaticale pour une traduction précise. Certaines langues peuvent avoir des structures grammaticales différentes de l""anglais",
+          "il est donc essentiel de bien comprendre la signification des clauses et des phrases pour les traduire correctement.</p><h3>Exercice pratique</h3><p>1. Identifiez les clauses indépendantes et dépendantes dans les phrases suivantes": "<br>-""I will go to the store if it stops raining.""<br>-""Although she was tired, she went to the party.""<br>2. Créez une phrase complexe en combinant une clause indépendante et une clause dépendante.</p><h3>Dialogue illustratif</h3><p>Emily": "What are you doing this weekend?<br>Tom": "I will go hiking if the weather is nice.<br>Emily": "That sounds like a great plan! I hope you have a good time.</p>",
+          "label":clauses-and-phrases - Level a1 - Lesson 1,
+          "tags": [
+            68cad0a6712218729fc02c70
+          ],
+          "isRead": true
+        },
+        {
+          "_id": 68cad135712218729fc03219,
+          "reference":clauses-and-phrases-a1-lesson2,
+          "LessonCategory": {
+            "_id":63ee6f976f7067cc89e900d0,
+            "reference":a1,
+            "label":a1,
+            "level": "a_wannabe_lion"
+          },
+          "contenten":<h2>Clauses and Phrases in English</h2><p>Clauses and phrases are essential elements of English grammar. Understanding the difference between the two is crucial for effective communication in English. In this lesson,
+          "we will explore this concept in detail.</p><h3>Clauses</h3><p>A clause is a group of words that contains a subject and a verb. It can be an independent clause that forms a complete sentence or a dependent clause that relies on another clause to make sense.</p><p>Example of an independent clause": "I love to read.""</p><p>Example of a dependent clause": "When it rains, I stay indoors."</p><h3>Phrases</h3><p>A phrase is a group of words that expresses a complete idea. It may contain one or more clauses,
+          "but it must have a subject and a verb.</p><p>Example of a phrase": "She is studying for her exam."</p><h3>Translation and Interpretation Techniques</h3><p>To understand clauses and phrases in English,
+          "it is important to practice translation and interpretation. Try translating sentences from your native language to English and vice versa to enhance your language skills.</p><h3>Practical Exercise</h3><p>Translate the following sentences into English": "<br>1. Il pleut dehors.<br>2. Nous allons au cinéma ce soir.<br>3. Elle a mangé une délicieuse pizza.</p><h3>Illustrative Dialogue</h3><p>Tom": "What are you doing this weekend?<br>Amy": "I""m going hiking with my friends. How about you?<br>Tom: I""m planning to watch a movie at home. Do you want to join?<br>Amy": "Sure",
+          "that sounds like a great idea!</p>",
+          "contentfr":<h2>Les propositions et les phrases en anglais</h2><p>Les propositions et les phrases sont des éléments essentiels de la grammaire anglaise. Comprendre la différence entre les deux est crucial pour bien communiquer en anglais. Dans cette leçon,
+              nous allons explorer ce concept en détail.</p><h3>Les propositions</h3><p>Une proposition est un groupe de mots qui contient un sujet et un verbe. Il peut s"agir d""une proposition indépendante qui forme une phrase complète ou d""une proposition subordonnée qui dépend d""une autre proposition pour avoir un sens complet.</p><p>Exemple de proposition indépendante": "I love to read.""</p><p>Exemple de proposition subordonnée": "When it rains, I stay indoors."</p><h3>Les phrases</h3><p>Une phrase est un groupe de mots qui exprime une idée complète. Elle peut contenir un ou plusieurs propositions,
+          "mais elle doit avoir un sujet et un verbe.</p><p>Exemple de phrase": "She is studying for her exam."</p><h3>Techniques de traduction et d"interprétation</h3><p>Pour bien comprendre les propositions et les phrases en anglais, il est important de pratiquer la traduction et l""interprétation. Essayez de traduire des phrases de votre langue maternelle en anglais et vice versa pour renforcer vos compétences linguistiques.</p><h3>Exercice pratique</h3><p>Traduisez les phrases suivantes en anglais": "<br>1. Il pleut dehors.<br>2. Nous allons au cinéma ce soir.<br>3. Elle a mangé une délicieuse pizza.</p><h3>Dialogue illustratif</h3><p>Tom": "What are you doing this weekend?<br>Amy": "I""m going hiking with my friends. How about you?<br>Tom: I""m planning to watch a movie at home. Do you want to join?<br>Amy": "Sure",
+          "that sounds like a great idea!</p>",
+          "label":clauses-and-phrases - Level a1 - Lesson 2,
+          "tags": [
+            68cad0a6712218729fc02c70
+          ],
+          "isRead": false
+        }
+      ],
+      "68cad0a6712218729fc02c6f": [
+        {
+          "_id": 68cad135712218729fc03227,
+          "reference":modifiers-a1-lesson1,
+          "LessonCategory": {
+            "_id":63ee6f976f7067cc89e900d0,
+            "reference":a1,
+            "label":a1,
+            "level": "a_wannabe_lion"
+          },
+          "contenten":<h2>Modifiers in English</h2><p>Modifiers are words or phrases that modify or give more details about a noun or a verb in a sentence. They are used to add precision and clarity to a sentence. There are several types of modifiers in English,
+          "such as adjectives",
+          "adverbs",
+          "prepositional phrases",
+          "relative clauses",
+          "etc.</p><h3>Adjectives</h3><p>Adjectives are words that describe or give more information about a noun. They can be placed before or after the noun they modify. For example":<i>the <strong>big</strong> house</i>.</p><h3>Adverbs</h3><p>Adverbs are words that describe or give more information about a verb,
+          "an adjective",
+          "or another adverb. They are often used to indicate how",
+          "when",
+          "where",
+          "why",
+          "or to what extent something is done. For example": "<i>He runs <strong>quickly</strong>.</i></p><h3>Prepositional Phrases</h3><p>Prepositional phrases consist of a preposition followed by a noun or pronoun. They are used to provide more details about the noun or verb in a sentence. For example":<i>The book <strong>on the table</strong> is mine.</i></p><h3>Relative Clauses</h3><p>Relative clauses are groups of words that give more information about a noun in a sentence. They often start with a relative pronoun such as <i>who,
+          "which",
+          "that</i>. For example": "<i>The man <strong>who is wearing a hat</strong> is my brother.</i></p>",
+          "contentfr":<h2>Les Modifiers en Anglais</h2><p>Les modifiers sont des mots ou des expressions qui modifient ou donnent plus de détails sur un nom ou un verbe dans une phrase. Ils sont utilisés pour ajouter de la précision et de la clarté à une phrase. Il existe plusieurs types de modifiers en anglais,
+          "tels que les adjectifs",
+          "les adverbes",
+          "les phrases prépositionnelles",
+          "les clauses relatives",
+              etc.</p><h3>Les Adjectifs</h3><p>Les adjectifs sont des mots qui décrivent ou donnent plus d"information sur un nom. Ils peuvent être placés avant ou après le nom qu""ils modifient. Par exemple":<i>the <strong>big</strong> house</i>.</p><h3>Les Adverbes</h3><p>Les adverbes sont des mots qui décrivent ou donnent plus d"information sur un verbe, un adjectif ou un autre adverbe. Ils sont souvent utilisés pour indiquer comment, quand, où, pourquoi ou dans quelle mesure quelque chose est fait. Par exemple : <i>He runs <strong>quickly</strong>.</i></p><h3>Les Phrases Prépositionnelles</h3><p>Les phrases prépositionnelles sont composées d""une préposition suivie d""un nom ou d""un pronom. Elles sont utilisées pour donner plus de détails sur le nom ou le verbe dans une phrase. Par exemple":<i>The book <strong>on the table</strong> is mine.</i></p><h3>Les Clauses Relatives</h3><p>Les clauses relatives sont des groupes de mots qui donnent plus d"information sur un nom dans une phrase. Elles commencent souvent par un pronom relatif tel que <i>who, which, that</i>. Par exemple : <i>The man <strong>who is wearing a hat</strong> is my brother.</i></p>, label: modifiers - Level a1 - Lesson 1, tags: [68cad0a6712218729fc02c6f], isRead: false}, {_id: 68cad135712218729fc0321f, reference: modifiers-a1-lesson2, LessonCategory: {_id: 63ee6f976f7067cc89e900d0, reference: a1, label: a1, level: a_wannabe_lion}, contenten: <h2>Modifiers</h2><p>Modifiers in English are words or groups of words that are used to provide more details or precision about a noun or a verb. They can be adjectives, adverbs, prepositional phrases, etc. Modifiers can be placed before or after the word they modify.</p><h3>Types of Modifiers</h3><ul><li><strong>Adjectives</strong>: Adjectives modify a noun by providing additional information about its characteristics. For example: <em>The beautiful flower</em>.</li><li><strong>Adverbs</strong>: Adverbs modify a verb, adjective, or another adverb by providing information about time, manner, place, etc. For example: <em>He runs quickly</em>.</li><li><strong>Prepositional Phrases</strong>: Prepositional phrases are groups of words starting with a preposition and modifying a noun or a verb by providing information about place, time, cause, etc. For example: <em>He arrived after the party</em>.</li></ul><h3>Translation and Interpretation Techniques</h3><p>To accurately translate modifiers in English, it is important to understand their function in the sentence. It is often helpful to first translate the main noun or verb, and then add the modifiers in a logical order to retain the meaning of the sentence.</p><h3>Practice Exercise</h3><p>Choose the correct modifier to complete the following sentences:</p><ol><li>She is a <input type=""text""> student.</li><li>He sings <input type=""text""> in the group.</li></ol><h3>Illustrative Dialogue</h3><p><strong>Tom:</strong> Look at that <em>red car</em>! It""s beautiful.<br/><strong>Lisa": "</strong> Yes",
+          "it""s also <em>very fast</em>.</p>, contentfr: <h2>Les Modificateurs</h2><p>Les modificateurs en anglais sont des mots ou des groupes de mots qui sont utilisés pour donner plus de détails ou de précision sur un nom ou un verbe. Ils peuvent être des adjectifs, des adverbes, des phrases prépositionnelles, etc. Les modificateurs peuvent être placés avant ou après le mot qu""ils modifient.</p><h3>Types de Modificateurs</h3><ul><li><strong>Adjectifs</strong>": "Les adjectifs modifient un nom en lui donnant des informations supplémentaires sur ses caractéristiques. Par exemple": "<em>La belle fleur</em>.</li><li><strong>Adverbes</strong>": "Les adverbes modifient un verbe",
+          "un adjectif ou un autre adverbe en donnant des informations sur le moment",
+          "la manière",
+          "le lieu",
+          "etc. Par exemple": "<em>Il court rapidement</em>.</li><li><strong>Phrases Prépositionnelles</strong>": "Les phrases prépositionnelles sont des groupes de mots commençant par une préposition et modifiant un nom ou un verbe en donnant des informations sur le lieu",
+          "le temps",
+          "la cause",
+          "etc. Par exemple":<em>Il est arrivé après la fête</em>.</li></ul><h3>Techniques de Traduction</h3><p>Pour traduire correctement les modificateurs en anglais,
+          "il est important de comprendre leur fonction dans la phrase. Il est souvent utile de traduire d""abord le nom ou le verbe principal, puis d""ajouter les modificateurs dans un ordre logique pour conserver le sens de la phrase.</p><h3>Exercice Pratique</h3><p>Choisissez le bon modificateur pour compléter les phrases suivantes": "</p><ol><li>Elle est une <input type=""text""> étudiante.</li><li>Il chante <input type=""text""> dans le groupe.</li></ol><h3>Dialogue Illustratif</h3><p><strong>Tom": "</strong> Regarde cette <em>voiture rouge</em>! Elle est magnifique.<br/><strong>Lisa": "</strong> Oui",
+          "elle est vraiment <em>très rapide</em> aussi.</p>",
+          "label":modifiers - Level a1 - Lesson 2,
+          "tags": [
+            68cad0a6712218729fc02c6f
+          ],
+          "isRead": false
+        }
+      ]
     },
-    {
-        "_id": 650f56df4622968d666d2e75,
-        "reference":a58721_e2_ws_xx_xx,
-        "Subject": 63f0ba743c2816767892cf1e,
-        "createdAt": "2023-09-23T21": "21": 35.265Z,
-        "description": "The Men in Black have always protected the Earth from the scum of the universe. In this new adventure",
-        "they tackle their biggest threat to date": "a mole in the Men in Black organization.",
-        "duration": 6840,
-        "enabled": true,
-        "label": "Men in Black": "International",
-        "m3u8_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/59057111/A58721_E2_WS_XX_XX.m3u8,
-        "mpd_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/59057111/A58721_E2_WS_XX_XX.mpd,
-        "picture": "https": //d2cj5ez5n4d4vx.cloudfront.net/pictures/howhollywooddoesit+–+10.png,
-        "profiles": [
-          1ere_annee,
-          2eme_annee,
-          3eme_annee,
-          4eme_annee,
-          5eme_annee,
-          1ere_annee_toeic,
-          2eme_annee_toeic,
-          3eme_annee_toeic,
-          4eme_annee_toeic,
-          5eme_annee_toeic,
-            "demandeur_emploi",
-            "actif_voyage",
-            "actif_demenagement",
-            "actif_professionnel",
-          1ere_annee_finance,
-          2eme_annee_finance,
-          3eme_annee_finance,
-          4eme_annee_finance,
-          5eme_annee_finance,
-          1ere_annee_digital,
-          2eme_annee_digital,
-          3eme_annee_digital,
-          4eme_annee_digital,
-          5eme_annee_digital,
-          1ere_annee_business,
-          2eme_annee_business,
-          3eme_annee_business,
-          4eme_annee_business,
-          5eme_annee_business,
-          1ere_annee_production,
-          2eme_annee_production,
-          3eme_annee_production,
-          4eme_annee_production,
-          5eme_annee_production,
-          1ere_annee_luxe,
-          2eme_annee_luxe,
-          3eme_annee_luxe,
-          4eme_annee_luxe,
-          5eme_annee_luxe,
-          1ere_annee_luxe_business,
-          2eme_annee_luxe_business,
-          3eme_annee_luxe_business,
-          4eme_annee_luxe_business,
-          5eme_annee_luxe_business,
-          1ere_annee_management,
-          2eme_annee_management,
-          3eme_annee_management,
-          4eme_annee_management,
-          5eme_annee_management,
-          1ere_annee_finance_toeic,
-          2eme_annee_finance_toeic,
-          3eme_annee_finance_toeic,
-          4eme_annee_finance_toeic,
-          5eme_annee_finance_toeic,
-          1ere_annee_digital_toeic,
-          2eme_annee_digital_toeic,
-          3eme_annee_digital_toeic,
-          4eme_annee_digital_toeic,
-          5eme_annee_digital_toeic,
-          1ere_annee_business_toeic,
-          2eme_annee_business_toeic,
-          3eme_annee_business_toeic,
-          4eme_annee_business_toeic,
-          5eme_annee_business_toeic,
-          1ere_annee_production_toeic,
-          2eme_annee_production_toeic,
-          3eme_annee_production_toeic,
-          4eme_annee_production_toeic,
-          5eme_annee_production_toeic,
-          1ere_annee_luxe_toeic,
-          2eme_annee_luxe_toeic,
-          3eme_annee_luxe_toeic,
-          4eme_annee_luxe_toeic,
-          5eme_annee_luxe_toeic,
-          1ere_annee_luxe_business_toeic,
-          2eme_annee_luxe_business_toeic,
-          3eme_annee_luxe_business_toeic,
-          4eme_annee_luxe_business_toeic,
-          5eme_annee_luxe_business_toeic,
-          1ere_annee_management_toeic,
-          2eme_annee_management_toeic,
-          3eme_annee_management_toeic,
-          4eme_annee_management_toeic,
-          5eme_annee_management_toeic
-        ],
-        "tags": [
-            "action"
-        ],
-        "updatedAt": "2024-03-06T10": "59": 45.511Z
-    },
-    {
-        "_id": 650f56df4622968d666d2e77,
-        "reference":a61967_e2_ws_xx_xx,
-        "Subject": 63f0ba743c2816767892cf1e,
-        "createdAt": "2023-09-23T21": "21": 35.265Z,
-        "description": "Miami detectives Mike Lowrey and Marcus Burnett must face off against a mother-and-son pair of drug lords who wreak vengeful havoc on their city.",
-        "duration": 7440,
-        "enabled": true,
-        "label": "Bad Boys for Life",
-        "m3u8_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/48632284/A61967_E2_WS_XX_XX.m3u8,
-        "mpd_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/48632284/A61967_E2_WS_XX_XX.mpd,
-        "picture": "https": //d2cj5ez5n4d4vx.cloudfront.net/pictures/howhollywooddoesit+–+7.png,
-        "profiles": [
-          1ere_annee,
-          2eme_annee,
-          3eme_annee,
-          4eme_annee,
-          5eme_annee,
-          1ere_annee_toeic,
-          2eme_annee_toeic,
-          3eme_annee_toeic,
-          4eme_annee_toeic,
-          5eme_annee_toeic,
-            "demandeur_emploi",
-            "actif_voyage",
-            "actif_demenagement",
-            "actif_professionnel",
-          1ere_annee_finance,
-          2eme_annee_finance,
-          3eme_annee_finance,
-          4eme_annee_finance,
-          5eme_annee_finance,
-          1ere_annee_digital,
-          2eme_annee_digital,
-          3eme_annee_digital,
-          4eme_annee_digital,
-          5eme_annee_digital,
-          1ere_annee_business,
-          2eme_annee_business,
-          3eme_annee_business,
-          4eme_annee_business,
-          5eme_annee_business,
-          1ere_annee_production,
-          2eme_annee_production,
-          3eme_annee_production,
-          4eme_annee_production,
-          5eme_annee_production,
-          1ere_annee_luxe,
-          2eme_annee_luxe,
-          3eme_annee_luxe,
-          4eme_annee_luxe,
-          5eme_annee_luxe,
-          1ere_annee_luxe_business,
-          2eme_annee_luxe_business,
-          3eme_annee_luxe_business,
-          4eme_annee_luxe_business,
-          5eme_annee_luxe_business,
-          1ere_annee_management,
-          2eme_annee_management,
-          3eme_annee_management,
-          4eme_annee_management,
-          5eme_annee_management,
-          1ere_annee_finance_toeic,
-          2eme_annee_finance_toeic,
-          3eme_annee_finance_toeic,
-          4eme_annee_finance_toeic,
-          5eme_annee_finance_toeic,
-          1ere_annee_digital_toeic,
-          2eme_annee_digital_toeic,
-          3eme_annee_digital_toeic,
-          4eme_annee_digital_toeic,
-          5eme_annee_digital_toeic,
-          1ere_annee_business_toeic,
-          2eme_annee_business_toeic,
-          3eme_annee_business_toeic,
-          4eme_annee_business_toeic,
-          5eme_annee_business_toeic,
-          1ere_annee_production_toeic,
-          2eme_annee_production_toeic,
-          3eme_annee_production_toeic,
-          4eme_annee_production_toeic,
-          5eme_annee_production_toeic,
-          1ere_annee_luxe_toeic,
-          2eme_annee_luxe_toeic,
-          3eme_annee_luxe_toeic,
-          4eme_annee_luxe_toeic,
-          5eme_annee_luxe_toeic,
-          1ere_annee_luxe_business_toeic,
-          2eme_annee_luxe_business_toeic,
-          3eme_annee_luxe_business_toeic,
-          4eme_annee_luxe_business_toeic,
-          5eme_annee_luxe_business_toeic,
-          1ere_annee_management_toeic,
-          2eme_annee_management_toeic,
-          3eme_annee_management_toeic,
-          4eme_annee_management_toeic,
-          5eme_annee_management_toeic
-        ],
-        "tags": [
-            "action",
-            "comedy"
-        ],
-        "updatedAt": "2024-03-06T10": "59": 45.511Z
-    },
-    {
-        "_id": 650f56df4622968d666d2e7a,
-        "reference":a61618_e2_xx_xx_xx,
-        "Subject": 63f0ba743c2816767892cf1e,
-        "createdAt": "2023-09-23T21": "21": 35.265Z,
-        "description": "An augmented human and Sarah Connor must stop an advanced liquid Terminator from hunting down a young girl",
-        "whose fate is critical to the human race.",
-        "duration": 7680,
-        "enabled": true,
-        "label": "Terminator": "Dark Fate",
-        "m3u8_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/24257650/A61618_E2_XX_XX_XX.m3u8,
-        "mpd_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/24257650/A61618_E2_XX_XX_XX.mpd,
-        "picture": "https": //d2cj5ez5n4d4vx.cloudfront.net/pictures/howimademymillions+–+18.png,
-        "profiles": [
-          1ere_annee,
-          2eme_annee,
-          3eme_annee,
-          4eme_annee,
-          5eme_annee,
-          1ere_annee_toeic,
-          2eme_annee_toeic,
-          3eme_annee_toeic,
-          4eme_annee_toeic,
-          5eme_annee_toeic,
-            "demandeur_emploi",
-            "actif_voyage",
-            "actif_demenagement",
-            "actif_professionnel",
-          1ere_annee_finance,
-          2eme_annee_finance,
-          3eme_annee_finance,
-          4eme_annee_finance,
-          5eme_annee_finance,
-          1ere_annee_digital,
-          2eme_annee_digital,
-          3eme_annee_digital,
-          4eme_annee_digital,
-          5eme_annee_digital,
-          1ere_annee_business,
-          2eme_annee_business,
-          3eme_annee_business,
-          4eme_annee_business,
-          5eme_annee_business,
-          1ere_annee_production,
-          2eme_annee_production,
-          3eme_annee_production,
-          4eme_annee_production,
-          5eme_annee_production,
-          1ere_annee_luxe,
-          2eme_annee_luxe,
-          3eme_annee_luxe,
-          4eme_annee_luxe,
-          5eme_annee_luxe,
-          1ere_annee_luxe_business,
-          2eme_annee_luxe_business,
-          3eme_annee_luxe_business,
-          4eme_annee_luxe_business,
-          5eme_annee_luxe_business,
-          1ere_annee_management,
-          2eme_annee_management,
-          3eme_annee_management,
-          4eme_annee_management,
-          5eme_annee_management,
-          1ere_annee_finance_toeic,
-          2eme_annee_finance_toeic,
-          3eme_annee_finance_toeic,
-          4eme_annee_finance_toeic,
-          5eme_annee_finance_toeic,
-          1ere_annee_digital_toeic,
-          2eme_annee_digital_toeic,
-          3eme_annee_digital_toeic,
-          4eme_annee_digital_toeic,
-          5eme_annee_digital_toeic,
-          1ere_annee_business_toeic,
-          2eme_annee_business_toeic,
-          3eme_annee_business_toeic,
-          4eme_annee_business_toeic,
-          5eme_annee_business_toeic,
-          1ere_annee_production_toeic,
-          2eme_annee_production_toeic,
-          3eme_annee_production_toeic,
-          4eme_annee_production_toeic,
-          5eme_annee_production_toeic,
-          1ere_annee_luxe_toeic,
-          2eme_annee_luxe_toeic,
-          3eme_annee_luxe_toeic,
-          4eme_annee_luxe_toeic,
-          5eme_annee_luxe_toeic,
-          1ere_annee_luxe_business_toeic,
-          2eme_annee_luxe_business_toeic,
-          3eme_annee_luxe_business_toeic,
-          4eme_annee_luxe_business_toeic,
-          5eme_annee_luxe_business_toeic,
-          1ere_annee_management_toeic,
-          2eme_annee_management_toeic,
-          3eme_annee_management_toeic,
-          4eme_annee_management_toeic,
-          5eme_annee_management_toeic
-        ],
-        "tags": [
-            "action"
-        ],
-        "updatedAt": "2024-03-06T10": "59": 45.511Z
-    },
-    {
-        "_id": 650f56df4622968d666d2e83,
-        "reference":a34924_e2_ws_xx_xx,
-        "Subject": 63f0ba743c2816767892cf1e,
-        "createdAt": "2023-09-23T21": "21": 35.265Z,
-        "description": "A homicide investigator digs deeper into a case involving a trained military sniper who shot five random victims.",
-        "duration": 7800,
-        "enabled": true,
-        "label": "Jack Reacher",
-        "m3u8_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/80914250/A34924_E2_WS_XX_XX.m3u8,
-        "mpd_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/80914250/A34924_E2_WS_XX_XX.mpd,
-        "picture": "https": //d2cj5ez5n4d4vx.cloudfront.net/pictures/cnbctitansjobs+–+6.png,
-        "profiles": [
-          1ere_annee,
-          2eme_annee,
-          3eme_annee,
-          4eme_annee,
-          5eme_annee,
-          1ere_annee_toeic,
-          2eme_annee_toeic,
-          3eme_annee_toeic,
-          4eme_annee_toeic,
-          5eme_annee_toeic,
-            "demandeur_emploi",
-            "actif_voyage",
-            "actif_demenagement",
-            "actif_professionnel",
-          1ere_annee_finance,
-          2eme_annee_finance,
-          3eme_annee_finance,
-          4eme_annee_finance,
-          5eme_annee_finance,
-          1ere_annee_digital,
-          2eme_annee_digital,
-          3eme_annee_digital,
-          4eme_annee_digital,
-          5eme_annee_digital,
-          1ere_annee_business,
-          2eme_annee_business,
-          3eme_annee_business,
-          4eme_annee_business,
-          5eme_annee_business,
-          1ere_annee_production,
-          2eme_annee_production,
-          3eme_annee_production,
-          4eme_annee_production,
-          5eme_annee_production,
-          1ere_annee_luxe,
-          2eme_annee_luxe,
-          3eme_annee_luxe,
-          4eme_annee_luxe,
-          5eme_annee_luxe,
-          1ere_annee_luxe_business,
-          2eme_annee_luxe_business,
-          3eme_annee_luxe_business,
-          4eme_annee_luxe_business,
-          5eme_annee_luxe_business,
-          1ere_annee_management,
-          2eme_annee_management,
-          3eme_annee_management,
-          4eme_annee_management,
-          5eme_annee_management,
-          1ere_annee_finance_toeic,
-          2eme_annee_finance_toeic,
-          3eme_annee_finance_toeic,
-          4eme_annee_finance_toeic,
-          5eme_annee_finance_toeic,
-          1ere_annee_digital_toeic,
-          2eme_annee_digital_toeic,
-          3eme_annee_digital_toeic,
-          4eme_annee_digital_toeic,
-          5eme_annee_digital_toeic,
-          1ere_annee_business_toeic,
-          2eme_annee_business_toeic,
-          3eme_annee_business_toeic,
-          4eme_annee_business_toeic,
-          5eme_annee_business_toeic,
-          1ere_annee_production_toeic,
-          2eme_annee_production_toeic,
-          3eme_annee_production_toeic,
-          4eme_annee_production_toeic,
-          5eme_annee_production_toeic,
-          1ere_annee_luxe_toeic,
-          2eme_annee_luxe_toeic,
-          3eme_annee_luxe_toeic,
-          4eme_annee_luxe_toeic,
-          5eme_annee_luxe_toeic,
-          1ere_annee_luxe_business_toeic,
-          2eme_annee_luxe_business_toeic,
-          3eme_annee_luxe_business_toeic,
-          4eme_annee_luxe_business_toeic,
-          5eme_annee_luxe_business_toeic,
-          1ere_annee_management_toeic,
-          2eme_annee_management_toeic,
-          3eme_annee_management_toeic,
-          4eme_annee_management_toeic,
-          5eme_annee_management_toeic
-        ],
-        "tags": [
-            "action",
-            "drama"
-        ],
-        "updatedAt": "2024-03-06T10": "59": 45.511Z
-    },
-    {
-        "_id": 650f56df4622968d666d2e86,
-        "reference":a47332_e2_ws_xx_xx,
-        "Subject": 63f0ba743c2816767892cf1e,
-        "createdAt": "2023-09-23T21": "21": 35.265Z,
-        "description": "Three groups of people intertwine and are left stranded in the streets on Purge Night",
-        "trying to survive the chaos and violence that occurs.",
-        "duration": 6180,
-        "enabled": true,
-        "label": "The Purge": "Anarchy",
-        "m3u8_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/19523434/A47332_E2_WS_XX_XX.m3u8,
-        "mpd_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/19523434/A47332_E2_WS_XX_XX.mpd,
-        "picture": "https": //d2cj5ez5n4d4vx.cloudfront.net/pictures/howimademymillions+–+16.png,
-        "profiles": [
-          1ere_annee,
-          2eme_annee,
-          3eme_annee,
-          4eme_annee,
-          5eme_annee,
-          1ere_annee_toeic,
-          2eme_annee_toeic,
-          3eme_annee_toeic,
-          4eme_annee_toeic,
-          5eme_annee_toeic,
-            "demandeur_emploi",
-            "actif_voyage",
-            "actif_demenagement",
-            "actif_professionnel",
-          1ere_annee_finance,
-          2eme_annee_finance,
-          3eme_annee_finance,
-          4eme_annee_finance,
-          5eme_annee_finance,
-          1ere_annee_digital,
-          2eme_annee_digital,
-          3eme_annee_digital,
-          4eme_annee_digital,
-          5eme_annee_digital,
-          1ere_annee_business,
-          2eme_annee_business,
-          3eme_annee_business,
-          4eme_annee_business,
-          5eme_annee_business,
-          1ere_annee_production,
-          2eme_annee_production,
-          3eme_annee_production,
-          4eme_annee_production,
-          5eme_annee_production,
-          1ere_annee_luxe,
-          2eme_annee_luxe,
-          3eme_annee_luxe,
-          4eme_annee_luxe,
-          5eme_annee_luxe,
-          1ere_annee_luxe_business,
-          2eme_annee_luxe_business,
-          3eme_annee_luxe_business,
-          4eme_annee_luxe_business,
-          5eme_annee_luxe_business,
-          1ere_annee_management,
-          2eme_annee_management,
-          3eme_annee_management,
-          4eme_annee_management,
-          5eme_annee_management,
-          1ere_annee_finance_toeic,
-          2eme_annee_finance_toeic,
-          3eme_annee_finance_toeic,
-          4eme_annee_finance_toeic,
-          5eme_annee_finance_toeic,
-          1ere_annee_digital_toeic,
-          2eme_annee_digital_toeic,
-          3eme_annee_digital_toeic,
-          4eme_annee_digital_toeic,
-          5eme_annee_digital_toeic,
-          1ere_annee_business_toeic,
-          2eme_annee_business_toeic,
-          3eme_annee_business_toeic,
-          4eme_annee_business_toeic,
-          5eme_annee_business_toeic,
-          1ere_annee_production_toeic,
-          2eme_annee_production_toeic,
-          3eme_annee_production_toeic,
-          4eme_annee_production_toeic,
-          5eme_annee_production_toeic,
-          1ere_annee_luxe_toeic,
-          2eme_annee_luxe_toeic,
-          3eme_annee_luxe_toeic,
-          4eme_annee_luxe_toeic,
-          5eme_annee_luxe_toeic,
-          1ere_annee_luxe_business_toeic,
-          2eme_annee_luxe_business_toeic,
-          3eme_annee_luxe_business_toeic,
-          4eme_annee_luxe_business_toeic,
-          5eme_annee_luxe_business_toeic,
-          1ere_annee_management_toeic,
-          2eme_annee_management_toeic,
-          3eme_annee_management_toeic,
-          4eme_annee_management_toeic,
-          5eme_annee_management_toeic
-        ],
-        "tags": [
-            "action",
-            "horror"
-        ],
-        "updatedAt": "2024-03-06T10": "59": 45.511Z
-    },
-    {
-        "_id": 650f56df4622968d666d2e88,
-        "reference":a55332_e2_ws_xx_xx,
-        "Subject": 63f0ba743c2816767892cf1e,
-        "createdAt": "2023-09-23T21": "21": 35.265Z,
-        "description": "Former Police Sergeant Barnes becomes head of security for Senator Charlie Roan",
-        "a Presidential candidate targeted for death on Purge night due to her vow to eliminate the Purge.",
-        "duration": 6480,
-        "enabled": true,
-        "label": "The Purge": "Election Year",
-        "m3u8_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/8714751/A55332_E2_WS_XX_XX.m3u8,
-        "mpd_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/8714751/A55332_E2_WS_XX_XX.mpd,
-        "picture": "https": //d2cj5ez5n4d4vx.cloudfront.net/pictures/thefacebookobssession+–+10.png,
-        "profiles": [
-          1ere_annee,
-          2eme_annee,
-          3eme_annee,
-          4eme_annee,
-          5eme_annee,
-          1ere_annee_toeic,
-          2eme_annee_toeic,
-          3eme_annee_toeic,
-          4eme_annee_toeic,
-          5eme_annee_toeic,
-            "demandeur_emploi",
-            "actif_voyage",
-            "actif_demenagement",
-            "actif_professionnel",
-          1ere_annee_finance,
-          2eme_annee_finance,
-          3eme_annee_finance,
-          4eme_annee_finance,
-          5eme_annee_finance,
-          1ere_annee_digital,
-          2eme_annee_digital,
-          3eme_annee_digital,
-          4eme_annee_digital,
-          5eme_annee_digital,
-          1ere_annee_business,
-          2eme_annee_business,
-          3eme_annee_business,
-          4eme_annee_business,
-          5eme_annee_business,
-          1ere_annee_production,
-          2eme_annee_production,
-          3eme_annee_production,
-          4eme_annee_production,
-          5eme_annee_production,
-          1ere_annee_luxe,
-          2eme_annee_luxe,
-          3eme_annee_luxe,
-          4eme_annee_luxe,
-          5eme_annee_luxe,
-          1ere_annee_luxe_business,
-          2eme_annee_luxe_business,
-          3eme_annee_luxe_business,
-          4eme_annee_luxe_business,
-          5eme_annee_luxe_business,
-          1ere_annee_management,
-          2eme_annee_management,
-          3eme_annee_management,
-          4eme_annee_management,
-          5eme_annee_management,
-          1ere_annee_finance_toeic,
-          2eme_annee_finance_toeic,
-          3eme_annee_finance_toeic,
-          4eme_annee_finance_toeic,
-          5eme_annee_finance_toeic,
-          1ere_annee_digital_toeic,
-          2eme_annee_digital_toeic,
-          3eme_annee_digital_toeic,
-          4eme_annee_digital_toeic,
-          5eme_annee_digital_toeic,
-          1ere_annee_business_toeic,
-          2eme_annee_business_toeic,
-          3eme_annee_business_toeic,
-          4eme_annee_business_toeic,
-          5eme_annee_business_toeic,
-          1ere_annee_production_toeic,
-          2eme_annee_production_toeic,
-          3eme_annee_production_toeic,
-          4eme_annee_production_toeic,
-          5eme_annee_production_toeic,
-          1ere_annee_luxe_toeic,
-          2eme_annee_luxe_toeic,
-          3eme_annee_luxe_toeic,
-          4eme_annee_luxe_toeic,
-          5eme_annee_luxe_toeic,
-          1ere_annee_luxe_business_toeic,
-          2eme_annee_luxe_business_toeic,
-          3eme_annee_luxe_business_toeic,
-          4eme_annee_luxe_business_toeic,
-          5eme_annee_luxe_business_toeic,
-          1ere_annee_management_toeic,
-          2eme_annee_management_toeic,
-          3eme_annee_management_toeic,
-          4eme_annee_management_toeic,
-          5eme_annee_management_toeic
-        ],
-        "tags": [
-            "action",
-            "horror"
-        ],
-        "updatedAt": "2024-03-06T10": "59": 45.511Z
-    },
-    {
-        "_id": 650f56df4622968d666d2e89,
-        "reference":a56539_e2_ws_xx_xx,
-        "Subject": 63f0ba743c2816767892cf1e,
-        "createdAt": "2023-09-23T21": "21": 35.265Z,
-        "description": "Jack Reacher must uncover the truth behind a major government conspiracy in order to clear his name. On the run as a fugitive from the law",
-        "Reacher uncovers a potential secret from his past that could change his life forever.",
-        "duration": 7080,
-        "enabled": true,
-        "label": "Jack Reacher": "Never Go Back",
-        "m3u8_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/79366900/A56539_E2_WS_XX_XX.m3u8,
-        "mpd_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/79366900/A56539_E2_WS_XX_XX.mpd,
-        "picture": "https": //d2cj5ez5n4d4vx.cloudfront.net/pictures/a56539_e2_ws_xx_xx.png,
-        "profiles": [
-          1ere_annee,
-          2eme_annee,
-          3eme_annee,
-          4eme_annee,
-          5eme_annee,
-          1ere_annee_toeic,
-          2eme_annee_toeic,
-          3eme_annee_toeic,
-          4eme_annee_toeic,
-          5eme_annee_toeic,
-            "demandeur_emploi",
-            "actif_voyage",
-            "actif_demenagement",
-            "actif_professionnel",
-          1ere_annee_finance,
-          2eme_annee_finance,
-          3eme_annee_finance,
-          4eme_annee_finance,
-          5eme_annee_finance,
-          1ere_annee_digital,
-          2eme_annee_digital,
-          3eme_annee_digital,
-          4eme_annee_digital,
-          5eme_annee_digital,
-          1ere_annee_business,
-          2eme_annee_business,
-          3eme_annee_business,
-          4eme_annee_business,
-          5eme_annee_business,
-          1ere_annee_production,
-          2eme_annee_production,
-          3eme_annee_production,
-          4eme_annee_production,
-          5eme_annee_production,
-          1ere_annee_luxe,
-          2eme_annee_luxe,
-          3eme_annee_luxe,
-          4eme_annee_luxe,
-          5eme_annee_luxe,
-          1ere_annee_luxe_business,
-          2eme_annee_luxe_business,
-          3eme_annee_luxe_business,
-          4eme_annee_luxe_business,
-          5eme_annee_luxe_business,
-          1ere_annee_management,
-          2eme_annee_management,
-          3eme_annee_management,
-          4eme_annee_management,
-          5eme_annee_management,
-          1ere_annee_finance_toeic,
-          2eme_annee_finance_toeic,
-          3eme_annee_finance_toeic,
-          4eme_annee_finance_toeic,
-          5eme_annee_finance_toeic,
-          1ere_annee_digital_toeic,
-          2eme_annee_digital_toeic,
-          3eme_annee_digital_toeic,
-          4eme_annee_digital_toeic,
-          5eme_annee_digital_toeic,
-          1ere_annee_business_toeic,
-          2eme_annee_business_toeic,
-          3eme_annee_business_toeic,
-          4eme_annee_business_toeic,
-          5eme_annee_business_toeic,
-          1ere_annee_production_toeic,
-          2eme_annee_production_toeic,
-          3eme_annee_production_toeic,
-          4eme_annee_production_toeic,
-          5eme_annee_production_toeic,
-          1ere_annee_luxe_toeic,
-          2eme_annee_luxe_toeic,
-          3eme_annee_luxe_toeic,
-          4eme_annee_luxe_toeic,
-          5eme_annee_luxe_toeic,
-          1ere_annee_luxe_business_toeic,
-          2eme_annee_luxe_business_toeic,
-          3eme_annee_luxe_business_toeic,
-          4eme_annee_luxe_business_toeic,
-          5eme_annee_luxe_business_toeic,
-          1ere_annee_management_toeic,
-          2eme_annee_management_toeic,
-          3eme_annee_management_toeic,
-          4eme_annee_management_toeic,
-          5eme_annee_management_toeic
-        ],
-        "tags": [
-            "action",
-            "drama"
-        ],
-        "updatedAt": "2024-03-06T10": "59": 45.511Z
-    },
-    {
-        "_id": 650f56df4622968d666d2e8a,
-        "reference":a56573_e2_ws_xx_xx,
-        "Subject": 63f0ba743c2816767892cf1e,
-        "createdAt": "2023-09-23T21": "21": 35.265Z,
-        "description":In 1942,
-        "a Canadian intelligence officer in North Africa encounters a female French Resistance fighter on a deadly mission behind enemy lines. When they reunite in London",
-        "their relationship is tested by the pressures of war.",
-        "duration": 7440,
-        "enabled": true,
-        "label": "Allied",
-        "m3u8_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/79148547/A56573_E2_WS_XX_XX.m3u8,
-        "mpd_link": "https": //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/79148547/A56573_E2_WS_XX_XX.mpd,
-        "picture": "https": //d2cj5ez5n4d4vx.cloudfront.net/pictures/googletrouble+–+7.png,
-        "profiles": [
-          1ere_annee,
-          2eme_annee,
-          3eme_annee,
-          4eme_annee,
-          5eme_annee,
-          1ere_annee_toeic,
-          2eme_annee_toeic,
-          3eme_annee_toeic,
-          4eme_annee_toeic,
-          5eme_annee_toeic,
-            "demandeur_emploi",
-            "actif_voyage",
-            "actif_demenagement",
-            "actif_professionnel",
-          1ere_annee_finance,
-          2eme_annee_finance,
-          3eme_annee_finance,
-          4eme_annee_finance,
-          5eme_annee_finance,
-          1ere_annee_digital,
-          2eme_annee_digital,
-          3eme_annee_digital,
-          4eme_annee_digital,
-          5eme_annee_digital,
-          1ere_annee_business,
-          2eme_annee_business,
-          3eme_annee_business,
-          4eme_annee_business,
-          5eme_annee_business,
-          1ere_annee_production,
-          2eme_annee_production,
-          3eme_annee_production,
-          4eme_annee_production,
-          5eme_annee_production,
-          1ere_annee_luxe,
-          2eme_annee_luxe,
-          3eme_annee_luxe,
-          4eme_annee_luxe,
-          5eme_annee_luxe,
-          1ere_annee_luxe_business,
-          2eme_annee_luxe_business,
-          3eme_annee_luxe_business,
-          4eme_annee_luxe_business,
-          5eme_annee_luxe_business,
-          1ere_annee_management,
-          2eme_annee_management,
-          3eme_annee_management,
-          4eme_annee_management,
-          5eme_annee_management,
-          1ere_annee_finance_toeic,
-          2eme_annee_finance_toeic,
-          3eme_annee_finance_toeic,
-          4eme_annee_finance_toeic,
-          5eme_annee_finance_toeic,
-          1ere_annee_digital_toeic,
-          2eme_annee_digital_toeic,
-          3eme_annee_digital_toeic,
-          4eme_annee_digital_toeic,
-          5eme_annee_digital_toeic,
-          1ere_annee_business_toeic,
-          2eme_annee_business_toeic,
-          3eme_annee_business_toeic,
-          4eme_annee_business_toeic,
-          5eme_annee_business_toeic,
-          1ere_annee_production_toeic,
-          2eme_annee_production_toeic,
-          3eme_annee_production_toeic,
-          4eme_annee_production_toeic,
-          5eme_annee_production_toeic,
-          1ere_annee_luxe_toeic,
-          2eme_annee_luxe_toeic,
-          3eme_annee_luxe_toeic,
-          4eme_annee_luxe_toeic,
-          5eme_annee_luxe_toeic,
-          1ere_annee_luxe_business_toeic,
-          2eme_annee_luxe_business_toeic,
-          3eme_annee_luxe_business_toeic,
-          4eme_annee_luxe_business_toeic,
-          5eme_annee_luxe_business_toeic,
-          1ere_annee_management_toeic,
-          2eme_annee_management_toeic,
-          3eme_annee_management_toeic,
-          4eme_annee_management_toeic,
-          5eme_annee_management_toeic
-        ],
-        "tags": [
-            "action",
-            "drama",
-            "war"
-        ],
-        "updatedAt": "2024-03-06T10": "59": 45.511Z
-    },
-    {
-        "_id": 650f56df4622968d666d2e8c,
-        "reference":a58214_e2_ws_xx_xx,
-        "Subject": 63f0ba743c2816767892cf1e,
-        "createdAt": "2023-09-23T21": "21": "35.265Z",
-        "description": "America's third political party, the New Founding Fathers of America, comes to power and conducts an experiment: no laws for 12 hours on Staten Island. No one has to stay on the island, but $5,000 is given to anyone who does.",
-        "duration": 5880,
-        "enabled": true,
-        "label": The First Purge,
-        "m3u8_link": "https: //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/45147938/A58214_E2_WS_XX_XX.m3u8",
-        "mpd_link": "https: //e-dutainment.s3.eu-west-1.amazonaws.com/films+convertis+/CMAF2/45147938/A58214_E2_WS_XX_XX.mpd",
-        "picture": "https://d2cj5ez5n4d4vx.cloudfront.net/pictures/firstpurge.png",
-        "profiles": [1ere_annee, 2eme_annee, 3eme_annee, 4eme_annee, 5eme_annee, 1ere_annee_toeic, 2eme_annee_toeic, 3eme_annee_toeic, 4eme_annee_toeic, 5eme_annee_toeic, demandeur_emploi, actif_voyage, actif_demenagement, actif_professionnel, 1ere_annee_finance, 2eme_annee_finance, 3eme_annee_finance, 4eme_annee_finance, 5eme_annee_finance, 1ere_annee_digital, 2eme_annee_digital, 3eme_annee_digital, 4eme_annee_digital, 5eme_annee_digital, 1ere_annee_business, 2eme_annee_business, 3eme_annee_business, 4eme_annee_business, 5eme_annee_business, 1ere_annee_production, 2eme_annee_production, 3eme_annee_production, 4eme_annee_production, 5eme_annee_production, 1ere_annee_luxe, 2eme_annee_luxe, 3eme_annee_luxe, 4eme_annee_luxe, 5eme_annee_luxe, 1ere_annee_luxe_business, 2eme_annee_luxe_business, 3eme_annee_luxe_business, 4eme_annee_luxe_business, 5eme_annee_luxe_business, 1ere_annee_management, 2eme_annee_management, 3eme_annee_management, 4eme_annee_management, 5eme_annee_management, 1ere_annee_finance_toeic, 2eme_annee_finance_toeic, 3eme_annee_finance_toeic, 4eme_annee_finance_toeic, 5eme_annee_finance_toeic, 1ere_annee_digital_toeic, 2eme_annee_digital_toeic, 3eme_annee_digital_toeic, 4eme_annee_digital_toeic, 5eme_annee_digital_toeic, 1ere_annee_business_toeic, 2eme_annee_business_toeic, 3eme_annee_business_toeic, 4eme_annee_business_toeic, 5eme_annee_business_toeic, 1ere_annee_production_toeic, 2eme_annee_production_toeic, 3eme_annee_production_toeic, 4eme_annee_production_toeic, 5eme_annee_production_toeic, 1ere_annee_luxe_toeic, 2eme_annee_luxe_toeic, 3eme_annee_luxe_toeic, 4eme_annee_luxe_toeic, 5eme_annee_luxe_toeic, 1ere_annee_luxe_business_toeic, 2eme_annee_luxe_business_toeic, 3eme_annee_luxe_business_toeic, 4eme_annee_luxe_business_toeic, 5eme_annee_luxe_business_toeic, 1ere_annee_management_toeic, 2eme_annee_management_toeic, 3eme_annee_management_toeic, 4eme_annee_management_toeic, 5eme_annee_management_toeic
-        ],
-        "tags": [
-            "action",
-            "horror"
-        ],
-        "updatedAt": "2024-03-06T10: 59: 45.511Z"
-    }
-]
+    "allowedLessonCategory": [
+      {
+        "_id":63ee6f976f7067cc89e900d0,
+        "reference":a1,
+        "label":a1,
+        "level": "a_wannabe_lion"
+      },
+      {
+        "_id":63ee6f976f7067cc89e900d1,
+        "reference":a2,
+        "label":a2
+      },
+      {
+        "_id":63ee6f976f7067cc89e900d2,
+        "reference":b1,
+        "label":b1
+      },
+      {
+        "_id":63ee6f976f7067cc89e900d6,
+        "reference":b2,
+        "label":b2
+      },
+      {
+        "_id":63ee6f976f7067cc89e900d7,
+        "reference":c1,
+        "label":c1
+      },
+      {
+        "_id":63ee6f976f7067cc89e900d8,
+        "reference":c2,
+        "label":c2
+      }
+    ],
+    "tags": [
+      {
+        "_id": 68cad0a6712218729fc02c6e,
+        "reference": "agreement-and-consistency",
+        "label": "Agreement and consistency"
+      },
+      {
+        "_id": 68cad0a6712218729fc02c70,
+        "reference": "clauses-and-phrases",
+        "label": "Clauses and phrases"
+      },
+      {
+        "_id": 68cad0a6712218729fc02c6f,
+        "reference": "modifiers",
+        "label": "modifiers"
+      },
+      {
+        "_id": 6891cb598ce9d1af5bd70c52,
+        "reference": "parts-of-speech",
+        "label": "Parts of speech"
+      },
+      {
+        "_id": 68cad0a6712218729fc02c72,
+        "reference": "punctuation",
+        "label": "punctuation"
+      },
+      {
+        "_id": 68cad0a6712218729fc02c6c,
+        "reference": "sentence-structure",
+        "label": "Sentence structure"
+      },
+      {
+        "_id": 68cad0a6712218729fc02c71,
+        "reference": "special-topics",
+        "label": "Special topics"
+      },
+      {
+        "_id": 68cad0a6712218729fc02c6b,
+        "reference": "tenses",
+        "label": "tenses"
+      },
+      {
+        "_id": 68cad0a6712218729fc02c6d,
+        "reference": "verb-forms",
+        "label": "Verb forms"
+      }
+    ]
+  }
+}

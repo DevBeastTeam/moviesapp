@@ -34,10 +34,16 @@ class GrammerData extends ChangeNotifier {
     notifyListeners();
   }
 
+  String selctedLableChIs = "a1";
+  setSelectedLabelCH(v) {
+    selctedLableChIs = v;
+    notifyListeners();
+  }
+
   ////////
   void getGrammersF(context, {String loadingFor = ''}) async {
     try {
-      // if (grammersList.isNotEmpty) return;
+      if (grammersList.isNotEmpty) return;
       setLoadingF(loadingFor);
 
       var data = await baseApi.get('/lessons/grammar', context);
@@ -151,6 +157,7 @@ class GrammerData extends ChangeNotifier {
   int remainingSeconds = 10;
   bool isTimerStart = false;
   bool _disposed = false;
+  String lessonReadedId = "";
 
   void stopTimer() {
     _timer?.cancel();
@@ -159,7 +166,11 @@ class GrammerData extends ChangeNotifier {
     _safeNotify();
   }
 
-  void playTimer(BuildContext context, {List labelsLessons = const []}) {
+  void playTimer(
+    BuildContext context, {
+    String lessonReadingId = "",
+    List lessonsForLoop = const [],
+  }) {
     if (isTimerStart || _disposed) return;
 
     isTimerStart = true;
@@ -174,17 +185,22 @@ class GrammerData extends ChangeNotifier {
       if (remainingSeconds <= 1) {
         remainingSeconds = 10;
 
-        if (sletedLableIndexIs < labelsLessons.length - 1) {
-          setSelctedLableIndexIs = sletedLableIndexIs + 1;
-          getGrammerSingleByIdF(
-            context,
-            loadingFor: 'next',
-            id: labelsLessons[sletedLableIndexIs + 1].id,
-          );
-        } else {
-          toast(context, msg: "Maximum Reached");
-          stopTimer();
-        }
+        // if (sletedLableIndexIs < lessonsForLoop.length - 1) {
+        //   setSelctedLableIndexIs = sletedLableIndexIs + 1;
+        //   getGrammerSingleByIdF(
+        //     context,
+        //     loadingFor: 'next',
+        //     id: lessonsForLoop[sletedLableIndexIs + 1].id,
+        //   );
+        // } else {
+        //   toast(context, msg: "Maximum Reached");
+        //   stopTimer();
+        // }
+
+        // debugPrint(" 👉🏻 lessonReadingId $lessonReadingId");
+
+        lessonReadedId = lessonReadingId;
+        stopTimer();
       } else {
         remainingSeconds--;
       }

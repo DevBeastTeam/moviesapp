@@ -5,8 +5,6 @@ import 'package:humanize_duration/humanize_duration.dart';
 
 import '../../../theme/colors.dart';
 import '../../../utils/screen_utils.dart';
-import '../../../utils/assets/assets_icons.dart';
-import '../../../widgets/icon/gradient_icon.dart';
 
 class ProfileStatistics extends StatelessWidget {
   const ProfileStatistics({
