@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:edutainment/models/pLevelCatgModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:edutainment/models/excLessonsStepsModel.dart';
 
 import '../core/api_helper.dart';
 import '../models/grammerDetailModel.dart';
@@ -31,7 +32,7 @@ class PronunciationController extends GetxController {
   List<String> allLevels = [];
   List<Category> categories = [];
   Category? selectedCategory;
-  Map<String, dynamic> selectedLesson = {};
+Lesson? selectedLesson;
   String selectedLessonId = '';
   int selectedLessonIndex = 0;
 
@@ -91,8 +92,8 @@ class PronunciationController extends GetxController {
     try {
       called = true;
       setLoadingFor(loadingFor);
-      // debugPrint('👉 getPronBySelectedCatgOptionsById id: $id');
-      var data = await baseApi.get('/lessons/pronunciation/', context);
+      debugPrint('👉 getPronBySelectedCatgOptionsById selectedLessonId id: $selectedLessonId');
+      var data = await baseApi.get('/pronunciation/${selectedLesson!.id}', context);
       log('👉 getPronBySelectedCatgOptionsById: $data');
       if (data['success'].toString() == 'true') {
         // pronSelectedCatgOptions handling here
@@ -125,7 +126,7 @@ class PronunciationController extends GetxController {
   }
 
   void setSelectedLesson({
-    required Map<String, dynamic> lesson,
+    required Lesson lesson,
     required String lessonId,
     required int lessonIndex,
   }) {
@@ -140,7 +141,7 @@ class PronunciationController extends GetxController {
     allLevels = [];
     categories = [];
     selectedCategory = null;
-    selectedLesson = {};
+    selectedLesson = null;
     selectedLessonId = '';
     selectedLessonIndex = 0;
     update();

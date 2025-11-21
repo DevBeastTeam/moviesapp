@@ -20,28 +20,19 @@ class PronCatgLessonsPage3 extends StatefulWidget {
 }
 
 class _PronCatgLessonsPage3State extends State<PronCatgLessonsPage3> {
-  List catgList = [
-    {'icon': AppImages.check, 'title': 'DAILY'},
-    {'icon': AppImages.check, 'title': 'HISTORY'},
-    {'icon': AppImages.uncheck, 'title': 'PRONOUNCE'},
-    {'icon': AppImages.uncheck, 'title': 'BODY'},
-    {'icon': AppImages.uncheck, 'title': 'NUMBERS'},
-    {'icon': AppImages.uncheck, 'title': 'TIME'},
-    {'icon': AppImages.uncheck, 'title': 'COLORS'},
-    {'icon': AppImages.uncheck, 'title': 'BLABLA'},
-  ];
+  // List catgList = [
+  //   {'icon': AppImages.check, 'title': 'DAILY'},
+  //   {'icon': AppImages.check, 'title': 'HISTORY'},
+  //   {'icon': AppImages.uncheck, 'title': 'PRONOUNCE'},
+  //   {'icon': AppImages.uncheck, 'title': 'BODY'},
+  //   {'icon': AppImages.uncheck, 'title': 'NUMBERS'},
+  //   {'icon': AppImages.uncheck, 'title': 'TIME'},
+  //   {'icon': AppImages.uncheck, 'title': 'COLORS'},
+  //   {'icon': AppImages.uncheck, 'title': 'BLABLA'},
+  // ];
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
-
-    // // get data
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Get.find<PronunciationController>()
-          .getPronBySelectedCatgOptionsById(
-            context,
-            loadingFor: "getPronBySelectedCatgOptionsByIdF",
-          );
-    });
 
     return DefaultScaffold(
       currentPage: '/home/PronlevelsPage1/2/3',
@@ -176,12 +167,13 @@ class _PronCatgLessonsPage3State extends State<PronCatgLessonsPage3> {
               child: SizedBox(
                 // height: MediaQuery.of(context).size.height * 0.65,
                 child: ListView.builder(
-                  itemCount: catgList.length,
+                  itemCount:                 controller.pLevelCatgModelData!.data.lessons.length,
                   shrinkWrap: true,
                   controller: ScrollController(),
                   physics: const ScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
-                    var data = catgList[index];
+                    // var data = catgList[index];
+                    var data = controller.pLevelCatgModelData!.data.lessons[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
@@ -192,7 +184,7 @@ class _PronCatgLessonsPage3State extends State<PronCatgLessonsPage3> {
                           // Store lesson data in controller
                           controller.setSelectedLesson(
                             lesson: data,
-                            lessonId: "id",
+                            lessonId: data.id,
                             lessonIndex: index,
                           );
                           // Navigate without extra
@@ -206,12 +198,12 @@ class _PronCatgLessonsPage3State extends State<PronCatgLessonsPage3> {
                           ),
                           child: CupertinoListTile(
                             title: Text(
-                              data['title'],
+                              data.label,
                               style: const TextStyle(color: Colors.blue),
                             ),
                             leading: SizedBox(
                               width: 25,
-                              child: Image.asset(data['icon'], width: 25),
+                              child: data.completed ? Image.asset(AppImages.check, width: 25) : Image.asset(AppImages.uncheck, width: 25),
                             ),
                             // trailing: SizedBox(
                             //   width: 25,

@@ -49,17 +49,16 @@ https://dev.play.e-dutainment.com/api/1.0/lessons/exercises/category/c2 --> a1,a
 
 - `POST /lessons/exercises/{answerId}` - Submit exercise answer ✅
 ## pronunciation
-// old
-- `GET /lessons/pronunciation` - List pronunciation 
-- `GET /lessons/pronunciation/{id}` - Get pronunciation details
-
 // new
 - `GET /pronunciation` - List pronunciation ✅
-- `GET /pronunciation/{id}` - Get pronunciation details
+- `GET /pronunciation/{id}` - Get pronunciation details ❌
+
+ https://dev.play.e-dutainment.com/api/1.0/pronunciation/690dc1d36c45eb2eaa58ecbc
+
 
 ## Flashcards
-- `GET /flashcard/` - List flashcards
-- `GET /flashcard/{subjectId}` - Get flashcards by subject
+- `GET /flashcard/` - List flashcards 🗑️ -> was empty add some movies data
+- `GET /flashcard/{subjectId}` - Get flashcards by subject 🗑️ -> was empty add some movies data
 - `GET /flashcard/view/{movieId}/{levelId}` - View flashcards for movie and level
 
 ## AI Chat

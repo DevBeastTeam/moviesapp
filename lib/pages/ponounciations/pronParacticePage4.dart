@@ -18,6 +18,21 @@ class PronParacticePage4 extends StatefulWidget {
 
 class _PronParacticePage4State extends State<PronParacticePage4> {
   @override
+  void initState() {
+    super.initState();
+    // Initialize GetX controller
+    // Get.put(PronunciationController());
+
+    // get data
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<PronunciationController>().getPronBySelectedCatgOptionsById(
+        context,
+        loadingFor: "getPronBySelectedCatgOptionsByIdF",
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultScaffold(
       currentPage: '/home/PronlevelsPage1/2/3/4',
@@ -26,134 +41,144 @@ class _PronParacticePage4State extends State<PronParacticePage4> {
           // Get data from GetX controller inside the builder for reactive updates
           final selectedCatg = controller.selectedCategory;
           final selectedLesson = controller.selectedLesson;
-          
+
           return SingleChildScrollView(
             child: Column(
-          children: [
-            SizedBox(
-              // height: MediaQuery.of(context).size.height * 0.18,
-              child: Column(
-                children: [
-                  CustomHeaderBar(
-                    onBack: () async {
-                      Navigator.pop(context);
-                    },
-                    centerTitle: false,
-                    title: 'Pronounciations'.toUpperCase(),
+              children: [
+                SizedBox(
+                  // height: MediaQuery.of(context).size.height * 0.18,
+                  child: Column(
+                    children: [
+                      CustomHeaderBar(
+                        onBack: () async {
+                          Navigator.pop(context);
+                        },
+                        centerTitle: false,
+                        title: 'Pronounciations'.toUpperCase(),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                ],
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: SingleChildScrollView(
-                controller: ScrollController(),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.blue, width: 1),
-                        ),
-                        child: CupertinoListTile(
-                          title: Text(
-                            selectedCatg?.label ?? '',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          trailing: SizedBox(
-                            width: 35,
-                            child: Image.asset(
-                              AppImages.playerlight,
-                              width: 35,
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: SingleChildScrollView(
+                    controller: ScrollController(),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.blue, width: 1),
+                            ),
+                            child: CupertinoListTile(
+                              title: Text(
+                                selectedCatg?.label ?? '',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              trailing: SizedBox(
+                                width: 35,
+                                child: Image.asset(
+                                  AppImages.playerlight,
+                                  width: 35,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 3,
-                          ),
-                          child: InkWell(
-                            onTap: () {},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 3,
                               ),
-                              child: CupertinoListTile(
-                                title: Text(
-                                  '${selectedLesson['title'] ?? ''}',
-                                  style: TextStyle(color: Colors.blue),
-                                ),
-                                trailing: SizedBox(
-                                  width: 25,
-                                  child: Image.asset(
-                                    AppImages.check,
-                                    width: 25,
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: CupertinoListTile(
+                                    title: Text(
+                                      selectedLesson!.label ?? '',
+                                      style: TextStyle(color: Colors.blue),
+                                    ),
+                                    trailing: SizedBox(
+                                      width: 25,
+                                      child: Image.asset(
+                                        AppImages.check,
+                                        width: 25,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
                   ),
-                  const Text('1/8', style: TextStyle(color: Colors.white)),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.white,
+                ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Text('1/8', style: TextStyle(color: Colors.white)),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Image.asset(
+                  AppImages.video2,
+                  width: Screen.width(context) * 0.8,
+                ),
+                SizedBox(height: Screen.height(context) * 0.08),
+                const Text(
+                  'Hello? Can Any One Hear Me ?',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                SizedBox(height: Screen.height(context) * 0.08),
+
+                InkWell(
+                  onTap: () {
+                    Get.to(() => const PronResultsPage5());
+                  },
+                  child: const CircleAvatar(
+                    radius: 35,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.voice_chat,
+                      color: Colors.black,
+                      size: 25,
                     ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 30),
+              ],
             ),
-            const SizedBox(height: 30),
-            Image.asset(AppImages.video2, width: Screen.width(context) * 0.8),
-            SizedBox(height: Screen.height(context) * 0.08),
-            const Text(
-              'Hello? Can Any One Hear Me ?',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            SizedBox(height: Screen.height(context) * 0.08),
-
-            InkWell(
-              onTap: () {
-                Get.to(() => const PronResultsPage5());
-              },
-              child: const CircleAvatar(
-                radius: 35,
-                backgroundColor: Colors.white,
-                child: Icon(Icons.voice_chat, color: Colors.black, size: 25),
-              ),
-            ),
-            const SizedBox(height: 30),
-          ],
-        ),
-      );
+          );
         },
       ),
     );

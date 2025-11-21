@@ -30,25 +30,31 @@ class FlashCardsController extends GetxController {
 
   var flashCardsList = <FlashCardsModel>[].obs;
 
-  void getFlashCards(BuildContext context, {String loadingFor = ''}) async {
+  void getFlashCards(BuildContext context, {String loadingFor = '', bool refresh = false}) async {
     try {
-      if (flashCardsList.isNotEmpty) return;
+      if (refresh == false && flashCardsList.isNotEmpty) return;
       setLoadingF(loadingFor);
 
       var data = await baseApi.get('/flashcard/', context);
       log('👉 flashCardsList: $data');
       if (data['success'].toString() == 'true') {
         flashCardsList.clear();
-        flashCardsList.add(FlashCardsModel.fromJson(data));
+        var model = FlashCardsModel.fromJson(data);
+        flashCardsList.add(model);
+        log('👉🏻 Added flashcards data: ${model.subjects.length} subjects, ${model.movies.length} movies');
 
         if (selectedSubject.isEmpty && flashCardsList[0].subjects.isNotEmpty) {
           setSelectSubject(flashCardsList[0].subjects[0].id);
+          log('👉🏻 Auto-selected first subject: ${flashCardsList[0].subjects[0].id}');
         }
+      } else {
+        log('👉🏻 getFlashCards failed: $data');
       }
     } catch (e, st) {
       log('💥 try catch when: getFlashCardsF Error: $e, st:$st');
     } finally {
       setLoadingF();
+      update();
     }
   }
 
@@ -65,7 +71,11 @@ class FlashCardsController extends GetxController {
 
       if (data['success'].toString() == 'true') {
         flashCardsList.clear();
-        flashCardsList.add(FlashCardsModel.fromJson(data));
+        var model = FlashCardsModel.fromJson(data);
+        flashCardsList.add(model);
+        log('🔥 Updated flashcards for subject $subjectId: ${model.subjects.length} subjects, ${model.movies.length} movies');
+      } else {
+        log('🔥 Movies API call failed: ${data['success']}');
       }
     } catch (e, st) {
       log(
@@ -73,6 +83,7 @@ class FlashCardsController extends GetxController {
       );
     } finally {
       setLoadingF();
+      update();
     }
   }
 
@@ -107,6 +118,7 @@ class FlashCardsController extends GetxController {
       log('💥 try catch when: getFlashCardDetailsByIds Error: $e, st:$st');
     } finally {
       setLoadingF();
+      update();
     }
   }
 

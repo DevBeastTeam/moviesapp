@@ -18,16 +18,16 @@ class PronCatgPage2 extends StatefulWidget {
 }
 
 class _PronCatgPage2State extends State<PronCatgPage2> {
-  List catgList = [
-    {'icon': '📚', 'title': 'Education', " subtitle": "Education"},
-    {'icon': '✈️', 'title': 'Travel', " subtitle": "Education"},
-    {'icon': '💼', 'title': 'Work', " subtitle": "Education"},
-    {'icon': '🎭', 'title': 'Culture & Entetainment', " subtitle": "Education"},
-    {'icon': '⚽', 'title': 'Sports', " subtitle": "Education"},
-    {'icon': '🏠', 'title': 'Daily Life', " subtitle": "Education"},
-    {'icon': '👥', 'title': 'Holidays', " subtitle": "Education"},
-    {'icon': '🏥', 'title': 'Relatioins', " subtitle": "Education"},
-  ];
+  // List catgList = [
+  //   {'icon': '📚', 'title': 'Education', " subtitle": "Education"},
+  //   {'icon': '✈️', 'title': 'Travel', " subtitle": "Education"},
+  //   {'icon': '💼', 'title': 'Work', " subtitle": "Education"},
+  //   {'icon': '🎭', 'title': 'Culture & Entetainment', " subtitle": "Education"},
+  //   {'icon': '⚽', 'title': 'Sports', " subtitle": "Education"},
+  //   {'icon': '🏠', 'title': 'Daily Life', " subtitle": "Education"},
+  //   {'icon': '👥', 'title': 'Holidays', " subtitle": "Education"},
+  //   {'icon': '🏥', 'title': 'Relatioins', " subtitle": "Education"},
+  // ];
   @override
   Widget build(BuildContext context) {
     return DefaultScaffold(
@@ -60,6 +60,7 @@ class _PronCatgPage2State extends State<PronCatgPage2> {
             ),
             GetBuilder<PronunciationController>(
               builder: (controller) {
+
                 List<Category> categories = controller.categories;
                 
                 return categories.isEmpty
