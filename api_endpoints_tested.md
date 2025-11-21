@@ -35,7 +35,7 @@ Base URL: `https://dev.play.e-dutainment.com/api/1.0`
 - `POST /questions/{questionId}/save` - Save question answer
 
 ## Search
-- `GET /search` - Search with query
+- `GET /search` - Search with query ✅
 
 ## Lessons
 - `GET /lessons/grammar` - List grammar lessons ✅
