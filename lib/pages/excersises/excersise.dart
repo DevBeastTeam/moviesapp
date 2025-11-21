@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
+import '../../controllers/navigation_args_controller.dart';
 
 import '../../widgets/emptyWIdget.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
@@ -122,14 +123,12 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
                                           .toString(),
                                       loadingFor: "getExcercisesByCatg",
                                     );
-                                    Get.to(
-                                      () => const ExcerciseCatgPage(),
-                                      arguments: {
-                                        "labelTitle":
-                                            data.label[0].toUpperCase() +
-                                            data.label.substring(1),
-                                      },
-                                    );
+                                    final navCtrl =
+                                        Get.find<NavigationArgsController>();
+                                    navCtrl.exerciseLabelTitle =
+                                        data.label[0].toUpperCase() +
+                                        data.label.substring(1);
+                                    Get.to(() => const ExcerciseCatgPage());
                                   },
                               child: Stack(
                                 children: [

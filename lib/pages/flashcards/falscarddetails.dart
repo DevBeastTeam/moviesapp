@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/constants/toats.dart';
-import 'package:edutainment/models/flashCardsModel.dart';
 import 'package:edutainment/providers/flashCardsVM.dart';
 import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
@@ -9,6 +8,7 @@ import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import '../../controllers/navigation_args_controller.dart';
 import '../../widgets/flashcardslisttile.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
@@ -37,16 +37,15 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
     final isTablet = MediaQuery.of(context).size.shortestSide >= 600;
 
     // Access extra data from GoRouterState
-    final extra = Get.arguments as Map<String, dynamic>?;
+    final navCtrl = Get.find<NavigationArgsController>();
+    final movie = navCtrl.flashCardMovie;
+    final subjectId = navCtrl.flashCardSubjectId;
 
-    if (extra == null) {
+    if (movie == null) {
       return const Scaffold(
         body: Center(child: Text("Should Pass Extra Data")),
       );
     }
-
-    final movie = extra['movie'] as FlashCardsMovie;
-    final subjectId = extra['subjectId'] as String;
 
     List levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 

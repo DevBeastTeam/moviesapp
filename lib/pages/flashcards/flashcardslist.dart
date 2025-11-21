@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
+import '../../controllers/navigation_args_controller.dart';
 
 import '../../utils/toast.dart';
 import '../../widgets/flashcardslisttile.dart';
@@ -256,11 +257,12 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                                 return FlashCardsTileWidget(
                                   item: item,
                                   onTap: () {
-                                    Get.to(() => const FlashCardDetailsPage(), arguments: {
-                                        'movie': item,
-                                        'subjectId': p.selectedSubject,
-                                      },
-                                    );
+                                    final navCtrl =
+                                        Get.find<NavigationArgsController>();
+                                    navCtrl.flashCardMovie = item;
+                                    navCtrl.flashCardSubjectId =
+                                        p.selectedSubject;
+                                    Get.to(() => const FlashCardDetailsPage());
                                   },
                                 );
                               }
@@ -282,11 +284,12 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                                 child: FlashCardsTileWidget(
                                   item: item,
                                   onTap: () {
-                                    Get.to(() => const FlashCardDetailsPage(), arguments: {
-                                        'movie': item,
-                                        'subjectId': p.selectedSubject,
-                                      },
-                                    );
+                                    final navCtrl =
+                                        Get.find<NavigationArgsController>();
+                                    navCtrl.flashCardMovie = item;
+                                    navCtrl.flashCardSubjectId =
+                                        p.selectedSubject;
+                                    Get.to(() => const FlashCardDetailsPage());
                                   },
                                 ),
                               );
@@ -499,11 +502,12 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                               return FlashCardsTileWidget(
                                 item: item,
                                 onTap: () {
-                                  Get.to(() => const FlashCardDetailsPage(), arguments: {
-                                      'movie': item,
-                                      'subjectId': p.selectedSubject,
-                                    },
-                                  );
+                                  final navCtrl =
+                                      Get.find<NavigationArgsController>();
+                                  navCtrl.flashCardMovie = item;
+                                  navCtrl.flashCardSubjectId =
+                                      p.selectedSubject;
+                                  Get.to(() => const FlashCardDetailsPage());
                                 },
                               );
                             }
@@ -525,11 +529,12 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                               child: FlashCardsTileWidget(
                                 item: item,
                                 onTap: () {
-                                  Get.to(() => const FlashCardDetailsPage(), arguments: {
-                                      'movie': item,
-                                      'subjectId': p.selectedSubject,
-                                    },
-                                  );
+                                  final navCtrl =
+                                      Get.find<NavigationArgsController>();
+                                  navCtrl.flashCardMovie = item;
+                                  navCtrl.flashCardSubjectId =
+                                      p.selectedSubject;
+                                  Get.to(() => const FlashCardDetailsPage());
                                 },
                               ),
                             );

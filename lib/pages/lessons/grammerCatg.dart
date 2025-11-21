@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../../constants/screenssize.dart';
+import '../../controllers/navigation_args_controller.dart';
 import '../../providers/grammerVm.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import 'grammerdetail.dart';
@@ -227,6 +228,13 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                                       //   loadingFor: "next",
                                       // );
 
+                                      final navCtrl =
+                                          Get.find<NavigationArgsController>();
+                                      navCtrl.grammerCatgName =
+                                          p.selctedLableChIs;
+                                      navCtrl.grammerSubCatgName = tag.label;
+                                      navCtrl.grammerSubLessons = data;
+                                      navCtrl.grammerSelectedLesson = e;
                                       Get.to(() => const GrammerDetailPage());
                                     },
                                     child: Container(

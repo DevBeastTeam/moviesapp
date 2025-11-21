@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
+import '../../controllers/navigation_args_controller.dart';
 import '../../constants/screenssize.dart';
 import '../../widgets/emptyWIdget.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
@@ -27,8 +28,10 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
     var w = MediaQuery.of(context).size.width;
 
     // Get the extra data passed from GoRouter
-    final extra = Get.arguments as Map<String, dynamic>?;
-    final labelTitleCheck = extra?['labelTitle'] ?? widget.labelTitle;
+    final navCtrl = Get.find<NavigationArgsController>();
+    final labelTitleCheck = navCtrl.exerciseLabelTitle.isNotEmpty
+        ? navCtrl.exerciseLabelTitle
+        : widget.labelTitle;
     String labelTitle = labelTitleCheck.toString().isEmpty
         ? ""
         : labelTitleCheck.toString();

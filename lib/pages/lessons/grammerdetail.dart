@@ -6,9 +6,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:html_to_flutter/html_to_flutter.dart';
+import '../../controllers/navigation_args_controller.dart';
 // import 'package:get/get.dart';
 
-import '../../models/grammerModel.dart';
 import '../../providers/grammerVm.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import '../../widgets/loaders/dotloader.dart';
@@ -89,18 +89,17 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
     //     ? p.grammerSingleData[0]
     //     : GrammerDetailModel();
 
-    final extra = Get.arguments as Map<String, dynamic>?;
+    final navCtrl = Get.find<NavigationArgsController>();
+    final catgName = navCtrl.grammerCatgName;
+    final subCatgName = navCtrl.grammerSubCatgName;
+    final subLessons = navCtrl.grammerSubLessons;
+    final lesson = navCtrl.grammerSelectedLesson;
 
-    if (extra == null) {
+    if (lesson == null) {
       return const Scaffold(
         body: Center(child: Text("Should Pass Extra Data")),
       );
     }
-
-    final catgName = extra['catgName'] as String;
-    final subCatgName = extra['subCatgName'] as String;
-    final subLessons = extra['subLessons'] as List<Lesson>;
-    final lesson = extra['selectedLesson'] as Lesson;
 
     return DefaultScaffold(
       currentPage: '/home/GrammerPage/grammerCatg/grammerDetail',

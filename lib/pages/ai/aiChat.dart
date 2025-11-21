@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
 import 'package:quick_widgets/widgets/tiktok.dart';
+import '../../controllers/navigation_args_controller.dart';
 
 import '../../../widgets/header_bar/custom_header_bar.dart';
 import '../../providers/aichatvm.dart';
@@ -174,10 +175,9 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Get.to(
-                  () => const AllAIChatHistoryPage(),
-                  arguments: {"isPinnedOnly": false},
-                );
+                final navCtrl = Get.find<NavigationArgsController>();
+                navCtrl.aiChatIsPinnedOnly = false;
+                Get.to(() => const AllAIChatHistoryPage());
               },
             ),
             Divider(height: 2, color: Colors.grey.shade700),
@@ -189,10 +189,9 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Get.to(
-                  () => const AllAIChatHistoryPage(),
-                  arguments: {"isPinnedOnly": true},
-                );
+                final navCtrl = Get.find<NavigationArgsController>();
+                navCtrl.aiChatIsPinnedOnly = true;
+                Get.to(() => const AllAIChatHistoryPage());
               },
             ),
             Divider(height: 2, color: Colors.grey.shade700),
