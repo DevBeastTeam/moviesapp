@@ -1,3 +1,5 @@
+import 'package:edutainment/helpers/safe_converters.dart';
+
 class GrammerModel {
   final Map<String, List<Lesson>> groupLessons;
   final List<AllowedCategory> allowedLessonCategory;
@@ -98,10 +100,10 @@ class LessonCategory {
     this.level,
   });
   factory LessonCategory.fromJson(Map<String, dynamic> json) => LessonCategory(
-    id: json['_id'].toSafeString(),
-    reference: json['reference'].toSafeString(),
-    label: json['label'].toSafeString(),
-    level: json['level'].toSafeString(),
+    id: json['_id'].toString().toSafeString(),
+    reference: json['reference'].toString().toSafeString(),
+    label: json['label'].toString().toSafeString(),
+    level: json['level'].toString().toSafeString(),
   );
 }
 
@@ -120,10 +122,10 @@ class AllowedCategory {
 
   factory AllowedCategory.fromJson(Map<String, dynamic> json) =>
       AllowedCategory(
-        id: json['_id'].toSafeString(),
-        reference: json['reference'].toSafeString(),
-        label: json['label'].toSafeString(),
-        level: json['level'].toSafeString(),
+        id: json['_id'].toString().toSafeString(),
+        reference: json['reference'].toString().toSafeString(),
+        label: json['label'].toString().toSafeString(),
+        level: json['level'].toString().toSafeString(),
       );
 
   Map<String, dynamic> toJson() => {

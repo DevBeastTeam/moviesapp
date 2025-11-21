@@ -83,16 +83,20 @@ class _PronlevelsPage1State extends ConsumerState<PronlevelsPage1> {
                             padding: const EdgeInsets.only(bottom: 8),
                             child: InkWell(
                               onTap: () {
-                                context.go(
-                                  "/home/PronlevelsPage1/2",
-                                  extra: {
-                                    "selectedlabel": data,
-                                    "allLevels":
-                                        p.pLevelCatgModelData!.data.levels,
-                                    "categories":
-                                        p.pLevelCatgModelData!.data.categories,
-                                  },
-                                );
+                                // Store data in provider
+                                ref
+                                    .read(pronounciationVm)
+                                    .setSelectedLevel(
+                                      level: data,
+                                      allLevels:
+                                          p.pLevelCatgModelData!.data.levels,
+                                      categories: p
+                                          .pLevelCatgModelData!
+                                          .data
+                                          .categories,
+                                    );
+                                // Navigate without extra
+                                context.go("/home/PronlevelsPage1/2");
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.9,

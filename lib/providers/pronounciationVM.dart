@@ -103,4 +103,74 @@ class PronounciationVm extends ChangeNotifier {
       setLoadingF();
     }
   }
+
+  // ========== Navigation State Management ==========
+
+  // Selected level (e.g., "A1", "B1", etc.)
+  String _selectedLevel = '';
+  String get selectedLevel => _selectedLevel;
+
+  // All available levels
+  List<String> _allLevels = [];
+  List<String> get allLevels => _allLevels;
+
+  // All available categories
+  List<Category> _categories = [];
+  List<Category> get categories => _categories;
+
+  // Selected category
+  Category? _selectedCategory;
+  Category? get selectedCategory => _selectedCategory;
+
+  // Selected lesson data
+  Map<String, dynamic> _selectedLesson = {};
+  Map<String, dynamic> get selectedLesson => _selectedLesson;
+
+  String _selectedLessonId = '';
+  String get selectedLessonId => _selectedLessonId;
+
+  int _selectedLessonIndex = 0;
+  int get selectedLessonIndex => _selectedLessonIndex;
+
+  // Method to set selected level and related data
+  void setSelectedLevel({
+    required String level,
+    required List<String> allLevels,
+    required List<Category> categories,
+  }) {
+    _selectedLevel = level;
+    _allLevels = allLevels;
+    _categories = categories;
+    notifyListeners();
+  }
+
+  // Method to set selected category
+  void setSelectedCategory(Category category) {
+    _selectedCategory = category;
+    notifyListeners();
+  }
+
+  // Method to set selected lesson
+  void setSelectedLesson({
+    required Map<String, dynamic> lesson,
+    required String lessonId,
+    required int lessonIndex,
+  }) {
+    _selectedLesson = lesson;
+    _selectedLessonId = lessonId;
+    _selectedLessonIndex = lessonIndex;
+    notifyListeners();
+  }
+
+  // Method to reset navigation state
+  void resetNavigationState() {
+    _selectedLevel = '';
+    _allLevels = [];
+    _categories = [];
+    _selectedCategory = null;
+    _selectedLesson = {};
+    _selectedLessonId = '';
+    _selectedLessonIndex = 0;
+    notifyListeners();
+  }
 }

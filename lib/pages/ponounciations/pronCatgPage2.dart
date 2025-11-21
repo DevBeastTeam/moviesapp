@@ -1,4 +1,5 @@
 import 'package:edutainment/helpers/safe_converters.dart';
+import 'package:edutainment/providers/pronounciationVM.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -29,11 +30,9 @@ class _PronCatgPage2State extends ConsumerState<PronCatgPage2> {
   ];
   @override
   Widget build(BuildContext context) {
-    // Get the extra data passed from GoRouter
-    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
-    final selectedlabel = extra?['selectedlabel'] as String;
-    List<String> allLevels = extra?['allLevels'] as List<String>;
-    List<Category> categories = extra?['categories'] as List<Category>;
+    // Get data from provider instead of GoRouter extra
+    var p = ref.watch(pronounciationVm);
+    List<Category> categories = p.categories;
 
     return DefaultScaffold(
       currentPage: '/home/PronlevelsPage1/2',
@@ -76,15 +75,12 @@ class _PronCatgPage2State extends ConsumerState<PronCatgPage2> {
                         var data = categories[index];
                         return InkWell(
                           onTap: () {
-                            context.go(
-                              "/home/PronlevelsPage1/2/3",
-                              extra: {
-                                "selectedlabel": selectedlabel,
-                                "allLevels": allLevels,
-                                "categories": categories,
-                                "selectedCatg": data,
-                              },
-                            );
+                            // Store selected category in provider
+                            ref
+                                .read(pronounciationVm)
+                                .setSelectedCategory(data);
+                            // Navigate without extra
+                            context.go("/home/PronlevelsPage1/2/3");
                           },
                           child: Container(
                             width:

@@ -1,3 +1,5 @@
+import 'package:edutainment/helpers/safe_converters.dart';
+
 import 'excLessonsStepsModel.dart'; // Import the Lesson model from the previous response
 
 class PLevelCatgModel {
@@ -42,8 +44,8 @@ class Data {
       lessons: (json['lessons'] as List<dynamic>)
           .map((e) => Lesson.fromJson(e as Map<String, dynamic>))
           .toList(),
-      currentLevel: json['currentLevel'].toSafeString(),
-      currentFilter: json['currentFilter'].toSafeString(),
+      currentLevel: json['currentLevel'].toString().toSafeString(),
+      currentFilter: json['currentFilter'].toString().toSafeString(),
     );
   }
 

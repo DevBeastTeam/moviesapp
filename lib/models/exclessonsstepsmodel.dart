@@ -30,7 +30,10 @@ class Data {
           .map((e) => Lesson.fromJson(e as Map<String, dynamic>))
           .toList(),
       progressPercentage:
-          double.tryParse(json['progressPercentage'].toSafeString()) ?? 0.0,
+          double.tryParse(
+            json['progressPercentage'].toString().toSafeString(),
+          ) ??
+          0.0,
     );
   }
 
@@ -63,13 +66,15 @@ class Lesson {
 
   factory Lesson.fromJson(Map<String, dynamic> json) {
     return Lesson(
-      id: json['_id'].toSafeString(),
+      id: json['_id'].toString().toSafeString(),
       reference: json['reference'].toString().toSafeString(),
       label: json['label'].toString().toSafeString(),
-      questions: (json['questions'] as List<dynamic>)
-          .toSafeList()
-          .map((e) => Question.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      questions:
+          (json['questions'] as List<dynamic>?)
+              ?.where((e) => e is Map<String, dynamic>)
+              .map((e) => Question.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       lessonNumber: json['lessonNumber'].toString().toSafeString(),
       completed: json['completed'].toString().toSafeString() == "true"
           ? true

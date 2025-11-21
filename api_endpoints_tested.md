@@ -74,3 +74,4 @@ https://dev.play.e-dutainment.com/api/1.0/lessons/exercises/category/c2 --> a1,a
 
 
 
+make safeconvertor file inisde toSafeString like as it .toString() flutter method. when implemented should auto import. only only changes in grammerDetailModel.dart page and in safe_convertor.dart file code for this  type should worrked   id: json['_id'].toString().toSafeString(), but worked was with this     id: json['_id'].toString().toSafeString(), ths is wrong . plz do changes in 2 files only nothing else

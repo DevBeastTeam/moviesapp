@@ -1,7 +1,5 @@
-// library safeConverters;
 // safe_converters.dart
 // The most robust null-safe converter library you'll ever need (2025+)
-library safe_converters;
 
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
@@ -10,22 +8,48 @@ import 'package:flutter/widgets.dart';
 // ==================================================================
 // 1. toSafeString() - Handles ANY garbage → clean String
 // ==================================================================
-extension ToSafeString on Object? {
+
+// Extension for dynamic/Object? types (from JSON maps)
+extension ToSafeStringDynamic on dynamic {
   String toSafeString({String fallback = ''}) {
     try {
       if (this == null) return fallback;
-      final data = this;
-      if (data.toString().isEmpty ||
-          data.toString().toLowerCase() == 'null' ||
-          data.toString().toLowerCase() == 'na' ||
-          data.toString().toLowerCase() == 'nan' ||
-          data.toString().toLowerCase() == 'none' ||
-          data.toString().toLowerCase() == "empty" ||
-          data.toString().toLowerCase() == 'undefined' ||
-          data.toString().toLowerCase() == '<null>') {
+      final data = this.toString();
+      if (data.isEmpty ||
+          data.toLowerCase() == 'null' ||
+          data.toLowerCase() == 'na' ||
+          data.toLowerCase() == 'nan' ||
+          data.toLowerCase() == 'none' ||
+          data.toLowerCase() == "empty" ||
+          data.toLowerCase() == 'undefined' ||
+          data.toLowerCase() == '<null>') {
         return fallback;
       }
-      return data.toString();
+      return data;
+    } catch (e) {
+      debugPrint("💥 Error ToSafeString: $e");
+      return fallback;
+    }
+  }
+}
+
+// Extension for String? types (when already a String)
+extension ToSafeStringFromString on String? {
+  String toSafeString({String fallback = ''}) {
+    try {
+      if (this == null) return fallback;
+      final data = this!;
+      if (data.isEmpty ||
+          data.toLowerCase() == 'null' ||
+          data.toLowerCase() == 'na' ||
+          data.toLowerCase() == 'nan' ||
+          data.toLowerCase() == 'none' ||
+          data.toLowerCase() == "empty" ||
+          data.toLowerCase() == 'undefined' ||
+          data.toLowerCase() == '<null>') {
+        return fallback;
+      }
+      return data;
     } catch (e) {
       debugPrint("💥 Error ToSafeString: $e");
       return fallback;
@@ -239,28 +263,28 @@ extension ToSafeDateTime on dynamic {
 // ==================================================================
 // BONUS: Shorthand for nullable types (optional but clean)
 // ==================================================================
-extension NullableString on String? {
-  String toSafeString({String fallback = ''}) =>
-      this?.toSafeString(fallback: fallback) ?? fallback;
-}
+// extension NullableString on String? {
+//   String toSafeString({String fallback = ''}) =>
+//       this?.toSafeString(fallback: fallback) ?? fallback;
+// }
 
-extension NullableInt on int? {
-  int toSafeInt({int fallback = 0}) => this ?? fallback;
-}
+// extension NullableInt on int? {
+//   int toSafeInt({int fallback = 0}) => this ?? fallback;
+// }
 
-extension NullableDouble on double? {
-  double toSafeDouble({double fallback = 0.0}) => this ?? fallback;
-}
+// extension NullableDouble on double? {
+//   double toSafeDouble({double fallback = 0.0}) => this ?? fallback;
+// }
 
-extension NullableBool on bool? {
-  bool toSafeBool({bool fallback = false}) => this ?? fallback;
-}
+// extension NullableBool on bool? {
+//   bool toSafeBool({bool fallback = false}) => this ?? fallback;
+// }
 
-extension NullableList<T> on List<T>? {
-  List<T> toSafeList({List<T> fallback = const []}) => this ?? fallback;
-}
+// extension NullableList<T> on List<T>? {
+//   List<T> toSafeList({List<T> fallback = const []}) => this ?? fallback;
+// }
 
-extension NullableMap on Map<String, dynamic>? {
-  Map<String, dynamic> toSafeMap({Map<String, dynamic> fallback = const {}}) =>
-      this ?? fallback;
-}
+// extension NullableMap on Map<String, dynamic>? {
+//   Map<String, dynamic> toSafeMap({Map<String, dynamic> fallback = const {}}) =>
+//       this ?? fallback;
+// }

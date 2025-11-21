@@ -1,6 +1,5 @@
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/constants/screenssize.dart';
-import 'package:edutainment/models/grammerDetailModel.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';

@@ -35,12 +35,13 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
-    // Get the extra data passed from GoRouter
-    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
-    final selectedlabel = extra?['selectedlabel'] as String;
-    List<String> allLevels = extra?['allLevels'] as List<String>;
-    List<Category> categories = extra?['categories'] as List<Category>;
-    Category selectedCatg = extra?['selectedCatg'] as Category;
+
+    // Get data from provider instead of GoRouter extra
+    var p = ref.watch(pronounciationVm);
+    final selectedlabel = p.selectedLevel;
+    List<String> allLevels = p.allLevels;
+    List<Category> categories = p.categories;
+    Category? selectedCatg = p.selectedCategory;
 
     // // get data
     // WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -92,46 +93,58 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
                   children: allLevels.map((data) {
                     return Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          // color:
-                          // level.toString().toString().toLowerCase() ==
-                          //     data.toString().toLowerCase()
-                          // ? Colors.blue
-                          // : Colors.white,
-                          color: Colors.white,
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors:
-                                selectedlabel
-                                        .toString()
-                                        .toString()
-                                        .toLowerCase() ==
-                                    data.toString().toLowerCase()
-                                ? [
-                                    Colors.orange.shade200,
-                                    Colors.deepOrange.shade300,
-                                    Colors.red,
-                                    Colors.red.shade800,
-                                  ]
-                                : [Colors.white, Colors.white],
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        width: 45,
-                        height: 55,
-                        child: Center(
-                          child: Text(
-                            data.toUpperCase(),
-                            style: TextStyle(
-                              color:
-                                  selectedlabel.toString().toLowerCase() ==
+                      child: InkWell(
+                        onTap: () {
+                          // Update selected level in provider
+                          ref
+                              .read(pronounciationVm)
+                              .setSelectedLevel(
+                                level: data,
+                                allLevels: allLevels,
+                                categories: categories,
+                              );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            // color:
+                            // level.toString().toString().toLowerCase() ==
+                            //     data.toString().toLowerCase()
+                            // ? Colors.blue
+                            // : Colors.white,
+                            color: Colors.white,
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors:
+                                  selectedlabel
+                                          .toString()
+                                          .toString()
+                                          .toLowerCase() ==
                                       data.toString().toLowerCase()
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                                  ? [
+                                      Colors.orange.shade200,
+                                      Colors.deepOrange.shade300,
+                                      Colors.red,
+                                      Colors.red.shade800,
+                                    ]
+                                  : [Colors.white, Colors.white],
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          width: 45,
+                          height: 55,
+                          child: Center(
+                            child: Text(
+                              data.toUpperCase(),
+                              style: TextStyle(
+                                color:
+                                    selectedlabel.toString().toLowerCase() ==
+                                        data.toString().toLowerCase()
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -154,7 +167,7 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
                     context.pop();
                   },
                   title: Text(
-                    selectedCatg.label,
+                    selectedCatg?.label ?? '',
                     style: TextStyle(color: Colors.black),
                   ),
                   trailing: Icon(
@@ -182,17 +195,16 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
                       ),
                       child: InkWell(
                         onTap: () {
-                          context.go(
-                            "/home/PronlevelsPage1/2/3/4",
-                            extra: {
-                              'selectedlabel': selectedlabel,
-                              'categoryId': selectedCatg.id,
-                              'selectedCatg': selectedCatg, //Category
-                              'selectedLesson': data,
-                              'selectedLessonId': "id",
-                              'selectedLessonIndex': index,
-                            },
-                          );
+                          // Store lesson data in provider
+                          ref
+                              .read(pronounciationVm)
+                              .setSelectedLesson(
+                                lesson: data,
+                                lessonId: "id",
+                                lessonIndex: index,
+                              );
+                          // Navigate without extra
+                          context.go("/home/PronlevelsPage1/2/3/4");
                         },
                         child: Container(
                           decoration: BoxDecoration(

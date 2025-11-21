@@ -47,21 +47,21 @@ class lessonDetail {
   });
 
   factory lessonDetail.fromJson(Map<String, dynamic> json) => lessonDetail(
-    id: json['_id'].toSafeString(),
-    reference: json['reference'].toSafeString(),
-    content: json['content'].toSafeString(),
-    contenten: json['contenten'].toSafeString(),
-    contentfr: json['contentfr'].toSafeString(),
-    createdAt: json['createdAt'].toSafeString(),
+    id: json['_id'].toString().toSafeString(),
+    reference: json['reference'].toString().toSafeString(),
+    content: json['content'].toString().toSafeString(),
+    contenten: json['contenten'].toString().toSafeString(),
+    contentfr: json['contentfr'].toString().toSafeString(),
+    createdAt: json['createdAt'].toString().toSafeString(),
     enabled: json['enabled'] as bool?,
-    label: json['label'].toSafeString(),
+    label: json['label'].toString().toSafeString(),
     profiles: json['profiles'] == null
         ? null
         : List<String>.from(json['profiles'] as List),
     questions: json['questions'] as List<dynamic>?,
     tags: json['tags'] == null ? null : List<String>.from(json['tags'] as List),
-    type: json['type'].toSafeString(),
-    updatedAt: json['updatedAt'].toSafeString(),
+    type: json['type'].toString().toSafeString(),
+    updatedAt: json['updatedAt'].toString().toSafeString(),
   );
 
   Map<String, dynamic> toJson() => {

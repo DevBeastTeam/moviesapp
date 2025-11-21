@@ -1,3 +1,5 @@
+import 'package:edutainment/helpers/safe_converters.dart';
+
 class AiChatModel {
   final String id;
   final String user;
@@ -21,15 +23,15 @@ class AiChatModel {
 
   factory AiChatModel.fromJson(Map<String, dynamic> json) {
     return AiChatModel(
-      id: json['_id'].toSafeString(),
-      user: json['User'].toSafeString(),
+      id: json['_id'].toString().toSafeString(),
+      user: json['User'].toString().toSafeString(),
       messages: (json['messages'] as List)
           .map((msg) => Msgs.fromJson(msg as Map<String, dynamic>))
           .toList(),
-      title: json['title'].toSafeString(),
+      title: json['title'].toString().toSafeString(),
       isPinned: json['isPinned'] as bool,
-      createdAt: DateTime.parse(json['createdAt'].toSafeString()),
-      updatedAt: DateTime.parse(json['updatedAt'].toSafeString()),
+      createdAt: DateTime.parse(json['createdAt'].toString().toSafeString()),
+      updatedAt: DateTime.parse(json['updatedAt'].toString().toSafeString()),
       version: json['__v'] as int,
     );
   }
