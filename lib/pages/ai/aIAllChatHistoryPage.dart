@@ -8,7 +8,8 @@ import '../../controllers/navigation_args_controller.dart';
 import '../../widgets/emptyWidget.dart';
 
 class AllAIChatHistoryPage extends StatefulWidget {
-  const AllAIChatHistoryPage({super.key});
+  final bool isPinnedOnly;
+  const AllAIChatHistoryPage({super.key, required this.isPinnedOnly});
 
   @override
   State<AllAIChatHistoryPage> createState() => _AllAIChatHistoryPageState();
@@ -37,7 +38,7 @@ class _AllAIChatHistoryPageState extends State<AllAIChatHistoryPage> {
 
     // Get the questions list passed from GoRouter
     final navCtrl = Get.find<NavigationArgsController>();
-    bool isPinnedOnly = navCtrl.aiChatIsPinnedOnly;
+    bool isPinnedOnly = widget.isPinnedOnly;
 
     return DefaultScaffold(
       currentPage: "/home/AIMenuPage/AllAIChatHistoryPage",

@@ -62,6 +62,8 @@ class _AIMenuPage extends State<AIMenuPage> {
   int flashcardsLeft =
       7; // Example number. You can dynamically load this later.
 
+  bool showRecommendedChat = true; // Track visibility of recommended chat
+
   List menuList = [
     {
       'img': AppImages.movieblue,
@@ -175,7 +177,7 @@ class _AIMenuPage extends State<AIMenuPage> {
                 Navigator.pop(context);
                 final navCtrl = Get.find<NavigationArgsController>();
                 navCtrl.aiChatIsPinnedOnly = false;
-                Get.to(() => const AllAIChatHistoryPage());
+                Get.to(() => const AllAIChatHistoryPage(isPinnedOnly: false));
               },
             ),
             Divider(height: 2, color: Colors.grey.shade700),
@@ -189,29 +191,38 @@ class _AIMenuPage extends State<AIMenuPage> {
                 Navigator.pop(context);
                 final navCtrl = Get.find<NavigationArgsController>();
                 navCtrl.aiChatIsPinnedOnly = true;
-                Get.to(() => const AllAIChatHistoryPage());
+                Get.to(() => const AllAIChatHistoryPage(isPinnedOnly: true));
               },
             ),
             Divider(height: 2, color: Colors.grey.shade700),
-            ListTile(
-              leading: const Icon(Icons.chat, color: Colors.black),
-              trailing: const Icon(
-                Icons.delete_outline_outlined,
-                color: Colors.black,
+            if (showRecommendedChat)
+              ListTile(
+                leading: const Icon(Icons.chat, color: Colors.black),
+                title: const Text(
+                  'Can Your Recommended',
+                  style: TextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  p.doConversationChatByIdWithAiF(
+                    context,
+                    msg: "Can Your Recommended",
+                  );
+                  Navigator.pop(context);
+                },
+                trailing: IconButton(
+                  icon: const Icon(
+                    Icons.delete_outline_outlined,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      showRecommendedChat = false;
+                    });
+                  },
+                ),
               ),
-              title: const Text(
-                'Can Your Recommended',
-                style: TextStyle(color: Colors.black),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Get.to(
-                  () => const AllAIChatHistoryPage(),
-                  arguments: {"isPinnedOnly": false},
-                );
-              },
-            ),
-            Divider(height: 2, color: Colors.grey.shade700),
+            if (showRecommendedChat)
+              Divider(height: 2, color: Colors.grey.shade700),
             CupertinoListTile(
               title: Text(
                 "Last 7 days",
@@ -226,10 +237,7 @@ class _AIMenuPage extends State<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Get.to(
-                  () => const AllAIChatHistoryPage(),
-                  arguments: {"isPinnedOnly": false},
-                );
+                Get.to(() => const AllAIChatHistoryPage(isPinnedOnly: false));
               },
             ),
             Divider(height: 2, color: Colors.grey.shade700),
@@ -283,58 +291,92 @@ class _AIMenuPage extends State<AIMenuPage> {
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  CupertinoListTile(
-                    // onTap: (){
-                    //     Get.to(() => const AllAIChatHistoryPage()); // '/home/AIMenuPage/AllAIChatHistoryPage', extra: {
-                    //       "isPinnedOnly":true,
-                    //     });
-                    // },
-                    leading: Builder(
-                      builder: (context) {
-                        return InkWell(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: const Icon(
-                              Icons.sort_outlined,
-                              color: Colors.black,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 0, right: 0),
+                            child: Builder(
+                              builder: (context) {
+                                return InkWell(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 15,
+                                    ),
+                                    child: Icon(
+                                      Icons.sort_outlined,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Scaffold.of(context).openDrawer();
+                                  },
+                                );
+                              },
                             ),
                           ),
-                          onTap: () {
-                            Scaffold.of(context).openDrawer();
-                          },
-                        );
-                      },
-                    ),
-                    title: Obx(
-                      () => (p.allAiChatHistoryConversionsTitlesData != null)
-                          ? p.allAiChatHistoryConversionsTitlesData!.chats.any(
-                                  (element) => element.isPinned == true,
-                                )
-                                ? Text(
-                                    p
-                                        .allAiChatHistoryConversionsTitlesData!
-                                        .chats
-                                        .firstWhere(
-                                          (element) => element.isPinned == true,
-                                        )
-                                        .title,
-                                  )
-                                : Text("Pinned")
-                          : Text("Pinned"),
-                    ),
-                    trailing: IconButton(
-                      onPressed: () {
-                        Get.to(
-                          () => const AllAIChatHistoryPage(),
-                          arguments: {"isPinnedOnly": true},
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.push_pin_outlined,
-                        color: Colors.blue,
+                          GestureDetector(
+                            onTap: () {
+                              final isPinnedOnly = p
+                                  .allAiChatHistoryConversionsTitlesData!
+                                  .chats
+                                  .any((element) => element.isPinned == true);
+                              Get.to(
+                                () => AllAIChatHistoryPage(
+                                  isPinnedOnly: isPinnedOnly,
+                                ),
+                              );
+                            },
+                            child: Obx(
+                              () =>
+                                  (p.allAiChatHistoryConversionsTitlesData !=
+                                      null)
+                                  ? p.allAiChatHistoryConversionsTitlesData!.chats
+                                            .any(
+                                              (element) =>
+                                                  element.isPinned == true,
+                                            )
+                                        ? Text(
+                                            p
+                                                .allAiChatHistoryConversionsTitlesData!
+                                                .chats
+                                                .firstWhere(
+                                                  (element) =>
+                                                      element.isPinned == true,
+                                                )
+                                                .title,
+                                          )
+                                        : Text(
+                                            "Pinned",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                  : Text(
+                                      "Pinned",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
+                      IconButton(
+                        onPressed: () {
+                          Get.to(
+                            () =>
+                                const AllAIChatHistoryPage(isPinnedOnly: true),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.push_pin_outlined,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ],
                   ),
                   Screen.isLandscape(context) && Screen.isPhone(context)
                       ? SizedBox.shrink()
@@ -497,66 +539,62 @@ class _AIMenuPage extends State<AIMenuPage> {
                               },
                             ),
                           )
-                        : Expanded(
-                            // child: Text("bn"),
-                            child: ListView.builder(
-                              controller: chatsScrollController,
-                              itemCount:
-                                  p.lastAIConversationChats!.messages.length,
-                              itemBuilder: (context, index) {
-                                var chat =
-                                    p.lastAIConversationChats!.messages[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    Get.bottomSheet(
-                                      Container(
-                                        height: h * 0.5,
-                                        decoration: BoxDecoration(
-                                          color: ColorsPallet.blue,
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(Icons.abc_outlined),
-                                              SizedBox(height: 12),
-                                              Text(
-                                                chat.content,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount:
+                                p.lastAIConversationChats!.messages.length,
+                            itemBuilder: (context, index) {
+                              var chat =
+                                  p.lastAIConversationChats!.messages[index];
+                              return GestureDetector(
+                                onTap: () {
+                                  Get.bottomSheet(
+                                    Container(
+                                      height: h * 0.5,
+                                      decoration: BoxDecoration(
+                                        color: ColorsPallet.blue,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.abc_outlined),
+                                            SizedBox(height: 12),
+                                            Text(
+                                              chat.content,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
                                               ),
-                                              SizedBox(height: 7),
-                                            ],
-                                          ),
+                                            ),
+                                            SizedBox(height: 7),
+                                          ],
                                         ),
                                       ),
-                                    );
-                                  },
-                                  child: BubbleSpecialOne(
-                                    text: chat.content,
-                                    isSender: chat.type == "user",
-                                    color: chat.type == "user"
-                                        ? Colors.blue
-                                        : Colors.grey.shade400,
-                                    textStyle: TextStyle(
-                                      color: chat.type == "user"
-                                          ? Colors.white
-                                          : Colors.black,
                                     ),
-                                    tail: true,
-                                    sent: chat.type == "user" ? true : false,
+                                  );
+                                },
+                                child: BubbleSpecialOne(
+                                  text: chat.content,
+                                  isSender: chat.type == "user",
+                                  color: chat.type == "user"
+                                      ? Colors.blue
+                                      : Colors.grey.shade400,
+                                  textStyle: TextStyle(
+                                    color: chat.type == "user"
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
-                                );
-                              },
-                            ),
+                                  tail: true,
+                                  sent: chat.type == "user" ? true : false,
+                                ),
+                              );
+                            },
                           ),
                   ),
                 ],

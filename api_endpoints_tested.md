@@ -62,13 +62,13 @@ https://dev.play.e-dutainment.com/api/1.0/lessons/exercises/category/c2 --> a1,a
 - `GET /flashcard/view/{movieId}/{levelId}` - View flashcards for movie and level
 
 ## AI Chat
-- `POST /chat/create` - Create new chat
-- `POST /chat/messages/new/{conversationId}` - Send new message
-- `GET /chat` - List all chats
-- `GET /chat/{chatId}` - Get chat by ID
-- `POST /chat/{conversationId}/title` - Update chat title
-- `POST /chat/toggle-pin/{conversationId}` - Toggle pin chat
-- `DELETE /chat/delete/{conversationId}` - Delete chat
+- `POST /chat/create` - Create new chat ✅
+- `POST /chat/messages/new/{conversationId}` - Send new message ✅
+- `GET /chat` - List all chats ✅
+- `GET /chat/{chatId}` - Get chat by ID ✅
+- `POST /chat/{conversationId}/title` - Update chat title ✅
+- `POST /chat/toggle-pin/{conversationId}` - Toggle pin chat ✅
+- `DELETE /chat/delete/{conversationId}` - Delete chat ✅
 
 
 
