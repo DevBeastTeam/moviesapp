@@ -2,7 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/utils/boxes.dart';
 import 'package:edutainment/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
+import 'results_page.dart';
 
 import '../../theme/colors.dart';
 import '../../widgets/ui/primary_button.dart';
@@ -77,7 +78,7 @@ class _EntryQuizLevelPage extends State<EntryQuizLevelPage> {
                       PrimaryButton(
                         onPressed: () async {
                           if (context.mounted) {
-                            context.go('/entry-quiz-results');
+                            Get.to(() => const EntryQuizResultsPage());
                           }
                         },
                         text: 'Show my results',

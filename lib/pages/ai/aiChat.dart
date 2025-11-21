@@ -7,12 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../../widgets/header_bar/custom_header_bar.dart';
 import '../../providers/aichatvm.dart';
 import '../../theme/colors.dart';
+import 'aIAllChatHistoryPage.dart';
 
 class AIMenuPage extends ConsumerStatefulWidget {
   const AIMenuPage({super.key});
@@ -173,9 +174,9 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                context.go(
-                  '/home/AIMenuPage/AllAIChatHistoryPage',
-                  extra: {"isPinnedOnly": false},
+                Get.to(
+                  () => const AllAIChatHistoryPage(),
+                  arguments: {"isPinnedOnly": false},
                 );
               },
             ),
@@ -188,9 +189,9 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                context.go(
-                  '/home/AIMenuPage/AllAIChatHistoryPage',
-                  extra: {"isPinnedOnly": true},
+                Get.to(
+                  () => const AllAIChatHistoryPage(),
+                  arguments: {"isPinnedOnly": true},
                 );
               },
             ),
@@ -207,9 +208,9 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                context.go(
-                  '/home/AIMenuPage/AllAIChatHistoryPage',
-                  extra: {"isPinnedOnly": false},
+                Get.to(
+                  () => const AllAIChatHistoryPage(),
+                  arguments: {"isPinnedOnly": false},
                 );
               },
             ),
@@ -228,9 +229,9 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                context.go(
-                  '/home/AIMenuPage/AllAIChatHistoryPage',
-                  extra: {"isPinnedOnly": false},
+                Get.to(
+                  () => const AllAIChatHistoryPage(),
+                  arguments: {"isPinnedOnly": false},
                 );
               },
             ),
@@ -263,7 +264,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
           CustomHeaderBar(
             onBack: () async {
               if (context.mounted) {
-                context.pop();
+                Navigator.pop(context);
               }
             },
             centerTitle: false,
@@ -286,7 +287,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                 children: [
                   CupertinoListTile(
                     // onTap: (){
-                    //     context.go('/home/AIMenuPage/AllAIChatHistoryPage', extra: {
+                    //     Get.to(() => const AllAIChatHistoryPage()); // '/home/AIMenuPage/AllAIChatHistoryPage', extra: {
                     //       "isPinnedOnly":true,
                     //     });
                     // },
@@ -331,9 +332,9 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                         : Text("Pinned"),
                     trailing: IconButton(
                       onPressed: () {
-                        context.go(
-                          '/home/AIMenuPage/AllAIChatHistoryPage',
-                          extra: {"isPinnedOnly": true},
+                        Get.to(
+                          () => const AllAIChatHistoryPage(),
+                          arguments: {"isPinnedOnly": true},
                         );
                       },
                       icon: const Icon(

@@ -2,7 +2,8 @@ import 'package:edutainment/core/loader.dart';
 import 'package:edutainment/utils/boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
+import '../home/home_page.dart';
 
 import '../../theme/colors.dart';
 import '../../widgets/indicators/double_circular_progress_indicator.dart';
@@ -43,7 +44,7 @@ class _EntryQuizResultsPage extends State<EntryQuizResultsPage> {
                     session: result['entryQuizSession'],
                     correctAnswers: result['totalCorrectAnswer'],
                     fnRedirectButton: () {
-                      context.go('/home');
+                      Get.to(() => const HomePage());
                     },
                   );
                 } else {

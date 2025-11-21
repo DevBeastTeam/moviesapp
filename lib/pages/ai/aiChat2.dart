@@ -6,7 +6,7 @@
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:get/get.dart';
-// import 'package:go_router/go_router.dart';
+// import 'package:get/get.dart';
 // import 'package:quick_widgets/widgets/tiktok.dart';
 
 // import '../../../widgets/header_bar/custom_header_bar.dart';
@@ -258,7 +258,7 @@
 //           CustomHeaderBar(
 //             onBack: () async {
 //               if (context.mounted) {
-//                 context.pop();
+//                 Navigator.pop(context);
 //               }
 //             },
 //             centerTitle: false,

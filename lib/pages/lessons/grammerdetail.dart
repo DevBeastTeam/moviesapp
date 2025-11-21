@@ -4,7 +4,7 @@ import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:html_to_flutter/html_to_flutter.dart';
 // import 'package:get/get.dart';
 
@@ -89,7 +89,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
     //     ? p.grammerSingleData[0]
     //     : GrammerDetailModel();
 
-    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+    final extra = Get.arguments as Map<String, dynamic>?;
 
     if (extra == null) {
       return const Scaffold(
@@ -111,7 +111,7 @@ class _GrammerDetailPageState extends ConsumerState<GrammerDetailPage> {
               if (_isPopping) return;
               _isPopping = true;
               p.stopTimer();
-              context.pop();
+              Navigator.pop(context);
               // Navigator.pop(context);
             },
             centerTitle: false,

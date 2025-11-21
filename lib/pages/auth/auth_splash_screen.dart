@@ -3,13 +3,16 @@ import 'package:edutainment/providers/user_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../core/loader.dart';
 import '../../utils/boxes.dart';
 import '../../utils/utils.dart';
 import '../../widgets/ui/primary_button.dart';
 import '../splash_screen/splash_screen_content.dart';
+import '../welcome/welcome_page.dart';
+import '../start/start_page.dart';
+import '../auth/auth_page.dart';
 
 class AuthSplashScreenPage extends ConsumerStatefulWidget {
   const AuthSplashScreenPage({super.key});
@@ -28,9 +31,9 @@ class _AuthSplashScreenPage extends ConsumerState<AuthSplashScreenPage> {
       var hasAnswerEntryQuiz = userData['answer_entry_quiz'] ?? false;
       if (context.mounted) {
         if (!hasSawEntryPage) {
-          context.go('/welcome');
+          Get.to(() => const WelcomePage());
         } else if (!hasAnswerEntryQuiz) {
-          context.go('/start');
+          Get.to(() => const StartPage());
         } else {
           await fetchAndRedirectHome(context);
         }
@@ -49,7 +52,7 @@ class _AuthSplashScreenPage extends ConsumerState<AuthSplashScreenPage> {
             await userBox.clear();
             Future.delayed(const Duration(seconds: 1), () {
               EasyLoading.dismiss();
-              context.go('/auth');
+              Get.to(() => const AuthPage());
             });
           },
           text: 'Quitter',

@@ -1,10 +1,11 @@
+import 'pronParacticePage4.dart';
 import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/providers/pronounciationVM.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../constants/appimages.dart';
@@ -69,7 +70,7 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
               children: [
                 CustomHeaderBar(
                   onBack: () async {
-                    context.pop();
+                    Navigator.pop(context);
                   },
                   centerTitle: false,
                   title: 'Pronounciations'.toUpperCase(),
@@ -164,7 +165,7 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
                 ),
                 child: CupertinoListTile(
                   onTap: () {
-                    context.pop();
+                    Navigator.pop(context);
                   },
                   title: Text(
                     selectedCatg?.label ?? '',
@@ -204,7 +205,7 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
                                 lessonIndex: index,
                               );
                           // Navigate without extra
-                          context.go("/home/PronlevelsPage1/2/3/4");
+                          Get.to(() => const PronParacticePage4());
                         },
                         child: Container(
                           decoration: BoxDecoration(

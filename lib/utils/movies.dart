@@ -1,3 +1,5 @@
+import '../pages/movies/movie_play_page.dart';
+import '../pages/movies/movie_page.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/constants/appimages.dart';
@@ -5,7 +7,7 @@ import 'package:edutainment/providers/moviesVm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../core/loader.dart';
 import '../widgets/ui/custom_button.dart';
@@ -97,7 +99,7 @@ Future<void> movieFetchAndRedirect(id, BuildContext context) async {
       await moviesBox.put('movie', getIn(movieFetch, 'movie'));
       await moviesBox.put('historyMovie', getIn(movieFetch, 'historyMovie'));
       if (context.mounted) {
-        context.push('/movies/movie');
+        Get.to(() => const MoviePage());
       }
     }
   } catch (e) {
@@ -130,7 +132,7 @@ Future<void> movieFetchAndRedirectPlayer(id, BuildContext context) async {
       await moviesBox.put('movie', getIn(movieFetch, 'movie'));
       await moviesBox.put('historyMovie', getIn(movieFetch, 'historyMovie'));
       if (context.mounted) {
-        context.go('/movies/movie/player');
+        Get.to(() => const MoviePlayPage());
       }
     }
   } catch (e) {

@@ -1,10 +1,12 @@
+import '../../auth/auth_page.dart';
+import 'edit.dart';
 import 'package:edutainment/theme/colors.dart';
 import 'package:edutainment/utils/boxes.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:edutainment/widgets/ui/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 class ProfileSettingsPage extends StatefulWidget {
   const ProfileSettingsPage({super.key});
@@ -43,7 +45,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                   PrimaryButton(
                     text: 'Edit Profile',
                     onPressed: () {
-                      context.go('/home/settings/profile-edit');
+                      Get.to(() => const ProfileEditPage());
                     },
                   ),
                 ],
@@ -60,7 +62,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                 await userBox.clear();
                 Future.delayed(const Duration(seconds: 1), () {
                   EasyLoading.dismiss();
-                  context.go('/auth');
+                  Get.to(() => const AuthPage());
                 });
               },
             ),

@@ -3,10 +3,11 @@ import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 import '../../providers/grammerVm.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
+import 'grammerCatg.dart';
 
 class GrammerPage extends ConsumerStatefulWidget {
   const GrammerPage({super.key});
@@ -112,10 +113,7 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
                               .setSelectedLabelCH(level.label.toString());
 
                           //////
-                          context.go(
-                            '/home/GrammerPage/grammerCatg',
-                            // extra: {"id": level.id.toString(), "level": level},
-                          );
+                          Get.to(() => GrammerCatgPage());
                         },
                       );
                     },

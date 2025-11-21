@@ -9,7 +9,7 @@ import 'package:edutainment/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../../utils/questions.dart';
 import '../../../utils/utils.dart';
@@ -380,7 +380,7 @@ class _MoviePlayer extends State<MoviePlayer> {
                 CustomHeaderBar(
                   onBack: () async {
                     if (context.mounted) {
-                      context.pop();
+                      Navigator.pop(context);
                     }
                   },
                   centerTitle: false,
@@ -463,7 +463,7 @@ class _MoviePlayer extends State<MoviePlayer> {
             left: 8,
             child: IconButton(
               onPressed: () {
-                context.pop();
+                Navigator.pop(context);
               },
               icon: const Icon(Icons.arrow_back),
             ),

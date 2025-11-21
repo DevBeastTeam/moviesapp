@@ -8,7 +8,7 @@ import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import '../../widgets/flashcardslisttile.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
@@ -37,7 +37,7 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
     final isTablet = MediaQuery.of(context).size.shortestSide >= 600;
 
     // Access extra data from GoRouterState
-    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+    final extra = Get.arguments as Map<String, dynamic>?;
 
     if (extra == null) {
       return const Scaffold(
@@ -56,7 +56,7 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
         child: Column(
           children: [
             CustomHeaderBar(
-              onBack: () => context.pop(),
+              onBack: () => Navigator.pop(context),
               centerTitle: false,
               title: 'FLASHCARDS DETAILS',
             ),

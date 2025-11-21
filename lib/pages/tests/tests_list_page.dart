@@ -1,5 +1,7 @@
+import 'tests_quiz_page.dart';
+import 'tests_page.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../core/loader.dart';
 import '../../icons/icons_light.dart';
@@ -30,7 +32,7 @@ class _TestsListPage extends State<TestsListPage> {
           children: [
             CustomHeaderBar(
               onBack: () {
-                context.go('/tests');
+                Get.to(() => const TestsPage());
               },
               title: '${getIn(quizCategory, 'label')} - $quizType',
             ),
@@ -77,7 +79,7 @@ class _TestsListPage extends State<TestsListPage> {
                                         await cleanQuiz();
                                         await fetchQuizStart(quiz['_id']);
                                         if (context.mounted) {
-                                          context.go('/tests/quiz');
+                                          Get.to(() => const TestsQuizPage());
                                         }
                                       },
                                       child: const Align(

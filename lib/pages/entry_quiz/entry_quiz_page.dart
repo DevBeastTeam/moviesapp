@@ -3,7 +3,8 @@ import 'package:edutainment/utils/boxes.dart';
 import 'package:edutainment/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
+import 'level_page.dart';
 
 import '../../theme/colors.dart';
 import '../../utils/quizz.dart';
@@ -55,7 +56,7 @@ class _EntryQuizPage extends State<EntryQuizPage> {
               if (context.mounted) {
                 await fetchData();
                 if (context.mounted) {
-                  context.go('/entry-quiz-level');
+                  Get.to(() => const EntryQuizLevelPage());
                 }
               }
             }

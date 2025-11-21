@@ -5,10 +5,11 @@ import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import '../../constants/screenssize.dart';
 import '../../providers/grammerVm.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
+import 'grammerdetail.dart';
 
 class GrammerCatgPage extends ConsumerStatefulWidget {
   // AllowedCategory? level;
@@ -46,7 +47,7 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
 
     //////////
     // Access the extra data from GoRouterState
-    // final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+    // final extra = Get.arguments as Map<String, dynamic>?;
 
     // if (extra == null) {
     //   return Scaffold(
@@ -75,7 +76,7 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
           children: [
             CustomHeaderBar(
               onBack: () async {
-                context.pop();
+                Navigator.pop(context);
               },
               centerTitle: false,
               title: 'LESSONS',
@@ -226,17 +227,7 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                                       //   loadingFor: "next",
                                       // );
 
-                                      context.go(
-                                        '/home/GrammerPage/grammerCatg/grammerdetail',
-                                        extra: {
-                                          'catgName': tag.label,
-                                          'subCatgName': e.label,
-                                          'subLessons': data
-                                              .where((e) => e.id != tag.id)
-                                              .toList(),
-                                          'selectedLesson': e,
-                                        },
-                                      );
+                                      Get.to(() => const GrammerDetailPage());
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

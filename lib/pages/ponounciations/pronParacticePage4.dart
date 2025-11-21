@@ -4,10 +4,11 @@ import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../constants/appimages.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
+import 'pronResult5.dart';
 
 class PronParacticePage4 extends ConsumerStatefulWidget {
   const PronParacticePage4({super.key});
@@ -38,7 +39,7 @@ class _PronParacticePage4State extends ConsumerState<PronParacticePage4> {
                 children: [
                   CustomHeaderBar(
                     onBack: () async {
-                      context.pop();
+                      Navigator.pop(context);
                     },
                     centerTitle: false,
                     title: 'Pronounciations'.toUpperCase(),
@@ -144,15 +145,7 @@ class _PronParacticePage4State extends ConsumerState<PronParacticePage4> {
 
             InkWell(
               onTap: () {
-                context.go(
-                  '/home/PronlevelsPage1/2/3/4/5',
-                  extra: {
-                    'selectedlabel': selectedlabel,
-                    'categoryId': selectedCatg?.id ?? '',
-                    'score': 0,
-                    'totalQuestions': 8,
-                  },
-                );
+                Get.to(() => const PronResultsPage5());
               },
               child: const CircleAvatar(
                 radius: 35,

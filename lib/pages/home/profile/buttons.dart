@@ -1,6 +1,10 @@
+import '../../ponounciations/pronLevels1.dart';
+import '../../ai/aiChat.dart';
+import '../../excersises/excersise.dart';
+import '../../lessons/grammer.dart';
 import 'package:edutainment/constants/appimages.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../../theme/colors.dart';
 import '../../../utils/screen_utils.dart';
@@ -40,7 +44,7 @@ class ProfileButtons extends StatelessWidget {
               // icon: EdutainmentIcons.grammar,
               // colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
               onPressed: () async {
-                context.go('/home/GrammerPage');
+                Get.to(() => const GrammerPage());
               },
             ),
             _buildComponent(
@@ -53,7 +57,7 @@ class ProfileButtons extends StatelessWidget {
               // icon: EdutainmentIcons.exercices,
               // colors: const [Color(0xfffd6378), Color(0xffa11111)],
               onPressed: () {
-                context.go('/home/ExcersisesPage');
+                Get.to(() => const ExcersisesPage());
               },
             ),
             _buildComponent(
@@ -67,7 +71,7 @@ class ProfileButtons extends StatelessWidget {
               // icon: EdutainmentIcons.writing,
               // colors: const [Color(0xff02eac1), Color(0xff2992f9)],
               onPressed: () {
-                context.go('/home/AIMenuPage');
+                Get.to(() => const AIMenuPage());
               },
             ),
             _buildComponent(
@@ -80,7 +84,7 @@ class ProfileButtons extends StatelessWidget {
               // icon: EdutainmentIcons.pronunciation,
               // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
               onPressed: () {
-                context.go('/home/PronlevelsPage1');
+                Get.to(() => const PronlevelsPage1());
               },
             ),
             // _buildComponent(
@@ -140,7 +144,7 @@ class ProfileButtons extends StatelessWidget {
                 // icon: EdutainmentIcons.exercices,
                 // colors: const [Color(0xfffd6378), Color(0xffa11111)],
                 onPressed: () {
-                  context.go('/home/ExcersisesPage');
+                  Get.to(() => const ExcersisesPage());
                 },
               ),
             ),
@@ -165,7 +169,7 @@ class ProfileButtons extends StatelessWidget {
                 // icon: EdutainmentIcons.grammar,
                 // colors: const [Color(0xfffaeb48), Color(0xffe83e3b)],
                 onPressed: () async {
-                  context.go('/home/GrammerPage');
+                  Get.to(() => const GrammerPage());
                 },
               ),
             ),
@@ -190,7 +194,7 @@ class ProfileButtons extends StatelessWidget {
                 // icon: EdutainmentIcons.writing,
                 // colors: const [Color(0xff02eac1), Color(0xff2992f9)],
                 onPressed: () {
-                  context.go('/home/AIMenuPage');
+                  Get.to(() => const AIMenuPage());
                 },
               ),
             ),
@@ -213,7 +217,7 @@ class ProfileButtons extends StatelessWidget {
                 // icon: EdutainmentIcons.pronunciation,
                 // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                 onPressed: () {
-                  context.go('/home/PronlevelsPage1');
+                  Get.to(() => const PronlevelsPage1());
                 },
               ),
             ),
@@ -276,7 +280,7 @@ class ProfileButtons extends StatelessWidget {
                     //   ),
                     // );
 
-                    context.go('/home/GrammerPage');
+                    Get.to(() => const GrammerPage());
 
                     ///// api calles
                     // await Navigator.push(
@@ -310,7 +314,7 @@ class ProfileButtons extends StatelessWidget {
                   // icon: EdutainmentIcons.exercices,
                   // colors: const [Color(0xfffd6378), Color(0xffa11111)],
                   onPressed: () {
-                    context.go('/home/ExcersisesPage');
+                    Get.to(() => const ExcersisesPage());
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
@@ -351,7 +355,7 @@ class ProfileButtons extends StatelessWidget {
                     onPressed: () {
                       // context.go('/home/ai');
                       // context.go('/home/AIMenuPage/AIChatPage');
-                      context.go('/home/AIMenuPage');
+                      Get.to(() => const AIMenuPage());
                     },
                   ),
                 ),
@@ -366,7 +370,7 @@ class ProfileButtons extends StatelessWidget {
                     icon: EdutainmentIcons.pronunciation,
                     // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
                     onPressed: () {
-                      context.go('/home/PronlevelsPage1');
+                      Get.to(() => const PronlevelsPage1());
                       // ref.watch(pronounciationVm).getPronounciationF();
                       // Navigator.push(
                       //   context,

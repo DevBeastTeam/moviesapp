@@ -1,8 +1,9 @@
+import '../pages/home/home_page.dart';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../core/loader.dart';
 import 'boxes.dart';
@@ -19,7 +20,7 @@ Future<void> fetchData() async {
 Future<void> fetchAndRedirectHome(BuildContext context) async {
   await fetchData();
   if (context.mounted) {
-    context.go('/home');
+    Get.to(() => const HomePage());
   }
 }
 

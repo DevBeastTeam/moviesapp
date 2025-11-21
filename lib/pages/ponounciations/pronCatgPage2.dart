@@ -1,10 +1,11 @@
+import 'pronCatgLessonsPage3.dart';
 import 'package:edutainment/helpers/safe_converters.dart';
 import 'package:edutainment/providers/pronounciationVM.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../constants/screenssize.dart';
 import '../../models/pLevelCatgModel.dart';
@@ -47,7 +48,7 @@ class _PronCatgPage2State extends ConsumerState<PronCatgPage2> {
                 children: [
                   CustomHeaderBar(
                     onBack: () async {
-                      context.pop();
+                      Navigator.pop(context);
                     },
                     centerTitle: false,
                     title: 'Select A Category'.toUpperCase(),
@@ -80,7 +81,7 @@ class _PronCatgPage2State extends ConsumerState<PronCatgPage2> {
                                 .read(pronounciationVm)
                                 .setSelectedCategory(data);
                             // Navigate without extra
-                            context.go("/home/PronlevelsPage1/2/3");
+                            Get.to(() => const PronCatgLessonsPage3());
                           },
                           child: Container(
                             width:

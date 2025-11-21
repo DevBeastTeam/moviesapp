@@ -2,10 +2,14 @@ import 'package:edutainment/core/loader.dart';
 import 'package:edutainment/utils/boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../theme/colors.dart';
 import '../icon/gradient_icon.dart';
+import '../../pages/home/home_page.dart';
+import '../../pages/movies/movies_page.dart';
+import '../../pages/search/search_page.dart';
+import '../../pages/tests/tests_page.dart';
 
 class CustomBottomBar extends StatelessWidget {
   const CustomBottomBar({
@@ -76,11 +80,13 @@ class CustomBottomBar extends StatelessWidget {
                               await fetchMovies();
                               EasyLoading.dismiss();
                             }
-                            if (context.mounted) {
-                              context.go('/${items[i].path}');
+                            Get.to(() => const MoviesPage());
+                          } else {
+                            // Map path to page widget
+                            Widget? page = _getPageFromPath(items[i].path);
+                            if (page != null) {
+                              Get.to(() => page);
                             }
-                          } else if (context.mounted) {
-                            context.go('/${items[i].path}');
                           }
                         },
                       ),
@@ -91,6 +97,22 @@ class CustomBottomBar extends StatelessWidget {
           ),
       ],
     );
+  }
+}
+
+// Helper function to map path strings to page widgets
+Widget? _getPageFromPath(String path) {
+  switch (path) {
+    case 'home':
+      return const HomePage();
+    case 'movies':
+      return const MoviesPage();
+    case 'search':
+      return const SearchPage();
+    case 'tests':
+      return const TestsPage();
+    default:
+      return null;
   }
 }
 

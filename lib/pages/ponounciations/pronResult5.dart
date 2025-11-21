@@ -1,7 +1,7 @@
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../constants/appimages.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
@@ -17,7 +17,7 @@ class _PronResultsPage5State extends State<PronResultsPage5> {
   @override
   Widget build(BuildContext context) {
     // Get the extra data passed from GoRouter
-    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+    final extra = Get.arguments as Map<String, dynamic>?;
     final selectedlabel = extra?['selectedlabel'] as String?;
     final categoryId = extra?['categoryId'] as String?;
     final score = extra?['score'] as int? ?? 0;
@@ -32,7 +32,7 @@ class _PronResultsPage5State extends State<PronResultsPage5> {
               children: [
                 CustomHeaderBar(
                   onBack: () {
-                    context.pop();
+                    Navigator.pop(context);
                   },
                   centerTitle: false,
                   title: 'Pronounciations'.toUpperCase(),

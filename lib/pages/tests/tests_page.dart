@@ -1,6 +1,7 @@
+import 'tests_base_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../constants/screenssize.dart';
 import '../../core/loader.dart';
@@ -76,7 +77,7 @@ class _TestsPage extends State<TestsPage> {
                             await fetchQuizz(category['_id'], 'training');
                             EasyLoading.dismiss();
                             if (context.mounted) {
-                              context.go('/tests/base');
+                              Get.to(() => const TestsBasePage());
                             }
                           },
                           child: Container(
@@ -146,7 +147,7 @@ class _TestsPage extends State<TestsPage> {
                     //                     await fetchQuizz(
                     //                         category['_id'], 'training');
                     //                     if (context.mounted) {
-                    //                       context.go('/tests/list');
+                    //                       Get.to(() => '/tests/list');
                     //                     }
                     //                   },
                     //                   child: const Center(
@@ -161,7 +162,7 @@ class _TestsPage extends State<TestsPage> {
                     //                     await fetchQuizz(
                     //                         category['_id'], 'examination');
                     //                     if (context.mounted) {
-                    //                       context.go('/tests/list');
+                    //                       Get.to(() => '/tests/list');
                     //                     }
                     //                   },
                     //                   child: const Center(

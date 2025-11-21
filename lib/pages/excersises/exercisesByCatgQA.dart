@@ -4,7 +4,7 @@
 // import 'package:edutainment/widgets/ui/default_scaffold.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:go_router/go_router.dart';
+// import 'package:get/get.dart';
 
 // import '../../providers/exercisesVm.dart';
 // import '../../widgets/header_bar/custom_header_bar.dart';
@@ -28,7 +28,7 @@
 //     var w = MediaQuery.of(context).size.width;
 
 //     // Get the extra data passed from GoRouter
-//     final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+//     final extra = Get.arguments as Map<String, dynamic>?;
 //     Question? questions = extra?['q'] ?? null;
 
 //     return DefaultScaffold(
@@ -40,7 +40,7 @@
 //               children: [
 //                 CustomHeaderBar(
 //                   onBack: () async {
-//                     // context.pop();
+//                     // Navigator.pop(context);
 //                     // Get.back();
 //                     Navigator.pop(context);
 //                   },
@@ -154,7 +154,7 @@ import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import '../../providers/exercisesVm.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
@@ -191,7 +191,7 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
   }
 
   void _startTimer() {
-    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+    final extra = Get.arguments as Map<String, dynamic>?;
     final questions = extra?['q'] as List<Question>?;
     if (questions == null || questions.isEmpty) return;
 
@@ -230,7 +230,7 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
   }
 
   void _handleNextQuestion() {
-    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+    final extra = Get.arguments as Map<String, dynamic>?;
     final questions = extra?['q'] as List<Question>?;
     if (questions == null || questions.isEmpty) return;
 
@@ -255,7 +255,7 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
     var w = MediaQuery.of(context).size.width;
 
     // Get the questions list passed from GoRouter
-    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+    final extra = Get.arguments as Map<String, dynamic>?;
     String labelTitle = extra?['labelTitle'] ?? widget.labelTitle;
     final questions = extra?['q'] as List<Question>?;
 

@@ -1,6 +1,7 @@
+import 'tests_quiz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../core/loader.dart';
 import '../../icons/icons_light.dart';
@@ -48,7 +49,7 @@ class _TestsListComponent extends State<TestsListComponent> {
                         await fetchQuizStart(quiz['_id']);
                         EasyLoading.dismiss();
                         if (context.mounted) {
-                          context.go('/tests/quiz');
+                          Get.to(() => const TestsQuizPage());
                         }
                       },
                       child: Container(

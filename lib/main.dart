@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 import 'core/loader.dart';
-import 'router/routes.dart';
+import 'pages/splash_screen/splash_screen_page.dart';
 import 'theme/theme.dart';
 
 // import 'package:html_to_flutter/html_to_flutter.dart';
@@ -69,7 +70,7 @@ class MyApp extends StatelessWidget {
           ]);
         }
 
-        return MaterialApp.router(
+        return GetMaterialApp(
           // scaffoldMessengerKey: scaffoldMessengerKey,
           key: globalKey,
 
@@ -77,7 +78,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: appTheme,
           themeMode: ThemeMode.light,
-          routerConfig: appRoutes,
+          home: const SplashScreenPage(),
           builder: EasyLoading.init(),
         );
       },

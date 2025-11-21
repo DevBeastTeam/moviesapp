@@ -1,7 +1,9 @@
+import '../../flashcards/flashcardslist.dart';
+import 'profile_settings_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/icons/icons_light.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../../constants/appimages.dart';
 import '../../../utils/screen_utils.dart';
@@ -44,14 +46,14 @@ class ProfileHeader extends StatelessWidget {
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
                         // context.go('/start');
-                        context.go('/home/settings');
+                        Get.to(() => const ProfileSettingsPage());
                       },
                       child: const Icon(AppIconsLight.gear, size: 18),
                     ),
                     SizedBox(width: 8),
                     GestureDetector(
                       onTap: () {
-                        context.go('/home/fc');
+                        Get.to(() => const FlashCardsListPage());
                       },
                       child: Image.asset(
                         AppImages.flashcardsblue,
@@ -180,14 +182,14 @@ class ProfileHeader extends StatelessWidget {
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
                         // context.go('/start');
-                        context.go('/home/settings');
+                        Get.to(() => const ProfileSettingsPage());
                       },
                       child: const Icon(AppIconsLight.gear, size: 18),
                     ),
                     SizedBox(width: 8),
                     GestureDetector(
                       onTap: () {
-                        context.go('/home/fc');
+                        Get.to(() => const FlashCardsListPage());
                       },
                       child: Image.asset(
                         AppImages.flashcardsblue,
@@ -306,7 +308,7 @@ class ProfileHeader extends StatelessWidget {
                 behavior: HitTestBehavior.translucent,
                 onTap: () {
                   // context.go('/start');
-                  context.go('/home/settings');
+                  Get.to(() => const ProfileSettingsPage());
                 },
                 child: const Icon(AppIconsLight.gear, size: 18),
               ), //Icon
@@ -363,7 +365,7 @@ class ProfileHeader extends StatelessWidget {
                           SizedBox(width: 10),
                           GestureDetector(
                             onTap: () {
-                              context.go('/home/fc');
+                              Get.to(() => const FlashCardsListPage());
                             },
                             child: Image.asset(
                               AppImages.flashcardsblue,

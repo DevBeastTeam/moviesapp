@@ -1,8 +1,9 @@
+import '../../ai/aiChat.dart';
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/pages/home/writings/moviesug.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../../widgets/header_bar/custom_header_bar.dart';
 
@@ -92,7 +93,7 @@ class _CopilotMenuPageState extends State<CopilotMenuPage> {
               ),
               icon: const Icon(Icons.edit, color: Colors.white),
               onPressed: () {
-                context.go('/home/ai/aichat');
+                Get.to(() => const AIMenuPage());
               },
               label: const Text(
                 'New Chat',
@@ -107,7 +108,7 @@ class _CopilotMenuPageState extends State<CopilotMenuPage> {
           CustomHeaderBar(
             onBack: () async {
               if (context.mounted) {
-                context.pop();
+                Navigator.pop(context);
               }
             },
             centerTitle: false,

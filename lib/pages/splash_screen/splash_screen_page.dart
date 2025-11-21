@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:edutainment/pages/auth/auth_page.dart';
+
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
+import 'package:get/get.dart';
 
 import '../../core/core.dart';
 import '../../widgets/ui/primary_button.dart';
@@ -53,7 +56,7 @@ class _SplashScreenPage extends State<SplashScreenPage> {
                         )).show();
                   }*/
               else {
-                context.go('/auth');
+                Get.to(() => const AuthPage());
               }
             } else {
               await AwesomeDialog(

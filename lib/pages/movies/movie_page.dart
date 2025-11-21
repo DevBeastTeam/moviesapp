@@ -1,8 +1,10 @@
+import '../flashcards/flashcardslist.dart';
+import 'movie_play_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:humanize_duration/humanize_duration.dart';
 
 import '../../utils/assets/assets_icons.dart';
@@ -35,7 +37,7 @@ class _MoviePage extends ConsumerState<MoviePage> {
               // await fetchMovies();
               await moviesBox.put('movie', null);
               if (context.mounted) {
-                context.pop();
+                Navigator.pop(context);
               }
             },
             centerTitle: false,
@@ -57,7 +59,7 @@ class _MoviePage extends ConsumerState<MoviePage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    context.go('/movies/movie/player');
+                    Get.to(() => const MoviePlayPage());
                   },
                   child: Stack(
                     alignment: Alignment.center,
@@ -181,7 +183,7 @@ class _MoviePage extends ConsumerState<MoviePage> {
           const SizedBox(height: 20),
           InkWell(
             onTap: () {
-              context.go('/home/fc');
+              Get.to(() => const FlashCardsListPage());
             },
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,

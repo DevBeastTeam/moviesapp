@@ -2,12 +2,13 @@ import 'package:edutainment/providers/exercisesVm.dart';
 import 'package:edutainment/widgets/thermameter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 import '../../constants/screenssize.dart';
 import '../../widgets/emptyWIdget.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import '../../widgets/ui/default_scaffold.dart';
+import 'exercisesByCatgQA.dart';
 
 class ExcerciseCatgPage extends ConsumerStatefulWidget {
   final String labelTitle;
@@ -26,7 +27,7 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
     var w = MediaQuery.of(context).size.width;
 
     // Get the extra data passed from GoRouter
-    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+    final extra = Get.arguments as Map<String, dynamic>?;
     final labelTitleCheck = extra?['labelTitle'] ?? widget.labelTitle;
     String labelTitle = labelTitleCheck.toString().isEmpty
         ? ""
@@ -134,18 +135,7 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
                                     )
                                     .toList(),
                                 onLessonTap: (index, v) {
-                                  context.go(
-                                    "/home/ExcersisesPage/ExcerciseByCatgQAPage",
-                                    extra: {
-                                      "q": ref
-                                          .watch(excerVm)
-                                          .excercisesCatgLessonsSteps!
-                                          .data
-                                          .lessons[index]
-                                          .questions,
-                                      "labelTitle": widget.labelTitle,
-                                    },
-                                  );
+                                  Get.to(() => const ExcerciseByCatgQAPage());
                                 },
                                 // lessons
                               ),

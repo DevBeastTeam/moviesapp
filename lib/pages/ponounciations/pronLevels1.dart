@@ -1,9 +1,10 @@
+import 'pronCatgPage2.dart';
 import 'package:edutainment/providers/pronounciationVM.dart';
 import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../constants/screenssize.dart';
@@ -53,7 +54,7 @@ class _PronlevelsPage1State extends ConsumerState<PronlevelsPage1> {
                 children: [
                   CustomHeaderBar(
                     onBack: () async {
-                      context.pop();
+                      Navigator.pop(context);
                     },
                     centerTitle: false,
                     title: 'Select Your Levels'.toUpperCase(),
@@ -96,7 +97,7 @@ class _PronlevelsPage1State extends ConsumerState<PronlevelsPage1> {
                                           .categories,
                                     );
                                 // Navigate without extra
-                                context.go("/home/PronlevelsPage1/2");
+                                Get.to(() => const PronCatgPage2());
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.9,

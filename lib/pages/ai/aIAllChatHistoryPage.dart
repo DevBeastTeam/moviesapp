@@ -2,7 +2,7 @@ import 'package:edutainment/widgets/header_bar/custom_header_bar.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 import '../../providers/aichatvm.dart';
 import '../../widgets/emptyWidget.dart';
@@ -36,7 +36,7 @@ class _AllAIChatHistoryPageState extends ConsumerState<AllAIChatHistoryPage> {
     // .getAllAiChatsF(context)
 
      // Get the questions list passed from GoRouter
-    final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
+    final extra = Get.arguments as Map<String, dynamic>?;
     bool isPinnedOnly = extra?['isPinnedOnly']  as bool ?? false;
 
     return DefaultScaffold(
@@ -48,7 +48,7 @@ class _AllAIChatHistoryPageState extends ConsumerState<AllAIChatHistoryPage> {
             CustomHeaderBar(
               onBack: () async {
                 if (context.mounted) {
-                  context.pop();
+                  Navigator.pop(context);
                 }
               },
               centerTitle: false,
@@ -103,7 +103,7 @@ class _AllAIChatHistoryPageState extends ConsumerState<AllAIChatHistoryPage> {
                           children: [
                             InkWell(
                               onTap: () async{
-                                context.pop();
+                                Navigator.pop(context);
                           await p.getAiChatByIdF(context, chatId: data.id, loadingFor: "refresh");
                               },
                               child: Icon(Icons.chat_outlined)),
@@ -120,7 +120,7 @@ class _AllAIChatHistoryPageState extends ConsumerState<AllAIChatHistoryPage> {
                                           leading: data.isPinned? Icon(Icons.push_pin_outlined) : Icon(Icons.push_pin_rounded),
                                           title:  Text(data.isPinned? "UnPin" : "Pin"),
                                           onTap: () async {
-                                            context.pop();
+                                            Navigator.pop(context);
                                             await p.toggleConversationChatsPinByIdF(context, conversationId: data.id);
                                           },
                                         ),
@@ -129,7 +129,7 @@ class _AllAIChatHistoryPageState extends ConsumerState<AllAIChatHistoryPage> {
                                           leading: Icon(Icons.delete),
                                           title: Text("Delete"),
                                           onTap: () async {
-                                            context.pop();
+                                            Navigator.pop(context);
                                             await p.deleteConversationChatsByIdF(context, conversationId: data.id);
                                           },
                                         ),
@@ -138,7 +138,7 @@ class _AllAIChatHistoryPageState extends ConsumerState<AllAIChatHistoryPage> {
                                           leading: Icon(Icons.edit),
                                           title: Text("Update Title"),
                                           onTap: () async {
-                                            context.pop();
+                                            Navigator.pop(context);
                                             TextEditingController titleControler = TextEditingController(text: data.title??'');
                                             showDialog(
                                               context: context,
@@ -150,7 +150,7 @@ class _AllAIChatHistoryPageState extends ConsumerState<AllAIChatHistoryPage> {
                                                 actions: [
                                                   TextButton(
                                                     onPressed: () async {
-                                                      context.pop();
+                                                      Navigator.pop(context);
                                                     },
                                                     child: Text("Cancel"),
                                                   ),
@@ -163,7 +163,7 @@ class _AllAIChatHistoryPageState extends ConsumerState<AllAIChatHistoryPage> {
                                                                 data.id,
                                                             newTitle: titleControler.text,
                                                           ).then((v){
-                                                              context.pop();
+                                                              Navigator.pop(context);
                                                           });
                                                     },
                                                     child: Text("Update"),
@@ -184,7 +184,7 @@ class _AllAIChatHistoryPageState extends ConsumerState<AllAIChatHistoryPage> {
                           ],
                         ),
                         onTap: () async {
-                          context.pop();
+                          Navigator.pop(context);
                           await p.getAiChatByIdF(context, chatId: data.id, loadingFor: "refresh");
                         },
                       );

@@ -1,7 +1,8 @@
+import '../home_page.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:edutainment/core/loader.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../icons/icons_light.dart';
@@ -73,7 +74,7 @@ class _ProfileEditPage extends State<ProfileEditPage> {
             children: [
               CustomHeaderBar(
                 onBack: () {
-                  context.go('/home');
+                  Get.to(() => const HomePage());
                 },
                 title: 'EDIT PROFILE',
               ),

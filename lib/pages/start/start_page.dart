@@ -1,6 +1,7 @@
 import 'package:edutainment/widgets/ui/primary_button.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
+import '../entry_quiz/entry_quiz_page.dart';
 
 import '../../core/loader.dart';
 import '../../theme/colors.dart';
@@ -62,7 +63,7 @@ class _StartPage extends State<StartPage> {
                         onPressed: () async {
                           await fetchEntryQuiz();
                           if (context.mounted) {
-                            context.go('/entry-quiz');
+                            Get.to(() => const EntryQuizPage());
                           }
                         },
                         text: 'LET\'S GO !',

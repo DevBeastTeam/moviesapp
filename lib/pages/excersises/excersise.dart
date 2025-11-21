@@ -3,11 +3,12 @@ import 'package:edutainment/providers/exercisesVm.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../widgets/emptyWIdget.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
+import 'excerciseCatg.dart';
 
 class ExcersisesPage extends ConsumerStatefulWidget {
   const ExcersisesPage({super.key});
@@ -121,9 +122,9 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
                                           .toString(),
                                       loadingFor: "getExcercisesByCatg",
                                     );
-                                    context.go(
-                                      '/home/ExcersisesPage/ExcerciseCatgPage',
-                                      extra: {
+                                    Get.to(
+                                      () => const ExcerciseCatgPage(),
+                                      arguments: {
                                         "labelTitle":
                                             data.label[0].toUpperCase() +
                                             data.label.substring(1),

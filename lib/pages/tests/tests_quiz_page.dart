@@ -1,9 +1,11 @@
+import 'tests_quiz_results.dart';
+import 'tests_base_page.dart';
 import 'dart:convert';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../theme/colors.dart';
 import '../../utils/boxes.dart';
@@ -36,7 +38,7 @@ class _TestsQuizPage extends State<TestsQuizPage> {
         ),
         child: QuizPage(
           backFn: () {
-            context.go('/tests/base');
+            Get.to(() => const TestsBasePage());
           },
           quiz: quizData,
           onFinish: (answers) async {
@@ -83,9 +85,9 @@ class _TestsQuizPage extends State<TestsQuizPage> {
                 },
               );
               if (res == true) {
-                context.go('/tests/quiz/results');
+                Get.to(() => const TestsQuizResultsPage());
               } else {
-                context.go('/tests/base');
+                Get.to(() => const TestsBasePage());
               }
             }
           },

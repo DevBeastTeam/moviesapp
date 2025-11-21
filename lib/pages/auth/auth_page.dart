@@ -5,9 +5,9 @@ import 'package:edutainment/utils/utils.dart';
 import 'package:edutainment/widgets/ui/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-// import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import '../../core/api_helper.dart';
+import '../../pages/auth/auth_splash_screen.dart';
 import '../../theme/colors.dart';
 import '../../utils/assets/assets_images.dart';
 import '../../utils/boxes.dart';
@@ -307,7 +307,7 @@ e-dutainment.com.
                       } else {
                         await userBox.put('token', getIn(response, 'token'));
                         if (context.mounted) {
-                          context.go('/auth-splash');
+                          Get.to(() => const AuthSplashScreenPage());
                         }
                       }
                     },

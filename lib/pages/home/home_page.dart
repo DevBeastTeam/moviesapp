@@ -1,8 +1,9 @@
+import '../movies/movies_page.dart';
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/providers/user_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../utils/movies.dart';
 import '../../utils/screen_utils.dart';
@@ -110,7 +111,7 @@ class _HomePage extends ConsumerState<HomePage> {
                                 historyBadges: historyBadgesData,
                               ),
                               InkWell(
-                                onTap: () => context.go("/movies"),
+                                onTap: () => Get.to(() => const MoviesPage()),
                                 child: Container(
                                   margin: const EdgeInsets.only(
                                     top: 5,
@@ -194,7 +195,7 @@ class _HomePage extends ConsumerState<HomePage> {
                           ),
 
                           InkWell(
-                            onTap: () => context.go("/movies"),
+                            onTap: () => Get.to(() => const MoviesPage()),
                             child: Container(
                               margin: const EdgeInsets.only(
                                 top: 5,
@@ -263,7 +264,7 @@ class _HomePage extends ConsumerState<HomePage> {
                           //                   historyBadges: historyBadgesData,
                           //                 ),
                           //                 InkWell(
-                          //                   onTap: () => context.go("/movies"),
+                          //                   onTap: () => Get.to(() => const MoviesPage()),
                           //                   child: Container(
                           //                     margin: const EdgeInsets.only(
                           //                       top: 5,
@@ -353,7 +354,7 @@ class _HomePage extends ConsumerState<HomePage> {
                                 historyBadges: historyBadgesData,
                               ),
                               InkWell(
-                                onTap: () => context.go("/movies"),
+                                onTap: () => Get.to(() => const MoviesPage()),
                                 child: Container(
                                   margin: const EdgeInsets.only(
                                     top: 5,

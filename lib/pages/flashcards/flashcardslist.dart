@@ -1,10 +1,11 @@
+import 'falscarddetails.dart';
 import 'package:edutainment/providers/flashCardsVM.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../utils/toast.dart';
@@ -56,7 +57,7 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                 CustomHeaderBar(
                   onBack: () {
                     if (context.mounted) {
-                      context.pop();
+                      Navigator.pop(context);
                     }
                   },
                   centerTitle: false,
@@ -255,9 +256,7 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                                 return FlashCardsTileWidget(
                                   item: item,
                                   onTap: () {
-                                    context.go(
-                                      "/home/fc/fcdetails",
-                                      extra: {
+                                    Get.to(() => const FlashCardDetailsPage(), arguments: {
                                         'movie': item,
                                         'subjectId': p.selectedSubject,
                                       },
@@ -283,9 +282,7 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                                 child: FlashCardsTileWidget(
                                   item: item,
                                   onTap: () {
-                                    context.go(
-                                      "/home/fc/fcdetails",
-                                      extra: {
+                                    Get.to(() => const FlashCardDetailsPage(), arguments: {
                                         'movie': item,
                                         'subjectId': p.selectedSubject,
                                       },
@@ -313,7 +310,7 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
               CustomHeaderBar(
                 onBack: () {
                   if (context.mounted) {
-                    context.pop();
+                    Navigator.pop(context);
                   }
                 },
                 centerTitle: false,
@@ -502,9 +499,7 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                               return FlashCardsTileWidget(
                                 item: item,
                                 onTap: () {
-                                  context.go(
-                                    "/home/fc/fcdetails",
-                                    extra: {
+                                  Get.to(() => const FlashCardDetailsPage(), arguments: {
                                       'movie': item,
                                       'subjectId': p.selectedSubject,
                                     },
@@ -530,9 +525,7 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                               child: FlashCardsTileWidget(
                                 item: item,
                                 onTap: () {
-                                  context.go(
-                                    "/home/fc/fcdetails",
-                                    extra: {
+                                  Get.to(() => const FlashCardDetailsPage(), arguments: {
                                       'movie': item,
                                       'subjectId': p.selectedSubject,
                                     },

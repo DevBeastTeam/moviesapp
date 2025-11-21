@@ -1,12 +1,14 @@
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/widgets/ui/primary_button.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
+import 'package:get/get.dart';
 
 import '../../core/loader.dart';
 import '../../theme/colors.dart';
 import '../../utils/boxes.dart';
 import '../../utils/utils.dart';
+import '../start/start_page.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -54,7 +56,7 @@ class _WelcomePage extends State<WelcomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // AssetsImage.defaultIcon.toImage(width: 50),
-                        Image.asset(AppImages.playerlight, width: 50,),
+                        Image.asset(AppImages.playerlight, width: 50),
                         const VerticalDivider(
                           width: 5,
                           color: Colors.transparent,
@@ -110,7 +112,7 @@ class _WelcomePage extends State<WelcomePage> {
                               userData['answer_entry_quiz'] ?? false;
                           if (context.mounted) {
                             if (!hasAnswerEntryQuiz) {
-                              context.go('/start');
+                              Get.to(() => const StartPage());
                             } else {
                               await fetchAndRedirectHome(context);
                             }

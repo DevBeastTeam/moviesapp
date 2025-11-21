@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import '../../constants/appimages.dart';
+import '../../pages/home/home_page.dart';
+import '../../pages/movies/movies_page.dart';
+import '../../pages/search/search_page.dart';
+import '../../pages/tests/tests_page.dart';
 
 class TopBarWidget extends StatelessWidget {
   final bool showProfileButton;
@@ -36,28 +40,28 @@ class TopBarWidget extends StatelessWidget {
         if (showProfileButton)
           TextButton(
             onPressed: () {
-              context.go("/home");
+              Get.to(() => const HomePage());
             },
             child: Text("PROFILES"),
           ),
         if (showMoviesButton)
           TextButton(
             onPressed: () {
-              context.go("/movies");
+              Get.to(() => const MoviesPage());
             },
             child: Text("FILMS"),
           ),
         if (showSearchButton)
           TextButton(
             onPressed: () {
-              context.go("/search");
+              Get.to(() => const SearchPage());
             },
             child: Text("SEARCH"),
           ),
         if (showTestButton)
           TextButton(
             onPressed: () {
-              context.go("/tests");
+              Get.to(() => const TestsPage());
             },
             child: Text("TEST"),
           ),

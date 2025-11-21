@@ -1,6 +1,7 @@
+import 'tests_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../core/loader.dart';
 import '../../theme/colors.dart';
@@ -44,7 +45,7 @@ class _TestsQuizResultsPage extends State<TestsQuizResultsPage> {
                   getIn(quizData, 'type'),
                 );
                 if (context.mounted) {
-                  context.go('/tests');
+                  Get.to(() => const TestsPage());
                 }
               },
             ),
