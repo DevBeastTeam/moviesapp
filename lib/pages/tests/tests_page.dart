@@ -1,5 +1,7 @@
+import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../constants/screenssize.dart';
 import '../../controllers/quiz_controller.dart';
@@ -49,19 +51,16 @@ class _TestsPage extends State<TestsPage> {
             backgroundColor: Colors.transparent,
             // backgroundColor: ColorsPallet.darkBlue,
           ),
+          Obx(() {
+            if (quizController.isLoading.value)
+              return const QuickTikTokLoader();
+            return SizedBox.shrink();
+          }),
           Expanded(
             child: Obx(() {
-              if (quizController.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
-              }
-
-              if (quizController.categories.isEmpty) {
-                return const Center(
-                  child: Text(
-                    "No categories available",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                );
+              if (!quizController.isLoading.value &&
+                  quizController.categories.isEmpty) {
+                return Center(child: EmptyWidget(text: "Empty"));
               }
 
               return SingleChildScrollView(
