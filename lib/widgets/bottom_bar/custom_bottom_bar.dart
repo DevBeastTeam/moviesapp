@@ -80,12 +80,12 @@ class CustomBottomBar extends StatelessWidget {
                               await fetchMovies();
                               EasyLoading.dismiss();
                             }
-                            Get.to(() => const MoviesPage());
+                            Get.offAll(() => const MoviesPage());
                           } else {
                             // Map path to page widget
                             Widget? page = _getPageFromPath(items[i].path);
                             if (page != null) {
-                              Get.to(() => page);
+                              Get.offAll(() => page);
                             }
                           }
                         },
@@ -208,7 +208,7 @@ class _BottomBarItem extends StatelessWidget {
                       : [Colors.white, Colors.white54],
                 ),
               ),
-              if (text == null)
+              if (text != null)
                 Container(
                   margin: const EdgeInsets.only(top: 4),
                   child: Text(

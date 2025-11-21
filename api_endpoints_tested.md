@@ -3,7 +3,7 @@
 Base URL: `https://dev.play.e-dutainment.com/api/1.0`
 
 ## Authentication
-- `POST /auth/token` - Login
+- `POST /auth/token` - Login ✅
 - `GET /auth/me` - Get current user info
 
 ## Users
@@ -43,11 +43,12 @@ Base URL: `https://dev.play.e-dutainment.com/api/1.0`
 -  need submit api endpoint for this lesson. when reading done 🕣
 ## exercises
 - `GET /lessons/exercises` - List exercises ✅
-
-- `GET /lessons/exercises/category/{catgRef}` - List exercises by category -> 🗑️ EMPTY --> need data in lessons List for proper test {success: true, data: {lessons: [], progressPercentage: null}}
-https://dev.play.e-dutainment.com/api/1.0/lessons/exercises/category/c2 --> a1,a2,b1,b2,c1,c2,d1,d2
+- `GET /lessons/exercises/category/{catgRef}` - List exercises by category -> 🟨 EMPTY -->
+ https://dev.play.e-dutainment.com/api/1.0/lessons/exercises/category/c2 --> a1,a2,b1,b2,c1,c2,d1,d2
+  ----> need data in lessons List for proper test {success: true, data: {lessons: [], progressPercentage: null}}
 
 - `POST /lessons/exercises/{answerId}` - Submit exercise answer ✅
+
 ## pronunciation
 // new
 - `GET /pronunciation` - List pronunciation ✅
@@ -57,9 +58,9 @@ https://dev.play.e-dutainment.com/api/1.0/lessons/exercises/category/c2 --> a1,a
 
 
 ## Flashcards
-- `GET /flashcard/` - List flashcards 🗑️ -> was empty add some movies data
-- `GET /flashcard/{subjectId}` - Get flashcards by subject 🗑️ -> was empty add some movies data
-- `GET /flashcard/view/{movieId}/{levelId}` - View flashcards for movie and level
+- `GET /flashcard/` - List flashcards 🟨 -> was empty movies data. add some movies data 
+- `GET /flashcard/{subjectId}` - Get flashcards by subject 🟨 -> was empty add some movies data
+- `GET /flashcard/view/{movieId}/{levelId}` - View flashcards for movie and level 🕣
 
 ## AI Chat
 - `POST /chat/create` - Create new chat ✅
