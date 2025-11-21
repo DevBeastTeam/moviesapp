@@ -2,7 +2,6 @@ import 'package:edutainment/core/loader.dart';
 import 'package:edutainment/utils/boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get.dart';
 import '../home/home_page.dart';
 
 import '../../theme/colors.dart';

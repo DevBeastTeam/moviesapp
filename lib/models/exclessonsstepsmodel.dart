@@ -71,8 +71,8 @@ class Lesson {
       label: json['label'].toString().toSafeString(),
       questions:
           (json['questions'] as List<dynamic>?)
-              ?.where((e) => e is Map<String, dynamic>)
-              .map((e) => Question.fromJson(e as Map<String, dynamic>))
+              ?.whereType<Map<String, dynamic>>()
+              .map((e) => Question.fromJson(e))
               .toList() ??
           [],
       lessonNumber: json['lessonNumber'].toString().toSafeString(),

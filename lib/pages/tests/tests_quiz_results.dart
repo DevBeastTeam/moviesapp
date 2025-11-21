@@ -1,7 +1,6 @@
 import 'tests_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get.dart';
 
 import '../../core/loader.dart';
 import '../../theme/colors.dart';

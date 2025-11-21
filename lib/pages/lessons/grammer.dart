@@ -2,21 +2,20 @@ import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
-import '../../providers/grammerVm.dart';
+import '../../controllers/grammer_controller.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import 'grammerCatg.dart';
 
-class GrammerPage extends ConsumerStatefulWidget {
+class GrammerPage extends StatefulWidget {
   const GrammerPage({super.key});
 
   @override
-  ConsumerState<GrammerPage> createState() => GrammerPageState();
+  State<GrammerPage> createState() => GrammerPageState();
 }
 
-class GrammerPageState extends ConsumerState<GrammerPage> {
+class GrammerPageState extends State<GrammerPage> {
   bool _isPopping = false;
 
   @override
@@ -28,13 +27,16 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
 
   void syncFirstF() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(grammerData).getGrammersF(context, loadingFor: "grammer");
+      Get.find<GrammerController>().getGrammersF(
+        context,
+        loadingFor: "grammer",
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // var p = ref.watch(grammerData);
+    final p = Get.find<GrammerController>();
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
@@ -56,8 +58,11 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
               title: 'SELECT YOUR LEVEL',
             ),
 
-            if (ref.watch(grammerData).loadingFor == "grammer")
-              QuickTikTokLoader(),
+            Obx(
+              () => p.loadingFor == "grammer"
+                  ? QuickTikTokLoader()
+                  : SizedBox.shrink(),
+            ),
 
             // const Padding(
             //   padding: EdgeInsets.symmetric(vertical: 10),
@@ -70,56 +75,50 @@ class GrammerPageState extends ConsumerState<GrammerPage> {
             //     ),
             //   ),
             // ),
-            if (ref.watch(grammerData).grammersList.isEmpty)
-              EmptyWidget()
-            else
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SizedBox(
-                  width: Screen.width(context) > 450
-                      ? Screen.width(context) * 0.7
-                      : null,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: ref
-                        .watch(grammerData)
-                        .grammersList
-                        .first
-                        .allowedLessonCategory
-                        .length,
-                    controller: ScrollController(),
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      var level = ref
-                          .watch(grammerData)
-                          .grammersList
-                          .first
-                          .allowedLessonCategory[index];
-                      return buildLevelBox(
-                        level.label,
-                        // subtitle: "",
-                        onTap: () async {
-                          // in future if need
-                          //  await ref.read(grammerData).getGrammersByIdForCatgListF(context, levelId:level.id , loadingFor: "grammerCatg");
-                          // await ref
-                          //     .read(grammerData)
-                          //     .getGrammerSingleByIdF(
-                          //       context,
-                          //       id: level.id,
-                          //       loadingFor: "grammerCatg",
-                          //     );
-                          ref
-                              .read(grammerData)
-                              .setSelectedLabelCH(level.label.toString());
+            Obx(
+              () => p.grammersList.isEmpty
+                  ? EmptyWidget()
+                  : Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: SizedBox(
+                        width: Screen.width(context) > 450
+                            ? Screen.width(context) * 0.7
+                            : null,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount:
+                              p.grammersList.first.allowedLessonCategory.length,
+                          controller: ScrollController(),
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            var level = p
+                                .grammersList
+                                .first
+                                .allowedLessonCategory[index];
+                            return buildLevelBox(
+                              level.label,
+                              // subtitle: "",
+                              onTap: () async {
+                                // in future if need
+                                //  await ref.read(grammerData).getGrammersByIdForCatgListF(context, levelId:level.id , loadingFor: "grammerCatg");
+                                // await ref
+                                //     .read(grammerData)
+                                //     .getGrammerSingleByIdF(
+                                //       context,
+                                //       id: level.id,
+                                //       loadingFor: "grammerCatg",
+                                //     );
+                                p.setSelectedLabelCH(level.label.toString());
 
-                          //////
-                          Get.to(() => GrammerCatgPage());
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
+                                //////
+                                Get.to(() => GrammerCatgPage());
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+            ),
           ],
         ),
       ),

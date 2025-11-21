@@ -1,26 +1,25 @@
 import 'falscarddetails.dart';
-import 'package:edutainment/providers/flashCardsVM.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
+import '../../controllers/flashcards_controller.dart';
 import '../../controllers/navigation_args_controller.dart';
 
 import '../../utils/toast.dart';
 import '../../widgets/flashcardslisttile.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
-class FlashCardsListPage extends ConsumerStatefulWidget {
+class FlashCardsListPage extends StatefulWidget {
   const FlashCardsListPage({super.key});
 
   @override
-  ConsumerState<FlashCardsListPage> createState() => FlashCardsListsPageState();
+  State<FlashCardsListPage> createState() => FlashCardsListsPageState();
 }
 
-class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
+class FlashCardsListsPageState extends State<FlashCardsListPage> {
   List<bool> openedCards = List.generate(10, (index) => false);
   final PageController _pageController = PageController();
 
@@ -32,7 +31,10 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
 
   void syncFirstF() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(flashCardsVM).getFlashCards(context, loadingFor: "getflash");
+      Get.find<FlashCardsController>().getFlashCards(
+        context,
+        loadingFor: "getflash",
+      );
     });
   }
 
@@ -41,19 +43,22 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
-    var p = ref.watch(flashCardsVM);
 
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
     final isTablet =
         mediaQuery.size.shortestSide >= 600; // Common tablet threshold
-    if (isLandscape) {
-      return DefaultScaffold(
-        currentPage: '/home/fc',
-        child: Builder(
-          builder: (context) {
-            return Column(
+    
+    return Obx(() {
+      final p = Get.find<FlashCardsController>();
+      
+      if (isLandscape) {
+        return DefaultScaffold(
+          currentPage: '/home/fc',
+          child: Builder(
+            builder: (context) {
+              return Column(
               children: [
                 CustomHeaderBar(
                   onBack: () {
@@ -115,12 +120,11 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                                               p.setSelectSubject(
                                                 flashSubject.id,
                                               );
-                                              await p
-                                                  .getFlashCardMoviesListBySubjectId(
-                                                    context,
-                                                    subjectId: flashSubject.id,
-                                                    loadingFor: "movies",
-                                                  );
+                                              p.getFlashCardMoviesListBySubjectId(
+                                                context,
+                                                subjectId: flashSubject.id,
+                                                loadingFor: "movies",
+                                              );
                                             } else {
                                               showToast(
                                                 'This subject is not enabled',
@@ -192,15 +196,14 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                                 child: Opacity(
                                   opacity: flashSubject.enabled ? 1 : 0.5,
                                   child: InkWell(
-                                    onTap: () async {
+                                    onTap: () {
                                       if (flashSubject.enabled == true) {
                                         p.setSelectSubject(flashSubject.id);
-                                        await p
-                                            .getFlashCardMoviesListBySubjectId(
-                                              context,
-                                              subjectId: flashSubject.id,
-                                              loadingFor: "movies",
-                                            );
+                                        p.getFlashCardMoviesListBySubjectId(
+                                          context,
+                                          subjectId: flashSubject.id,
+                                          loadingFor: "movies",
+                                        );
                                       } else {
                                         showToast(
                                           'This subject is not enabled',
@@ -365,12 +368,11 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                                         onTap: () async {
                                           if (flashSubject.enabled == true) {
                                             p.setSelectSubject(flashSubject.id);
-                                            await p
-                                                .getFlashCardMoviesListBySubjectId(
-                                                  context,
-                                                  subjectId: flashSubject.id,
-                                                  loadingFor: "movies",
-                                                );
+                                            p.getFlashCardMoviesListBySubjectId(
+                                              context,
+                                              subjectId: flashSubject.id,
+                                              loadingFor: "movies",
+                                            );
                                           } else {
                                             showToast(
                                               'This subject is not enabled',
@@ -443,7 +445,7 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
                                   onTap: () async {
                                     if (flashSubject.enabled == true) {
                                       p.setSelectSubject(flashSubject.id);
-                                      await p.getFlashCardMoviesListBySubjectId(
+                                      p.getFlashCardMoviesListBySubjectId(
                                         context,
                                         subjectId: flashSubject.id,
                                         loadingFor: "movies",
@@ -548,5 +550,6 @@ class FlashCardsListsPageState extends ConsumerState<FlashCardsListPage> {
         },
       ),
     );
+    });
   }
 }

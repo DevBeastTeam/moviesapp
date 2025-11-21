@@ -1,32 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/constants/toats.dart';
-import 'package:edutainment/providers/flashCardsVM.dart';
 import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import '../../controllers/flashcards_controller.dart';
 import '../../controllers/navigation_args_controller.dart';
 import '../../widgets/flashcardslisttile.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
-class FlashCardDetailsPage extends ConsumerStatefulWidget {
+class FlashCardDetailsPage extends StatefulWidget {
   const FlashCardDetailsPage({super.key});
 
   @override
-  ConsumerState<FlashCardDetailsPage> createState() =>
-      FlashCardDetailsPageState();
+  State<FlashCardDetailsPage> createState() => FlashCardDetailsPageState();
 }
 
-class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
+class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
   final PageController pageController = PageController();
   bool isPage2 = false;
 
   @override
   Widget build(BuildContext context) {
-    final p = ref.watch(flashCardsVM);
     final t = Theme.of(context).textTheme;
     final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
@@ -49,7 +46,10 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
 
     List levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
-    return DefaultScaffold(
+    return Obx(() {
+      final p = Get.find<FlashCardsController>();
+      
+      return DefaultScaffold(
       currentPage: '/home/fc/fcdetails',
       child: SingleChildScrollView(
         child: Column(
@@ -405,5 +405,6 @@ class FlashCardDetailsPageState extends ConsumerState<FlashCardDetailsPage> {
         ),
       ),
     );
+    });
   }
 }

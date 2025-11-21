@@ -9,7 +9,6 @@ import 'package:edutainment/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:get/get.dart';
 
 import '../../../utils/questions.dart';
 import '../../../utils/utils.dart';

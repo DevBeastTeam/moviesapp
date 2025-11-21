@@ -1,24 +1,23 @@
 import 'package:edutainment/constants/screenssize.dart';
-import 'package:edutainment/providers/exercisesVm.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
+import '../../controllers/exercises_controller.dart';
 import '../../controllers/navigation_args_controller.dart';
 
 import '../../widgets/emptyWIdget.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import 'excerciseCatg.dart';
 
-class ExcersisesPage extends ConsumerStatefulWidget {
+class ExcersisesPage extends StatefulWidget {
   const ExcersisesPage({super.key});
 
   @override
-  ConsumerState<ExcersisesPage> createState() => _ExcersisesPageState();
+  State<ExcersisesPage> createState() => _ExcersisesPageState();
 }
 
-class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
+class _ExcersisesPageState extends State<ExcersisesPage> {
   @override
   void initState() {
     super.initState();
@@ -27,13 +26,13 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
 
   void syncFirstF() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(excerVm).getExcerF(context, loadingFor: "getAll");
+      Get.find<ExercisesController>().getExcerF(context, loadingFor: "getAll");
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var p = ref.watch(excerVm);
+    final p = Get.find<ExercisesController>();
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
@@ -48,10 +47,11 @@ class _ExcersisesPageState extends ConsumerState<ExcersisesPage> {
             centerTitle: false,
             title: 'Excercises',
           ),
-          ref.watch(excerVm).loadingFor == "refresh" ||
-                  ref.watch(excerVm).loadingFor == "getAll"
-              ? QuickTikTokLoader()
-              : SizedBox.shrink(),
+          Obx(
+            () => p.loadingFor == "refresh" || p.loadingFor == "getAll"
+                ? QuickTikTokLoader()
+                : SizedBox.shrink(),
+          ),
           Column(
             mainAxisSize: MainAxisSize.min,
 

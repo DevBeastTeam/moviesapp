@@ -2,10 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:get/get.dart';
 
 import 'controllers/navigation_args_controller.dart';
+import 'controllers/grammer_controller.dart';
+import 'controllers/pronunciation_controller.dart';
+import 'controllers/exercises_controller.dart';
+import 'controllers/ai_chat_controller.dart';
+import 'controllers/flashcards_controller.dart';
+import 'controllers/movies_controller.dart';
+import 'controllers/user_controller.dart';
 import 'core/loader.dart';
 import 'pages/splash_screen/splash_screen_page.dart';
 import 'theme/theme.dart';
@@ -21,6 +28,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initHive();
   Get.put(NavigationArgsController());
+  Get.put(GrammerController());
+  Get.put(PronunciationController());
+  Get.put(ExercisesController());
+  Get.put(AiChatController());
+  Get.put(FlashCardsController());
+  Get.put(MoviesController());
+  Get.put(UserController());
   // runAppSpector();
   await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode
@@ -35,7 +49,7 @@ void main() async {
       statusBarIconBrightness: Brightness.light,
     ),
   );
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const MyApp());
   configLoading();
 }
 

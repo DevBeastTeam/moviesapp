@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/constants/screenssize.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../theme/colors.dart';
 import '../../utils/assets/assets_icons.dart';
@@ -15,14 +14,14 @@ import '../../widgets/ui/custom_submit_button.dart';
 import '../../widgets/ui/default_scaffold.dart';
 import 'widgets/tabButtonWidget.dart';
 
-class MoviesPage extends ConsumerStatefulWidget {
+class MoviesPage extends StatefulWidget {
   const MoviesPage({super.key});
 
   @override
-  ConsumerState<MoviesPage> createState() => _MoviesPage();
+  State<MoviesPage> createState() => _MoviesPage();
 }
 
-class _MoviesPage extends ConsumerState<MoviesPage> {
+class _MoviesPage extends State<MoviesPage> {
   final dynamic subjects = moviesBox.get('subjects');
   final dynamic groupMovies = moviesBox.get('groupMovies');
   final dynamic statusGroupMovies = moviesBox.get('statusGroupMovies');
@@ -500,11 +499,7 @@ class _MoviesPage extends ConsumerState<MoviesPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               for (var movie in moviesList)
-                                buildMovieFrame(
-                                  movie: movie,
-                                  context: context,
-                                  ref: ref,
-                                ),
+                                buildMovieFrame(movie: movie, context: context),
                             ],
                           ),
                         ),
@@ -531,11 +526,7 @@ class _MoviesPage extends ConsumerState<MoviesPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               for (var movie in moviesList)
-                                buildMovieFrame(
-                                  ref: ref,
-                                  movie: movie,
-                                  context: context,
-                                ),
+                                buildMovieFrame(movie: movie, context: context),
                             ],
                           ),
                         ),
@@ -569,7 +560,6 @@ class _MoviesPage extends ConsumerState<MoviesPage> {
                                   children: [
                                     for (var movie in moviesList)
                                       buildMovieFrame(
-                                        ref: ref,
                                         movie: movie,
                                         context: context,
                                       ),

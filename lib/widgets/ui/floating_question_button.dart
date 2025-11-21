@@ -7,11 +7,11 @@ import 'package:better_player/better_player.dart';
 
 import 'package:edutainment/core/loader.dart';
 import 'package:edutainment/pages/quiz/questions/question_dialog.dart';
-import 'package:edutainment/providers/user_providers.dart';
+import 'package:edutainment/controllers/user_controller.dart';
 import 'package:edutainment/widgets/ui/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../icons/icons_light.dart';
@@ -19,15 +19,15 @@ import '../../theme/colors.dart';
 import '../../utils/questions.dart';
 import '../../utils/utils.dart';
 
-class FloatingQuestionButton extends ConsumerStatefulWidget {
+class FloatingQuestionButton extends StatefulWidget {
   const FloatingQuestionButton({super.key});
 
   @override
-  ConsumerState<FloatingQuestionButton> createState() =>
+  State<FloatingQuestionButton> createState() =>
       _FloatingQuestionButton();
 }
 
-class _FloatingQuestionButton extends ConsumerState<FloatingQuestionButton> {
+class _FloatingQuestionButton extends State<FloatingQuestionButton> {
   late bool isShown = true;
   late bool hasAnswered = false;
 
@@ -80,7 +80,7 @@ class _FloatingQuestionButton extends ConsumerState<FloatingQuestionButton> {
             }
 
             await fetchUser();
-            ref.read(userProvider.notifier).update();
+            Get.find<UserController>().update();
           },
         );
         await Navigator.of(context).push(

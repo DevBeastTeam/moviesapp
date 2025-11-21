@@ -1,37 +1,34 @@
 import 'package:edutainment/constants/screenssize.dart';
-import 'package:edutainment/providers/pronounciationVM.dart';
+import 'package:edutainment/controllers/pronunciation_controller.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
 import '../../constants/appimages.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import 'pronResult5.dart';
 
-class PronParacticePage4 extends ConsumerStatefulWidget {
+class PronParacticePage4 extends StatefulWidget {
   const PronParacticePage4({super.key});
 
   @override
-  ConsumerState<PronParacticePage4> createState() => _PronParacticePage4State();
+  State<PronParacticePage4> createState() => _PronParacticePage4State();
 }
 
-class _PronParacticePage4State extends ConsumerState<PronParacticePage4> {
+class _PronParacticePage4State extends State<PronParacticePage4> {
   @override
   Widget build(BuildContext context) {
-    // Get data from provider instead of GoRouter extra
-    var p = ref.watch(pronounciationVm);
-    final selectedlabel = p.selectedLevel;
-    final selectedCatg = p.selectedCategory;
-    final selectedLesson = p.selectedLesson;
-    final selectedLessonId = p.selectedLessonId;
-    final selectedLessonIndex = p.selectedLessonIndex;
-
     return DefaultScaffold(
       currentPage: '/home/PronlevelsPage1/2/3/4',
-      child: SingleChildScrollView(
-        child: Column(
+      child: GetBuilder<PronunciationController>(
+        builder: (controller) {
+          // Get data from GetX controller inside the builder for reactive updates
+          final selectedCatg = controller.selectedCategory;
+          final selectedLesson = controller.selectedLesson;
+          
+          return SingleChildScrollView(
+            child: Column(
           children: [
             SizedBox(
               // height: MediaQuery.of(context).size.height * 0.18,
@@ -63,7 +60,7 @@ class _PronParacticePage4State extends ConsumerState<PronParacticePage4> {
                         ),
                         child: CupertinoListTile(
                           title: Text(
-                            '${selectedCatg?.label ?? ''}',
+                            selectedCatg?.label ?? '',
                             style: TextStyle(color: Colors.white),
                           ),
                           trailing: SizedBox(
@@ -156,6 +153,8 @@ class _PronParacticePage4State extends ConsumerState<PronParacticePage4> {
             const SizedBox(height: 30),
           ],
         ),
+      );
+        },
       ),
     );
   }

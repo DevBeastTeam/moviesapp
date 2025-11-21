@@ -4,15 +4,14 @@ import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../../constants/screenssize.dart';
+import '../../controllers/grammer_controller.dart';
 import '../../controllers/navigation_args_controller.dart';
-import '../../providers/grammerVm.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 import 'grammerdetail.dart';
 
-class GrammerCatgPage extends ConsumerStatefulWidget {
+class GrammerCatgPage extends StatefulWidget {
   // AllowedCategory? level;
   // String id = "";
   const GrammerCatgPage({
@@ -21,10 +20,10 @@ class GrammerCatgPage extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<GrammerCatgPage> createState() => GrammerCatgPageState();
+  State<GrammerCatgPage> createState() => GrammerCatgPageState();
 }
 
-class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
+class GrammerCatgPageState extends State<GrammerCatgPage> {
   @override
   void initState() {
     super.initState();
@@ -33,7 +32,10 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
 
   void syncFirstF() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(grammerData).getGrammersF(context, loadingFor: "grammerCatg");
+      Get.find<GrammerController>().getGrammersF(
+        context,
+        loadingFor: "grammerCatg",
+      );
     });
   }
 
@@ -41,7 +43,7 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
 
   @override
   Widget build(BuildContext context) {
-    var p = ref.watch(grammerData);
+    final p = Get.find<GrammerController>();
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
@@ -95,47 +97,49 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
                     padding: const EdgeInsets.all(6),
                     child: GestureDetector(
                       onTap: () {
-                        ref
-                            .read(grammerData)
-                            .setSelectedLabelCH(data.toString());
+                        p.setSelectedLabelCH(data.toString());
                       },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          // color:
-                          // level.toString().toString().toLowerCase() ==
-                          //     data.toString().toLowerCase()
-                          // ? Colors.blue
-                          // : Colors.white,
-                          color: Colors.white,
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors:
-                                p.selctedLableChIs.toString().toLowerCase() ==
-                                    data.toString().toLowerCase()
-                                ? [
-                                    Colors.orange.shade200,
-                                    Colors.deepOrange.shade300,
-                                    Colors.red,
-                                    Colors.red.shade800,
-                                  ]
-                                : [Colors.white, Colors.white],
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        width: 45,
-                        height: 55,
-                        child: Center(
-                          child: Text(
-                            data.toUpperCase(),
-                            style: TextStyle(
-                              color:
+                      child: Obx(
+                        () => Container(
+                          decoration: BoxDecoration(
+                            // color:
+                            // level.toString().toString().toLowerCase() ==
+                            //     data.toString().toLowerCase()
+                            // ? Colors.blue
+                            // : Colors.white,
+                            color: Colors.white,
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors:
                                   p.selctedLableChIs.toString().toLowerCase() ==
                                       data.toString().toLowerCase()
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                                  ? [
+                                      Colors.orange.shade200,
+                                      Colors.deepOrange.shade300,
+                                      Colors.red,
+                                      Colors.red.shade800,
+                                    ]
+                                  : [Colors.white, Colors.white],
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          width: 45,
+                          height: 55,
+                          child: Center(
+                            child: Text(
+                              data.toUpperCase(),
+                              style: TextStyle(
+                                color:
+                                    p.selctedLableChIs
+                                            .toString()
+                                            .toLowerCase() ==
+                                        data.toString().toLowerCase()
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -152,125 +156,136 @@ class GrammerCatgPageState extends ConsumerState<GrammerCatgPage> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             SizedBox(height: 15),
-            p.loadingFor == "grammerCatg"
-                ? Padding(
-                    padding: EdgeInsets.only(top: h * 0.45),
-                    child: const Center(child: DotLoader()),
-                  )
-                : p.grammersList.isEmpty
-                ? EmptyWidget(text: "Empty")
-                : ListView.builder(
-                    itemCount: p.grammersList[0].tags.length,
-                    // itemCount: p.grammersList.length,
-                    shrinkWrap: true,
-                    controller: ScrollController(),
-                    physics: const ScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      var tag = p.grammersList[0].tags[index];
+            Obx(
+              () => p.loadingFor == "grammerCatg"
+                  ? Padding(
+                      padding: EdgeInsets.only(top: h * 0.45),
+                      child: const Center(child: DotLoader()),
+                    )
+                  : p.grammersList.isEmpty
+                  ? EmptyWidget(text: "Empty")
+                  : ListView.builder(
+                      itemCount: p.grammersList[0].tags.length,
+                      // itemCount: p.grammersList.length,
+                      shrinkWrap: true,
+                      controller: ScrollController(),
+                      physics: const ScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        var tag = p.grammersList[0].tags[index];
 
-                      var key = p.grammersList[0].groupLessons.keys
-                          .toList()[index];
-                      var data = p.grammersList[0].groupLessons[key];
+                        var key = p.grammersList[0].groupLessons.keys
+                            .toList()[index];
+                        var data = p.grammersList[0].groupLessons[key];
 
-                      // return Text("$data");
+                        // return Text("$data");
 
-                      return Column(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              p.setExpandedIndexIs = index;
-                            },
-                            borderRadius: BorderRadius.circular(30),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(
-                                    color: Colors.blue,
-                                    width: 1,
+                        return Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                p.setExpandedIndexIs = index;
+                              },
+                              borderRadius: BorderRadius.circular(30),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: Colors.blue,
+                                      width: 1,
+                                    ),
                                   ),
-                                ),
-                                child: CupertinoListTile(
-                                  title: Text(
-                                    tag.label,
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                  trailing: SizedBox(
-                                    width: 35,
-                                    child: Image.asset(
-                                      AppImages.playerlight,
+                                  child: CupertinoListTile(
+                                    title: Text(
+                                      tag.label,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    trailing: SizedBox(
                                       width: 35,
+                                      child: Image.asset(
+                                        AppImages.playerlight,
+                                        width: 35,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          if (p.expandedIndexIs == index)
-                            ListView(
-                              shrinkWrap: true,
-                              controller: ScrollController(),
-                              children: data!.where((e) => e.id != tag.id).map((
-                                e,
-                              ) {
-                                // return Text("${e.contenten}");
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 3,
-                                  ),
-                                  child: InkWell(
-                                    onTap: () {
-                                      // p.getGrammerSingleByIdF(
-                                      //   context,
-                                      //   id: e.id,
-                                      //   loadingFor: "next",
-                                      // );
+                            if (p.expandedIndexIs == index)
+                              ListView(
+                                shrinkWrap: true,
+                                controller: ScrollController(),
+                                children: data!
+                                    .where((e) => e.id != tag.id)
+                                    .map((e) {
+                                      // return Text("${e.contenten}");
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 3,
+                                        ),
+                                        child: InkWell(
+                                          onTap: () {
+                                            // p.getGrammerSingleByIdF(
+                                            //   context,
+                                            //   //   id: e.id,
+                                            //   //   loadingFor: "next",
+                                            //   // );
 
-                                      final navCtrl =
-                                          Get.find<NavigationArgsController>();
-                                      navCtrl.grammerCatgName =
-                                          p.selctedLableChIs;
-                                      navCtrl.grammerSubCatgName = tag.label;
-                                      navCtrl.grammerSubLessons = data;
-                                      navCtrl.grammerSelectedLesson = e;
-                                      Get.to(() => const GrammerDetailPage());
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: CupertinoListTile(
-                                        title: Text(
-                                          e.label,
-                                          style: const TextStyle(
-                                            color: Colors.blue,
+                                            final navCtrl =
+                                                Get.find<
+                                                  NavigationArgsController
+                                                >();
+                                            navCtrl.grammerCatgName =
+                                                p.selctedLableChIs;
+                                            navCtrl.grammerSubCatgName =
+                                                tag.label;
+                                            navCtrl.grammerSubLessons = data;
+                                            navCtrl.grammerSelectedLesson = e;
+                                            Get.to(
+                                              () => const GrammerDetailPage(),
+                                            );
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: CupertinoListTile(
+                                              title: Text(
+                                                e.label,
+                                                style: const TextStyle(
+                                                  color: Colors.blue,
+                                                ),
+                                              ),
+                                              trailing: SizedBox(
+                                                width: 25,
+                                                child: e.isRead
+                                                    ? Image.asset(
+                                                        AppImages.check,
+                                                        width: 25,
+                                                      )
+                                                    : Image.asset(
+                                                        AppImages.uncheck,
+                                                        width: 25,
+                                                      ),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                        trailing: SizedBox(
-                                          width: 25,
-                                          child: e.isRead
-                                              ? Image.asset(
-                                                  AppImages.check,
-                                                  width: 25,
-                                                )
-                                              : Image.asset(
-                                                  AppImages.uncheck,
-                                                  width: 25,
-                                                ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                        ],
-                      );
-                    },
-                  ),
+                                      );
+                                    })
+                                    .toList(),
+                              ),
+                          ],
+                        );
+                      },
+                    ),
+            ),
           ],
         ),
       ),

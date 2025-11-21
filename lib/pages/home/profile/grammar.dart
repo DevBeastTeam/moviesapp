@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../providers/grammerVm.dart';
+import 'package:get/get.dart';
+import '../../../controllers/grammer_controller.dart';
 import '../../../widgets/ui/default_scaffold.dart';
 
-class GrammarPage extends ConsumerStatefulWidget {
+class GrammarPage extends StatefulWidget {
   const GrammarPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _GrammarPageState();
+  State<StatefulWidget> createState() => _GrammarPageState();
 }
 
-class _GrammarPageState extends ConsumerState<GrammarPage> {
+class _GrammarPageState extends State<GrammarPage> {
   @override
   Widget build(BuildContext context) {
-    ref.read(grammerData).getGrammersF(context);
+    final grammerCtrl = Get.find<GrammerController>();
+    grammerCtrl.getGrammersF(context);
 
     return DefaultScaffold(
       // appBar: AppBar(),
       currentPage: '',
       child: Column(
         children: [
-          Text('👉 ${ref.watch(grammerData).grammersList.toString()}'),
+          Obx(() => Text('👉 ${grammerCtrl.grammersList.toString()}')),
         ],
       ),
     );

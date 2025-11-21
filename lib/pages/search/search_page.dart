@@ -5,7 +5,6 @@ import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/theme/colors.dart';
 import 'package:edutainment/utils/assets/assets_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
 import '../../icons/icons_light.dart';
@@ -16,14 +15,14 @@ import '../../widgets/indicators/double_circular_progress_indicator.dart';
 import '../../widgets/ui/default_scaffold.dart';
 import '../movies/widgets/tabButtonWidget.dart';
 
-class SearchPage extends ConsumerStatefulWidget {
+class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 
   @override
-  ConsumerState<SearchPage> createState() => _SearchPage();
+  State<SearchPage> createState() => _SearchPage();
 }
 
-class _SearchPage extends ConsumerState<SearchPage> {
+class _SearchPage extends State<SearchPage> {
   String currentSubject = 'ALL';
   final TextEditingController wordController = TextEditingController();
 
@@ -326,7 +325,6 @@ class _SearchPage extends ConsumerState<SearchPage> {
                                   children: [
                                     for (var movie in movies)
                                       buildMovieFrame(
-                                        ref: ref,
                                         movie: movie,
                                         context: context,
                                         from: 'search',

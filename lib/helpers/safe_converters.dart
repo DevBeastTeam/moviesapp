@@ -14,7 +14,7 @@ extension ToSafeStringDynamic on dynamic {
   String toSafeString({String fallback = ''}) {
     try {
       if (this == null) return fallback;
-      final data = this.toString();
+      final data = toString();
       if (data.isEmpty ||
           data.toLowerCase() == 'null' ||
           data.toLowerCase() == 'na' ||

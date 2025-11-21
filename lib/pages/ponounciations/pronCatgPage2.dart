@@ -1,24 +1,23 @@
 import 'pronCatgLessonsPage3.dart';
 import 'package:edutainment/helpers/safe_converters.dart';
-import 'package:edutainment/providers/pronounciationVM.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
 import '../../constants/screenssize.dart';
 import '../../models/pLevelCatgModel.dart';
+import '../../controllers/pronunciation_controller.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
-class PronCatgPage2 extends ConsumerStatefulWidget {
+class PronCatgPage2 extends StatefulWidget {
   const PronCatgPage2({super.key});
 
   @override
-  ConsumerState<PronCatgPage2> createState() => _PronCatgPage2State();
+  State<PronCatgPage2> createState() => _PronCatgPage2State();
 }
 
-class _PronCatgPage2State extends ConsumerState<PronCatgPage2> {
+class _PronCatgPage2State extends State<PronCatgPage2> {
   List catgList = [
     {'icon': '📚', 'title': 'Education', " subtitle": "Education"},
     {'icon': '✈️', 'title': 'Travel', " subtitle": "Education"},
@@ -31,10 +30,6 @@ class _PronCatgPage2State extends ConsumerState<PronCatgPage2> {
   ];
   @override
   Widget build(BuildContext context) {
-    // Get data from provider instead of GoRouter extra
-    var p = ref.watch(pronounciationVm);
-    List<Category> categories = p.categories;
-
     return DefaultScaffold(
       currentPage: '/home/PronlevelsPage1/2',
       child: SingleChildScrollView(
@@ -63,26 +58,28 @@ class _PronCatgPage2State extends ConsumerState<PronCatgPage2> {
                   ? Screen.height(context) * 0.15
                   : Screen.height(context) * 0.00,
             ),
-            categories.isEmpty
-                ? EmptyWidget()
-                : Padding(
-                    padding: const EdgeInsets.all(14),
-                    child: Wrap(
-                      spacing: 10,
-                      runSpacing: 20,
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: List.generate(categories.length, (index) {
-                        var data = categories[index];
-                        return InkWell(
-                          onTap: () {
-                            // Store selected category in provider
-                            ref
-                                .read(pronounciationVm)
-                                .setSelectedCategory(data);
-                            // Navigate without extra
-                            Get.to(() => const PronCatgLessonsPage3());
-                          },
+            GetBuilder<PronunciationController>(
+              builder: (controller) {
+                List<Category> categories = controller.categories;
+                
+                return categories.isEmpty
+                    ? EmptyWidget()
+                    : Padding(
+                        padding: const EdgeInsets.all(14),
+                        child: Wrap(
+                          spacing: 10,
+                          runSpacing: 20,
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: List.generate(categories.length, (index) {
+                            var data = categories[index];
+                            return InkWell(
+                              onTap: () {
+                                // Store selected category in controller
+                                controller.setSelectedCategory(data);
+                                // Navigate without extra
+                                Get.to(() => const PronCatgLessonsPage3());
+                              },
                           child: Container(
                             width:
                                 Screen.isTablet(context) &&
@@ -129,9 +126,11 @@ class _PronCatgPage2State extends ConsumerState<PronCatgPage2> {
                             ),
                           ),
                         );
-                      }),
-                    ),
-                  ),
+                          }),
+                        ),
+                      );
+              },
+            ),
           ],
         ),
       ),

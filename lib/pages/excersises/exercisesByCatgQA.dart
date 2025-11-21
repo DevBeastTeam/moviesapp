@@ -153,21 +153,19 @@ import 'package:edutainment/models/excLessonsStepsModel.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import '../../providers/exercisesVm.dart';
+import '../../controllers/exercises_controller.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
-class ExcerciseByCatgQAPage extends ConsumerStatefulWidget {
+class ExcerciseByCatgQAPage extends StatefulWidget {
   final String labelTitle;
   const ExcerciseByCatgQAPage({super.key, this.labelTitle = ''});
 
   @override
-  ConsumerState<ExcerciseByCatgQAPage> createState() =>
-      _ExcerciseByCatgQAPageState();
+  State<ExcerciseByCatgQAPage> createState() => _ExcerciseByCatgQAPageState();
 }
 
-class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
+class _ExcerciseByCatgQAPageState extends State<ExcerciseByCatgQAPage> {
   int _currentQuestionIndex = 0;
   int _remainingTime = 0;
   Timer? _timer;
@@ -218,9 +216,10 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
       _showFeedback = true;
       _timer?.cancel(); // Stop the timer when an answer is selected-
       // update answer on backend
-      ref
-          .watch(excerVm)
-          .submitExcercisesAnswerF(context, answerId: answer.id.toString());
+      Get.find<ExercisesController>().submitExcercisesAnswerF(
+        context,
+        answerId: answer.id.toString(),
+      );
     });
 
     // Automatically move to the next question after a short delay
@@ -249,9 +248,6 @@ class _ExcerciseByCatgQAPageState extends ConsumerState<ExcerciseByCatgQAPage> {
 
   @override
   Widget build(BuildContext context) {
-    var p = ref.watch(excerVm);
-    var t = Theme.of(context).textTheme;
-    var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
 
     // Get the questions list passed from GoRouter

@@ -1,10 +1,9 @@
 import 'pronParacticePage4.dart';
 import 'package:edutainment/constants/screenssize.dart';
-import 'package:edutainment/providers/pronounciationVM.dart';
+import 'package:edutainment/controllers/pronunciation_controller.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 
@@ -12,15 +11,15 @@ import '../../constants/appimages.dart';
 import '../../models/pLevelCatgModel.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
 
-class PronCatgLessonsPage3 extends ConsumerStatefulWidget {
+class PronCatgLessonsPage3 extends StatefulWidget {
   const PronCatgLessonsPage3({super.key});
 
   @override
-  ConsumerState<PronCatgLessonsPage3> createState() =>
+  State<PronCatgLessonsPage3> createState() =>
       _PronCatgLessonsPage3State();
 }
 
-class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
+class _PronCatgLessonsPage3State extends State<PronCatgLessonsPage3> {
   List catgList = [
     {'icon': AppImages.check, 'title': 'DAILY'},
     {'icon': AppImages.check, 'title': 'HISTORY'},
@@ -33,16 +32,7 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
   ];
   @override
   Widget build(BuildContext context) {
-    var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
-
-    // Get data from provider instead of GoRouter extra
-    var p = ref.watch(pronounciationVm);
-    final selectedlabel = p.selectedLevel;
-    List<String> allLevels = p.allLevels;
-    List<Category> categories = p.categories;
-    Category? selectedCatg = p.selectedCategory;
 
     // // get data
     // WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -59,14 +49,21 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
       currentPage: '/home/PronlevelsPage1/2/3',
       child: SingleChildScrollView(
         controller: ScrollController(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (ref.watch(pronounciationVm).loadingFor ==
-                "getPronBySelectedCatgOptionsByIdF")
-              QuickTikTokLoader(),
+        child: GetBuilder<PronunciationController>(
+          builder: (controller) {
+            // Get data from GetX controller inside the builder for reactive updates
+            final selectedlabel = controller.selectedLevel;
+            List<String> allLevels = controller.allLevels;
+            List<Category> categories = controller.categories;
+            Category? selectedCatg = controller.selectedCategory;
+            
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (controller.loadingFor == "getPronBySelectedCatgOptionsByIdF")
+                  QuickTikTokLoader(),
 
-            Column(
+              Column(
               children: [
                 CustomHeaderBar(
                   onBack: () async {
@@ -96,14 +93,12 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
                       padding: const EdgeInsets.all(6),
                       child: InkWell(
                         onTap: () {
-                          // Update selected level in provider
-                          ref
-                              .read(pronounciationVm)
-                              .setSelectedLevel(
-                                level: data,
-                                allLevels: allLevels,
-                                categories: categories,
-                              );
+                          // Update selected level in controller
+                          controller.setSelectedLevel(
+                            level: data,
+                            allLevels: allLevels,
+                            categories: categories,
+                          );
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -196,14 +191,12 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
                       ),
                       child: InkWell(
                         onTap: () {
-                          // Store lesson data in provider
-                          ref
-                              .read(pronounciationVm)
-                              .setSelectedLesson(
-                                lesson: data,
-                                lessonId: "id",
-                                lessonIndex: index,
-                              );
+                          // Store lesson data in controller
+                          controller.setSelectedLesson(
+                            lesson: data,
+                            lessonId: "id",
+                            lessonIndex: index,
+                          );
                           // Navigate without extra
                           Get.to(() => const PronParacticePage4());
                         },
@@ -235,6 +228,8 @@ class _PronCatgLessonsPage3State extends ConsumerState<PronCatgLessonsPage3> {
               ),
             ),
           ],
+        );
+          },
         ),
       ),
     );

@@ -3,11 +3,10 @@ import '../pages/movies/movie_page.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/constants/appimages.dart';
-import 'package:edutainment/providers/moviesVm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import '../controllers/movies_controller.dart';
 
 import '../core/loader.dart';
 import '../widgets/ui/custom_button.dart';
@@ -21,7 +20,6 @@ Widget buildMovieFrame({
   String? from,
   bool fullSize = false,
   bool showPlayerLogo = false,
-  required WidgetRef ref,
 }) {
   return Container(
     margin: fullSize ? null : EdgeInsets.only(top: 8, right: 8, bottom: 16),
@@ -30,14 +28,12 @@ Widget buildMovieFrame({
       splashColor: Colors.white.withOpacity(.1),
       highlightColor: Colors.white.withOpacity(.09),
       onPressed: () async {
-        ref
-            .watch(moviesVm)
-            .getMovieByIdF(
-              context,
-              movieId: getIn(movie, '_id').toString(),
-              isRefresh: true,
-              loadingFor: "movie",
-            );
+        Get.find<MoviesController>().getMovieByIdF(
+          context,
+          movieId: getIn(movie, '_id').toString(),
+          isRefresh: true,
+          loadingFor: "movie",
+        );
 
         // if (from == 'search') {
         //   await movieFetchAndRedirectPlayer(getIn(movie, '_id'), context);

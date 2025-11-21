@@ -1,9 +1,8 @@
 import '../movies/movies_page.dart';
 import 'package:edutainment/constants/appimages.dart';
-import 'package:edutainment/providers/user_providers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import '../../controllers/user_controller.dart';
 
 import '../../utils/movies.dart';
 import '../../utils/screen_utils.dart';
@@ -16,14 +15,14 @@ import 'profile/header.dart';
 import 'profile/progress.dart';
 import 'profile/statistics.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  ConsumerState<HomePage> createState() => _HomePage();
+  State<HomePage> createState() => _HomePage();
 }
 
-class _HomePage extends ConsumerState<HomePage> {
+class _HomePage extends State<HomePage> {
   // final dynamic userData = userBox.get('data');
   final dynamic statisticsData = statisticsBox.get('data');
   final dynamic badgesData = badgesBox.get('data');
@@ -54,14 +53,13 @@ class _HomePage extends ConsumerState<HomePage> {
     }
     // for use
     // buildMovieFrame(
-    //  ref: ref,
-    //movie: pausedMovie.first, context: context);
+    //  movie: pausedMovie.first, context: context);
   }
 
   @override
   Widget build(BuildContext context) {
     final screen = ScreenUtils(context);
-    final userData = ref.watch(userProvider);
+    final userCtrl = Get.find<UserController>();
 
     return PopScope(
       canPop: false,
@@ -89,16 +87,20 @@ class _HomePage extends ConsumerState<HomePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              ProfileHeader(user: userData),
-                              ProfileProgress(user: userData),
+                              Obx(() => ProfileHeader(user: userCtrl.userData)),
+                              Obx(
+                                () => ProfileProgress(user: userCtrl.userData),
+                              ),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              ProfileStatistics(
-                                user: userData,
-                                statistics: statisticsData,
+                              Obx(
+                                () => ProfileStatistics(
+                                  user: userCtrl.userData,
+                                  statistics: statisticsData,
+                                ),
                               ),
                               const ProfileButtons(),
                             ],
@@ -138,7 +140,6 @@ class _HomePage extends ConsumerState<HomePage> {
                                     children: [
                                       pausedMovie.isNotEmpty
                                           ? buildMovieFrame(
-                                              ref: ref,
                                               movie: pausedMovie.first,
                                               context: context,
                                               fullSize: true,
@@ -166,8 +167,8 @@ class _HomePage extends ConsumerState<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          ProfileHeader(user: userData),
-                          ProfileProgress(user: userData),
+                          Obx(() => ProfileHeader(user: userCtrl.userData)),
+                          Obx(() => ProfileProgress(user: userCtrl.userData)),
 
                           // Row(
                           //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -177,9 +178,11 @@ class _HomePage extends ConsumerState<HomePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              ProfileStatistics(
-                                user: userData,
-                                statistics: statisticsData,
+                              Obx(
+                                () => ProfileStatistics(
+                                  user: userCtrl.userData,
+                                  statistics: statisticsData,
+                                ),
                               ),
 
                               Column(
@@ -221,7 +224,6 @@ class _HomePage extends ConsumerState<HomePage> {
                                 children: [
                                   pausedMovie.isNotEmpty
                                       ? buildMovieFrame(
-                                          ref: ref,
                                           movie: pausedMovie.first,
                                           context: context,
                                           fullSize: true,
@@ -338,15 +340,19 @@ class _HomePage extends ConsumerState<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              ProfileHeader(user: userData),
+                              Obx(() => ProfileHeader(user: userCtrl.userData)),
                               const SizedBox(height: 8),
-                              ProfileProgress(user: userData),
+                              Obx(
+                                () => ProfileProgress(user: userCtrl.userData),
+                              ),
                               const SizedBox(height: 8),
                               const ProfileButtons(),
                               const SizedBox(height: 8),
-                              ProfileStatistics(
-                                user: userData,
-                                statistics: statisticsData,
+                              Obx(
+                                () => ProfileStatistics(
+                                  user: userCtrl.userData,
+                                  statistics: statisticsData,
+                                ),
                               ),
                               const SizedBox(height: 8),
                               ProfileBadges(
@@ -381,7 +387,6 @@ class _HomePage extends ConsumerState<HomePage> {
                                     children: [
                                       pausedMovie.isNotEmpty
                                           ? buildMovieFrame(
-                                              ref: ref,
                                               movie: pausedMovie.first,
                                               context: context,
                                               fullSize: true,

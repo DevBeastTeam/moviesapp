@@ -1,9 +1,8 @@
-import 'package:edutainment/providers/exercisesVm.dart';
 import 'package:edutainment/widgets/thermameter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
+import '../../controllers/exercises_controller.dart';
 import '../../controllers/navigation_args_controller.dart';
 import '../../constants/screenssize.dart';
 import '../../widgets/emptyWIdget.dart';
@@ -11,18 +10,18 @@ import '../../widgets/header_bar/custom_header_bar.dart';
 import '../../widgets/ui/default_scaffold.dart';
 import 'exercisesByCatgQA.dart';
 
-class ExcerciseCatgPage extends ConsumerStatefulWidget {
+class ExcerciseCatgPage extends StatefulWidget {
   final String labelTitle;
   const ExcerciseCatgPage({super.key, this.labelTitle = ''});
 
   @override
-  ConsumerState<ExcerciseCatgPage> createState() => _ExcerciseCatgPageState();
+  State<ExcerciseCatgPage> createState() => _ExcerciseCatgPageState();
 }
 
-class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
+class _ExcerciseCatgPageState extends State<ExcerciseCatgPage> {
   @override
   Widget build(BuildContext context) {
-    // var p = ref.watch(excerVm);
+    final p = Get.find<ExercisesController>();
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
@@ -48,152 +47,156 @@ class _ExcerciseCatgPageState extends ConsumerState<ExcerciseCatgPage> {
               centerTitle: false,
               title: 'Excercises',
             ),
-            ref.watch(excerVm).loadingFor == "refresh" ||
-                    ref.watch(excerVm).loadingFor == "getExcercisesByCatg"
-                ? QuickTikTokLoader()
-                : SizedBox.shrink(),
-            ref.watch(excerVm).excercisesCatgLessonsSteps == null
-                ? EmptyWidget(paddingTop: 30, text: "Empty")
-                : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: w,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 7,
-                          horizontal: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          // borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                            colors: [
-                              Color(0xFFf9bf13),
-                              Color(0xFFf1711c),
-                              Color(0xFFf82424),
-                            ],
+            Obx(
+              () =>
+                  p.loadingFor == "refresh" ||
+                      p.loadingFor == "getExcercisesByCatg"
+                  ? QuickTikTokLoader()
+                  : SizedBox.shrink(),
+            ),
+            Obx(
+              () => p.excercisesCatgLessonsSteps == null
+                  ? EmptyWidget(paddingTop: 30, text: "Empty")
+                  : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: w,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 7,
+                            horizontal: 10,
                           ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            labelTitle.toUpperCase(),
-                            style: t.titleMedium?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
+                          decoration: BoxDecoration(
+                            // borderRadius: BorderRadius.circular(10),
+                            gradient: LinearGradient(
+                              colors: [
+                                Color(0xFFf9bf13),
+                                Color(0xFFf1711c),
+                                Color(0xFFf82424),
+                              ],
                             ),
                           ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-
-                      // SizedBox(
-                      //   height:
-                      //       Screen.isTablet(context) &&
-                      //           !Screen.isLandscape(context)
-                      //       ? Screen.height(context) * 0.7
-                      //       : Screen.height(context) * 0.78,
-                      //   child: LessonTimelineWidget(
-                      //     lessons: [
-                      //       LessonModel(
-                      //         title: "title",
-                      //         subtitle: "2",
-                      //         isCompleted: true,
-                      //       ),
-                      //       LessonModel(
-                      //         title: "title",
-                      //         subtitle: "2",
-                      //         isCompleted: false,
-                      //       ),
-                      //     ],
-                      //     onLessonTap: (index, v) {},
-                      //     // lessons
-                      //   ),
-                      // ),
-                      ref
-                              .watch(excerVm)
-                              .excercisesCatgLessonsSteps!
-                              .data
-                              .lessons
-                              .isEmpty
-                          ? EmptyWidget(paddingTop: 30, text: "Empty")
-                          :
-                            // SizedBox()
-                            SizedBox(
-                              height:
-                                  Screen.isTablet(context) &&
-                                      !Screen.isLandscape(context)
-                                  ? Screen.height(context) * 0.7
-                                  : Screen.height(context) * 0.78,
-                              child: LessonTimelineWidget(
-                                lessons: ref
-                                    .watch(excerVm)
-                                    .excercisesCatgLessonsSteps!
-                                    .data
-                                    .lessons
-                                    .map(
-                                      (e) => LessonModel(
-                                        title: e.label,
-                                        subtitle: e.lessonNumber,
-                                        isCompleted: e.completed,
-                                      ),
-                                    )
-                                    .toList(),
-                                onLessonTap: (index, v) {
-                                  Get.to(() => const ExcerciseByCatgQAPage());
-                                },
-                                // lessons
+                          child: Center(
+                            child: Text(
+                              labelTitle.toUpperCase(),
+                              style: t.titleMedium?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
 
-                      // Timeline items
-                      // ListView.builder(
-                      //   shrinkWrap: true,
-                      //   itemCount: ref
-                      //       .watch(excerVm)
-                      //       .excercisesCatgLessonsSteps!
-                      //       .data
-                      //       .lessons
-                      //       .length,
-                      //   controller: ScrollController(),
-                      //   physics: const BouncingScrollPhysics(),
-                      //   itemBuilder: (BuildContext context, index) {
-                      //     var data = ref
-                      //         .watch(excerVm)
-                      //         .excercisesCatgLessonsSteps!
-                      //         .data
-                      //         .lessons[index];
-                      //     if (index.isOdd) {
-                      //       return lessonsToolTip(
-                      //         left: data.label.split(":").first,
-                      //         isCompleted: data.completed,
-                      //         onTap: () {
-                      //           context.go(
-                      //             "/home/ExcersisesPage/ExcerciseByCatgQAPage",
-                      //             extra: {
-                      //               "q": data.questions,
-                      //               "labelTitle": widget.labelTitle,
-                      //             },
-                      //           );
-                      //         },
-                      //       );
-                      //     } else {
-                      //       return lessonsToolTip(
-                      //         right: data.label.split(":").first,
-                      //         isCompleted: data.completed,
-                      //         onTap: () {
-                      //           context.go(
-                      //             "/home/ExcersisesPage/ExcerciseByCatgQAPage",
-                      //             extra: {
-                      //               "q": data.questions,
-                      //               "labelTitle": widget.labelTitle,
-                      //             },
-                      //           );
-                      //         },
-                      //       );
-                      //     }
-                      //   },
-                      // ),
-                    ],
-                  ),
+                        // SizedBox(
+                        //   height:
+                        //       Screen.isTablet(context) &&
+                        //           !Screen.isLandscape(context)
+                        //       ? Screen.height(context) * 0.7
+                        //       : Screen.height(context) * 0.78,
+                        //   child: LessonTimelineWidget(
+                        //     lessons: [
+                        //       LessonModel(
+                        //         title: "title",
+                        //         subtitle: "2",
+                        //         isCompleted: true,
+                        //       ),
+                        //       LessonModel(
+                        //         title: "title",
+                        //         subtitle: "2",
+                        //         isCompleted: false,
+                        //       ),
+                        //     ],
+                        //     onLessonTap: (index, v) {},
+                        //     // lessons
+                        //   ),
+                        // ),
+                        Obx(
+                          () =>
+                              p.excercisesCatgLessonsSteps!.data.lessons.isEmpty
+                              ? EmptyWidget(paddingTop: 30, text: "Empty")
+                              :
+                                // SizedBox()
+                                SizedBox(
+                                  height:
+                                      Screen.isTablet(context) &&
+                                          !Screen.isLandscape(context)
+                                      ? Screen.height(context) * 0.7
+                                      : Screen.height(context) * 0.78,
+                                  child: LessonTimelineWidget(
+                                    lessons: p
+                                        .excercisesCatgLessonsSteps!
+                                        .data
+                                        .lessons
+                                        .map(
+                                          (e) => LessonModel(
+                                            title: e.label,
+                                            subtitle: e.lessonNumber,
+                                            isCompleted: e.completed,
+                                          ),
+                                        )
+                                        .toList(),
+                                    onLessonTap: (index, v) {
+                                      Get.to(
+                                        () => const ExcerciseByCatgQAPage(),
+                                      );
+                                    },
+                                    // lessons
+                                  ),
+                                ),
+                        ),
+
+                        // Timeline items
+                        // ListView.builder(
+                        //   shrinkWrap: true,
+                        //   itemCount: ref
+                        //       .watch(excerVm)
+                        //       .excercisesCatgLessonsSteps!
+                        //       .data
+                        //       .lessons
+                        //       .length,
+                        //   controller: ScrollController(),
+                        //   physics: const BouncingScrollPhysics(),
+                        //   itemBuilder: (BuildContext context, index) {
+                        //     var data = ref
+                        //         .watch(excerVm)
+                        //         .excercisesCatgLessonsSteps!
+                        //         .data
+                        //         .lessons[index];
+                        //     if (index.isOdd) {
+                        //       return lessonsToolTip(
+                        //         left: data.label.split(":").first,
+                        //         isCompleted: data.completed,
+                        //         onTap: () {
+                        //           context.go(
+                        //             "/home/ExcersisesPage/ExcerciseByCatgQAPage",
+                        //             extra: {
+                        //               "q": data.questions,
+                        //               "labelTitle": widget.labelTitle,
+                        //             },
+                        //           );
+                        //         },
+                        //       );
+                        //     } else {
+                        //       return lessonsToolTip(
+                        //         right: data.label.split(":").first,
+                        //         isCompleted: data.completed,
+                        //         onTap: () {
+                        //           context.go(
+                        //             "/home/ExcersisesPage/ExcerciseByCatgQAPage",
+                        //             extra: {
+                        //               "q": data.questions,
+                        //               "labelTitle": widget.labelTitle,
+                        //             },
+                        //           );
+                        //         },
+                        //       );
+                        //     }
+                        //   },
+                        // ),
+                      ],
+                    ),
+            ),
           ],
         ),
       ),

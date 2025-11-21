@@ -5,25 +5,25 @@ import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import '../../controllers/ai_chat_controller.dart';
 
 import 'package:quick_widgets/widgets/tiktok.dart';
 import '../../controllers/navigation_args_controller.dart';
 
 import '../../../widgets/header_bar/custom_header_bar.dart';
-import '../../providers/aichatvm.dart';
+
 import '../../theme/colors.dart';
 import 'aIAllChatHistoryPage.dart';
 
-class AIMenuPage extends ConsumerStatefulWidget {
+class AIMenuPage extends StatefulWidget {
   const AIMenuPage({super.key});
 
   @override
-  ConsumerState<AIMenuPage> createState() => _AIMenuPage();
+  State<AIMenuPage> createState() => _AIMenuPage();
 }
 
-class _AIMenuPage extends ConsumerState<AIMenuPage> {
+class _AIMenuPage extends State<AIMenuPage> {
   @override
   void dispose() {
     super.dispose();
@@ -34,9 +34,9 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((v) async {
-      if (ref.watch(aiChatVm).lastAIConversationChats == null) {
-        await ref
-            .watch(aiChatVm)
+      final aiChatCtrl = Get.find<AiChatController>();
+      if (aiChatCtrl.lastAIConversationChats == null) {
+        await aiChatCtrl
             .getAllAiChatsF(
               context,
               scrollController: chatsScrollController,
@@ -44,14 +44,12 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               isSetInToLastAlso: true,
             )
             .then((v) {
-              ref
-                  .watch(aiChatVm)
-                  .getAiChatByIdF(
-                    context,
-                    chatId: ref.watch(aiChatVm).lastAIConversationChats!.id,
-                    scrollController: chatsScrollController,
-                    loadingFor: "getAiChatByIdF",
-                  );
+              aiChatCtrl.getAiChatByIdF(
+                context,
+                chatId: aiChatCtrl.lastAIConversationChats!.id,
+                scrollController: chatsScrollController,
+                loadingFor: "getAiChatByIdF",
+              );
             });
       }
     });
@@ -89,7 +87,7 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    var p = ref.watch(aiChatVm);
+    final p = Get.find<AiChatController>();
     var t = Theme.of(context).textTheme;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
@@ -246,8 +244,8 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
               icon: const Icon(Icons.edit, color: Colors.white),
               onPressed: () {
                 Navigator.pop(context);
-                ref.watch(aiChatVm).clearChatsList();
-                ref.watch(aiChatVm).createNewChatWithAiF(context);
+                p.clearChatsList();
+                p.createNewChatWithAiF(context);
               },
               label: const Text(
                 'New Chat',
@@ -270,10 +268,11 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
             title: 'Back',
           ),
 
-          ref.watch(aiChatVm).loadingFor == "refresh" ||
-                  ref.watch(aiChatVm).loadingFor == "getAiChatByIdF"
-              ? QuickTikTokLoader()
-              : SizedBox.shrink(),
+          Obx(
+            () => p.loadingFor == "refresh" || p.loadingFor == "getAiChatByIdF"
+                ? QuickTikTokLoader()
+                : SizedBox.shrink(),
+          ),
 
           Container(
             decoration: BoxDecoration(color: Colors.blueGrey.shade50),
@@ -307,28 +306,23 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                         );
                       },
                     ),
-                    title:
-                        (ref
-                                .watch(aiChatVm)
-                                .allAiChatHistoryConversionsTitlesData !=
-                            null)
-                        ? ref
-                                  .watch(aiChatVm)
-                                  .allAiChatHistoryConversionsTitlesData!
-                                  .chats
-                                  .any((element) => element.isPinned == true)
-                              ? Text(
-                                  ref
-                                      .watch(aiChatVm)
-                                      .allAiChatHistoryConversionsTitlesData!
-                                      .chats
-                                      .firstWhere(
-                                        (element) => element.isPinned == true,
-                                      )
-                                      .title,
+                    title: Obx(
+                      () => (p.allAiChatHistoryConversionsTitlesData != null)
+                          ? p.allAiChatHistoryConversionsTitlesData!.chats.any(
+                                  (element) => element.isPinned == true,
                                 )
-                              : Text("Pinned")
-                        : Text("Pinned"),
+                                ? Text(
+                                    p
+                                        .allAiChatHistoryConversionsTitlesData!
+                                        .chats
+                                        .firstWhere(
+                                          (element) => element.isPinned == true,
+                                        )
+                                        .title,
+                                  )
+                                : Text("Pinned")
+                          : Text("Pinned"),
+                    ),
                     trailing: IconButton(
                       onPressed: () {
                         Get.to(
@@ -344,32 +338,35 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                   ),
                   Screen.isLandscape(context) && Screen.isPhone(context)
                       ? SizedBox.shrink()
-                      : (p.lastAIConversationChats == null ||
-                            p.lastAIConversationChats!.messages.isEmpty)
-                      ? Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                AppImages.robo,
-                                width: (h < w)
-                                    ? w * 0.05
-                                    : w > 450
-                                    ? w * 0.1
-                                    : w * 0.15,
-                              ),
-                              Text(
-                                ' COPILOT',
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: (h < w) ? 15 : 25,
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : SizedBox.shrink(),
+                      : Obx(
+                          () =>
+                              p.lastAIConversationChats == null ||
+                                  p.lastAIConversationChats!.messages.isEmpty
+                              ? Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        AppImages.robo,
+                                        width: (h < w)
+                                            ? w * 0.05
+                                            : w > 450
+                                            ? w * 0.1
+                                            : w * 0.2,
+                                      ),
+                                      Text(
+                                        ' COPILOT',
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: (h < w) ? 20 : 30,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : SizedBox.shrink(),
+                        ),
                   SizedBox(height: 5),
                   // GradientText(
                   //   // text: "${ref.watch(userProvider)['name.given_name']}",
@@ -385,18 +382,20 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                   //   fontWeight: FontWeight.bold,
                   // ),
                   // Text("kkkk"),
-                  // if ((p.lastAIConversationChats == null ||
-                  //         p.lastAIConversationChats!.messages.isEmpty) &&
-                  //     w > 450 &&
-                  //     !(h < w))
-                  //   SizedBox(height: h * 0.2)
-                  // else if ((p.lastAIConversationChats == null ||
-                  //         p.lastAIConversationChats!.messages.isEmpty) &&
-                  //     w > 450 &&
-                  //     (h < w))
-                  //   SizedBox(height: 0)
-                  // else
-                  //   SizedBox(height: h * 0.02),
+                  Obx(() {
+                    if ((p.lastAIConversationChats == null ||
+                            p.lastAIConversationChats!.messages.isEmpty) &&
+                        w > 450 &&
+                        !(h < w)) {
+                      return SizedBox(height: h * 0.2);
+                    } else if ((p.lastAIConversationChats == null ||
+                            p.lastAIConversationChats!.messages.isEmpty) &&
+                        w > 450 &&
+                        (h < w))
+                      return SizedBox(height: 0);
+                    else
+                      return SizedBox(height: h * 0.02);
+                  }),
                   ((p.lastAIConversationChats == null ||
                               p.lastAIConversationChats!.messages.isEmpty) &&
                           Screen.isPhone(context) &&
@@ -432,223 +431,134 @@ class _AIMenuPage extends ConsumerState<AIMenuPage> {
                   //     fontWeight: FontWeight.bold,
                   //   ),
                   // ),
-                  p.lastAIConversationChats == null ||
-                          p.lastAIConversationChats!.messages.isEmpty
-                      ? Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal:
-                                (Screen.isTablet(context) &&
-                                    Screen.isPortrait(context))
-                                ? Screen.width(context) * 0.2
-                                : 14,
-                          ),
-                          child: SizedBox(
-                            height:
-                                // Screen.isPhone(context) &&
-                                //     Screen.isLandscape(context)
-                                // ? Screen.height(context) * 0.35
-                                // :
-                                (Screen.isTablet(context) &&
-                                    Screen.isPortrait(context))
-                                ? Screen.height(context) * 0.6
-                                : Screen.isTablet(context) &&
-                                      Screen.isLandscape(context)
-                                ? Screen.height(context) * 0.24
-                                : Screen.height(context) * 0.7,
-                            child:
-                                Screen.isPhone(context) ||
-                                    (Screen.isTablet(context) &&
-                                        Screen.isPortrait(context))
-                                ? GridView.builder(
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          crossAxisSpacing: 10,
-                                          mainAxisSpacing: 10,
-                                          childAspectRatio: 1,
-                                        ),
-                                    itemCount: menuList.length,
-                                    shrinkWrap: true,
-                                    physics: const BouncingScrollPhysics(),
-                                    itemBuilder: (BuildContext context, int index) {
-                                      var data = menuList[index];
-                                      return Padding(
-                                        padding: EdgeInsets.all(
-                                          w > 450 ? 10 : 10,
-                                        ),
-                                        child: InkWell(
-                                          onTap: () {
-                                            p.doConversationChatByIdWithAiF(
-                                              context,
-                                              msg: data['query'],
-                                            );
-                                            // if (index == 0) {
-                                            // Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //     builder: (context) =>
-                                            //         const MovieSuggetinosPage(),
-                                            //   ),
-                                            // );
-                                            // }
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  data['img'],
-                                                  width: w > 450
-                                                      ? w * 0.08
-                                                      : w * 0.15,
-                                                ),
-                                                const Divider(),
-                                                Text(
-                                                  '  ${data['title']}  ',
-                                                  textAlign: TextAlign.center,
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  )
-                                : ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: const BouncingScrollPhysics(),
-                                    controller: ScrollController(),
-                                    // gridDelegate:
-                                    //     SliverGridDelegateWithFixedCrossAxisCount(
-                                    //       crossAxisCount: w > 450 ? 4 : 2,
-                                    //     ),
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: menuList.length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      var data = menuList[index];
-                                      return Padding(
-                                        padding: EdgeInsets.all(
-                                          w > 450 ? 10 : 10,
-                                        ),
-                                        child: InkWell(
-                                          onTap: () {
-                                            p.doConversationChatByIdWithAiF(
-                                              context,
-                                              msg: data['query'],
-                                            );
-                                            // if (index == 0) {
-                                            // Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //     builder: (context) =>
-                                            //         const MovieSuggetinosPage(),
-                                            //   ),
-                                            // );
-                                            // }
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  data['img'],
-                                                  width: w > 450
-                                                      ? w * 0.08
-                                                      : w * 0.15,
-                                                ),
-                                                const Divider(),
-                                                Text(
-                                                  '  ${data['title']}  ',
-                                                  textAlign: TextAlign.center,
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
+                  Obx(
+                    () =>
+                        p.lastAIConversationChats == null ||
+                            p.lastAIConversationChats!.messages.isEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 14),
+                            child: GridView.builder(
+                              shrinkWrap: true,
+                              controller: ScrollController(),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: w > 450 ? 4 : 2,
                                   ),
-                          ),
-                        )
-                      : Expanded(
-                          // child: Text("bn"),
-                          child: ListView.builder(
-                            controller: chatsScrollController,
-                            itemCount:
-                                p.lastAIConversationChats!.messages.length,
-                            itemBuilder: (context, index) {
-                              var chat =
-                                  p.lastAIConversationChats!.messages[index];
-                              return GestureDetector(
-                                onTap: () {
-                                  Get.bottomSheet(
-                                    Container(
-                                      height: h * 0.5,
+                              itemCount: menuList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                var data = menuList[index];
+                                return Padding(
+                                  padding: EdgeInsets.all(w > 450 ? 20 : 14),
+                                  child: InkWell(
+                                    onTap: () {
+                                      p.doConversationChatByIdWithAiF(
+                                        context,
+                                        msg: data['query'],
+                                      );
+                                      // if (index == 0) {
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) =>
+                                      //         const MovieSuggetinosPage(),
+                                      //   ),
+                                      // );
+                                      // }
+                                    },
+                                    child: Container(
                                       decoration: BoxDecoration(
-                                        color: ColorsPallet.blue,
-                                        borderRadius: BorderRadius.circular(20),
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.abc_outlined),
-                                            SizedBox(height: 12),
-                                            Text(
-                                              chat.content,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            data['img'],
+                                            width: w > 450
+                                                ? w * 0.08
+                                                : w * 0.15,
+                                          ),
+                                          const Divider(),
+                                          Text(
+                                            '${data['title']}',
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            SizedBox(height: 7),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  );
-                                },
-                                child: BubbleSpecialOne(
-                                  text: chat.content,
-                                  isSender: chat.type == "user",
-                                  color: chat.type == "user"
-                                      ? Colors.blue
-                                      : Colors.grey.shade400,
-                                  textStyle: TextStyle(
-                                    color: chat.type == "user"
-                                        ? Colors.white
-                                        : Colors.black,
                                   ),
-                                  tail: true,
-                                  sent: chat.type == "user" ? true : false,
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
+                          )
+                        : Expanded(
+                            // child: Text("bn"),
+                            child: ListView.builder(
+                              controller: chatsScrollController,
+                              itemCount:
+                                  p.lastAIConversationChats!.messages.length,
+                              itemBuilder: (context, index) {
+                                var chat =
+                                    p.lastAIConversationChats!.messages[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.bottomSheet(
+                                      Container(
+                                        height: h * 0.5,
+                                        decoration: BoxDecoration(
+                                          color: ColorsPallet.blue,
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.abc_outlined),
+                                              SizedBox(height: 12),
+                                              Text(
+                                                chat.content,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(height: 7),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: BubbleSpecialOne(
+                                    text: chat.content,
+                                    isSender: chat.type == "user",
+                                    color: chat.type == "user"
+                                        ? Colors.blue
+                                        : Colors.grey.shade400,
+                                    textStyle: TextStyle(
+                                      color: chat.type == "user"
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                    tail: true,
+                                    sent: chat.type == "user" ? true : false,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                        ),
+                  ),
                 ],
               ),
             ),
