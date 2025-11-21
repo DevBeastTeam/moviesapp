@@ -14,6 +14,9 @@ class QuizController extends GetxController {
   var entryQuiz = Rxn<Quiz>();
   var quizResult = Rxn<QuizResult>();
 
+  var selectedCategory = Rxn<QuizCategory>();
+  var selectedType = 'training'.obs;
+
   var isLoading = false.obs;
   var isSaving = false.obs;
 
@@ -120,7 +123,7 @@ class QuizController extends GetxController {
   Future<void> saveEntryQuiz(Map<String, dynamic> answers) async {
     try {
       isSaving.value = true;
-      await _api.post('/quizz/entry-quiz/save', answers, {});
+      await _api.post('/quizz/entry-quiz/save', {'answers': answers}, {});
     } catch (e) {
       print('Error saving entry quiz: $e');
     } finally {
@@ -129,12 +132,21 @@ class QuizController extends GetxController {
   }
 
   // POST /quizz/{id}/save
-  Future<void> saveQuiz(String quizId, Map<String, dynamic> answers) async {
+  Future<dynamic> saveQuiz(String quizId, Map<String, dynamic> answers) async {
     try {
       isSaving.value = true;
-      await _api.post('/quizz/$quizId/save', answers, {});
+      final response = await _api.post('/quizz/$quizId/save', {
+        'answers': answers,
+      }, {});
+
+      final sessionId = getIn(response, 'quizSession._id');
+      if (sessionId != null) {
+        await fetchQuizResults(quizId, sessionId);
+      }
+      return response;
     } catch (e) {
       print('Error saving quiz: $e');
+      return null;
     } finally {
       isSaving.value = false;
     }

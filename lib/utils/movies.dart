@@ -8,10 +8,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../controllers/movies_controller.dart';
 
-import '../core/loader.dart';
 import '../widgets/ui/custom_button.dart';
 import '../widgets/ui/primary_button.dart';
-import 'boxes.dart';
 import 'utils.dart';
 
 Widget buildMovieFrame({
@@ -28,18 +26,11 @@ Widget buildMovieFrame({
       splashColor: Colors.white.withOpacity(.1),
       highlightColor: Colors.white.withOpacity(.09),
       onPressed: () async {
-        Get.find<MoviesController>().getMovieByIdF(
-          context,
-          movieId: getIn(movie, '_id').toString(),
-          isRefresh: true,
-          loadingFor: "movie",
-        );
-
-        // if (from == 'search') {
-        //   await movieFetchAndRedirectPlayer(getIn(movie, '_id'), context);
-        // } else {
-        //   await movieFetchAndRedirect(getIn(movie, '_id'), context);
-        // }
+        if (from == 'search') {
+          await movieFetchAndRedirectPlayer(getIn(movie, '_id'), context);
+        } else {
+          await movieFetchAndRedirect(getIn(movie, '_id'), context);
+        }
       },
       child: ClipRRect(
         // borderRadius: BorderRadius.circular(16),
@@ -74,8 +65,10 @@ Widget buildMovieFrame({
 Future<void> movieFetchAndRedirect(id, BuildContext context) async {
   try {
     EasyLoading.show();
-    var movieFetch = await fetchMovie(id);
+    final controller = Get.find<MoviesController>();
+    var movieFetch = await controller.fetchMovieDetails(id.toString());
     EasyLoading.dismiss();
+
     if (getIn(movieFetch, 'success') == false) {
       if (context.mounted) {
         await AwesomeDialog(
@@ -92,8 +85,11 @@ Future<void> movieFetchAndRedirect(id, BuildContext context) async {
         ).show();
       }
     } else {
-      await moviesBox.put('movie', getIn(movieFetch, 'movie'));
-      await moviesBox.put('historyMovie', getIn(movieFetch, 'historyMovie'));
+      // Update controller state instead of Hive
+      controller.selectedMovie.value = getIn(movieFetch, 'movie');
+      // We might also want to store historyMovie if needed
+      // controller.historyMovie.value = getIn(movieFetch, 'historyMovie');
+
       if (context.mounted) {
         Get.to(() => const MoviePage());
       }
@@ -107,8 +103,10 @@ Future<void> movieFetchAndRedirect(id, BuildContext context) async {
 Future<void> movieFetchAndRedirectPlayer(id, BuildContext context) async {
   try {
     EasyLoading.show();
-    var movieFetch = await fetchMovie(id);
+    final controller = Get.find<MoviesController>();
+    var movieFetch = await controller.fetchMovieDetails(id.toString());
     EasyLoading.dismiss();
+
     if (getIn(movieFetch, 'success') == false) {
       if (context.mounted) {
         await AwesomeDialog(
@@ -125,8 +123,7 @@ Future<void> movieFetchAndRedirectPlayer(id, BuildContext context) async {
         ).show();
       }
     } else {
-      await moviesBox.put('movie', getIn(movieFetch, 'movie'));
-      await moviesBox.put('historyMovie', getIn(movieFetch, 'historyMovie'));
+      controller.selectedMovie.value = getIn(movieFetch, 'movie');
       if (context.mounted) {
         Get.to(() => const MoviePlayPage());
       }

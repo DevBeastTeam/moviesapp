@@ -14,18 +14,18 @@ Base URL: `https://dev.play.e-dutainment.com/api/1.0`
 - `GET /badges/list` - List all badges
 
 ## Quizzes
-- `GET /quizz/categories/list` - List quiz categories
-- `GET /quizz/categories/{category}/{type}/list` - List quizzes by category and type
-- `GET /quizz/{id}/start` - Start a quiz
-- `GET /quizz/{id}/results/{session}` - Get quiz results
-- `GET /quizz/entry-quiz` - Get entry quiz
-- `GET /quizz/entry-quiz/results` - Get entry quiz results
-- `POST /quizz/entry-quiz/save` - Save entry quiz answers
-- `POST /quizz/{id}/save` - Save quiz answers
+- `GET /quizz/categories/list` - List quiz categories ✅
+- `GET /quizz/categories/{category}/{type}/list` - List quizzes by category and type ✅
+- `GET /quizz/{id}/start` - Start a quiz ✅
+- `GET /quizz/{id}/results/{session}` - Get quiz results ✅
+- `GET /quizz/entry-quiz` - Get entry quiz ✅
+- `GET /quizz/entry-quiz/results` - Get entry quiz results ✅
+- `POST /quizz/entry-quiz/save` - Save entry quiz answers ✅
+- `POST /quizz/{id}/save` - Save quiz answers ✅
 
 ## Movies
-- `GET /movies/list` - List movies
-- `GET /movies/{id}` - Get movie details
+- `GET /movies/list` - List movies ✅
+- `GET /movies/{id}` - Get movie details ✅
 - `GET /movies/{id}/questions` - Get movie questions
 - `POST /movies/{id}/history` - Update movie watch history
 - `GET /movies/{movieId}/subjects` - Get movie subjects

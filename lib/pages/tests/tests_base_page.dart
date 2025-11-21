@@ -1,10 +1,11 @@
-import 'package:edutainment/core/loader.dart';
-import 'package:edutainment/pages/tests/tests_list_component.dart';
-import 'package:edutainment/theme/colors.dart';
-import 'package:edutainment/utils/boxes.dart';
-import 'package:edutainment/utils/utils.dart';
-import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quick_widgets/widgets/tiktok.dart';
+
+import '../../controllers/quiz_controller.dart';
+import '../../theme/colors.dart';
+import '../../widgets/ui/default_scaffold.dart';
+import 'tests_list_component.dart';
 
 class TestsBasePage extends StatefulWidget {
   const TestsBasePage({super.key});
@@ -15,45 +16,35 @@ class TestsBasePage extends StatefulWidget {
 
 class _TestsBasePageState extends State<TestsBasePage>
     with TickerProviderStateMixin {
+  final QuizController quizController = Get.find();
   final tabs = ['Training', 'Exam'];
 
-  final dynamic quizCategory = quizBox.get('quizCategory');
-  final dynamic quizType = quizBox.get('type');
-
-  int activeTab = 0;
-
   late TabController _tabController;
-
-  bool _loading = false;
-
-  void fetchNewData() async {
-    setState(() {
-      _loading = true;
-    });
-    await fetchQuizz(
-      quizCategory['_id'],
-      activeTab == 0 ? 'training' : 'examination',
-    );
-    setState(() {
-      _loading = false;
-    });
-  }
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(
       length: 2,
-      initialIndex: activeTab,
+      initialIndex: quizController.selectedType.value == 'training' ? 0 : 1,
       vsync: this,
     );
     _tabController.addListener(() {
-      if (activeTab != _tabController.index) {
-        activeTab = _tabController.index;
-        fetchNewData();
+      if (_tabController.indexIsChanging) {
+        // Handle tab change if needed, though usually onTap does it
       }
-      print(_tabController.index);
     });
+  }
+
+  void _onTabChanged(int index) {
+    final type = index == 0 ? 'training' : 'examination';
+    quizController.selectedType.value = type;
+    if (quizController.selectedCategory.value != null) {
+      quizController.fetchQuizzesByCategory(
+        quizController.selectedCategory.value!.id,
+        type,
+      );
+    }
   }
 
   @override
@@ -61,51 +52,46 @@ class _TestsBasePageState extends State<TestsBasePage>
     return DefaultScaffold(
       currentPage: 'tests/base',
       hideBottomBar: true,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppBar(
-            centerTitle: true,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "TEST",
-                  style: const TextStyle(
-                    // fontWeight: FontWeight.bold,
-                    fontSize: 17,
+      child: Obx(() {
+        final category = quizController.selectedCategory.value;
+        final type = quizController.selectedType.value;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (quizController.isLoading.value) QuickTikTokLoader(),
+            AppBar(
+              centerTitle: true,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("TEST", style: TextStyle(fontSize: 17)),
+                  Text(
+                    '${category?.label ?? ''} - $type',
+                    style: const TextStyle(fontSize: 17),
                   ),
-                ),
-                Text(
-                  '${getIn(quizCategory, 'label')} - $quizType',
-                  style: const TextStyle(
-                    // fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
-                ),
-                Text(""),
-                Text(""),
-              ],
+                  const Text(""),
+                  const Text(""),
+                ],
+              ),
+              elevation: 0,
+              backgroundColor: ColorsPallet.darkBlue,
             ),
-            elevation: 0,
-            backgroundColor: ColorsPallet.darkBlue,
-          ),
-          TabBar(
-            indicatorColor: ColorsPallet.orangeA031,
-            indicatorWeight: 4,
-            controller: _tabController,
-            onTap: (int tab) {
-              print(tab);
-            },
-            labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-            tabs: tabs.map((e) => Tab(text: e)).toList(),
-          ),
-          if (!_loading)
-            const Expanded(child: TestsListComponent())
-          else
-            const Expanded(child: Center(child: CircularProgressIndicator())),
-        ],
-      ),
+            TabBar(
+              indicatorColor: ColorsPallet.orangeA031,
+              indicatorWeight: 4,
+              controller: _tabController,
+              onTap: _onTabChanged,
+              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              tabs: tabs.map((e) => Tab(text: e)).toList(),
+            ),
+            if (!quizController.isLoading.value)
+              const Expanded(child: TestsListComponent()),
+            // else
+            //   QuickTikTokLoader()
+          ],
+        );
+      }),
     );
   }
 }

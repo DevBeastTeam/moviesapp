@@ -1,13 +1,11 @@
-import 'tests_base_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import '../../constants/screenssize.dart';
 import '../../controllers/quiz_controller.dart';
-import '../../core/loader.dart';
 import '../../theme/colors.dart';
 import '../../widgets/ui/default_scaffold.dart';
+import 'tests_base_page.dart';
 
 class TestsPage extends StatefulWidget {
   const TestsPage({super.key});
@@ -86,11 +84,12 @@ class _TestsPage extends State<TestsPage> {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(6),
                             onTap: () async {
-                              EasyLoading.show();
-                              // Keeping fetchQuizz for now as per instruction to only update first page
-                              // Ideally this should also move to controller
-                              await fetchQuizz(category.id, 'training');
-                              EasyLoading.dismiss();
+                              quizController.selectedCategory.value = category;
+                              quizController.selectedType.value = 'training';
+                              await quizController.fetchQuizzesByCategory(
+                                category.id,
+                                'training',
+                              );
                               if (context.mounted) {
                                 Get.to(() => const TestsBasePage());
                               }
