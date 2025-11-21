@@ -35,15 +35,13 @@ class _PronCatgLessonsPage3State extends State<PronCatgLessonsPage3> {
     var h = MediaQuery.of(context).size.height;
 
     // // get data
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   ref
-    //       .read(pronounciationVm)
-    //       .getPronBySelectedCatgOptionsByIdF(
-    //         context,
-    //         id: selectedCatg.id,
-    //         loadingFor: "getPronBySelectedCatgOptionsByIdF",
-    //       );
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<PronunciationController>()
+          .getPronBySelectedCatgOptionsById(
+            context,
+            loadingFor: "getPronBySelectedCatgOptionsByIdF",
+          );
+    });
 
     return DefaultScaffold(
       currentPage: '/home/PronlevelsPage1/2/3',

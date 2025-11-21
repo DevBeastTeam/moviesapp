@@ -36,7 +36,11 @@ class ExercisesController extends GetxController {
       log('👉 getExcerF excersiseList: $data');
       if (data['success'].toString() == 'true') {
         excersiseList.clear();
-        excersiseList.add(ExcersisesModel.fromJson(data['data']));
+        var model = ExcersisesModel.fromJson(data['data']);
+        excersiseList.add(model);
+        log('🔥 Added exercises data: ${model.allowedLessonCategory.length} categories');
+      } else {
+        log('🔥 API call failed: ${data['success']}');
       }
     } catch (e, st) {
       log('💥 try catch when: getExcerF Error: $e, st:$st');

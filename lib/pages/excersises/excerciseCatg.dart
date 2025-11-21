@@ -23,7 +23,6 @@ class _ExcerciseCatgPageState extends State<ExcerciseCatgPage> {
   Widget build(BuildContext context) {
     final p = Get.find<ExercisesController>();
     var t = Theme.of(context).textTheme;
-    var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
 
     // Get the extra data passed from GoRouter
@@ -137,8 +136,14 @@ class _ExcerciseCatgPageState extends State<ExcerciseCatgPage> {
                                         )
                                         .toList(),
                                     onLessonTap: (index, v) {
+                                      // Get the lesson data and pass questions to QA page
+                                      final lesson = p.excercisesCatgLessonsSteps!.data.lessons[index];
                                       Get.to(
                                         () => const ExcerciseByCatgQAPage(),
+                                        arguments: {
+                                          "q": lesson.questions,
+                                          "labelTitle": labelTitle,
+                                        },
                                       );
                                     },
                                     // lessons

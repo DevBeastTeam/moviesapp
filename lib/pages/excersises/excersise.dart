@@ -26,6 +26,7 @@ class _ExcersisesPageState extends State<ExcersisesPage> {
 
   void syncFirstF() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      print('🔥 Calling exercises API...');
       Get.find<ExercisesController>().getExcerF(context, loadingFor: "getAll");
     });
   }
@@ -33,9 +34,6 @@ class _ExcersisesPageState extends State<ExcersisesPage> {
   @override
   Widget build(BuildContext context) {
     final p = Get.find<ExercisesController>();
-    var t = Theme.of(context).textTheme;
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
 
     return DefaultScaffold(
       currentPage: '/home/ExcersisesPage',
@@ -52,32 +50,37 @@ class _ExcersisesPageState extends State<ExcersisesPage> {
                 ? QuickTikTokLoader()
                 : SizedBox.shrink(),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
+          Obx(
+            () => Column(
+              mainAxisSize: MainAxisSize.min,
 
-            children: [
-              SizedBox(height: Screen.height(context) * 0.02),
-              const Text(
-                'LEVELS',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              SizedBox(
-                height: Screen.isTablet(context) && !Screen.isLandscape(context)
-                    ? Screen.height(context) * 0.1
-                    : Screen.height(context) * 0.02,
-                // height: Screen.isPhone(context) && Screen.isLandscape(context)
-                //     ? Screen.height(context) * 0.02
-                //     : 50,
-              ),
-              (p.excersiseList.isEmpty ||
-                      p.excersiseList.first.allowedLessonCategory.isEmpty)
-                  ? EmptyWidget(
-                      paddingTop:
-                          Screen.isPhone(context) && Screen.isLandscape(context)
-                          ? 5
-                          : 30,
-                    )
-                  : Center(
+              children: [
+                SizedBox(height: Screen.height(context) * 0.02),
+                const Text(
+                  'LEVELS',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                // Debug info
+                Text(
+                  'Debug: List length: ${p.excersiseList.length}, Loading: ${p.loadingFor}',
+                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+                SizedBox(
+                  height: Screen.isTablet(context) && !Screen.isLandscape(context)
+                      ? Screen.height(context) * 0.1
+                      : Screen.height(context) * 0.02,
+                  // height: Screen.isPhone(context) && Screen.isLandscape(context)
+                  //     ? Screen.height(context) * 0.02
+                  //     : 50,
+                ),
+                (p.excersiseList.isEmpty)
+                    ? EmptyWidget(
+                        paddingTop:
+                            Screen.isPhone(context) && Screen.isLandscape(context)
+                            ? 5
+                            : 30,
+                      )
+                    : Center(
                       child: SizedBox(
                         width: Screen.isPhone(context)
                             ? Screen.width(context) * 0.8
@@ -97,18 +100,14 @@ class _ExcersisesPageState extends State<ExcersisesPage> {
                               ),
                           shrinkWrap: true,
                           controller: ScrollController(),
-                          itemCount: p
-                              .excersiseList
-                              .first
-                              .allowedLessonCategory
-                              .length,
+                          itemCount: p.excersiseList.isNotEmpty
+                              ? p.excersiseList.first.allowedLessonCategory.length
+                              : 0,
                           itemBuilder: (context, index) {
-                            var data = p
-                                .excersiseList
-                                .first
-                                .allowedLessonCategory[index];
-                            bool isLocked =
-                                p.excersiseList.first.userLevel.index < index;
+                            if (p.excersiseList.isEmpty) return SizedBox.shrink();
+                            
+                            var data = p.excersiseList.first.allowedLessonCategory[index];
+                            bool isLocked = p.excersiseList.first.userLevel.index < index;
                             return InkWell(
                               onTap:
                                   // isLocked
@@ -141,14 +140,14 @@ class _ExcersisesPageState extends State<ExcersisesPage> {
                                         colors: isLocked
                                             ? [
                                                 Colors.orange.shade200
-                                                    .withOpacity(0.5),
+                                                    .withValues(alpha: 0.5),
                                                 Colors.orange.shade200
-                                                    .withOpacity(0.5),
+                                                    .withValues(alpha: 0.5),
                                                 Colors.deepOrange.shade300
-                                                    .withOpacity(0.5),
-                                                Colors.red.withOpacity(0.5),
-                                                Colors.red.shade800.withOpacity(
-                                                  0.5,
+                                                    .withValues(alpha: 0.5),
+                                                Colors.red.withValues(alpha: 0.5),
+                                                Colors.red.shade800.withValues(
+                                                  alpha: 0.5,
                                                 ),
                                               ]
                                             : [
@@ -191,7 +190,8 @@ class _ExcersisesPageState extends State<ExcersisesPage> {
                         ),
                       ),
                     ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

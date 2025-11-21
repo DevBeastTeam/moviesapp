@@ -85,15 +85,14 @@ class PronunciationController extends GetxController {
 
   Future<void> getPronBySelectedCatgOptionsById(
     BuildContext context, {
-    required String id,
     String loadingFor = '',
     bool isRefresh = false,
   }) async {
     try {
       called = true;
       setLoadingFor(loadingFor);
-      debugPrint('👉 getPronBySelectedCatgOptionsById id: $id');
-      var data = await baseApi.get('/lessons/pronunciation/$id', context);
+      // debugPrint('👉 getPronBySelectedCatgOptionsById id: $id');
+      var data = await baseApi.get('/lessons/pronunciation/', context);
       log('👉 getPronBySelectedCatgOptionsById: $data');
       if (data['success'].toString() == 'true') {
         // pronSelectedCatgOptions handling here
