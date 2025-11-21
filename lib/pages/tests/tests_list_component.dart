@@ -1,3 +1,4 @@
+import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -22,12 +23,7 @@ class _TestsListComponent extends State<TestsListComponent> {
       child: SingleChildScrollView(
         child: Obx(() {
           if (quizController.quizzes.isEmpty) {
-            return const Center(
-              child: Text(
-                "No quizzes available",
-                style: TextStyle(color: Colors.white),
-              ),
-            );
+            return Center(child: EmptyWidget(text: "Empty"));
           }
 
           return Column(
@@ -49,10 +45,15 @@ class _TestsListComponent extends State<TestsListComponent> {
                       GestureDetector(
                         onTap: () async {
                           EasyLoading.show();
-                          await quizController.startQuiz(quiz.id);
+                          bool success = await quizController.startQuiz(
+                            quiz.id,
+                          );
                           EasyLoading.dismiss();
-                          if (context.mounted) {
+
+                          if (success) {
                             Get.to(() => const TestsQuizPage());
+                          } else {
+                            EasyLoading.showError('Failed to start quiz');
                           }
                         },
                         child: Container(
@@ -61,9 +62,7 @@ class _TestsListComponent extends State<TestsListComponent> {
                             horizontal: 16,
                           ),
                           decoration: BoxDecoration(
-                            color:
-                                quizController.selectedType.value ==
-                                    'examination'
+                            color: quizController.selectedType.value == 'exam'
                                 ? Colors.white
                                 : const Color(0xFF1F334F),
                             borderRadius: BorderRadius.circular(12),
@@ -83,7 +82,7 @@ class _TestsListComponent extends State<TestsListComponent> {
                                 style: TextStyle(
                                   color:
                                       quizController.selectedType.value ==
-                                          'examination'
+                                          'exam'
                                       ? Colors.black
                                       : Colors.white,
                                   fontSize: 18,
@@ -108,7 +107,7 @@ class _TestsListComponent extends State<TestsListComponent> {
                                                 quizController
                                                         .selectedType
                                                         .value ==
-                                                    'examination'
+                                                    'exam'
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontSize: 13,
@@ -123,7 +122,7 @@ class _TestsListComponent extends State<TestsListComponent> {
                                                 quizController
                                                         .selectedType
                                                         .value ==
-                                                    'examination'
+                                                    'exam'
                                                 ? Colors.grey
                                                 : Colors.white70,
                                             fontSize: 11,
@@ -145,7 +144,7 @@ class _TestsListComponent extends State<TestsListComponent> {
                                                 quizController
                                                         .selectedType
                                                         .value ==
-                                                    'examination'
+                                                    'exam'
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontSize: 13,
@@ -160,7 +159,7 @@ class _TestsListComponent extends State<TestsListComponent> {
                                                 quizController
                                                         .selectedType
                                                         .value ==
-                                                    'examination'
+                                                    'exam'
                                                 ? Colors.grey
                                                 : Colors.white70,
                                             fontSize: 11,
@@ -182,7 +181,7 @@ class _TestsListComponent extends State<TestsListComponent> {
                                                 quizController
                                                         .selectedType
                                                         .value ==
-                                                    'examination'
+                                                    'exam'
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontSize: 13,
@@ -197,7 +196,7 @@ class _TestsListComponent extends State<TestsListComponent> {
                                                 quizController
                                                         .selectedType
                                                         .value ==
-                                                    'examination'
+                                                    'exam'
                                                 ? Colors.grey
                                                 : Colors.white70,
                                             fontSize: 11,
@@ -219,7 +218,7 @@ class _TestsListComponent extends State<TestsListComponent> {
                                                 quizController
                                                         .selectedType
                                                         .value ==
-                                                    'examination'
+                                                    'exam'
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontSize: 13,
@@ -234,7 +233,7 @@ class _TestsListComponent extends State<TestsListComponent> {
                                                 quizController
                                                         .selectedType
                                                         .value ==
-                                                    'examination'
+                                                    'exam'
                                                 ? Colors.grey
                                                 : Colors.white70,
                                             fontSize: 11,

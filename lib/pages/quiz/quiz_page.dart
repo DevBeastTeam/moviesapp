@@ -109,11 +109,18 @@ class _QuizPage extends State<QuizPage> {
                       key: ValueKey(currentQuestion),
                       onSelectAnswer: (answerSelected) {
                         setState(() {
-                          answers[getIn(
-                                widget.quiz['questions'][currentQuestion],
-                                'Question._id',
-                              )] =
-                              answerSelected['_id'];
+                          var questionId = getIn(
+                            widget.quiz['questions'][currentQuestion],
+                            '_id',
+                          );
+                          // Fallback if _id is not found directly (handling potential nested structure)
+                          if (questionId == null) {
+                            questionId = getIn(
+                              widget.quiz['questions'][currentQuestion],
+                              'Question._id',
+                            );
+                          }
+                          answers[questionId] = answerSelected['_id'];
                           currentQuestionAnswered = true;
                         });
                         Future.delayed(const Duration(milliseconds: 300), () {

@@ -27,11 +27,14 @@ class QuizResultPage extends StatefulWidget {
 class _QuizResultPage extends State<QuizResultPage> {
   Widget _buildAnswerResult(index) {
     var questionFound = getIn(widget.quiz, 'questions', [])[index];
-    var correctAnswer = getIn(
-      questionFound,
-      'Question.answers',
-      [],
-    ).firstWhere((element) => element['is_answer'] == true);
+    var answers = getIn(questionFound, 'Question.answers', []);
+    // Handle case where answers might be null or empty
+    var correctAnswer = (answers is List && answers.isNotEmpty)
+        ? answers.firstWhere(
+            (element) => element['is_answer'] == true,
+            orElse: () => null,
+          )
+        : null;
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -110,7 +113,7 @@ class _QuizResultPage extends State<QuizResultPage> {
                         Padding(
                           padding: const EdgeInsets.all(5),
                           child: Text(
-                            '${getIn(correctAnswer, 'label')}',
+                            '${getIn(correctAnswer, 'label') ?? 'N/A'}',
                             textAlign: TextAlign.center,
                             style: const TextStyle(fontSize: 16),
                           ),
@@ -132,13 +135,20 @@ class _QuizResultPage extends State<QuizResultPage> {
       },
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(8),
           color: getIn(questionFound['quizSessionAnswer'], 'is_answer', false)
-              ? const Color(0xFF78B29B)
-              : const Color(0xffE16C6C),
+              ? const Color(0xFF5DBAAA) // Teal for correct
+              : const Color(0xFFFF5733), // Red/orange for incorrect
         ),
         child: Center(
-          child: Text('${index + 1}', style: const TextStyle(fontSize: 22)),
+          child: Text(
+            '${index + 1}',
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
     );
@@ -146,6 +156,9 @@ class _QuizResultPage extends State<QuizResultPage> {
 
   @override
   Widget build(BuildContext context) {
+    final totalQuestions = getIn(widget.quiz, 'questions', []).length;
+    final totalPoints = getIn(widget.session, 'total_score', '0');
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -172,114 +185,107 @@ class _QuizResultPage extends State<QuizResultPage> {
               colors: ColorsPallet.bdb,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Text(
-                            '${getIn(widget.quiz, 'questions', []).length}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                            ),
-                          ),
-                          const Text(
-                            'Questions',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Text(
-                            '${widget.correctAnswers}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                            ),
-                          ),
-                          const Text(
-                            'Correct answers',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Text(
-                            '${getIn(widget.session, 'total_score', '0')}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                            ),
-                          ),
-                          const Text(
-                            'Points',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
+          child: Column(
+            children: [
+              // Header with stats
+              Container(
+                margin: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 16,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
                     ),
                   ],
                 ),
-                const Divider(height: 24, color: Colors.transparent),
-                Expanded(
-                  child: GridView.count(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildStatColumn('$totalQuestions', 'Questions'),
+                    _buildStatColumn(
+                      '${widget.correctAnswers}',
+                      'Correct answers',
+                    ),
+                    _buildStatColumn('$totalPoints', 'Points'),
+                  ],
+                ),
+              ),
+              // Grid of questions
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1E3A4F),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: GridView.builder(
                     physics: const BouncingScrollPhysics(),
-                    primary: false,
-                    padding: const EdgeInsets.all(20),
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    crossAxisCount: 5,
-                    children: [
-                      for (
-                        var index = 0;
-                        index < getIn(widget.quiz, 'questions', []).length;
-                        index++
-                      )
-                        _buildAnswerResult(index),
-                    ],
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 5,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          childAspectRatio: 1,
+                        ),
+                    itemCount: totalQuestions,
+                    itemBuilder: (context, index) => _buildAnswerResult(index),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 50),
-                  child: PrimaryButton(
-                    onPressed: () {
-                      widget.fnRedirectButton();
-                    },
-                    radius: 25.0,
-                    colors: const [
-                      ColorsPallet.blueComponent,
-                      ColorsPallet.blueComponent,
-                    ],
-                    text: getIn(widget.quiz, 'entry_quiz', false)
-                        ? 'Let\'s go to learn !'
-                        : 'Close',
-                  ),
+              ),
+              // Close button
+              Container(
+                margin: const EdgeInsets.all(16),
+                child: PrimaryButton(
+                  onPressed: () {
+                    widget.fnRedirectButton();
+                  },
+                  radius: 25.0,
+                  colors: const [
+                    ColorsPallet.blueComponent,
+                    ColorsPallet.blueComponent,
+                  ],
+                  text: getIn(widget.quiz, 'entry_quiz', false)
+                      ? 'Let\'s go to learn !'
+                      : 'Close',
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildStatColumn(String value, String label) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          value,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 28,
+            color: ColorsPallet.darkBlue,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: const TextStyle(
+            fontWeight: FontWeight.normal,
+            fontSize: 13,
+            color: Colors.black54,
+          ),
+        ),
+      ],
     );
   }
 }

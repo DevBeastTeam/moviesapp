@@ -37,7 +37,7 @@ class _TestsBasePageState extends State<TestsBasePage>
   }
 
   void _onTabChanged(int index) {
-    final type = index == 0 ? 'training' : 'examination';
+    final type = index == 0 ? 'training' : 'exam';
     quizController.selectedType.value = type;
     if (quizController.selectedCategory.value != null) {
       quizController.fetchQuizzesByCategory(
