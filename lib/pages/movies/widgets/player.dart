@@ -175,39 +175,149 @@ class _MoviePlayer extends State<MoviePlayer> {
 
     if (questionChoice == '') {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
+        // Get screen width for responsive design
+        final screenWidth = MediaQuery.of(context).size.width;
+        final isTablet = screenWidth >= 600;
+
         await AwesomeDialog(
           context: context,
           animType: AnimType.scale,
           dismissOnTouchOutside: false,
-          dialogType: DialogType.question,
+          dialogType: DialogType.noHeader,
+          borderSide: BorderSide(width: 1, color: Colors.white),
           body: Container(
-            padding: const EdgeInsets.all(15),
+            padding: EdgeInsets.all(isTablet ? 32 : 24),
+            decoration: BoxDecoration(
+              color: const Color(0xFF424242),
+              borderRadius: BorderRadius.circular(24),
+            ),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'I want to answer questions :',
-                  style: TextStyle(fontSize: 18),
+                // Red question mark icon
+                Container(
+                  width: isTablet ? 100 : 80,
+                  height: isTablet ? 100 : 80,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const Color(0xFFE53935),
+                      width: 4,
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.question_mark_rounded,
+                    size: isTablet ? 56 : 48,
+                    color: const Color(0xFFE53935),
+                    weight: 700,
+                  ),
                 ),
-                const Divider(height: 15, color: Colors.transparent),
-                PrimaryButton(
-                  onPressed: () {
-                    setState(() {
-                      questionChoice = 'during';
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  text: 'While watching (if possible)',
+                SizedBox(height: isTablet ? 32 : 24),
+                // Title text
+                Text(
+                  'I want to answer questions:',
+                  style: TextStyle(
+                    fontSize: isTablet ? 24 : 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                    letterSpacing: 0.5,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                const Divider(height: 15, color: Colors.transparent),
-                PrimaryButton(
-                  onPressed: () {
-                    setState(() {
-                      questionChoice = 'ending';
-                    });
-                    Navigator.of(context).pop();
-                    onTappedFullScreen();
-                  },
-                  text: 'Once the film is over',
+                SizedBox(height: isTablet ? 32 : 24),
+                // While watching button
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade600, width: 2),
+                    borderRadius: BorderRadius.circular(16),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        // const Color(0xFF1A3A52),
+                        const Color(0xFF0B2349),
+                        const Color(0xFF000000),
+                        // const Color.fromARGB(255, 3, 17, 38),
+                      ],
+                    ),
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          questionChoice = 'during';
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      borderRadius: BorderRadius.circular(16),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: isTablet ? 24 : 20,
+                          horizontal: 16,
+                        ),
+                        child: Text(
+                          'While watching',
+                          style: TextStyle(
+                            fontSize: isTablet ? 22 : 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                            letterSpacing: 0.5,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: isTablet ? 20 : 16),
+                // Once the film is over button
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.shade600, width: 2),
+                    borderRadius: BorderRadius.circular(16),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        // const Color(0xFF1A3A52),
+                        const Color(0xFF0B2349),
+                        const Color(0xFF000000),
+                        // const Color.fromARGB(255, 3, 17, 38),
+                      ],
+                    ),
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          questionChoice = 'ending';
+                        });
+                        Navigator.of(context).pop();
+                        onTappedFullScreen();
+                      },
+                      borderRadius: BorderRadius.circular(16),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: isTablet ? 24 : 20,
+                          horizontal: 16,
+                        ),
+                        child: Text(
+                          'Once the film is over',
+                          style: TextStyle(
+                            fontSize: isTablet ? 22 : 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                            letterSpacing: 0.5,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -495,7 +605,7 @@ class _MoviePlayer extends State<MoviePlayer> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
           child: Text(
             '${widget.questions.length} questions matching your level are available for this film',
             style: const TextStyle(
@@ -506,7 +616,7 @@ class _MoviePlayer extends State<MoviePlayer> {
             textAlign: TextAlign.center,
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
         if (tempQuestions.isNotEmpty && questionChoice == 'during')
           Wrap(
             runSpacing: 4,
@@ -527,7 +637,7 @@ class _MoviePlayer extends State<MoviePlayer> {
                 ),
             ],
           ),
-        const SizedBox(height: 64),
+        const SizedBox(height: 30),
         if (tempQuestions.isNotEmpty && questionChoice == 'during')
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),

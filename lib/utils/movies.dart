@@ -64,6 +64,25 @@ Widget buildMovieFrame({
 
 Future<void> movieFetchAndRedirect(id, BuildContext context) async {
   try {
+    // Validate movie ID
+    if (id == null || id.toString().isEmpty) {
+      debugPrint('❌ Cannot fetch movie: ID is null or empty');
+      if (context.mounted) {
+        await AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          title: 'Error',
+          desc: 'Invalid movie ID. Please try again.',
+          btnOkOnPress: () {},
+          btnOk: PrimaryButton(
+            onPressed: () => {Navigator.of(context).pop()},
+            text: 'Close',
+          ),
+        ).show();
+      }
+      return;
+    }
+
     EasyLoading.show();
     final controller = Get.find<MoviesController>();
     var movieFetch = await controller.fetchMovieDetails(id.toString());
@@ -76,7 +95,7 @@ Future<void> movieFetchAndRedirect(id, BuildContext context) async {
           dialogType: DialogType.error,
           title: 'Error',
           desc:
-              'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
+              'Une erreur est survenue, veuillez réessayer ulterieurement ou contacter le support si le problème persiste.',
           btnOkOnPress: () {},
           btnOk: PrimaryButton(
             onPressed: () => {Navigator.of(context).pop()},
@@ -102,6 +121,25 @@ Future<void> movieFetchAndRedirect(id, BuildContext context) async {
 
 Future<void> movieFetchAndRedirectPlayer(id, BuildContext context) async {
   try {
+    // Validate movie ID
+    if (id == null || id.toString().isEmpty) {
+      debugPrint('❌ Cannot fetch movie: ID is null or empty');
+      if (context.mounted) {
+        await AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          title: 'Error',
+          desc: 'Invalid movie ID. Please try again.',
+          btnOkOnPress: () {},
+          btnOk: PrimaryButton(
+            onPressed: () => {Navigator.of(context).pop()},
+            text: 'Close',
+          ),
+        ).show();
+      }
+      return;
+    }
+
     EasyLoading.show();
     final controller = Get.find<MoviesController>();
     var movieFetch = await controller.fetchMovieDetails(id.toString());
@@ -114,7 +152,7 @@ Future<void> movieFetchAndRedirectPlayer(id, BuildContext context) async {
           dialogType: DialogType.error,
           title: 'Error',
           desc:
-              'Une erreur est survenue, veuillez réessayer ulterierement ou contacter le support si le problème persiste.',
+              'Une erreur est survenue, veuillez réessayer ulterieurement ou contacter le support si le problème persiste.',
           btnOkOnPress: () {},
           btnOk: PrimaryButton(
             onPressed: () => {Navigator.of(context).pop()},

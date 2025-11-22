@@ -1,3 +1,5 @@
+import 'package:edutainment/constants/appimages.dart';
+
 import '../flashcards/flashcardslist.dart';
 import 'movie_play_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -194,14 +196,19 @@ class _MoviePage extends State<MoviePage> {
               onTap: () {
                 Get.to(() => const FlashCardsListPage());
               },
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Badge(
-                    child: Icon(
-                      Icons.splitscreen_sharp,
-                      size: 17,
-                      color: Colors.grey,
+                    // child: Icon(
+                    //   Icons.splitscreen_sharp,
+                    //   size: 17,
+                    //   color: Colors.grey,
+                    // ),
+                    child: Image.asset(
+                      AppImages.flashcardsblue,
+                      width: 20,
+                      color: Colors.white,
                     ),
                   ),
                   Text('  View FlashCards'),

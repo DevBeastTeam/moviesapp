@@ -195,46 +195,59 @@ class _MoviesPage extends State<MoviesPage> {
                               ),
                             ),
                             Positioned(
-                              bottom: 30,
+                              bottom: 8,
                               left: 0,
                               right: 0,
-                              child: Center(
-                                child: CustomSubmitButton(
-                                  width:
-                                      (MediaQuery.of(context).size.width * .5 >
-                                          200
-                                      ? 200
-                                      : MediaQuery.of(context).size.width * .5),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      const Icon(
-                                        EdutainmentIcons.playEdutainment,
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(left: 3),
-                                        child: Text(
-                                          'PLAY NOW',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                            fontSize: Theme.of(
-                                              context,
-                                            ).textTheme.titleLarge!.fontSize!,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 20,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.black26,
+                                ),
+                                child: Center(
+                                  child: CustomSubmitButton(
+                                    width:
+                                        (MediaQuery.of(context).size.width *
+                                                .5 >
+                                            200
+                                        ? 200
+                                        : MediaQuery.of(context).size.width *
+                                              .5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          EdutainmentIcons.playEdutainment,
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.only(
+                                            left: 3,
+                                          ),
+                                          child: Text(
+                                            'PLAY NOW',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              fontSize: Theme.of(
+                                                context,
+                                              ).textTheme.titleLarge!.fontSize!,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
+                                    onPressed: () async {
+                                      await movieFetchAndRedirect(
+                                        movie.id,
+                                        context,
+                                      );
+                                    },
                                   ),
-                                  onPressed: () async {
-                                    await movieFetchAndRedirect(
-                                      movie.id,
-                                      context,
-                                    );
-                                  },
                                 ),
                               ),
                             ),
