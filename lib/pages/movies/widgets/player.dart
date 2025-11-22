@@ -2,18 +2,19 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:better_player/better_player.dart';
-import 'package:edutainment/core/api_helper.dart';
+import 'package:edutainment/controllers/movies_controller.dart';
 import 'package:edutainment/pages/movies/widgets/custom_controls.dart';
 import 'package:edutainment/pages/quiz/questions/answers/answer.dart';
 import 'package:edutainment/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
 
 import '../../../utils/questions.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/header_bar/custom_header_bar.dart';
-import '../../../widgets/ui/primary_button.dart';
 
 class MoviePlayer extends StatefulWidget {
   const MoviePlayer({
@@ -37,6 +38,8 @@ class _MoviePlayer extends State<MoviePlayer> {
   bool isInLandScapeMode = false;
 
   late String questionChoice = '';
+  bool _hasHandledError =
+      false; // Prevent error handler from running multiple times
 
   late List tempQuestions = [];
   int nextQuestionIndex = 0;
@@ -50,25 +53,34 @@ class _MoviePlayer extends State<MoviePlayer> {
   int progressSeconds = 0;
 
   String previousType = '';
+  final MoviesController _moviesController = Get.find<MoviesController>();
 
   Future<void> sendPlayerEvent(String type) async {
     if (previousType == 'ended') {
       return;
     }
     previousType = type;
-    final event = {
-      'status': type,
-      'time':
-          _betterPlayerController
-              ?.videoPlayerController
-              ?.value
-              .position
-              .inSeconds ??
-          0,
-    };
+
     final id = getIn(widget.movie, '_id');
-    var baseApi = ApiHelper();
-    await baseApi.post('/movies/$id/history', event, null);
+    if (id == null || id.toString().isEmpty) {
+      debugPrint('⚠️ Cannot send player event: Movie ID is null');
+      return;
+    }
+
+    final time =
+        _betterPlayerController
+            ?.videoPlayerController
+            ?.value
+            .position
+            .inSeconds ??
+        0;
+
+    // Use controller method instead of direct API call
+    await _moviesController.updateMovieHistory(
+      id.toString(),
+      status: type,
+      time: time,
+    );
   }
 
   void setupPlayer() {
@@ -117,6 +129,46 @@ class _MoviePlayer extends State<MoviePlayer> {
     );
 
     _betterPlayerController?.addEventsListener((event) {
+      // Handle playback errors (404, network errors, etc.)
+      if (event.betterPlayerEventType == BetterPlayerEventType.exception) {
+        // Only handle error once to prevent infinite loop
+        if (_hasHandledError) return;
+        _hasHandledError = true;
+
+        debugPrint('❌ Video playback error: ${event.parameters}');
+        debugPrint(
+          '❌ Error type: Response code 404 - Video file not found on server',
+        );
+
+        // Immediately remove listener to prevent more events
+        _betterPlayerController?.removeEventsListener((event) {});
+
+        // Safely dispose
+        try {
+          _betterPlayerController?.pause();
+          _betterPlayerController?.dispose();
+          _betterPlayerController = null;
+        } catch (e) {
+          debugPrint('Error disposing player: $e');
+        }
+
+        // Show error and navigate back
+        if (mounted) {
+          EasyLoading.showError(
+            'Video not available\nPlease try another movie',
+            duration: const Duration(seconds: 2),
+          );
+
+          // Navigate back immediately
+          Future.delayed(const Duration(milliseconds: 500), () {
+            if (mounted) {
+              Navigator.of(context).pop();
+            }
+          });
+        }
+        return;
+      }
+
       if (event.betterPlayerEventType == BetterPlayerEventType.progress) {
         final Duration? progress = event.parameters?['progress'];
         final Duration? duration = event.parameters?['duration'];
@@ -410,14 +462,20 @@ class _MoviePlayer extends State<MoviePlayer> {
   }
 
   @override
-  void dispose() async {
-    await sendPlayerEvent('paused');
+  void dispose() {
+    // Send paused event without awaiting to avoid async dispose
+    sendPlayerEvent('paused').catchError((e) {
+      debugPrint('Error sending paused event on dispose: $e');
+    });
+
     _betterPlayerController?.dispose();
-    // reset to portrait
-    await SystemChrome.setPreferredOrientations([
+
+    // Reset to portrait
+    SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
     super.dispose();
   }
 
@@ -525,7 +583,11 @@ class _MoviePlayer extends State<MoviePlayer> {
                       aspectRatio:
                           _betterPlayerController?.getAspectRatio() ?? 16 / 9,
                       child: _betterPlayerController == null
-                          ? const Center(child: CircularProgressIndicator())
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
                           : BetterPlayer(controller: _betterPlayerController!),
                     ),
                   ),

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../utils/boxes.dart';
 import '../utils/utils.dart';
 import 'api_helper.dart';
@@ -9,15 +11,17 @@ Future<void> initHive() async {
   await hiveHelper.init();
 }
 
-Future<void> saveSawEntryPage() async {
+Future<dynamic> saveSawEntryPage() async {
   var baseApi = ApiHelper();
-  await baseApi.post('/users/saw-entry-page', null, {});
-  return;
+  var response = await baseApi.post('/users/saw-entry-page', null, {});
+  debugPrint(' 👉🏻 saveSawEntryPage response: $response');
+  return response;
 }
 
 Future<void> fetchBadges() async {
   var baseApi = ApiHelper();
   var response = await baseApi.get('/badges/list', null);
+  debugPrint(' 👉🏻 Badges response: $response');
   await badgesBox.put('data', getIn(response, 'badges'));
   return;
 }
@@ -31,8 +35,10 @@ Future<void> fetchQuizCategories() async {
 
 Future<void> fetchQuizz(category, type) async {
   var baseApi = ApiHelper();
-  var response =
-      await baseApi.get('/quizz/categories/$category/$type/list', null);
+  var response = await baseApi.get(
+    '/quizz/categories/$category/$type/list',
+    null,
+  );
   await quizBox.put('quizz', getIn(response, 'quizz'));
   await quizBox.put('quizCategory', getIn(response, 'quizCategory'));
   await quizBox.put('type', getIn(response, 'type'));
@@ -78,7 +84,9 @@ Future<void> fetchMovies() async {
   var response = await baseApi.get('/movies/list', null);
   await moviesBox.put('groupMovies', getIn(response, 'groupMovies'));
   await moviesBox.put(
-      'statusGroupMovies', getIn(response, 'statusGroupMovies'));
+    'statusGroupMovies',
+    getIn(response, 'statusGroupMovies'),
+  );
   await moviesBox.put('movieHeaders', getIn(response, 'movieHeaders'));
   await moviesBox.put('subjects', getIn(response, 'subjects'));
   await moviesBox.put('tags', getIn(response, 'tags'));
@@ -94,6 +102,7 @@ Future<dynamic> fetchMovie(id) async {
 Future<void> fetchUser() async {
   var baseApi = ApiHelper();
   var response = await baseApi.get('/auth/me', null);
+  debugPrint('👉🏻User response: $response');
   await userBox.put('data', getIn(response, 'user'));
   await statisticsBox.put('data', getIn(response, 'statistics'));
   await badgesBox.put('history', getIn(response, 'historyBadges'));

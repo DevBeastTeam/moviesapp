@@ -1,5 +1,3 @@
-import 'package:edutainment/constants/screenssize.dart';
-
 import 'falscarddetails.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';

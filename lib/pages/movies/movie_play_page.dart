@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/movies_controller.dart';
-import '../../core/api_helper.dart';
 import '../../utils/utils.dart';
 import '../../widgets/indicators/double_circular_progress_indicator.dart';
 import '../../widgets/ui/default_scaffold.dart';
@@ -50,25 +49,9 @@ class _MoviePlayPage extends State<MoviePlayPage> {
     super.dispose();
   }
 
-  Future<dynamic> fetchMoviePlay(id) async {
-    try {
-      var baseApi = ApiHelper();
-      // var response = await baseApi.get('https://api.npoint.io/4f2d4c19f1da5a387032', null);
-      // var response = await baseApi.get('https://api.npoint.io/b6000476ff8de4c02e8c', null);
-      var response = await baseApi.get('/movies/$id/questions', null);
-
-      if (response != null && response['questions'] != null) {
-        return response['questions'];
-      }
-
-      // Return empty array if no questions found
-      debugPrint('⚠️ No questions found for movie $id');
-      return [];
-    } catch (e) {
-      debugPrint('❌ Error fetching movie questions: $e');
-      // Return empty array on error so the movie can still play
-      return [];
-    }
+  Future<List<dynamic>> fetchMovieQuestions(String movieId) async {
+    // Use controller method instead of direct API call
+    return await controller.getMovieQuestions(movieId);
   }
 
   @override
@@ -117,7 +100,7 @@ class _MoviePlayPage extends State<MoviePlayPage> {
       hideBottomBar: true,
       child: SafeArea(
         child: FutureBuilder(
-          future: fetchMoviePlay(getIn(movie, '_id')),
+          future: fetchMovieQuestions(getIn(movie, '_id')),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasError) {
               debugPrint('❌ FutureBuilder error: ${snapshot.error}');

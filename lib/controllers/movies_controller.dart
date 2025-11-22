@@ -101,6 +101,69 @@ class MoviesController extends GetxController {
     }
   }
 
+  // GET /movies/{id}/questions
+  Future<List<dynamic>> getMovieQuestions(String movieId) async {
+    try {
+      debugPrint('📡 Fetching questions for movie: $movieId');
+      final response = await _api.get('/movies/$movieId/questions', null);
+
+      if (response != null && response['questions'] != null) {
+        debugPrint('✅ Got ${response['questions'].length} questions');
+        return response['questions'] as List<dynamic>;
+      }
+
+      debugPrint('⚠️ No questions found for movie $movieId');
+      return [];
+    } catch (e) {
+      debugPrint('❌ Error fetching movie questions: $e');
+      return [];
+    }
+  }
+
+  // POST /movies/{id}/history
+  Future<bool> updateMovieHistory(
+    String movieId, {
+    required String status, // 'paused', 'ended', 'playing'
+    required int time, // Time in seconds
+  }) async {
+    try {
+      debugPrint('📡 Updating movie history: $movieId - $status at ${time}s');
+
+      final data = {'status': status, 'time': time};
+
+      final response = await _api.post('/movies/$movieId/history', data, null);
+
+      if (response != null) {
+        debugPrint('✅ Movie history updated successfully');
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      debugPrint('❌ Error updating movie history: $e');
+      return false;
+    }
+  }
+
+  // GET /movies/{movieId}/subjects
+  Future<dynamic> getMovieSubjects(String movieId) async {
+    try {
+      debugPrint('📡 Fetching subjects for movie: $movieId');
+      final response = await _api.get('/movies/$movieId/subjects', null);
+
+      if (response != null) {
+        debugPrint('✅ Got movie subjects');
+        return response;
+      }
+
+      debugPrint('⚠️ No subjects found for movie $movieId');
+      return null;
+    } catch (e) {
+      debugPrint('❌ Error fetching movie subjects: $e');
+      return null;
+    }
+  }
+
   // Logic to filter and organize movies based on current subject
   void updateMoviesList() {
     moviesByTag.clear();

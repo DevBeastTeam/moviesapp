@@ -4,14 +4,14 @@ Base URL: `https://dev.play.e-dutainment.com/api/1.0`
 
 ## Authentication
 - `POST /auth/token` - Login ✅
-- `GET /auth/me` - Get current user info
+- `GET /auth/me` - Get current user info ✅
 
 ## Users
-- `POST /users/edit` - Edit user profile
-- `POST /users/saw-entry-page` - Mark entry page as seen
+- `POST /users/edit` - Edit user profile ✅
+- `POST /users/saw-entry-page` - Mark entry page as seen ✅
 
 ## Badges
-- `GET /badges/list` - List all badges
+- `GET /badges/list` - List all badges ✅
 
 ## Quizzes
 - `GET /quizz/categories/list` - List quiz categories ✅
@@ -26,11 +26,11 @@ Base URL: `https://dev.play.e-dutainment.com/api/1.0`
 ## Movies
 - `GET /movies/list` - List movies ✅
 - `GET /movies/{id}` - Get movie details ✅
-- `GET /movies/{id}/questions` - Get movie questions
-- `POST /movies/{id}/history` - Update movie watch history
-- `GET /movies/{movieId}/subjects` - Get movie subjects
+- `GET /movies/{id}/questions` - Get movie questions ✅
+- `POST /movies/{id}/history` - Update movie watch history ✅
+- `GET /movies/{movieId}/subjects` - Get movie subjects ✅
 
-## Questions
+## Questions 
 - `GET /questions/random` - Get random question
 - `POST /questions/{questionId}/save` - Save question answer
 

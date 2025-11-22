@@ -52,8 +52,9 @@ class _TestsPage extends State<TestsPage> {
             // backgroundColor: ColorsPallet.darkBlue,
           ),
           Obx(() {
-            if (quizController.isLoading.value)
+            if (quizController.isLoading.value) {
               return const QuickTikTokLoader();
+            }
             return SizedBox.shrink();
           }),
           Expanded(

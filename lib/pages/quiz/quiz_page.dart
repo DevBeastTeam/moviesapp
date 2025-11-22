@@ -114,12 +114,10 @@ class _QuizPage extends State<QuizPage> {
                             '_id',
                           );
                           // Fallback if _id is not found directly (handling potential nested structure)
-                          if (questionId == null) {
-                            questionId = getIn(
-                              widget.quiz['questions'][currentQuestion],
-                              'Question._id',
-                            );
-                          }
+                          questionId ??= getIn(
+                            widget.quiz['questions'][currentQuestion],
+                            'Question._id',
+                          );
                           answers[questionId] = answerSelected['_id'];
                           currentQuestionAnswered = true;
                         });
