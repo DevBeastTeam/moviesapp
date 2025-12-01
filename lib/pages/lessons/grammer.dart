@@ -80,43 +80,60 @@ class GrammerPageState extends State<GrammerPage> {
                   ? EmptyWidget()
                   : Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: SizedBox(
-                        width: Screen.width(context) > 450
-                            ? Screen.width(context) * 0.7
-                            : null,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount:
-                              p.grammersList.first.allowedLessonCategory.length,
-                          controller: ScrollController(),
-                          physics: BouncingScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            var level = p
-                                .grammersList
-                                .first
-                                .allowedLessonCategory[index];
-                            return buildLevelBox(
-                              level.label,
-                              // subtitle: "",
-                              onTap: () async {
-                                // in future if need
-                                //  await ref.read(grammerData).getGrammersByIdForCatgListF(context, levelId:level.id , loadingFor: "grammerCatg");
-                                // await ref
-                                //     .read(grammerData)
-                                //     .getGrammerSingleByIdF(
-                                //       context,
-                                //       id: level.id,
-                                //       loadingFor: "grammerCatg",
-                                //     );
-                                p.setSelectedLabelCH(level.label.toString());
-
-                                //////
-                                Get.to(() => GrammerCatgPage());
-                              },
-                            );
-                          },
-                        ),
-                      ),
+                      child: Screen.isTablet(context)
+                          ? Wrap(
+                              spacing: 30,
+                              runSpacing: 10,
+                              children: p
+                                  .grammersList
+                                  .first
+                                  .allowedLessonCategory
+                                  .map((level) {
+                                    return buildLevelBox(
+                                      width: Screen.width(context) > 450
+                                          ? Screen.width(context) * 0.4
+                                          : null,
+                                      level.label,
+                                      onTap: () async {
+                                        p.setSelectedLabelCH(
+                                          level.label.toString(),
+                                        );
+                                        Get.to(() => GrammerCatgPage());
+                                      },
+                                    );
+                                  })
+                                  .toList(),
+                            )
+                          : SizedBox(
+                              width: Screen.width(context) > 450
+                                  ? Screen.width(context) * 0.7
+                                  : null,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: p
+                                    .grammersList
+                                    .first
+                                    .allowedLessonCategory
+                                    .length,
+                                controller: ScrollController(),
+                                physics: BouncingScrollPhysics(),
+                                itemBuilder: (BuildContext context, int index) {
+                                  var level = p
+                                      .grammersList
+                                      .first
+                                      .allowedLessonCategory[index];
+                                  return buildLevelBox(
+                                    level.label,
+                                    onTap: () async {
+                                      p.setSelectedLabelCH(
+                                        level.label.toString(),
+                                      );
+                                      Get.to(() => GrammerCatgPage());
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
                     ),
             ),
           ],
@@ -129,16 +146,18 @@ class GrammerPageState extends State<GrammerPage> {
     String level, {
     String subtitle = "Select this level",
     required Function onTap,
+    double? width,
   }) {
     return GestureDetector(
       onTap: () {
         onTap();
       },
       child: Container(
+        width: width,
         margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(7),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
