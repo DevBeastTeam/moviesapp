@@ -30,7 +30,11 @@ class FlashCardsController extends GetxController {
 
   var flashCardsList = <FlashCardsModel>[].obs;
 
-  void getFlashCards(BuildContext context, {String loadingFor = '', bool refresh = false}) async {
+  void getFlashCards(
+    BuildContext context, {
+    String loadingFor = '',
+    bool refresh = false,
+  }) async {
     try {
       if (refresh == false && flashCardsList.isNotEmpty) return;
       setLoadingF(loadingFor);
@@ -41,11 +45,15 @@ class FlashCardsController extends GetxController {
         flashCardsList.clear();
         var model = FlashCardsModel.fromJson(data);
         flashCardsList.add(model);
-        log('👉🏻 Added flashcards data: ${model.subjects.length} subjects, ${model.movies.length} movies');
+        log(
+          '👉🏻 Added flashcards data: ${model.subjects.length} subjects, ${model.movies.length} movies',
+        );
 
         if (selectedSubject.isEmpty && flashCardsList[0].subjects.isNotEmpty) {
           setSelectSubject(flashCardsList[0].subjects[0].id);
-          log('👉🏻 Auto-selected first subject: ${flashCardsList[0].subjects[0].id}');
+          log(
+            '👉🏻 Auto-selected first subject: ${flashCardsList[0].subjects[0].id}',
+          );
         }
       } else {
         log('👉🏻 getFlashCards failed: $data');
@@ -73,7 +81,9 @@ class FlashCardsController extends GetxController {
         flashCardsList.clear();
         var model = FlashCardsModel.fromJson(data);
         flashCardsList.add(model);
-        log('🔥 Updated flashcards for subject $subjectId: ${model.subjects.length} subjects, ${model.movies.length} movies');
+        log(
+          '🔥 Updated flashcards for subject $subjectId: ${model.subjects.length} subjects, ${model.movies.length} movies',
+        );
       } else {
         log('🔥 Movies API call failed: ${data['success']}');
       }
@@ -109,6 +119,7 @@ class FlashCardsController extends GetxController {
         '/flashcard/view/$movieId/$levelId',
         context,
       );
+      debugPrint("👉 getFlashCardDetailsByIds: $data");
 
       if (data['success'].toString() == 'true') {
         flashCardsDetailsList.clear();

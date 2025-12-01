@@ -12,6 +12,10 @@ class NavigationArgsController extends GetxController {
   String get flashCardSubjectId => _flashCardSubjectId.value;
   set flashCardSubjectId(String value) => _flashCardSubjectId.value = value;
 
+  final RxString _flashCardLevelId = ''.obs;
+  String get flashCardLevelId => _flashCardLevelId.value;
+  set flashCardLevelId(String value) => _flashCardLevelId.value = value;
+
   // Exercises
   final RxString _exerciseLabelTitle = ''.obs;
   String get exerciseLabelTitle => _exerciseLabelTitle.value;

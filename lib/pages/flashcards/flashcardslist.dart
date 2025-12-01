@@ -226,9 +226,15 @@ class FlashCardsListsPageState extends State<FlashCardsListPage> {
                                 return FlashCardsTileWidget(
                                   item: item,
                                   onTap: () {
+                                    p.getFlashCardDetailsByIds(
+                                      context,
+                                      movieId: item.id,
+                                      levelId: item.label,
+                                    );
                                     final navCtrl =
                                         Get.find<NavigationArgsController>();
                                     navCtrl.flashCardMovie = item;
+                                    navCtrl.flashCardLevelId = item.label;
                                     navCtrl.flashCardSubjectId =
                                         p.selectedSubject;
                                     Get.to(() => const FlashCardDetailsPage());

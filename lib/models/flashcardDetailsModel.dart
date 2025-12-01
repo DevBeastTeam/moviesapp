@@ -1,6 +1,7 @@
 class FlashCardDetaiilModel {
   final bool success;
-  final List<dynamic> flashcards; // Replace dynamic with specific type if flashcards have structure
+  final List<dynamic>
+  flashcards; // Replace dynamic with specific type if flashcards have structure
   final List<Level> levels;
   final String currentLevel;
   final Movie movie;
@@ -104,7 +105,9 @@ class Movie {
       id: json['_id'] ?? '',
       reference: json['reference'] ?? '',
       subject: json['Subject'] ?? '',
-      createdAt: DateTime.parse(json['createdAt']),
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'])
+          : DateTime.now(),
       description: json['description'] ?? '',
       duration: json['duration'] ?? 0,
       enabled: json['enabled'] ?? false,
