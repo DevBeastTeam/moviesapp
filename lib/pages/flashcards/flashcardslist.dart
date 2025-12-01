@@ -47,7 +47,7 @@ class FlashCardsListsPageState extends State<FlashCardsListPage> {
   ) {
     return Obx(
       () => p.flashCardsList.isEmpty
-          ? EmptyWidget(paddingTop: 2)
+          ? SizedBox.shrink()
           : SizedBox(
               height: 30,
               child: ListView.builder(
@@ -129,9 +129,9 @@ class FlashCardsListsPageState extends State<FlashCardsListPage> {
                 },
                 centerTitle: false,
                 title: 'FLASHCARDS',
-                trailing: Obx(
-                  () => (isTablet || isLandscape)
-                      ? p.loadingFor == "getflash"
+                trailing: (isTablet || isLandscape)
+                    ? Obx(
+                        () => p.loadingFor == "getflash"
                             ? Center(
                                 child: Padding(
                                   padding: EdgeInsets.only(
@@ -143,32 +143,31 @@ class FlashCardsListsPageState extends State<FlashCardsListPage> {
                                 ),
                               )
                             : p.flashCardsList.isEmpty
-                            ? (isTablet || isLandscape)
-                                  ? Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                          top:
-                                              MediaQuery.of(
-                                                context,
-                                              ).size.height *
-                                              0.02,
-                                        ),
-                                        child: Text(
-                                          "No Subjects",
-                                          style: TextStyle(
-                                            color: Colors.yellow.withOpacity(
-                                              0.4,
-                                            ),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : EmptyWidget(text: "Empty")
-                            : _buildSubjectListView(p, t, isTablet, isLandscape)
-                      : SizedBox.fromSize(),
-                ),
+                            ? Center(
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    top:
+                                        MediaQuery.of(context).size.height *
+                                        0.02,
+                                  ),
+                                  child: Text(
+                                    "No Subjects",
+                                    style: TextStyle(
+                                      color: Colors.yellow.withOpacity(0.4),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : _buildSubjectListView(
+                                p,
+                                t,
+                                isTablet,
+                                isLandscape,
+                              ),
+                      )
+                    : SizedBox.fromSize(),
               ),
               Obx(
                 () => p.loadingFor == "getflash" || p.loadingFor == "movies"
@@ -206,7 +205,7 @@ class FlashCardsListsPageState extends State<FlashCardsListPage> {
 
               Obx(
                 () => p.flashCardsList.isEmpty
-                    ? EmptyWidget(paddingTop: 30, text: "No Data")
+                    ? EmptyWidget(paddingTop: 30, text: "")
                     : p.flashCardsList.first.movies.isEmpty
                     ? Padding(
                         padding: EdgeInsets.all(20),

@@ -62,6 +62,7 @@ class FlashCardsMovie {
           (json['tags'] as List<dynamic>?)?.map((e) => e.toString()).toList() ??
           [],
       subject: json['Subject']
+          .toString()
           .toSafeString(), // Note the capital 'S' to match your JSON
       picture: json['picture'].toString().toSafeString(),
     );

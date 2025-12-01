@@ -19,6 +19,9 @@ class AppImages {
   static const String fr = 'assets/images/icons/fr.png';
   static const String unavailable = 'assets/images/icons/unavailable.png';
   static const String lion = 'assets/images/icons/lion.png';
+  static const String bannerColor = 'assets/images/banners/banner-color.png';
+  static const String bgLogin = 'assets/images/backgrounds/bg_login.png';
+
   //// for ai chat area icon start
   static const String movie = 'assets/images/icons/movie.png';
   static const String cards = 'assets/images/icons/cards.png';

@@ -1,7 +1,7 @@
 import '../../auth/auth_page.dart';
 import 'edit.dart';
+import 'package:edutainment/controllers/user_controller.dart';
 import 'package:edutainment/theme/colors.dart';
-import 'package:edutainment/utils/boxes.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:edutainment/widgets/ui/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +18,8 @@ class ProfileSettingsPage extends StatefulWidget {
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   @override
   Widget build(BuildContext context) {
+    final userController = Get.find<UserController>();
+
     return DefaultScaffold(
       currentPage: 'home/settings',
       hideBottomBar: true,
@@ -59,10 +61,10 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
               colors: [Colors.red.withOpacity(.8), Colors.red.withOpacity(.8)],
               onPressed: () async {
                 EasyLoading.show();
-                await userBox.clear();
+                await userController.logout();
                 Future.delayed(const Duration(seconds: 1), () {
                   EasyLoading.dismiss();
-                  Get.to(() => const AuthPage());
+                  Get.offAll(() => const AuthPage());
                 });
               },
             ),

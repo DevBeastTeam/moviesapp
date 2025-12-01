@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:edutainment/pages/splash_screen/v2/splash_screen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,7 @@ import '../../core/loader.dart';
 import '../../utils/boxes.dart';
 import '../../utils/utils.dart';
 import '../../widgets/ui/primary_button.dart';
-import '../splash_screen/splash_screen_content.dart';
+// import '../splash_screen/splash_screen_content.dart';
 import '../welcome/welcome_page.dart';
 import '../start/start_page.dart';
 import '../auth/auth_page.dart';
@@ -75,6 +76,7 @@ class _AuthSplashScreenPage extends State<AuthSplashScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const SplashScreenContent();
+    // return const SplashScreenContent();
+    return const SplashScreenPageV2();
   }
 }

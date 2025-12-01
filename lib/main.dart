@@ -14,7 +14,7 @@ import 'controllers/flashcards_controller.dart';
 import 'controllers/movies_controller.dart';
 import 'controllers/user_controller.dart';
 import 'core/loader.dart';
-import 'pages/splash_screen/splash_screen_page.dart';
+import 'pages/splash_screen/v2/splash_screen_page.dart';
 import 'theme/theme.dart';
 
 // import 'package:html_to_flutter/html_to_flutter.dart';
@@ -94,7 +94,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: appTheme,
           themeMode: ThemeMode.light,
-          home: const SplashScreenPage(),
+          home: const SplashScreenPageV2(),
           builder: EasyLoading.init(),
         );
       },

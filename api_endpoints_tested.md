@@ -1,5 +1,5 @@
-# API Endpoints
 
+# API Endpoints
 Base URL: `https://dev.play.e-dutainment.com/api/1.0`
 
 ## Authentication
@@ -30,9 +30,10 @@ Base URL: `https://dev.play.e-dutainment.com/api/1.0`
 - `POST /movies/{id}/history` - Update movie watch history ✅
 - `GET /movies/{movieId}/subjects` - Get movie subjects ✅
 
-## Questions 
-- `GET /questions/random` - Get random question
-- `POST /questions/{questionId}/save` - Save question answer
+## Questions -
+   why this is for movies pages ?
+- `GET /questions/random` - Get random question 🕣
+- `POST /questions/{questionId}/save` - Save question answer 🕣
 
 ## Search
 - `GET /search` - Search with query ✅

@@ -10,7 +10,7 @@ import 'package:flutter/widgets.dart';
 // ==================================================================
 
 // Extension for dynamic/Object? types (from JSON maps)
-extension ToSafeStringDynamic on dynamic {
+extension ToSafeStringDynamic on Object? {
   String toSafeString({String fallback = ''}) {
     try {
       if (this == null) return fallback;

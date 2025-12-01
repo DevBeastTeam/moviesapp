@@ -38,7 +38,9 @@ class ExercisesController extends GetxController {
         excersiseList.clear();
         var model = ExcersisesModel.fromJson(data['data']);
         excersiseList.add(model);
-        log('🔥 Added exercises data: ${model.allowedLessonCategory.length} categories');
+        log(
+          '🔥 Added exercises data: ${model.allowedLessonCategory.length} categories',
+        );
       } else {
         log('🔥 API call failed: ${data['success']}');
       }
@@ -66,10 +68,10 @@ class ExercisesController extends GetxController {
       setLoadingF(loadingFor);
       catgRefTemp = catgRef;
 
-      var data = await baseApi.get(
-        '/lessons/exercises/category/$catgRef',
-        context,
-      );
+      var link = '/lessons/exercises/category/$catgRef';
+      debugPrint('👉 getExcercisesCatgLessonsStepsF: $link');
+
+      var data = await baseApi.get(link, context);
 
       debugPrint('👉 getExcercisesCatgLessonsStepsF: $data');
       if (data['success'].toString() == 'true') {
