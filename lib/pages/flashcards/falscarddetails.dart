@@ -91,6 +91,12 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
                                   navCtrl.flashCardLevelId = levels[index]
                                       .toLowerCase();
                                   navCtrl.flashCardMovie = movie;
+
+                                  // Reset page controller to first page
+                                  if (pageController.hasClients) {
+                                    pageController.jumpToPage(0);
+                                  }
+
                                   p.getFlashCardDetailsByIds(
                                     context,
                                     movieId: navCtrl.flashCardMovie!.id,
@@ -183,11 +189,16 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
                                   .toLowerCase();
                               navCtrl.flashCardMovie = movie;
 
+                              // Reset page controller to first page
+                              if (pageController.hasClients) {
+                                pageController.jumpToPage(0);
+                              }
+
                               p.getFlashCardDetailsByIds(
                                 context,
                                 movieId: navCtrl.flashCardMovie!.id,
                                 levelId: navCtrl.flashCardLevelId,
-                                loadingFor: 'Leveldetails',
+                                loadingFor: 'leveldetails',
                               );
                             },
                             child: Container(
@@ -249,7 +260,7 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
               const SizedBox(height: 20),
 
               // Flashcard Content Box (Swipeable with Arrow Buttons)
-              p.loadingFor == "details"
+              (p.loadingFor == "details")
                   ? Center(
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: h * 0.3),
@@ -279,15 +290,16 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
                                 toast(context, msg: 'Reached the beginning');
                               }
                             },
+                            paddingLeft: 20,
                             icon: Icons.arrow_back_ios,
                           ),
 
                         // Swipeable Cards
                         Container(
-                          height: isTablet || isLandscape ? h * 0.7 : h * 0.45,
-                          width: isTablet || isLandscape ? w * 0.6 : w * 0.9,
+                          height: isTablet || isLandscape ? h * 0.65 : h * 0.45,
+                          width: isTablet || isLandscape ? w * 0.8 : w * 0.9,
                           decoration: BoxDecoration(
-                            color: Colors.blue.shade400,
+                            color: Color.fromARGB(255, 32, 72, 111),
                             // gradient: const LinearGradient(
                             //   colors: [Colors.orange, Colors.deepOrangeAccent],
                             // ),
@@ -307,7 +319,7 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
                                 padding: const EdgeInsets.all(2),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: Color(0XFF0B2845),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: SingleChildScrollView(
@@ -341,7 +353,7 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
                                                       .copyWith(
                                                         fontWeight:
                                                             FontWeight.w600,
-                                                        color: Colors.black,
+                                                        color: Colors.white,
                                                       ),
                                                 ),
                                                 const SizedBox(height: 6),
@@ -352,7 +364,7 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
                                                       .copyWith(
                                                         fontWeight:
                                                             FontWeight.w500,
-                                                        color: Colors.black,
+                                                        color: Colors.white,
                                                       ),
                                                 ),
                                                 const SizedBox(height: 6),
@@ -394,6 +406,7 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
                                 toast(context, msg: 'Reached the end');
                               }
                             },
+                            paddingRight: 10,
                             icon: Icons.arrow_forward_ios,
                           ),
                       ],
@@ -450,23 +463,43 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
 class LeftRightArrow extends StatelessWidget {
   final VoidCallback onTap;
   final IconData icon;
-  const LeftRightArrow({super.key, required this.onTap, required this.icon});
+  final double paddingLeft;
+  final double paddingRight;
+  final double paddingTop;
+  final double paddingBottom;
+  const LeftRightArrow({
+    super.key,
+    required this.onTap,
+    required this.icon,
+    this.paddingTop = 0.0,
+    this.paddingBottom = 0.0,
+    this.paddingLeft = 0.0,
+    this.paddingRight = 0.0,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          gradient: LinearGradient(
-            colors: [Colors.orange, Colors.deepOrangeAccent],
+    return Padding(
+      padding: EdgeInsets.only(
+        top: paddingTop,
+        bottom: paddingBottom,
+        left: paddingLeft,
+        right: paddingRight,
+      ),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              colors: [Colors.orange, Colors.deepOrangeAccent],
+            ),
           ),
+          height: 50,
+          width: 50,
+          child: Icon(icon),
         ),
-        height: 50,
-        width: 50,
-        child: Icon(icon),
       ),
     );
   }
