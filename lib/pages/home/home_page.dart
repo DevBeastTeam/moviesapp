@@ -1,3 +1,5 @@
+import 'package:edutainment/widgets/card_3d.dart';
+
 import '../movies/movies_page.dart';
 import 'package:edutainment/constants/appimages.dart';
 import 'package:flutter/material.dart';
@@ -361,44 +363,54 @@ class _HomePage extends State<HomePage> {
                               ),
                               InkWell(
                                 onTap: () => Get.to(() => const MoviesPage()),
-                                child: Container(
+                                child: Card3D(
                                   margin: const EdgeInsets.only(
                                     top: 5,
                                     left: 5,
                                     right: 5,
                                     bottom: 5,
                                   ),
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    color: ColorsPallet.borderCardBgColor,
-                                    borderRadius: BorderRadius.circular(32),
-                                    border: Border.all(
-                                      width: 1,
-                                      color: ColorsPallet.borderCardBorderColor,
+                                  child: Container(
+                                    // margin: const EdgeInsets.only(
+                                    //   top: 5,
+                                    //   left: 5,
+                                    //   right: 5,
+                                    //   bottom: 5,
+                                    // ),
+                                    padding: const EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      color: ColorsPallet.borderCardBgColor,
+                                      borderRadius: BorderRadius.circular(32),
+                                      // border: Border.all(
+                                      //   width: 1,
+                                      //   color:
+                                      //       ColorsPallet.borderCardBorderColor,
+                                      // ),
                                     ),
-                                  ),
-                                  height: screen.height * 0.35,
-                                  width: screen.width * 0.84,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      pausedMovie.isNotEmpty
-                                          ? buildMovieFrame(
-                                              movie: pausedMovie.first,
-                                              context: context,
-                                              fullSize: true,
-                                              showPlayerLogo: true,
-                                            )
-                                          : Image.asset(
-                                              AppImages.playerlight,
-                                              width: 40,
-                                            ),
-                                      SizedBox(height: 10),
-                                      Text("Continue Watching"),
-                                    ],
+                                    height: screen.height * 0.35,
+                                    width: screen.width * 0.84,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        pausedMovie.isNotEmpty
+                                            ? buildMovieFrame(
+                                                movie: pausedMovie.first,
+                                                context: context,
+                                                fullSize: true,
+                                                showPlayerLogo: true,
+                                              )
+                                            : Image.asset(
+                                                AppImages.playerlight,
+                                                width: 40,
+                                              ),
+                                        SizedBox(height: 10),
+                                        Text("Continue Watching"),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

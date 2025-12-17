@@ -150,6 +150,8 @@
 // }
 import 'dart:async';
 import 'package:edutainment/models/excLessonsStepsModel.dart';
+import 'package:edutainment/theme/colors.dart';
+import 'package:edutainment/widgets/card_3d.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -292,8 +294,8 @@ class _ExcerciseByCatgQAPageState extends State<ExcerciseByCatgQAPage> {
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       gradient: LinearGradient(
                         colors: [
-                          Color.fromARGB(255, 255, 210, 206),
-                          Color.fromARGB(255, 255, 156, 156),
+                          Color.fromARGB(255, 255, 229, 227),
+                          Color.fromARGB(255, 255, 180, 180),
                         ],
                       ),
                     ),
@@ -383,34 +385,41 @@ class _ExcerciseByCatgQAPageState extends State<ExcerciseByCatgQAPage> {
                         onTap: _showFeedback
                             ? null
                             : () => _handleAnswerSelection(answer),
-                        child: Container(
-                          width: w * 0.85,
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? (_isAnswerCorrect
-                                      ? Colors.green[100]
-                                      : Colors.red[100])
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
+                        child: Card3D(
+                          child: Container(
+                            width: w * 0.85,
+                            decoration: BoxDecoration(
                               color: isSelected
                                   ? (_isAnswerCorrect
-                                        ? Colors.green
-                                        : Colors.red)
-                                  : Colors.grey,
+                                        ? const Color.fromARGB(255, 15, 71, 17)
+                                        : const Color.fromARGB(
+                                            255,
+                                            101,
+                                            14,
+                                            23,
+                                          ))
+                                  : ColorsPallet.darkBlue,
+                              borderRadius: BorderRadius.circular(10),
+                              // border: Border.all(
+                              //   color: isSelected
+                              //       ? (_isAnswerCorrect
+                              //             ? Colors.green
+                              //             : Colors.red)
+                              //       : Colors.grey,
+                              // ),
                             ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Center(
-                              child: Text(
-                                answer.answer,
-                                style: TextStyle(
-                                  color: isSelected
-                                      ? Colors.black
-                                      : Colors.blue,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Center(
+                                child: Text(
+                                  answer.answer,
+                                  style: TextStyle(
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:edutainment/widgets/card_3d.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/colors.dart';
@@ -29,269 +30,283 @@ class ProfileBadgesState extends State<ProfileBadges> {
     final screen = ScreenUtils(context);
 
     if (screen.isTablet && screen.isLandscape) {
-      return Container(
+      return Card3D(
         margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
-        padding: const EdgeInsets.all(10),
-        width: screen.width * 0.47,
-        height: screen.height * 0.35,
-        decoration: BoxDecoration(
-          color: ColorsPallet.borderCardBgColor,
-          borderRadius: BorderRadius.circular(32),
-          border: Border.all(
-            width: 1,
-            color: ColorsPallet.borderCardBorderColor,
+        child: Container(
+          // margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+          padding: const EdgeInsets.all(10),
+          width: screen.width * 0.47,
+          height: screen.height * 0.35,
+          decoration: BoxDecoration(
+            color: ColorsPallet.borderCardBgColor,
+            borderRadius: BorderRadius.circular(32),
+            // border: Border.all(
+            //   width: 1,
+            //   color: ColorsPallet.borderCardBorderColor,
+            // ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CustomButton(
-                  splashColor: Colors.white.withOpacity(.1),
-                  highlightColor: Colors.white.withOpacity(.09),
-                  onPressed: () => setState(() => showMine = true),
-                  child: Container(
-                    decoration: !showMine
-                        ? null
-                        : const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: ColorsPallet.blueAccent,
-                                width: 2,
-                              ),
-                            ),
-                          ),
-                    child: const Text(
-                      'MINE',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                CustomButton(
-                  splashColor: Colors.white.withOpacity(.1),
-                  highlightColor: Colors.white.withOpacity(.09),
-                  onPressed: () => setState(() => showMine = false),
-                  child: Container(
-                    decoration: showMine
-                        ? null
-                        : const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: ColorsPallet.blueAccent,
-                                width: 2,
-                              ),
-                            ),
-                          ),
-                    child: const Text(
-                      'TO UNLOCK',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 150,
-              child: GridView.count(
-                primary: false,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-                crossAxisCount: 3,
-                children: [
-                  if (showMine)
-                    for (var history in widget.historyBadges)
-                      if (history['Badge'] != null)
-                        _buildComponent(badge: history['Badge']),
-                  if (!showMine)
-                    for (var badge in widget.badges)
-                      _buildComponent(badge: badge),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-    if (screen.isTablet && !screen.isLandscape) {
-      return Container(
-        margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
-        padding: const EdgeInsets.all(10),
-        width: screen.width * 0.43,
-        height: screen.width * 0.43,
-        decoration: BoxDecoration(
-          color: ColorsPallet.borderCardBgColor,
-          borderRadius: BorderRadius.circular(32),
-          border: Border.all(
-            width: 1,
-            color: ColorsPallet.borderCardBorderColor,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CustomButton(
-                  splashColor: Colors.white.withOpacity(.1),
-                  highlightColor: Colors.white.withOpacity(.09),
-                  onPressed: () => setState(() => showMine = true),
-                  child: Container(
-                    decoration: !showMine
-                        ? null
-                        : const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: ColorsPallet.blueAccent,
-                                width: 2,
-                              ),
-                            ),
-                          ),
-                    child: const Text(
-                      'MINE',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                CustomButton(
-                  splashColor: Colors.white.withOpacity(.1),
-                  highlightColor: Colors.white.withOpacity(.09),
-                  onPressed: () => setState(() => showMine = false),
-                  child: Container(
-                    decoration: showMine
-                        ? null
-                        : const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: ColorsPallet.blueAccent,
-                                width: 2,
-                              ),
-                            ),
-                          ),
-                    child: const Text(
-                      'TO UNLOCK',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 150,
-              child: GridView.count(
-                primary: false,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-                crossAxisCount: 3,
-                children: [
-                  if (showMine)
-                    for (var history in widget.historyBadges)
-                      if (history['Badge'] != null)
-                        _buildComponent(badge: history['Badge']),
-                  if (!showMine)
-                    for (var badge in widget.badges)
-                      _buildComponent(badge: badge),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-    return Container(
-      margin: screen.isLandscape
-          ? const EdgeInsets.all(8)
-          : const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
-      padding: const EdgeInsets.all(16),
-      width: 450,
-      decoration: BoxDecoration(
-        color: ColorsPallet.borderCardBgColor,
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(width: 1, color: ColorsPallet.borderCardBorderColor),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              CustomButton(
-                splashColor: Colors.white.withOpacity(.1),
-                highlightColor: Colors.white.withOpacity(.09),
-                onPressed: () => setState(() => showMine = true),
-                child: Container(
-                  decoration: !showMine
-                      ? null
-                      : const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: ColorsPallet.blueAccent,
-                              width: 2,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomButton(
+                    splashColor: Colors.white.withOpacity(.1),
+                    highlightColor: Colors.white.withOpacity(.09),
+                    onPressed: () => setState(() => showMine = true),
+                    child: Container(
+                      decoration: !showMine
+                          ? null
+                          : const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: ColorsPallet.blueAccent,
+                                  width: 2,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                  child: const Text(
-                    'MINE',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                      child: const Text(
+                        'MINE',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
-                ),
+                  CustomButton(
+                    splashColor: Colors.white.withOpacity(.1),
+                    highlightColor: Colors.white.withOpacity(.09),
+                    onPressed: () => setState(() => showMine = false),
+                    child: Container(
+                      decoration: showMine
+                          ? null
+                          : const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: ColorsPallet.blueAccent,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                      child: const Text(
+                        'TO UNLOCK',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              CustomButton(
-                splashColor: Colors.white.withOpacity(.1),
-                highlightColor: Colors.white.withOpacity(.09),
-                onPressed: () => setState(() => showMine = false),
-                child: Container(
-                  decoration: showMine
-                      ? null
-                      : const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: ColorsPallet.blueAccent,
-                              width: 2,
-                            ),
-                          ),
-                        ),
-                  child: const Text(
-                    'TO UNLOCK',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+              SizedBox(
+                height: 150,
+                child: GridView.count(
+                  primary: false,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  crossAxisCount: 3,
+                  children: [
+                    if (showMine)
+                      for (var history in widget.historyBadges)
+                        if (history['Badge'] != null)
+                          _buildComponent(badge: history['Badge']),
+                    if (!showMine)
+                      for (var badge in widget.badges)
+                        _buildComponent(badge: badge),
+                  ],
                 ),
               ),
             ],
           ),
-          SizedBox(
-            height: screen.isLandscape && screen.isPhone ? 150 : 200,
-            child: GridView.count(
-              primary: false,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-              crossAxisCount: 3,
+        ),
+      );
+    }
+    if (screen.isTablet && !screen.isLandscape) {
+      return Card3D(
+        margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+        child: Container(
+          // margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+          padding: const EdgeInsets.all(10),
+          width: screen.width * 0.43,
+          height: screen.width * 0.43,
+          decoration: BoxDecoration(
+            color: ColorsPallet.borderCardBgColor,
+            borderRadius: BorderRadius.circular(32),
+            // border: Border.all(
+            //   width: 1,
+            //   color: ColorsPallet.borderCardBorderColor,
+            // ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomButton(
+                    splashColor: Colors.white.withOpacity(.1),
+                    highlightColor: Colors.white.withOpacity(.09),
+                    onPressed: () => setState(() => showMine = true),
+                    child: Container(
+                      decoration: !showMine
+                          ? null
+                          : const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: ColorsPallet.blueAccent,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                      child: const Text(
+                        'MINE',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  CustomButton(
+                    splashColor: Colors.white.withOpacity(.1),
+                    highlightColor: Colors.white.withOpacity(.09),
+                    onPressed: () => setState(() => showMine = false),
+                    child: Container(
+                      decoration: showMine
+                          ? null
+                          : const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: ColorsPallet.blueAccent,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                      child: const Text(
+                        'TO UNLOCK',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 150,
+                child: GridView.count(
+                  primary: false,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  crossAxisCount: 3,
+                  children: [
+                    if (showMine)
+                      for (var history in widget.historyBadges)
+                        if (history['Badge'] != null)
+                          _buildComponent(badge: history['Badge']),
+                    if (!showMine)
+                      for (var badge in widget.badges)
+                        _buildComponent(badge: badge),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return Card3D(
+      margin: screen.isLandscape
+          ? const EdgeInsets.all(8)
+          : const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
+      child: Container(
+        // margin: screen.isLandscape
+        //     ? const EdgeInsets.all(8)
+        //     : const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
+        padding: const EdgeInsets.all(16),
+        width: 450,
+        decoration: BoxDecoration(
+          color: ColorsPallet.borderCardBgColor,
+          borderRadius: BorderRadius.circular(32),
+          // border: Border.all(
+          //   width: 1,
+          //   color: ColorsPallet.borderCardBorderColor,
+          // ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                if (showMine)
-                  for (var history in widget.historyBadges)
-                    if (history['Badge'] != null)
-                      _buildComponent(badge: history['Badge']),
-                if (!showMine)
-                  for (var badge in widget.badges)
-                    _buildComponent(badge: badge),
+                CustomButton(
+                  splashColor: Colors.white.withOpacity(.1),
+                  highlightColor: Colors.white.withOpacity(.09),
+                  onPressed: () => setState(() => showMine = true),
+                  child: Container(
+                    decoration: !showMine
+                        ? null
+                        : const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: ColorsPallet.blueAccent,
+                                width: 2,
+                              ),
+                            ),
+                          ),
+                    child: const Text(
+                      'MINE',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                CustomButton(
+                  splashColor: Colors.white.withOpacity(.1),
+                  highlightColor: Colors.white.withOpacity(.09),
+                  onPressed: () => setState(() => showMine = false),
+                  child: Container(
+                    decoration: showMine
+                        ? null
+                        : const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: ColorsPallet.blueAccent,
+                                width: 2,
+                              ),
+                            ),
+                          ),
+                    child: const Text(
+                      'TO UNLOCK',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
+            SizedBox(
+              height: screen.isLandscape && screen.isPhone ? 150 : 200,
+              child: GridView.count(
+                primary: false,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+                crossAxisCount: 3,
+                children: [
+                  if (showMine)
+                    for (var history in widget.historyBadges)
+                      if (history['Badge'] != null)
+                        _buildComponent(badge: history['Badge']),
+                  if (!showMine)
+                    for (var badge in widget.badges)
+                      _buildComponent(badge: badge),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -19,16 +19,16 @@ class LessonTimelineWidget extends StatelessWidget {
     final bool isCompleted = lesson.isCompleted;
 
     final Color cardColor = isCompleted
-        ? Colors.lightGreenAccent.shade100
-        : Colors.redAccent.shade100;
+        ? const Color.fromARGB(255, 224, 255, 189)
+        : const Color.fromARGB(255, 255, 158, 158);
 
     final Color titleColor = isCompleted
         ? Colors.green.shade900
-        : Colors.red.shade900;
+        : const Color.fromARGB(255, 131, 26, 26);
 
     final Color subtitleColor = isCompleted
         ? Colors.green.shade700
-        : Colors.red.shade700;
+        : const Color.fromARGB(255, 131, 26, 26);
 
     return GestureDetector(
       onTap: () => onLessonTap(index, lesson),

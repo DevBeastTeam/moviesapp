@@ -61,27 +61,29 @@ class _ExcerciseCatgPageState extends State<ExcerciseCatgPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          width: w,
+                          width: w * 0.9,
                           padding: const EdgeInsets.symmetric(
-                            vertical: 7,
+                            vertical: 13,
                             horizontal: 10,
                           ),
                           decoration: BoxDecoration(
-                            // borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(3),
                             gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                               colors: [
-                                Color(0xFFf9bf13),
-                                Color(0xFFf1711c),
-                                Color(0xFFf82424),
+                                Colors.orange.shade400,
+                                Colors.orange.shade400,
+                                Colors.red.shade500,
                               ],
                             ),
                           ),
                           child: Center(
                             child: Text(
                               labelTitle.toUpperCase(),
-                              style: t.titleMedium?.copyWith(
+                              style: t.titleLarge?.copyWith(
                                 color: Colors.white,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
@@ -130,8 +132,8 @@ class _ExcerciseCatgPageState extends State<ExcerciseCatgPage> {
                                         .lessons
                                         .map(
                                           (e) => LessonModel(
-                                            title: e.label,
-                                            subtitle: e.lessonNumber,
+                                            title: "Lesson ${e.lessonNumber}: ",
+                                            subtitle: e.label.split(": ").last,
                                             isCompleted: e.completed,
                                           ),
                                         )

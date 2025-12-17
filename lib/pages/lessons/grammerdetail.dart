@@ -1,5 +1,7 @@
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/constants/screenssize.dart';
+import 'package:edutainment/theme/colors.dart';
+import 'package:edutainment/widgets/card_3d.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -325,50 +327,53 @@ class _GrammerDetailPageState extends State<GrammerDetailPage> {
             ),
             const SizedBox(height: 20),
             // Spacer(),
-            Container(
-              // height: Screen.isTablet(context) && Screen.isPortrait(context)
-              //     ? Screen.height(context) * 0.43
-              //     : Screen.height(context) * 0.4,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: const Offset(0, 1),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(14),
-                child: SingleChildScrollView(
-                  controller: ScrollController(),
-                  child: Obx(
-                    () => p.loadingFor == 'next' || p.loadingFor == 'previous'
-                        ? Center(child: const DotLoader())
-                        : Column(
-                            children: [
-                              // Text("${lessonDetailData.lesson!}"),
-                              Html(
-                                config: HtmlConfig(
-                                  styleOverrides: const {
-                                    'p': Style(color: Colors.black),
-                                    'div': Style(color: Colors.black),
-                                  },
-                                  // defaultColor: Colors.black,
-                                  onTap: (url, [attributes, element]) {},
+            Card3D(
+              borderRadius: 10,
+              child: Container(
+                // height: Screen.isTablet(context) && Screen.isPortrait(context)
+                //     ? Screen.height(context) * 0.43
+                //     : Screen.height(context) * 0.4,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: ColorsPallet.darkBlue,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: SingleChildScrollView(
+                    controller: ScrollController(),
+                    child: Obx(
+                      () => p.loadingFor == 'next' || p.loadingFor == 'previous'
+                          ? Center(child: const DotLoader())
+                          : Column(
+                              children: [
+                                // Text("${lessonDetailData.lesson!}"),
+                                Html(
+                                  config: HtmlConfig(
+                                    styleOverrides: const {
+                                      'p': Style(color: Colors.black),
+                                      'div': Style(color: Colors.black),
+                                    },
+                                    // defaultColor: Colors.black,
+                                    onTap: (url, [attributes, element]) {},
+                                  ),
+                                  padding: const EdgeInsets.all(10),
+                                  renderMode: RenderMode.column,
+                                  data: p.slectedTabBtnIs == 0
+                                      ? lesson.contenten
+                                      : lesson.contentfr,
                                 ),
-                                padding: const EdgeInsets.all(10),
-                                renderMode: RenderMode.column,
-                                data: p.slectedTabBtnIs == 0
-                                    ? lesson.contenten
-                                    : lesson.contentfr,
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                    ),
                   ),
                 ),
               ),

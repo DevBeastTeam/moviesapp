@@ -1,4 +1,6 @@
 import 'package:edutainment/constants/screenssize.dart';
+import 'package:edutainment/theme/colors.dart';
+import 'package:edutainment/widgets/card_3d.dart';
 import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -152,34 +154,44 @@ class GrammerPageState extends State<GrammerPage> {
       onTap: () {
         onTap();
       },
-      child: Container(
-        width: width,
-        margin: const EdgeInsets.symmetric(vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(7),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Center(
-                child: Text(
-                  level,
-                  style: const TextStyle(
-                    color: Colors.blue,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 15),
+        child: Card3D(
+          borderRadius: 7,
+          child: Container(
+            width: width,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            decoration: BoxDecoration(
+              // color: Colors.white,
+              color: ColorsPallet.darkBlue,
+              borderRadius: BorderRadius.circular(7),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Center(
+                    child: Text(
+                      level,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        subtitle,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Center(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 4.0),
-                  child: Text(subtitle, style: TextStyle(color: Colors.grey)),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

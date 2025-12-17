@@ -14,6 +14,7 @@ import '../../controllers/navigation_args_controller.dart';
 import '../../../widgets/header_bar/custom_header_bar.dart';
 
 import '../../theme/colors.dart';
+import 'package:edutainment/widgets/card_3d.dart';
 import 'aIAllChatHistoryPage.dart';
 
 class AIMenuPage extends StatefulWidget {
@@ -119,12 +120,15 @@ class _AIMenuPage extends State<AIMenuPage> {
                   controller: msgController,
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    fillColor: Colors.blueGrey.shade900,
+                    fillColor: Colors.transparent,
+                    // fillColor: Colors.blueGrey.shade900,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
                       borderRadius: BorderRadius.circular(30),
                     ),
                     focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
                       borderRadius: BorderRadius.circular(30),
                     ),
                     suffixIcon: IconButton(
@@ -197,7 +201,7 @@ class _AIMenuPage extends State<AIMenuPage> {
             Divider(height: 2, color: Colors.grey.shade700),
             if (showRecommendedChat)
               ListTile(
-                leading: const Icon(Icons.chat, color: Colors.black),
+                // leading: const Icon(Icons.chat, color: Colors.black),
                 title: const Text(
                   'Can Your Recommended',
                   style: TextStyle(color: Colors.black),
@@ -223,14 +227,19 @@ class _AIMenuPage extends State<AIMenuPage> {
               ),
             if (showRecommendedChat)
               Divider(height: 2, color: Colors.grey.shade700),
+            SizedBox(height: 30),
             CupertinoListTile(
+              // padding: EdgeInsets.only(left: 20, bottom: 0),
               title: Text(
                 "Last 7 days",
                 style: TextStyle(color: Colors.black54),
               ),
             ),
+            Divider(height: 1, color: Colors.grey.shade700),
             ListTile(
-              leading: const Icon(Icons.chat, color: Colors.black),
+              // contentPadding: EdgeInsets.only(left: 20, top: 0),
+
+              // leading: const Icon(Icons.chat, color: Colors.black),
               title: const Text(
                 'My Recent Grammar',
                 style: TextStyle(color: Colors.black),
@@ -242,22 +251,65 @@ class _AIMenuPage extends State<AIMenuPage> {
             ),
             Divider(height: 2, color: Colors.grey.shade700),
             const Spacer(),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-              ),
-              icon: const Icon(Icons.edit, color: Colors.white),
-              onPressed: () {
+            // ElevatedButton.icon(
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: Colors.blue,
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(40),
+            //     ),
+            //   ),
+            //   icon: const Icon(Icons.edit, color: Colors.white),
+            //   onPressed: () {
+            //     Navigator.pop(context);
+            //     p.clearChatsList();
+            //     p.createNewChatWithAiF(context);
+            //   },
+            //   label: const Text(
+            //     'New Chat',
+            //     style: TextStyle(color: Colors.white),
+            //   ),
+            // ),
+            // gredient button with icon, text
+            InkWell(
+              onTap: () {
                 Navigator.pop(context);
                 p.clearChatsList();
                 p.createNewChatWithAiF(context);
               },
-              label: const Text(
-                'New Chat',
-                style: TextStyle(color: Colors.white),
+              borderRadius: BorderRadius.circular(40),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.blue, Colors.blue.shade700],
+                  ),
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      offset: const Offset(0, 5),
+                    ),
+                    BoxShadow(
+                      color: Colors.blue.shade700,
+                      blurRadius: 1,
+                      offset: const Offset(-2, -2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.edit, color: Colors.white),
+                    const Text(
+                      '    New Chat',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 30),
@@ -579,19 +631,70 @@ class _AIMenuPage extends State<AIMenuPage> {
                                     ),
                                   );
                                 },
-                                child: BubbleSpecialOne(
-                                  text: chat.content,
-                                  isSender: chat.type == "user",
-                                  color: chat.type == "user"
-                                      ? Colors.blue
-                                      : Colors.grey.shade400,
-                                  textStyle: TextStyle(
-                                    color: chat.type == "user"
-                                        ? Colors.white
-                                        : Colors.black,
+                                // child: BubbleSpecialOne(
+                                //   text: chat.content,
+                                //   isSender: chat.type != "user",
+                                //   color: chat.type == "user"
+                                //       ? Colors.blue
+                                //       : Colors.grey.shade400,
+                                //   textStyle: TextStyle(
+                                //     color: chat.type == "user"
+                                //         ? Colors.white
+                                //         : Colors.black,
+                                //   ),
+                                //   tail: true,
+                                //   sent: chat.type == "user" ? true : false,
+                                // ),
+                                child: Align(
+                                  alignment: chat.type == "user"
+                                      ? Alignment.centerRight
+                                      : Alignment.centerLeft,
+                                  child: ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                      maxWidth:
+                                          w * 0.8, // Max width 80% of screen
+                                    ),
+                                    child: Card3D(
+                                      shadowOpacity: 0.1,
+                                      shadowBlur: 10,
+                                      shadowColor: Colors.blue.shade100,
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 5,
+                                        horizontal: 10,
+                                      ),
+                                      borderRadius: 7,
+                                      // User = Blue, AI = White
+                                      backgroundColor: chat.type == "user"
+                                          // ? const Color(0xFF2196F3)
+                                          ? Colors.blue
+                                          : Colors.white,
+                                      // Adjust shadow/highlight colors if needed for white/blue contrast
+                                      // enhanced 3D effect parameters can be tweaked here
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              chat.type == "user"
+                                              ? CrossAxisAlignment.end
+                                              : CrossAxisAlignment.start,
+                                          children: [
+                                            // Optional: Show name if needed, similar to image "User's first name"
+                                            // For now just the content as per previous code
+                                            Text(
+                                              chat.content,
+                                              style: TextStyle(
+                                                color: chat.type == "user"
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  tail: true,
-                                  sent: chat.type == "user" ? true : false,
                                 ),
                               );
                             },

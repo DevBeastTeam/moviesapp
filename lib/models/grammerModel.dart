@@ -62,14 +62,16 @@ class Lesson {
   });
 
   factory Lesson.fromJson(Map<String, dynamic> json) => Lesson(
-    id: json['_id'] as String,
-    reference: json['reference'] as String,
-    label: json['label'] as String,
-    contenten: json['contenten'] as String,
-    contentfr: json['contentfr'] as String,
-    lessonCatg: LessonCategory.fromJson(json['LessonCategory']),
-    tags: (json['tags'] as List).cast<String>(),
-    isRead: json['isRead'] as bool,
+    id: (json['_id'] as Object?).toSafeString(),
+    reference: (json['reference'] as Object?).toSafeString(),
+    label: (json['label'] as Object?).toSafeString(),
+    contenten: (json['contenten'] as Object?).toSafeString(),
+    contentfr: (json['contentfr'] as Object?).toSafeString(),
+    lessonCatg: json['LessonCategory'] != null
+        ? LessonCategory.fromJson(json['LessonCategory'])
+        : null,
+    tags: (json['tags'] as Object?).toSafeList<String>(),
+    isRead: (json['isRead'] as Object?).toSafeBool(),
   );
 
   // Map<String, dynamic> toJson() => {

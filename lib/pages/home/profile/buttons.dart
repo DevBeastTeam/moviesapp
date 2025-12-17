@@ -1,3 +1,5 @@
+import 'package:edutainment/widgets/card_3d.dart';
+
 import '../../ponounciations/pronLevels1.dart';
 import '../../ai/aiChat.dart';
 import '../../excersises/excersise.dart';
@@ -438,46 +440,48 @@ class ProfileButtons extends StatelessWidget {
     double imgSize = 70,
     double fontSize = 14,
   }) {
-    return RawMaterialButton(
-      hoverElevation: 0,
-      elevation: 0,
-      focusElevation: 0,
-      splashColor: Colors.white.withOpacity(.1),
-      highlightColor: Colors.white.withOpacity(.09),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      onPressed: onPressed,
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 150,
-        decoration: BoxDecoration(
-          color: ColorsPallet.borderCardBgColor,
-          borderRadius: BorderRadius.circular(32),
-          border: Border.all(
-            width: 1,
-            color: ColorsPallet.borderCardBorderColor,
+    return Card3D(
+      child: RawMaterialButton(
+        hoverElevation: 0,
+        elevation: 0,
+        focusElevation: 0,
+        splashColor: Colors.white.withOpacity(.1),
+        highlightColor: Colors.white.withOpacity(.09),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        onPressed: onPressed,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 150,
+          decoration: BoxDecoration(
+            color: ColorsPallet.borderCardBgColor,
+            borderRadius: BorderRadius.circular(32),
+            // border: Border.all(
+            //   width: 1,
+            //   color: ColorsPallet.borderCardBorderColor,
+            // ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            isImg
-                ? Image.asset(assetImg ?? "", width: imgSize)
-                : GradientIcon(
-                    icon: icon!,
-                    size: imgSize,
-                    gradient: LinearGradient(colors: colors!),
-                  ),
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                overflow: TextOverflow.fade,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              isImg
+                  ? Image.asset(assetImg ?? "", width: imgSize)
+                  : GradientIcon(
+                      icon: icon!,
+                      size: imgSize,
+                      gradient: LinearGradient(colors: colors!),
+                    ),
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.fade,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

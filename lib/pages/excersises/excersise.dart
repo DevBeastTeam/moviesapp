@@ -145,30 +145,23 @@ class _ExcersisesPageState extends State<ExcersisesPage> {
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius: BorderRadius.circular(4),
                                         gradient: LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
                                           colors: isLocked
                                               ? [
-                                                  Colors.orange.shade200
-                                                      .withValues(alpha: 0.5),
-                                                  Colors.orange.shade200
-                                                      .withValues(alpha: 0.5),
-                                                  Colors.deepOrange.shade300
-                                                      .withValues(alpha: 0.5),
-                                                  Colors.red.withValues(
-                                                    alpha: 0.5,
-                                                  ),
-                                                  Colors.red.shade800
-                                                      .withValues(alpha: 0.5),
+                                                  Colors.orange.shade400
+                                                      .withOpacity(0.5),
+                                                  Colors.orange.shade400
+                                                      .withOpacity(0.5),
+                                                  Colors.red.shade500
+                                                      .withOpacity(0.5),
                                                 ]
                                               : [
-                                                  Colors.orange.shade200,
-                                                  Colors.orange.shade200,
-                                                  Colors.deepOrange.shade300,
-                                                  Colors.red,
-                                                  Colors.red.shade800,
+                                                  Colors.orange.shade400,
+                                                  Colors.orange.shade400,
+                                                  Colors.red.shade500,
                                                 ],
                                         ),
                                       ),
@@ -193,7 +186,8 @@ class _ExcersisesPageState extends State<ExcersisesPage> {
                                         right: 0,
                                         child: Padding(
                                           padding: EdgeInsets.all(10),
-                                          child: Icon(Icons.lock_clock),
+                                          child: Icon(Icons.lock_outline),
+                                          // child: Icon(Icons.lock_clock),
                                         ),
                                       ),
                                   ],

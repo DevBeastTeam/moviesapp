@@ -1,4 +1,5 @@
 import 'package:edutainment/constants/appimages.dart';
+import 'package:edutainment/widgets/card_3d.dart';
 import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/loaders/dotloader.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
@@ -94,7 +95,10 @@ class GrammerCatgPageState extends State<GrammerCatgPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: allLevels.map((data) {
                   return Padding(
-                    padding: const EdgeInsets.all(6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 6,
+                    ),
                     child: GestureDetector(
                       onTap: () {
                         p.setSelectedLabelCH(data.toString());
@@ -109,23 +113,22 @@ class GrammerCatgPageState extends State<GrammerCatgPage> {
                             // : Colors.white,
                             color: Colors.white,
                             gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                               colors:
                                   p.selctedLableChIs.toString().toLowerCase() ==
                                       data.toString().toLowerCase()
                                   ? [
-                                      Colors.orange.shade200,
-                                      Colors.deepOrange.shade300,
-                                      Colors.red,
-                                      Colors.red.shade800,
+                                      Colors.orange.shade400,
+                                      Colors.orange.shade400,
+                                      Colors.red.shade500,
                                     ]
                                   : [Colors.white, Colors.white],
                             ),
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          width: 45,
-                          height: 55,
+                          width: 50,
+                          height: 50,
                           child: Center(
                             child: Text(
                               data.toUpperCase(),
@@ -187,27 +190,30 @@ class GrammerCatgPageState extends State<GrammerCatgPage> {
                               },
                               borderRadius: BorderRadius.circular(30),
                               child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(
-                                      color: Colors.blue,
-                                      width: 1,
+                                padding: const EdgeInsets.all(5),
+                                child: Card3D(
+                                  borderRadius: 7,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      // border: Border.all(
+                                      //   color: Colors.blue,
+                                      //   width: 1,
+                                      // ),
                                     ),
-                                  ),
-                                  child: CupertinoListTile(
-                                    title: Text(
-                                      tag.label,
-                                      style: const TextStyle(
-                                        color: Colors.white,
+                                    child: CupertinoListTile(
+                                      title: Text(
+                                        tag.label,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                        ),
                                       ),
-                                    ),
-                                    trailing: SizedBox(
-                                      width: 35,
-                                      child: Image.asset(
-                                        AppImages.playerlight,
+                                      trailing: SizedBox(
                                         width: 35,
+                                        child: Image.asset(
+                                          AppImages.playerlight,
+                                          width: 35,
+                                        ),
                                       ),
                                     ),
                                   ),
