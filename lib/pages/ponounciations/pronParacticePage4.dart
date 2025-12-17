@@ -4,6 +4,7 @@ import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../constants/appimages.dart';
 import '../../widgets/header_bar/custom_header_bar.dart';
@@ -27,7 +28,7 @@ class _PronParacticePage4State extends State<PronParacticePage4> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.find<PronunciationController>().getPronBySelectedCatgOptionsById(
         context,
-        loadingFor: "getPronBySelectedCatgOptionsByIdF",
+        loadingFor: "getPronBySelectedCatgOptionsByIdF".toLowerCase(),
       );
     });
   }
@@ -56,10 +57,15 @@ class _PronParacticePage4State extends State<PronParacticePage4> {
                         centerTitle: false,
                         title: 'Pronounciations'.toUpperCase(),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),
+                controller.loadingFor ==
+                        "getPronBySelectedCatgOptionsByIdF".toLowerCase()
+                    ? QuickTikTokLoader()
+                    : SizedBox.shrink(),
+                SizedBox(height: 5),
                 GestureDetector(
                   onTap: () {},
                   child: SingleChildScrollView(

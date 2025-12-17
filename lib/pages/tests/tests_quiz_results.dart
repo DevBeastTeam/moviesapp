@@ -1,3 +1,4 @@
+import 'package:edutainment/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -262,7 +263,7 @@ class _TestsQuizResultsPage extends State<TestsQuizResultsPage> {
     final gridColumns = isDesktop ? 10 : (isTablet ? 7 : 5);
 
     // Responsive font sizes
-    final headerFontSize = isDesktop ? 48.0 : (isTablet ? 42.0 : 36.0);
+    final headerFontSize = isDesktop ? 35.0 : (isTablet ? 42.0 : 36.0);
     final labelFontSize = isDesktop ? 16.0 : (isTablet ? 15.0 : 14.0);
     final boxNumberSize = isDesktop ? 28.0 : (isTablet ? 26.0 : 24.0);
 
@@ -312,7 +313,7 @@ class _TestsQuizResultsPage extends State<TestsQuizResultsPage> {
                   vertical: isTablet ? 20 : 10,
                   horizontal: 16,
                 ),
-                decoration: const BoxDecoration(color: Colors.white),
+                decoration: const BoxDecoration(color: ColorsPallet.blueAccent),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -323,8 +324,8 @@ class _TestsQuizResultsPage extends State<TestsQuizResultsPage> {
                             '$totalQuestions',
                             style: TextStyle(
                               fontSize: headerFontSize,
-                              fontWeight: FontWeight.w300,
-                              color: const Color(0xFF5DBAAA),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                           SizedBox(height: isTablet ? 10 : 8),
@@ -333,7 +334,7 @@ class _TestsQuizResultsPage extends State<TestsQuizResultsPage> {
                             style: TextStyle(
                               fontSize: labelFontSize,
                               fontWeight: FontWeight.w500,
-                              color: const Color(0xFF0A1929),
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -346,8 +347,8 @@ class _TestsQuizResultsPage extends State<TestsQuizResultsPage> {
                             '$totalCorrectAnswer',
                             style: TextStyle(
                               fontSize: headerFontSize,
-                              fontWeight: FontWeight.w300,
-                              color: const Color(0xFF5DBAAA),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                           SizedBox(height: isTablet ? 10 : 8),
@@ -356,7 +357,7 @@ class _TestsQuizResultsPage extends State<TestsQuizResultsPage> {
                             style: TextStyle(
                               fontSize: labelFontSize,
                               fontWeight: FontWeight.w500,
-                              color: const Color(0xFF0A1929),
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -369,8 +370,8 @@ class _TestsQuizResultsPage extends State<TestsQuizResultsPage> {
                             '$totalPoints',
                             style: TextStyle(
                               fontSize: headerFontSize,
-                              fontWeight: FontWeight.w300,
-                              color: const Color(0xFF5DBAAA),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                           SizedBox(height: isTablet ? 10 : 8),
@@ -379,7 +380,7 @@ class _TestsQuizResultsPage extends State<TestsQuizResultsPage> {
                             style: TextStyle(
                               fontSize: labelFontSize,
                               fontWeight: FontWeight.w500,
-                              color: const Color(0xFF0A1929),
+                              color: Colors.white,
                             ),
                           ),
                         ],

@@ -32,7 +32,7 @@ class PronunciationController extends GetxController {
   List<String> allLevels = [];
   List<Category> categories = [];
   Category? selectedCategory;
-Lesson? selectedLesson;
+  Lesson? selectedLesson;
   String selectedLessonId = '';
   int selectedLessonIndex = 0;
 
@@ -65,7 +65,7 @@ Lesson? selectedLesson;
     BuildContext context, {
     bool isLoading = true,
     String loadingFor = '',
-    bool isRefresh = false,
+    bool isRefresh = true,
   }) async {
     try {
       if (!isRefresh && pLevelCatgModelData != null) return;
@@ -92,9 +92,14 @@ Lesson? selectedLesson;
     try {
       called = true;
       setLoadingFor(loadingFor);
-      debugPrint('👉 getPronBySelectedCatgOptionsById selectedLessonId id: $selectedLessonId');
-      var data = await baseApi.get('/pronunciation/${selectedLesson!.id}', context);
-      log('👉 getPronBySelectedCatgOptionsById: $data');
+      debugPrint(
+        '👉 getPronBySelectedCatgOptionsById selectedLessonId id: $selectedLessonId',
+      );
+      var data = await baseApi.get(
+        '/pronunciation/${selectedLesson!.id}',
+        context,
+      );
+      log('👉 getPronBySelectedCatgOptionsById data: $data');
       if (data['success'].toString() == 'true') {
         // pronSelectedCatgOptions handling here
       }

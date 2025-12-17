@@ -154,23 +154,96 @@ class _TestsQuizPage extends State<TestsQuizPage> {
                 bool res = await showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      title: const Text("You're done!"),
-                      content: const Text('The test is completed'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(true);
-                          },
-                          child: const Text("Let's check my results"),
+                    return Dialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        side: BorderSide(color: Color(0XFF3087DE), width: 2),
+                      ),
+                      backgroundColor: Color(0XFF0B2845),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(color: Colors.red, width: 2),
+                              ),
+                              padding: const EdgeInsets.all(5),
+                              child: Icon(
+                                Icons.question_mark_rounded,
+                                color: Colors.red,
+                                size: 30,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              "You're done!",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            const Text(
+                              "The test is completed",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop(true);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Color(0XFF0E3358),
+                                      Color.fromARGB(255, 6, 23, 39),
+                                    ],
+                                  ),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
+                                child: const Text(
+                                  'Let`s Chekc My Result',
+                                  style: TextStyle(color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            OutlinedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(false);
+                              },
+                              style: OutlinedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadiusGeometry.circular(
+                                    20,
+                                  ),
+                                ),
+                                side: BorderSide(color: Colors.blue),
+                              ),
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(color: Colors.blue),
+                              ),
+                            ),
+                          ],
                         ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(false);
-                          },
-                          child: const Text('Cancel'),
-                        ),
-                      ],
+                      ),
                     );
                   },
                 );

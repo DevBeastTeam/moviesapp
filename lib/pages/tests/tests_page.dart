@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 
-import '../../constants/screenssize.dart';
 import '../../controllers/quiz_controller.dart';
-import '../../theme/colors.dart';
 import '../../widgets/ui/default_scaffold.dart';
 import 'tests_base_page.dart';
 
@@ -23,17 +21,17 @@ class _TestsPage extends State<TestsPage> {
   Widget build(BuildContext context) {
     return DefaultScaffold(
       currentPage: 'tests',
-      bgWidget: Container(
-        width: Screen.width(context),
-        height: Screen.height(context),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: FractionalOffset.bottomCenter,
-            end: FractionalOffset.topCenter,
-            colors: [Colors.blueGrey, ColorsPallet.darkBlue],
-          ),
-        ),
-      ),
+      // bgWidget: Container(
+      //   width: Screen.width(context),
+      //   height: Screen.height(context),
+      //   decoration: BoxDecoration(
+      //     gradient: LinearGradient(
+      //       begin: FractionalOffset.bottomCenter,
+      //       end: FractionalOffset.topCenter,
+      //       colors: [Colors.blueGrey, ColorsPallet.darkBlue],
+      //     ),
+      //   ),
+      // ),
       // hideBottomBar: Screen.isTablet(context) || Screen.isLandscape(context),
       child: Column(
         children: [
@@ -57,6 +55,7 @@ class _TestsPage extends State<TestsPage> {
             }
             return SizedBox.shrink();
           }),
+
           Expanded(
             child: Obx(() {
               if (!quizController.isLoading.value &&

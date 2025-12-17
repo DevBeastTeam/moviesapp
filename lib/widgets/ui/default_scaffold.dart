@@ -1,3 +1,4 @@
+import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/widgets/ui/floating_question_button.dart';
 import 'package:flutter/material.dart';
 
@@ -85,8 +86,9 @@ class DefaultScaffold extends StatelessWidget {
                 ),
                 BottomBarItem(
                   width: mediaWidth / 4.5,
-                  height: 40,
+                  height: 50,
                   icon: EdutainmentIcons.flask,
+                  image: AppImages.testTube,
                   selected: currentPage == 'tests',
                   path: 'tests',
                   text: 'Tests',

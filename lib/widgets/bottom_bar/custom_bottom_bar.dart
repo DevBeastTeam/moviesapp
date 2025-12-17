@@ -68,6 +68,7 @@ class CustomBottomBar extends StatelessWidget {
                         height: items[i].height,
                         selected: items[i].selected,
                         icon: items[i].icon,
+                        image: items[i].image,
                         bottomBarItemStyle: itemStyle,
                         text: items[i].text,
                         onPressed: () async {
@@ -139,6 +140,7 @@ class BottomBarItemStyle {
 class BottomBarItem {
   final double width, height;
   final IconData icon;
+  final String image;
   final String? text;
   final String path;
   final VoidCallback? onPressed;
@@ -148,6 +150,7 @@ class BottomBarItem {
     required this.width,
     required this.height,
     required this.icon,
+    this.image = "",
     required this.path,
     this.text,
     this.selected = false,
@@ -161,6 +164,7 @@ class _BottomBarItem extends StatelessWidget {
     required this.height,
     required this.selected,
     required this.icon,
+    this.image = "",
     this.text,
     required this.bottomBarItemStyle,
     required this.onPressed,
@@ -169,6 +173,7 @@ class _BottomBarItem extends StatelessWidget {
   final double width, height;
   final bool selected;
   final IconData icon;
+  final String image;
   final String? text;
   final BottomBarItemStyle bottomBarItemStyle;
   final VoidCallback onPressed;
@@ -199,15 +204,22 @@ class _BottomBarItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              GradientIcon(
-                icon: icon,
-                size: 20,
-                gradient: LinearGradient(
-                  colors: selected
-                      ? ColorsPallet.blb
-                      : [Colors.white, Colors.white54],
-                ),
-              ),
+              image.isNotEmpty
+                  ? Image.asset(
+                      image,
+                      color: selected ? Colors.white : Colors.grey,
+                      width: 20,
+                      height: 20,
+                    )
+                  : GradientIcon(
+                      icon: icon,
+                      size: 20,
+                      gradient: LinearGradient(
+                        colors: selected
+                            ? ColorsPallet.blb
+                            : [Colors.white, Colors.white54],
+                      ),
+                    ),
               if (text != null)
                 Container(
                   margin: const EdgeInsets.only(top: 4),
@@ -215,10 +227,11 @@ class _BottomBarItem extends StatelessWidget {
                     text!,
                     style: TextStyle(
                       fontSize: 10,
-                      color: selected
-                          ? bottomBarItemStyle.textSelectedColor ??
-                                ColorsPallet.lightBlueComponent
-                          : bottomBarItemStyle.textColor ?? Colors.white54,
+                      color: selected ? Colors.white : Colors.grey,
+                      // color: selected
+                      //     ? bottomBarItemStyle.textSelectedColor ??
+                      //           ColorsPallet.lightBlueComponent
+                      //     : bottomBarItemStyle.textColor ?? Colors.white54,
                     ),
                   ),
                 ),

@@ -53,6 +53,7 @@ class _ExcerciseCatgPageState extends State<ExcerciseCatgPage> {
                   ? QuickTikTokLoader()
                   : SizedBox.shrink(),
             ),
+            SizedBox(height: 5),
             Obx(
               () => p.excercisesCatgLessonsSteps == null
                   ? EmptyWidget(paddingTop: 30, text: "Empty")
@@ -137,12 +138,16 @@ class _ExcerciseCatgPageState extends State<ExcerciseCatgPage> {
                                         .toList(),
                                     onLessonTap: (index, v) {
                                       // Get the lesson data and pass questions to QA page
-                                      final lesson = p.excercisesCatgLessonsSteps!.data.lessons[index];
+                                      final lesson = p
+                                          .excercisesCatgLessonsSteps!
+                                          .data
+                                          .lessons[index];
                                       Get.to(
                                         () => const ExcerciseByCatgQAPage(),
                                         arguments: {
                                           "q": lesson.questions,
                                           "labelTitle": labelTitle,
+                                          "selectedLesson": lesson.label,
                                         },
                                       );
                                     },

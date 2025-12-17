@@ -45,5 +45,6 @@ class AppImages {
   static const String question2 = "assets/icons/question2.png";
   static const String test = "assets/icons/test.png";
   static const String testCheck = "assets/icons/testcheck.png";
+  static const String testTube = "assets/icons/testtube.png";
   //// new version 2 icons
 }

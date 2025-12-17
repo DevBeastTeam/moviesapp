@@ -191,6 +191,7 @@ class _ExcerciseByCatgQAPageState extends State<ExcerciseByCatgQAPage> {
   void _startTimer() {
     final extra = Get.arguments as Map<String, dynamic>?;
     final questions = extra?['q'] as List<Question>?;
+    String selectedLesson = extra?['selectedLesson'] as String? ?? '';
     if (questions == null || questions.isEmpty) return;
 
     final currentQuestion = questions[_currentQuestionIndex];
@@ -253,6 +254,7 @@ class _ExcerciseByCatgQAPageState extends State<ExcerciseByCatgQAPage> {
     // Get the questions list passed from GoRouter
     final extra = Get.arguments as Map<String, dynamic>?;
     String labelTitle = extra?['labelTitle'] ?? widget.labelTitle;
+    String selectedLesson = extra?['selectedLesson'] as String? ?? '';
     final questions = extra?['q'] as List<Question>?;
 
     if (questions == null || questions.isEmpty) {
@@ -297,12 +299,28 @@ class _ExcerciseByCatgQAPageState extends State<ExcerciseByCatgQAPage> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10),
-                      child: Text(
-                        '${question.label}\nTime: $_remainingTime s\nQuestion ${_currentQuestionIndex + 1}/${questions.length}',
-                        style: const TextStyle(
-                          color: Colors.redAccent,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Text(
+                              '$selectedLesson ',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.red.shade800,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '${question.label}\nTime: $_remainingTime s\nQuestion ${_currentQuestionIndex + 1}/${questions.length}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.redAccent,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -356,6 +374,8 @@ class _ExcerciseByCatgQAPageState extends State<ExcerciseByCatgQAPage> {
                   const SizedBox(height: 20),
                   // Answer Options
                   ...question.answers.map((answer) {
+                    // return Text("${answer.label}");
+                    // return Text("${answer.answer}");
                     bool isSelected = _selectedAnswer == answer.reference;
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -384,7 +404,7 @@ class _ExcerciseByCatgQAPageState extends State<ExcerciseByCatgQAPage> {
                             padding: const EdgeInsets.all(15),
                             child: Center(
                               child: Text(
-                                answer.label,
+                                answer.answer,
                                 style: TextStyle(
                                   color: isSelected
                                       ? Colors.black

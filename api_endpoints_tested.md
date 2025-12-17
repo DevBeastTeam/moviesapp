@@ -53,6 +53,7 @@ Base URL: `https://dev.play.e-dutainment.com/api/1.0`
 ## pronunciation
 // new
 - `GET /pronunciation` - List pronunciation ✅
+- `GET /pronunciations` - List pronunciations ✅
 - `GET /pronunciation/{id}` - Get pronunciation details ❌
 
  https://dev.play.e-dutainment.com/api/1.0/pronunciation/690dc1d36c45eb2eaa58ecbc
