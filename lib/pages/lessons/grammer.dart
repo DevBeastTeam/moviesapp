@@ -125,7 +125,7 @@ class GrammerPageState extends State<GrammerPage> {
                                       .first
                                       .allowedLessonCategory[index];
                                   return buildLevelBox(
-                                    level.label,
+                                    level.label.toLowerCase(),
                                     onTap: () async {
                                       p.setSelectedLabelCH(
                                         level.label.toString(),
@@ -172,7 +172,7 @@ class GrammerPageState extends State<GrammerPage> {
                 children: [
                   Center(
                     child: Text(
-                      level,
+                      level.toUpperCase(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,

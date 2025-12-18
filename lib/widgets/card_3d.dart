@@ -111,24 +111,6 @@ class Card3D extends StatelessWidget {
             ],
             stops: const [0.0, 0.15, 0.08, 1.0],
           ),
-          // border: Border(
-          //   top: BorderSide(
-          //     color: highlight.withOpacity(0.3),
-          //     width: borderWidth,
-          //   ),
-          //   left: BorderSide(
-          //     color: highlight.withOpacity(0.3),
-          //     width: borderWidth,
-          //   ),
-          //   bottom: BorderSide(
-          //     color: shadow.withOpacity(0.5),
-          //     width: borderWidth,
-          //   ),
-          //   right: BorderSide(
-          //     color: shadow.withOpacity(0.5),
-          //     width: borderWidth,
-          //   ),
-          // ),
         ),
         child: child,
       ),

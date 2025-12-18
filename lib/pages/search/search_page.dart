@@ -109,32 +109,66 @@ class _SearchPage extends State<SearchPage>
       child: Column(
         children: [
           const SizedBox(height: 5),
-          // Search Bar
+          // Search Bar - Neumorphic Design
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: isTablet ? 7 : 7,
-              ),
               constraints: isTablet
                   ? const BoxConstraints(maxWidth: 800)
                   : null,
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.white38),
-                  borderRadius: BorderRadius.circular(12),
+                  // color: const Color(0xFF0B1A2C),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black45,
+                      Colors.transparent,
+                      Colors.transparent,
+                      Colors.transparent,
+                      // Color(0xFF0B1A2C),
+                    ],
+                    // stops: [0.2, 0, 0.2],
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    // Dark shadow for depth (bottom-right)
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      offset: const Offset(6, 6),
+                      blurRadius: 12,
+                      spreadRadius: 1,
+                    ),
+                    // Light shadow for highlight (top-left)
+                    BoxShadow(
+                      color: Colors.white.withOpacity(0.05),
+                      offset: const Offset(-6, -6),
+                      blurRadius: 12,
+                      spreadRadius: 1,
+                    ),
+                  ],
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 5,
+                ),
                 child: TextField(
                   onSubmitted: (value) {
                     searchController.performSearch(value);
                   },
                   controller: wordController,
+                  style: const TextStyle(color: Colors.white70, fontSize: 16),
                   decoration: const InputDecoration(
-                    icon: Icon(AppIconsLight.magnifyingGlass),
-                    labelText: 'SEARCH',
+                    icon: Icon(
+                      AppIconsLight.magnifyingGlass,
+                      color: Colors.white60,
+                      size: 22,
+                    ),
+                    hintText: 'Search',
+                    hintStyle: TextStyle(color: Colors.white38, fontSize: 16),
                     border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(vertical: 15),
                   ),
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.search,
@@ -142,7 +176,7 @@ class _SearchPage extends State<SearchPage>
               ),
             ),
           ),
-
+          SizedBox(height: 15),
           // Category Tabs
           Obx(
             () => Container(
@@ -152,8 +186,36 @@ class _SearchPage extends State<SearchPage>
                   : Screen.width(context) * 0.9,
               decoration: BoxDecoration(
                 color: ColorsPallet.filmsTabBgColor,
-                border: Border.all(color: Colors.white, width: 1),
+                // border: Border.all(color: Colors.white, width: 1),
                 borderRadius: BorderRadius.circular(25),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black45,
+                    Colors.transparent,
+                    Colors.transparent,
+                    Colors.transparent,
+                    // Color(0xFF0B1A2C),
+                  ],
+                  // stops: [0.2, 0, 0.2],
+                ),
+                boxShadow: [
+                  // Dark shadow for depth (bottom-right)
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    offset: const Offset(6, 6),
+                    blurRadius: 12,
+                    spreadRadius: 1,
+                  ),
+                  // Light shadow for highlight (top-left)
+                  BoxShadow(
+                    color: Colors.white.withOpacity(0.05),
+                    offset: const Offset(-6, -6),
+                    blurRadius: 12,
+                    spreadRadius: 1,
+                  ),
+                ],
               ),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
               child: Center(
