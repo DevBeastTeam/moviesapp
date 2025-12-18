@@ -1,3 +1,5 @@
+import 'package:edutainment/widgets/card_3d.dart';
+
 import 'pronCatgPage2.dart';
 import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
@@ -112,38 +114,43 @@ class _PronlevelsPage1State extends State<PronlevelsPage1> {
                                   // Navigate without extra
                                   Get.to(() => const PronCatgPage2());
                                 },
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
+                                child: Card3D(
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      // color: ColorsPallet.darkBlue,
+                                      // color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
                                     ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 5,
-                                      horizontal: 10,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          data.toUpperCase(), // Use data here if needed
-                                          // 'Level Name', // Placeholder
-                                          style: TextStyle(
-                                            color: Colors.blue,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 5,
+                                        horizontal: 10,
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            data.toUpperCase(), // Use data here if needed
+                                            // 'Level Name', // Placeholder
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          'select The Level',
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                      ],
+                                          Text(
+                                            'select The Level',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

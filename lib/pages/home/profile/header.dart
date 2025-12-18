@@ -34,10 +34,10 @@ class ProfileHeader extends StatelessWidget {
           decoration: BoxDecoration(
             color: ColorsPallet.borderCardBgColor,
             borderRadius: BorderRadius.circular(32),
-            border: Border.all(
-              width: 1,
-              color: ColorsPallet.borderCardBorderColor,
-            ),
+            // border: Border.all(
+            //   width: 1,
+            //   color: ColorsPallet.borderCardBorderColor,
+            // ),
           ),
 
           child: Stack(
@@ -174,10 +174,10 @@ class ProfileHeader extends StatelessWidget {
           decoration: BoxDecoration(
             color: ColorsPallet.borderCardBgColor,
             borderRadius: BorderRadius.circular(32),
-            border: Border.all(
-              width: 1,
-              color: ColorsPallet.borderCardBorderColor,
-            ),
+            // border: Border.all(
+            //   width: 1,
+            //   color: ColorsPallet.borderCardBorderColor,
+            // ),
           ),
           child: Stack(
             children: [

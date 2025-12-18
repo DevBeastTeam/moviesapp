@@ -130,10 +130,10 @@ class ProfileButtons extends StatelessWidget {
               decoration: BoxDecoration(
                 color: ColorsPallet.borderCardBgColor,
                 borderRadius: BorderRadius.circular(32),
-                border: Border.all(
-                  width: 1,
-                  color: ColorsPallet.borderCardBorderColor,
-                ),
+                // border: Border.all(
+                //   width: 1,
+                //   color: ColorsPallet.borderCardBorderColor,
+                // ),
               ),
               child: _buildComponent(
                 context: context,
@@ -154,10 +154,10 @@ class ProfileButtons extends StatelessWidget {
               decoration: BoxDecoration(
                 color: ColorsPallet.borderCardBgColor,
                 borderRadius: BorderRadius.circular(32),
-                border: Border.all(
-                  width: 1,
-                  color: ColorsPallet.borderCardBorderColor,
-                ),
+                // border: Border.all(
+                //   width: 1,
+                //   color: ColorsPallet.borderCardBorderColor,
+                // ),
               ),
               child: _buildComponent(
                 context: context,
@@ -180,10 +180,10 @@ class ProfileButtons extends StatelessWidget {
               decoration: BoxDecoration(
                 color: ColorsPallet.borderCardBgColor,
                 borderRadius: BorderRadius.circular(32),
-                border: Border.all(
-                  width: 1,
-                  color: ColorsPallet.borderCardBorderColor,
-                ),
+                // border: Border.all(
+                //   width: 1,
+                //   color: ColorsPallet.borderCardBorderColor,
+                // ),
               ),
               child: _buildComponent(
                 context: context,
@@ -204,10 +204,10 @@ class ProfileButtons extends StatelessWidget {
               decoration: BoxDecoration(
                 color: ColorsPallet.borderCardBgColor,
                 borderRadius: BorderRadius.circular(32),
-                border: Border.all(
-                  width: 1,
-                  color: ColorsPallet.borderCardBorderColor,
-                ),
+                // border: Border.all(
+                //   width: 1,
+                //   color: ColorsPallet.borderCardBorderColor,
+                // ),
               ),
               child: _buildComponent(
                 context: context,

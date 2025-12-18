@@ -116,44 +116,53 @@ class _HomePage extends State<HomePage> {
                               ),
                               InkWell(
                                 onTap: () => Get.to(() => const MoviesPage()),
-                                child: Container(
+                                child: Card3D(
                                   margin: const EdgeInsets.only(
                                     top: 5,
                                     left: 5,
                                     right: 5,
                                     bottom: 5,
                                   ),
-                                  // padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: ColorsPallet.borderCardBgColor,
-                                    borderRadius: BorderRadius.circular(32),
-                                    border: Border.all(
-                                      width: 1,
-                                      color: ColorsPallet.borderCardBorderColor,
+                                  child: Container(
+                                    // margin: const EdgeInsets.only(
+                                    //   top: 5,
+                                    //   left: 5,
+                                    //   right: 5,
+                                    //   bottom: 5,
+                                    // ),
+                                    // padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: ColorsPallet.borderCardBgColor,
+                                      borderRadius: BorderRadius.circular(32),
+                                      // border: Border.all(
+                                      //   width: 1,
+                                      //   color: ColorsPallet.borderCardBorderColor,
+                                      // ),
                                     ),
-                                  ),
-                                  width: screen.width * 0.46,
-                                  height: screen.height * 0.35,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      pausedMovie.isNotEmpty
-                                          ? buildMovieFrame(
-                                              movie: pausedMovie.first,
-                                              context: context,
-                                              fullSize: true,
-                                              showPlayerLogo: true,
-                                            )
-                                          : Image.asset(
-                                              AppImages.playerlight,
-                                              width: 100,
-                                            ),
-                                      SizedBox(height: 10),
-                                      Text("Continue Watching"),
-                                    ],
+                                    width: screen.width * 0.46,
+                                    height: screen.height * 0.35,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        pausedMovie.isNotEmpty
+                                            ? buildMovieFrame(
+                                                movie: pausedMovie.first,
+                                                context: context,
+                                                fullSize: true,
+                                                showPlayerLogo: true,
+                                              )
+                                            : Image.asset(
+                                                AppImages.playerlight,
+                                                width: 100,
+                                              ),
+                                        SizedBox(height: 10),
+                                        Text("Continue Watching"),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -201,43 +210,51 @@ class _HomePage extends State<HomePage> {
 
                           InkWell(
                             onTap: () => Get.to(() => const MoviesPage()),
-                            child: Container(
+                            child: Card3D(
                               margin: const EdgeInsets.only(
                                 top: 5,
                                 left: 5,
                                 right: 5,
                                 bottom: 5,
                               ),
-                              // padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: ColorsPallet.borderCardBgColor,
-                                borderRadius: BorderRadius.circular(32),
-                                border: Border.all(
-                                  width: 1,
-                                  color: ColorsPallet.borderCardBorderColor,
+                              child: Container(
+                                // margin: const EdgeInsets.only(
+                                //   top: 5,
+                                //   left: 5,
+                                //   right: 5,
+                                //   bottom: 5,
+                                // ),
+                                // padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: ColorsPallet.borderCardBgColor,
+                                  borderRadius: BorderRadius.circular(32),
+                                  // border: Border.all(
+                                  //   width: 1,
+                                  //   color: ColorsPallet.borderCardBorderColor,
+                                  // ),
                                 ),
-                              ),
-                              width: screen.width * 0.93,
-                              height: screen.height * 0.35,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  pausedMovie.isNotEmpty
-                                      ? buildMovieFrame(
-                                          movie: pausedMovie.first,
-                                          context: context,
-                                          fullSize: true,
-                                          showPlayerLogo: true,
-                                        )
-                                      : Image.asset(
-                                          AppImages.playerlight,
-                                          width: 100,
-                                        ),
-                                  SizedBox(height: 10),
-                                  Text("Continue Watching"),
-                                ],
+                                width: screen.width * 0.93,
+                                height: screen.height * 0.47,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    pausedMovie.isNotEmpty
+                                        ? buildMovieFrame(
+                                            movie: pausedMovie.first,
+                                            context: context,
+                                            fullSize: true,
+                                            showPlayerLogo: true,
+                                          )
+                                        : Image.asset(
+                                            AppImages.playerlight,
+                                            width: 100,
+                                          ),
+                                    SizedBox(height: 10),
+                                    Text("Continue Watching"),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -364,12 +381,12 @@ class _HomePage extends State<HomePage> {
                               InkWell(
                                 onTap: () => Get.to(() => const MoviesPage()),
                                 child: Card3D(
-                                  margin: const EdgeInsets.only(
-                                    top: 5,
-                                    left: 5,
-                                    right: 5,
-                                    bottom: 5,
-                                  ),
+                                  // margin: const EdgeInsets.only(
+                                  //   top: 5,
+                                  //   left: 5,
+                                  //   right: 5,
+                                  //   bottom: 5,
+                                  // ),
                                   child: Container(
                                     // margin: const EdgeInsets.only(
                                     //   top: 5,
@@ -377,7 +394,7 @@ class _HomePage extends State<HomePage> {
                                     //   right: 5,
                                     //   bottom: 5,
                                     // ),
-                                    padding: const EdgeInsets.all(20),
+                                    // padding: const EdgeInsets.all(20),
                                     decoration: BoxDecoration(
                                       color: ColorsPallet.borderCardBgColor,
                                       borderRadius: BorderRadius.circular(32),
@@ -387,7 +404,7 @@ class _HomePage extends State<HomePage> {
                                       //       ColorsPallet.borderCardBorderColor,
                                       // ),
                                     ),
-                                    height: screen.height * 0.35,
+                                    height: screen.height * 0.3,
                                     width: screen.width * 0.84,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -407,8 +424,9 @@ class _HomePage extends State<HomePage> {
                                                 AppImages.playerlight,
                                                 width: 40,
                                               ),
-                                        SizedBox(height: 10),
+                                        Spacer(),
                                         Text("Continue Watching"),
+                                        SizedBox(height: 15),
                                       ],
                                     ),
                                   ),

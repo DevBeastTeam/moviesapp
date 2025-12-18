@@ -1,4 +1,3 @@
-import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
@@ -99,7 +98,7 @@ class _AIMenuPage extends State<AIMenuPage> {
 
       currentPage: '/home/AIMenuPage',
       floatingBtn: Transform.translate(
-        offset: Offset(16, 0),
+        offset: Offset(16, -15),
         child: Container(
           width: w * 1,
           decoration: BoxDecoration(
