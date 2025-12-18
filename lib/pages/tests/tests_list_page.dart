@@ -30,12 +30,12 @@ class _TestsListPage extends State<TestsListPage> {
       child: SafeArea(
         child: Column(
           children: [
-            CustomHeaderBar(
-              onBack: () {
-                Get.to(() => const TestsPage());
-              },
-              title: '${getIn(quizCategory, 'label')} - $quizType',
-            ),
+            // CustomHeaderBar(
+            //   onBack: () {
+            //     Get.to(() => const TestsPage());
+            //   },
+            //   title: '${getIn(quizCategory, 'label')} - $quizType',
+            // ),
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(10),

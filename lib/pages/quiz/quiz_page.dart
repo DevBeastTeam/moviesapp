@@ -75,32 +75,96 @@ class _QuizPage extends State<QuizPage> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Question ${currentQuestion + 1} / ${widget.quiz['questions'].length}',
-                                  style: const TextStyle(fontSize: 24),
+                                  'LEVELS ',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
+                              // Align(
+                              //   alignment: Alignment.centerLeft,
+                              //   child: Text(
+                              //     'Question ${currentQuestion + 1} / ${widget.quiz['questions'].length}',
+                              //     style: const TextStyle(fontSize: 24),
+                              //   ),
+                              // ),
                             ],
                           ),
                           const Divider(height: 20, color: Colors.transparent),
-                          Wrap(
-                            runSpacing: 4,
-                            spacing: 6,
-                            children: [
-                              for (int i = 0; i < totalQuestions; i++)
-                                Container(
-                                  height: 3,
-                                  width: 12,
-                                  decoration: BoxDecoration(
-                                    color: i < currentQuestion
-                                        ? ColorsPallet.blueAccent
-                                        : i == currentQuestion
-                                        ? Colors.white
-                                        : Colors.white.withOpacity(.4),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
+                          Transform.scale(
+                            scale: 1.1,
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                // color: const Color.fromARGB(255, 249, 217, 215),
+                                borderRadius: BorderRadius.circular(0),
+                                gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    const Color.fromARGB(255, 250, 212, 209),
+                                    const Color.fromARGB(255, 255, 139, 131),
+                                  ],
                                 ),
-                            ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Lessons",
+                                      style: TextStyle(
+                                        color: const Color.fromARGB(
+                                          255,
+                                          129,
+                                          49,
+                                          49,
+                                        ),
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      "Questions: ${currentQuestionIndex} / ${totalQuestions}",
+                                      style: TextStyle(
+                                        color: const Color.fromARGB(
+                                          255,
+                                          129,
+                                          49,
+                                          49,
+                                        ),
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
+                          SizedBox(height: 10),
+                          // Wrap(
+                          //   runSpacing: 4,
+                          //   spacing: 6,
+                          //   children: [
+                          //     for (int i = 0; i < totalQuestions; i++)
+                          //       Container(
+                          //         height: 3,
+                          //         width: 12,
+                          //         decoration: BoxDecoration(
+                          //           color: i < currentQuestion
+                          //               ? ColorsPallet.blueAccent
+                          //               : i == currentQuestion
+                          //               ? Colors.white
+                          //               : Colors.white.withOpacity(.4),
+                          //           borderRadius: BorderRadius.circular(4),
+                          //         ),
+                          //       ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),

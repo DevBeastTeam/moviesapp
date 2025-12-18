@@ -1,9 +1,11 @@
+import 'package:edutainment/widgets/card_3d.dart';
 import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quick_widgets/widgets/tiktok.dart';
 
 import '../../controllers/quiz_controller.dart';
+import '../../theme/colors.dart';
 import '../../widgets/ui/default_scaffold.dart';
 import 'tests_base_page.dart';
 
@@ -93,25 +95,28 @@ class _TestsPage extends State<TestsPage> {
                                 Get.to(() => const TestsBasePage());
                               }
                             },
-                            child: Container(
-                              // margin: const EdgeInsets.only(left: 12),
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 24,
-                                horizontal: 8,
-                              ),
-                              color: Colors.white,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    category.label,
-                                    style: const TextStyle(
-                                      color: Colors.blue,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16,
+                            child: Card3D(
+                              borderRadius: 5,
+                              child: Container(
+                                // margin: const EdgeInsets.only(left: 12),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 24,
+                                  horizontal: 8,
+                                ),
+                                color: ColorsPallet.darkBlue,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      category.label,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

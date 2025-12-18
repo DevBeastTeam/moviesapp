@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../controllers/quiz_controller.dart';
 import '../../utils/utils.dart';
+import '../../widgets/card_3d.dart';
 import 'tests_page.dart';
 
 class TestsQuizResultsPage extends StatefulWidget {
@@ -68,28 +69,36 @@ class _TestsQuizResultsPage extends State<TestsQuizResultsPage> {
         });
       },
       child: Transform.scale(
-        scale: selectedQuestionIndex == index ? 1.2 : 1.0,
+        scale: 1.0,
+        // scale: selectedQuestionIndex == index ? 1.2 : 1.0,
         child: AspectRatio(
           aspectRatio: 1.0, // Keep boxes square
           child: Container(
             decoration: BoxDecoration(
               // Remove bottom border radius if this box is selected to connect with info card
-              borderRadius: selectedQuestionIndex == index
-                  ? const BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8),
-                    )
-                  : BorderRadius.circular(8),
+              borderRadius:
+                  //  selectedQuestionIndex == index
+                  // ? const BorderRadius.only(
+                  //     topLeft: Radius.circular(8),
+                  //     topRight: Radius.circular(8),
+                  //   )
+                  // :
+                  BorderRadius.circular(8),
               color: isCorrect
-                  ? const Color(0xFF4CAF50) // Green for correct
-                  : const Color(0xFFFF5733), // Red/orange for incorrect
+                  ? const Color.fromARGB(
+                      255,
+                      104,
+                      163,
+                      106,
+                    ) // Green for correct
+                  : Color(0xffEE5959), // Red/orange for incorrect
             ),
             child: Center(
               child: Text(
                 '${index + 1}',
                 style: TextStyle(
                   fontSize: boxNumberSize,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
@@ -134,120 +143,131 @@ class _TestsQuizResultsPage extends State<TestsQuizResultsPage> {
       }
     }
 
-    return Container(
-      margin: const EdgeInsets.only(top: 0, left: 3, right: 3, bottom: 5),
-      padding: EdgeInsets.all(isTablet ? 20 : 16),
-      decoration: BoxDecoration(
-        color: selectedIsCorrect == true
-            ? const Color(0xFF4CAF50) // Green for correct
-            : const Color(0xFFFF5733), // Red for incorrect
-        // Remove top border radius to connect with the selected box above
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(12),
-          bottomRight: Radius.circular(12),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      child: Container(
+        padding: EdgeInsets.all(isTablet ? 20 : 16),
+        decoration: BoxDecoration(
+          color: selectedIsCorrect == true
+              ? const Color.fromARGB(255, 104, 163, 106) // Green for correct
+              : Color(0xffEE5959), // Red for incorrect
+          borderRadius: BorderRadius.circular(12),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            getIn(
-              selectedQuestionData,
-              'Question.label',
-              'Question ${selectedQuestionIndex! + 1}',
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "${selectedQuestionIndex! + 1}. ${getIn(selectedQuestionData, 'Question.label', 'What does this mean?')}",
+              style: TextStyle(
+                fontSize: isTablet ? 18 : 16,
+                color: Colors.white.withOpacity(0.9),
+              ),
             ),
-            style: TextStyle(
-              fontSize: isTablet ? 20 : 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
-          ),
-          SizedBox(height: isTablet ? 20 : 16),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Score',
-                      style: TextStyle(
-                        fontSize: isTablet ? 15 : 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white.withOpacity(0.9),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '$score',
-                      style: TextStyle(
-                        fontSize: isTablet ? 24 : 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+            const SizedBox(height: 6),
+            Text(
+              getIn(
+                selectedQuestionData,
+                'Question.text',
+                getIn(
+                  selectedQuestionData,
+                  'Question.label',
+                  'Question content',
                 ),
               ),
-              Container(
-                width: 1,
-                height: 40,
-                color: Colors.white.withOpacity(0.3),
-                margin: const EdgeInsets.symmetric(horizontal: 12),
+              style: TextStyle(
+                fontSize: isTablet ? 22 : 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-              Expanded(
-                flex: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'My answer',
-                      style: TextStyle(
-                        fontSize: isTablet ? 15 : 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white.withOpacity(0.9),
+            ),
+            const SizedBox(height: 24),
+            IntrinsicHeight(
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Score',
+                        style: TextStyle(
+                          fontSize: isTablet ? 17 : 16,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      userAnswerData?['answer_label'] ??
-                          getIn(
-                            selectedQuestionData,
-                            'quizSessionAnswer.answer_label',
-                            'N/A',
+                      const SizedBox(height: 12),
+                      Text(
+                        'My answer',
+                        style: TextStyle(
+                          fontSize: isTablet ? 17 : 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Correct answer',
+                        style: TextStyle(
+                          fontSize: isTablet ? 17 : 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 30),
+                  VerticalDivider(
+                    color: Colors.white.withOpacity(0.7),
+                    thickness: 1,
+                    width: 1,
+                  ),
+                  const SizedBox(width: 30),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '$score',
+                          style: TextStyle(
+                            fontSize: isTablet ? 18 : 17,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
                           ),
-                      style: TextStyle(
-                        fontSize: isTablet ? 17 : 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
+                        ),
+                        const SizedBox(height: 11),
+                        Text(
+                          userAnswerData?['answer_label'] ??
+                              getIn(
+                                selectedQuestionData,
+                                'quizSessionAnswer.answer_label',
+                                'N/A',
+                              ),
+                          style: TextStyle(
+                            fontSize: isTablet ? 18 : 17,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 11),
+                        Text(
+                          getIn(correctAnswer, 'label') ??
+                              getIn(correctAnswer, 'text') ??
+                              'N/A',
+                          style: TextStyle(
+                            fontSize: isTablet ? 18 : 17,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          SizedBox(height: isTablet ? 16 : 12),
-          Text(
-            'Correct answer',
-            style: TextStyle(
-              fontSize: isTablet ? 15 : 14,
-              fontWeight: FontWeight.w500,
-              color: Colors.white.withOpacity(0.9),
             ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            getIn(correctAnswer, 'label') ??
-                getIn(correctAnswer, 'text') ??
-                'N/A',
-            style: TextStyle(
-              fontSize: isTablet ? 17 : 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

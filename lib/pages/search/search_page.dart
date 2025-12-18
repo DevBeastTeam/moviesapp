@@ -585,122 +585,130 @@ class _SearchPage extends State<SearchPage>
                                                 context,
                                               );
                                             },
-                                            child: Container(
-                                              padding: const EdgeInsets.all(12),
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFF1A2332),
-                                                borderRadius:
-                                                    BorderRadius.circular(16),
-                                                border: Border.all(
-                                                  color: Colors.white24,
-                                                  width: 1,
+                                            child: Card3D(
+                                              borderRadius: 16,
+                                              child: Container(
+                                                padding: const EdgeInsets.all(
+                                                  12,
                                                 ),
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          8,
-                                                        ),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: getIn(
-                                                        subtitle,
-                                                        'content_picture',
-                                                        '',
-                                                      ),
-                                                      width: 60,
-                                                      height: 60,
-                                                      fit: BoxFit.cover,
-                                                      placeholder:
-                                                          (
-                                                            context,
-                                                            url,
-                                                          ) => Container(
-                                                            width: 60,
-                                                            height: 60,
-                                                            color:
-                                                                Colors.white12,
-                                                            child: const Center(
-                                                              child:
-                                                                  CircularProgressIndicator(
-                                                                    strokeWidth:
-                                                                        2,
-                                                                  ),
-                                                            ),
+                                                decoration: BoxDecoration(
+                                                  // color: const Color(0xFF1A2332),
+                                                  color: ColorsPallet.darkBlue,
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  // border: Border.all(
+                                                  //   color: Colors.white24,
+                                                  //   width: 1,
+                                                  // ),
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            8,
                                                           ),
-                                                      errorWidget:
-                                                          (
-                                                            context,
-                                                            url,
-                                                            error,
-                                                          ) => Container(
-                                                            width: 60,
-                                                            height: 60,
-                                                            color:
-                                                                Colors.white12,
-                                                            child: const Icon(
-                                                              Icons.error,
+                                                      child: CachedNetworkImage(
+                                                        imageUrl: getIn(
+                                                          subtitle,
+                                                          'content_picture',
+                                                          '',
+                                                        ),
+                                                        width: 60,
+                                                        height: 60,
+                                                        fit: BoxFit.cover,
+                                                        placeholder:
+                                                            (
+                                                              context,
+                                                              url,
+                                                            ) => Container(
+                                                              width: 60,
+                                                              height: 60,
                                                               color: Colors
-                                                                  .white54,
-                                                              size: 20,
+                                                                  .white12,
+                                                              child: const Center(
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                      strokeWidth:
+                                                                          2,
+                                                                    ),
+                                                              ),
                                                             ),
-                                                          ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(width: 8),
-                                                  Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          getIn(
-                                                            subtitle,
-                                                            'content_label',
-                                                            '',
-                                                          ),
-                                                          style:
-                                                              const TextStyle(
-                                                                color: Color(
-                                                                  0xFF60A5FA,
-                                                                ),
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 4,
-                                                        ),
-                                                        Text(
-                                                          getIn(
-                                                            subtitle,
-                                                            'text',
-                                                            '',
-                                                          ),
-                                                          style:
-                                                              const TextStyle(
+                                                        errorWidget:
+                                                            (
+                                                              context,
+                                                              url,
+                                                              error,
+                                                            ) => Container(
+                                                              width: 60,
+                                                              height: 60,
+                                                              color: Colors
+                                                                  .white12,
+                                                              child: const Icon(
+                                                                Icons.error,
                                                                 color: Colors
-                                                                    .white,
-                                                                fontSize: 9,
+                                                                    .white54,
+                                                                size: 20,
                                                               ),
-                                                          maxLines: 3,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ],
+                                                            ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                    const SizedBox(width: 8),
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            getIn(
+                                                              subtitle,
+                                                              'content_label',
+                                                              '',
+                                                            ),
+                                                            style:
+                                                                const TextStyle(
+                                                                  color: Color(
+                                                                    0xFF60A5FA,
+                                                                  ),
+                                                                  fontSize: 10,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 4,
+                                                          ),
+                                                          Text(
+                                                            getIn(
+                                                              subtitle,
+                                                              'text',
+                                                              '',
+                                                            ),
+                                                            style:
+                                                                const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 9,
+                                                                ),
+                                                            maxLines: 3,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           );
@@ -739,6 +747,7 @@ class _SearchPage extends State<SearchPage>
                                   Container(
                                     decoration: const BoxDecoration(
                                       // color: Color(0xFF0D1520),
+                                      color: ColorsPallet.darkBlue,
                                       borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(16),
                                         topRight: Radius.circular(16),

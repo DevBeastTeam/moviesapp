@@ -7,8 +7,10 @@ import 'package:better_player/better_player.dart';
 
 import 'package:edutainment/core/loader.dart';
 import 'package:edutainment/pages/quiz/questions/full_photo_view.dart';
+import 'package:edutainment/theme/colors.dart';
 import 'package:edutainment/utils/assets/assets_icons.dart';
 import 'package:edutainment/utils/utils.dart';
+import 'package:edutainment/widgets/card_3d.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:just_audio/just_audio.dart';
@@ -231,6 +233,7 @@ class _QuestionContent extends State<QuestionContent>
                     horizontal: 8,
                     vertical: 4,
                   ),
+                  // decoration: BoxDecoration(color: ColorsPallet.darkBlue),
                   child: GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
