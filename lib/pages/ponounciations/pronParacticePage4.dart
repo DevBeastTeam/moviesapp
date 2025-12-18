@@ -1,5 +1,6 @@
 import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/controllers/pronunciation_controller.dart';
+import 'package:edutainment/widgets/card_3d.dart';
 import 'package:edutainment/widgets/ui/default_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -68,16 +69,16 @@ class _PronParacticePage4State extends State<PronParacticePage4> {
                 SizedBox(height: 5),
                 GestureDetector(
                   onTap: () {},
-                  child: SingleChildScrollView(
-                    controller: ScrollController(),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Card3D(
+                          borderRadius: 5,
                           child: Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.blue, width: 1),
+                              borderRadius: BorderRadius.circular(5),
+                              // border: Border.all(color: Colors.blue, width: 1),
                             ),
                             child: CupertinoListTile(
                               title: Text(
@@ -94,40 +95,40 @@ class _PronParacticePage4State extends State<PronParacticePage4> {
                             ),
                           ),
                         ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 3,
-                              ),
-                              child: InkWell(
-                                onTap: () {},
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 3,
+                            ),
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: CupertinoListTile(
+                                  title: Text(
+                                    selectedLesson?.label ?? '',
+                                    style: TextStyle(color: Colors.blue),
                                   ),
-                                  child: CupertinoListTile(
-                                    title: Text(
-                                      selectedLesson!.label ?? '',
-                                      style: TextStyle(color: Colors.blue),
-                                    ),
-                                    trailing: SizedBox(
+                                  trailing: SizedBox(
+                                    width: 25,
+                                    child: Image.asset(
+                                      AppImages.check,
                                       width: 25,
-                                      child: Image.asset(
-                                        AppImages.check,
-                                        width: 25,
-                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 30),

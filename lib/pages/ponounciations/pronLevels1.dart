@@ -1,3 +1,4 @@
+import 'package:edutainment/theme/colors.dart';
 import 'package:edutainment/widgets/card_3d.dart';
 
 import 'pronCatgPage2.dart';
@@ -115,6 +116,7 @@ class _PronlevelsPage1State extends State<PronlevelsPage1> {
                                   Get.to(() => const PronCatgPage2());
                                 },
                                 child: Card3D(
+                                  borderRadius: 5,
                                   child: Container(
                                     decoration: const BoxDecoration(
                                       // color: ColorsPallet.darkBlue,
@@ -190,37 +192,41 @@ class _PronlevelsPage1State extends State<PronlevelsPage1> {
                                     );
                                     Get.to(() => const PronCatgPage2());
                                   },
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
+                                  child: Card3D(
+                                    borderRadius: 4,
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        // color: Colors.white,
+                                        color: ColorsPallet.darkBlue,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
                                       ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(15),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            // data, // Use data here if needed
-                                            data.toUpperCase(), // Placeholder
-                                            style: TextStyle(
-                                              color: Colors.blue,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(15),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              // data, // Use data here if needed
+                                              data.toUpperCase(), // Placeholder
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            'select The Level',
-                                            style: TextStyle(
-                                              color: Colors.black,
+                                            Text(
+                                              'select The Level',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

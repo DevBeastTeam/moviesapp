@@ -1,3 +1,6 @@
+import 'package:edutainment/theme/colors.dart';
+import 'package:edutainment/widgets/card_3d.dart';
+
 import 'pronCatgLessonsPage3.dart';
 import 'package:edutainment/helpers/safe_converters.dart';
 import 'package:edutainment/widgets/emptyWIdget.dart';
@@ -60,9 +63,8 @@ class _PronCatgPage2State extends State<PronCatgPage2> {
             ),
             GetBuilder<PronunciationController>(
               builder: (controller) {
-
                 List<Category> categories = controller.categories;
-                
+
                 return categories.isEmpty
                     ? EmptyWidget()
                     : Padding(
@@ -81,52 +83,59 @@ class _PronCatgPage2State extends State<PronCatgPage2> {
                                 // Navigate without extra
                                 Get.to(() => const PronCatgLessonsPage3());
                               },
-                          child: Container(
-                            width:
-                                Screen.isTablet(context) &&
-                                    Screen.isPortrait(context)
-                                ? Screen.width(context) * 0.7
-                                : Screen.isTablet(context) &&
-                                      Screen.isLandscape(context)
-                                ? Screen.width(context) * 0.3
-                                : null,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    data.icon,
-                                    style: const TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
+                              child: Card3D(
+                                borderRadius: 5,
+                                child: Container(
+                                  width:
+                                      Screen.isTablet(context) &&
+                                          Screen.isPortrait(context)
+                                      ? Screen.width(context) * 0.7
+                                      : Screen.isTablet(context) &&
+                                            Screen.isLandscape(context)
+                                      ? Screen.width(context) * 0.3
+                                      : null,
+                                  decoration: const BoxDecoration(
+                                    // color: Colors.white,
+                                    color: ColorsPallet.darkBlue,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
                                     ),
                                   ),
-                                  const SizedBox(width: 15),
-                                  Text(
-                                    Screen.isTablet(context) &&
-                                            Screen.isLandscape(context)
-                                        ? data.label.toString().toSubStringText(
-                                            0,
-                                            20,
-                                          )
-                                        : data.label.toUpperCase(),
-                                    maxLines: 3,
-                                    style: const TextStyle(color: Colors.black),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          data.icon,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 15),
+                                        Text(
+                                          Screen.isTablet(context) &&
+                                                  Screen.isLandscape(context)
+                                              ? data.label
+                                                    .toString()
+                                                    .toSubStringText(0, 20)
+                                              : data.label.toUpperCase(),
+                                          maxLines: 3,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        );
+                            );
                           }),
                         ),
                       );

@@ -1,3 +1,5 @@
+import 'package:edutainment/widgets/card_3d.dart';
+
 import 'pronParacticePage4.dart';
 import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/controllers/pronunciation_controller.dart';
@@ -80,7 +82,10 @@ class _PronCatgLessonsPage3State extends State<PronCatgLessonsPage3> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: allLevels.map((data) {
                         return Padding(
-                          padding: const EdgeInsets.all(6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 2,
+                            vertical: 6,
+                          ),
                           child: InkWell(
                             onTap: () {
                               // Update selected level in controller
@@ -99,8 +104,8 @@ class _PronCatgLessonsPage3State extends State<PronCatgLessonsPage3> {
                                 // : Colors.white,
                                 color: Colors.white,
                                 gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
                                   colors:
                                       selectedlabel
                                               .toString()
@@ -108,17 +113,16 @@ class _PronCatgLessonsPage3State extends State<PronCatgLessonsPage3> {
                                               .toLowerCase() ==
                                           data.toString().toLowerCase()
                                       ? [
-                                          Colors.orange.shade200,
-                                          Colors.deepOrange.shade300,
-                                          Colors.red,
-                                          Colors.red.shade800,
+                                          Colors.orange.shade400,
+                                          Colors.orange.shade400,
+                                          Colors.red.shade500,
                                         ]
                                       : [Colors.white, Colors.white],
                                 ),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              width: 45,
-                              height: 55,
+                              width: Screen.isPhone(context) ? 50 : 100,
+                              height: 50,
                               child: Center(
                                 child: Text(
                                   data.toUpperCase(),
@@ -160,7 +164,7 @@ class _PronCatgLessonsPage3State extends State<PronCatgLessonsPage3> {
                       ),
                       trailing: Icon(
                         Icons.keyboard_arrow_down_rounded,
-                        color: Colors.blue,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -195,33 +199,39 @@ class _PronCatgLessonsPage3State extends State<PronCatgLessonsPage3> {
                               // Navigate without extra
                               Get.to(() => const PronParacticePage4());
                             },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                border: Border.all(
-                                  width: 1,
-                                  color: Colors.blue,
+                            child: Card3D(
+                              borderRadius: 5,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  // border: Border.all(
+                                  //   width: 1,
+                                  //   color: Colors.blue,
+                                  // ),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: CupertinoListTile(
-                                title: Text(
-                                  data.label,
-                                  style: const TextStyle(color: Colors.blue),
+                                child: CupertinoListTile(
+                                  title: Text(
+                                    data.label,
+                                    style: const TextStyle(color: Colors.blue),
+                                  ),
+                                  trailing: SizedBox(
+                                    width: 25,
+                                    child: data.completed
+                                        ? Image.asset(
+                                            AppImages.check,
+                                            width: 25,
+                                          )
+                                        : Image.asset(
+                                            AppImages.uncheck,
+                                            width: 25,
+                                          ),
+                                  ),
+                                  // trailing: SizedBox(
+                                  //   width: 25,
+                                  //   child: Image.asset(AppImages.playIcon, width: 25),
+                                  // ),
                                 ),
-                                leading: SizedBox(
-                                  width: 25,
-                                  child: data.completed
-                                      ? Image.asset(AppImages.check, width: 25)
-                                      : Image.asset(
-                                          AppImages.uncheck,
-                                          width: 25,
-                                        ),
-                                ),
-                                // trailing: SizedBox(
-                                //   width: 25,
-                                //   child: Image.asset(AppImages.playIcon, width: 25),
-                                // ),
                               ),
                             ),
                           ),
