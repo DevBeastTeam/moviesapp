@@ -31,14 +31,25 @@ class CustomSubmitButton extends StatelessWidget {
       child: Ink(
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-            colors: ColorsPallet.dbba,
-            begin: FractionalOffset.topLeft,
+            // colors: ColorsPallet.dbba,
+            // begin: FractionalOffset.topLeft,
+            colors: [
+              Colors.black87,
+              ColorsPallet.darkBlue,
+              ColorsPallet.blueAccent,
+            ],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
           ),
           borderRadius: BorderRadius.circular(32.0),
         ),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(32),
+            border: Border(
+              left: BorderSide(width: 1, color: Colors.blue.shade700),
+              top: BorderSide(width: 1, color: Colors.blue.shade700),
+            ),
             boxShadow: [
               BoxShadow(
                 color: ColorsPallet.darkBlue.withOpacity(0.1),

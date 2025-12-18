@@ -2,7 +2,6 @@ import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/utils/utils.dart';
 import 'package:edutainment/widgets/card_3d.dart';
 import 'package:flutter/material.dart';
-import 'package:humanize_duration/humanize_duration.dart';
 
 import '../../../theme/colors.dart';
 import '../../../utils/screen_utils.dart';
@@ -66,8 +65,9 @@ class ProfileStatistics extends StatelessWidget {
                     _buildComponent(
                       text: 'TIME SPENT',
                       img: AppImages.clock,
-                      value: humanizeDuration(
+                      value: formatDuration(
                         Duration(seconds: getIn(statistics, 'time', 0)),
+                        short: true,
                       ),
                       iconSize: 45,
                       // icon: EdutainmentIcons.clock,
@@ -170,8 +170,9 @@ class ProfileStatistics extends StatelessWidget {
                     iconSize: 70,
                     fontSize: 15,
 
-                    value: humanizeDuration(
+                    value: formatDuration(
                       Duration(seconds: getIn(statistics, 'time', 0)),
+                      short: true,
                     ),
                     // icon: EdutainmentIcons.clock,
                     // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],
@@ -272,8 +273,9 @@ class ProfileStatistics extends StatelessWidget {
                 _buildComponent(
                   text: 'TIME SPENT',
                   img: AppImages.clock,
-                  value: humanizeDuration(
+                  value: formatDuration(
                     Duration(seconds: getIn(statistics, 'time', 0)),
+                    short: true,
                   ),
                   // icon: EdutainmentIcons.clock,
                   // colors: const [Color(0xffF82BD6), Color(0xff4F0AE1)],

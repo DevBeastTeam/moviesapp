@@ -67,19 +67,21 @@ class _MoviesPage extends State<MoviesPage> {
           return Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    AppImages.playerlight,
-                    width: Screen.isTablet(context)
-                        ? Screen.width(context) * 0.07
-                        : Screen.width(context) * 0.12,
-                  ),
+                  // Image.asset(
+                  //   AppImages.playerlight,
+                  //   width: Screen.isTablet(context)
+                  //       ? Screen.width(context) * 0.07
+                  //       : Screen.width(context) * 0.12,
+                  // ),
                   Container(
-                    height: 47,
+                    height: 49,
                     width: Screen.isTablet(context)
-                        ? Screen.width(context) * 0.8
-                        : Screen.width(context) * 0.85,
+                        ? Screen.width(context) * 0.95
+                        : Screen.width(context) * 0.95,
+                    // ? Screen.width(context) * 0.8
+                    // : Screen.width(context) * 0.85,
                     decoration: BoxDecoration(
                       color: ColorsPallet.filmsTabBgColor,
                       border: Border.all(color: Colors.white, width: 1),
@@ -87,7 +89,7 @@ class _MoviesPage extends State<MoviesPage> {
                     ),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
-                      vertical: 2,
+                      vertical: 3,
                     ),
                     child: Center(
                       child: Padding(

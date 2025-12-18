@@ -116,9 +116,12 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
                                                 .toLowerCase() ==
                                             levels[index].toLowerCase()
                                         ? LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
                                             colors: [
-                                              Colors.deepOrange,
-                                              Colors.orange,
+                                              Colors.orange.shade400,
+                                              Colors.orange.shade400,
+                                              Colors.red.shade500,
                                             ],
                                           )
                                         : LinearGradient(
@@ -212,9 +215,12 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
                                     navCtrl.flashCardLevelId.toLowerCase() ==
                                         levels[index].toLowerCase()
                                     ? LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
                                         colors: [
-                                          Colors.deepOrange,
-                                          Colors.orange,
+                                          Colors.orange.shade400,
+                                          Colors.orange.shade400,
+                                          Colors.red.shade500,
                                         ],
                                       )
                                     : LinearGradient(
@@ -290,85 +296,100 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
                                 toast(context, msg: 'Reached the beginning');
                               }
                             },
-                            paddingLeft: 20,
+                            paddingLeft: 15,
                             icon: Icons.arrow_back_ios,
                           ),
 
                         // Swipeable Cards
-                        Container(
-                          height: isTablet || isLandscape ? h * 0.65 : h * 0.45,
-                          width: isTablet || isLandscape ? w * 0.8 : w * 0.9,
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 32, 72, 111),
-                            // gradient: const LinearGradient(
-                            //   colors: [Colors.orange, Colors.deepOrangeAccent],
-                            // ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: PageView.builder(
-                            controller: pageController,
-                            itemCount: p.flashCardsDetailsList.length,
-                            onPageChanged: (int page) {
-                              setState(() {
-                                isPage2 = false; // Reset page2 on swipe
-                              });
-                            },
-                            itemBuilder: (context, index) {
-                              final item = p.flashCardsDetailsList[index];
-                              return Padding(
-                                padding: const EdgeInsets.all(2),
+                        Stack(
+                          children: [
+                            Transform.translate(
+                              offset: const Offset(10, 5),
+                              child: Transform.rotate(
+                                angle: 0.08,
                                 child: Container(
+                                  height: isTablet || isLandscape
+                                      ? h * 0.65
+                                      : h * 0.47,
+                                  width: isTablet || isLandscape
+                                      ? w * 0.77
+                                      : w * 0.82,
                                   decoration: BoxDecoration(
-                                    color: Color(0XFF0B2845),
+                                    color: Color(0Xff0B2845),
+                                    // gradient: const LinearGradient(
+                                    //   colors: [Colors.orange, Colors.deepOrangeAccent],
+                                    // ),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
-                                  child: SingleChildScrollView(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 10,
-                                      horizontal: 12,
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        bottom: 12,
+                                ),
+                              ),
+                            ),
+                            Transform.translate(
+                              offset: const Offset(5, 3),
+                              child: Transform.rotate(
+                                angle: 0.05,
+                                child: Container(
+                                  height: isTablet || isLandscape
+                                      ? h * 0.65
+                                      : h * 0.47,
+                                  width: isTablet || isLandscape
+                                      ? w * 0.77
+                                      : w * 0.81,
+                                  decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 29, 52, 74),
+                                    // gradient: const LinearGradient(
+                                    //   colors: [Colors.orange, Colors.deepOrangeAccent],
+                                    // ),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: isTablet || isLandscape
+                                  ? h * 0.65
+                                  : h * 0.47,
+                              width: isTablet || isLandscape
+                                  ? w * 0.76
+                                  : w * 0.8,
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 32, 72, 111),
+                                // gradient: const LinearGradient(
+                                //   colors: [Colors.orange, Colors.deepOrangeAccent],
+                                // ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: PageView.builder(
+                                controller: pageController,
+                                itemCount: p.flashCardsDetailsList.length,
+                                onPageChanged: (int page) {
+                                  setState(() {
+                                    isPage2 = false; // Reset page2 on swipe
+                                  });
+                                },
+                                itemBuilder: (context, index) {
+                                  final item = p.flashCardsDetailsList[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.all(1),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Color(0XFF0B2845),
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
-                                      child:
-                                          item.movie.description.length > 200 &&
-                                              isPage2
-                                          ? CachedNetworkImage(
-                                              imageUrl: item.movie.picture,
-                                              progressIndicatorBuilder:
-                                                  (context, url, progress) =>
-                                                      const DotLoader(),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Image.asset(
-                                                        AppImages.noimg,
-                                                      ),
-                                            )
-                                          : Column(
-                                              children: [
-                                                Text(
-                                                  item.movie.label,
-                                                  style: t.titleMedium!
-                                                      .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Colors.white,
-                                                      ),
-                                                ),
-                                                const SizedBox(height: 6),
-                                                Text(
-                                                  item.movie.description,
-                                                  textAlign: TextAlign.center,
-                                                  style: t.labelMedium!
-                                                      .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: Colors.white,
-                                                      ),
-                                                ),
-                                                const SizedBox(height: 6),
-                                                CachedNetworkImage(
+                                      child: SingleChildScrollView(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 10,
+                                          horizontal: 12,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                            bottom: 12,
+                                          ),
+                                          child:
+                                              item.movie.description.length >
+                                                      200 &&
+                                                  isPage2
+                                              ? CachedNetworkImage(
                                                   imageUrl: item.movie.picture,
                                                   progressIndicatorBuilder:
                                                       (
@@ -381,15 +402,60 @@ class FlashCardDetailsPageState extends State<FlashCardDetailsPage> {
                                                           Image.asset(
                                                             AppImages.noimg,
                                                           ),
+                                                )
+                                              : Column(
+                                                  children: [
+                                                    Text(
+                                                      item.movie.label,
+                                                      style: t.titleMedium!
+                                                          .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: Colors.white,
+                                                          ),
+                                                    ),
+                                                    const SizedBox(height: 6),
+                                                    Text(
+                                                      item.movie.description,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: t.labelMedium!
+                                                          .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: Colors.white,
+                                                          ),
+                                                    ),
+                                                    const SizedBox(height: 6),
+                                                    CachedNetworkImage(
+                                                      imageUrl:
+                                                          item.movie.picture,
+                                                      progressIndicatorBuilder:
+                                                          (
+                                                            context,
+                                                            url,
+                                                            progress,
+                                                          ) =>
+                                                              const DotLoader(),
+                                                      errorWidget:
+                                                          (
+                                                            context,
+                                                            url,
+                                                            error,
+                                                          ) => Image.asset(
+                                                            AppImages.noimg,
+                                                          ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
 
                         // Next Button

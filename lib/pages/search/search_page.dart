@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/constants/appimages.dart';
 import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/theme/colors.dart';
+import 'package:edutainment/widgets/card_3d.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
@@ -226,131 +227,148 @@ class _SearchPage extends State<SearchPage>
                               // Definitions/Synonyms/Antonyms Tabs
                               Expanded(
                                 flex: 2,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF1A2332),
-                                    borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(
-                                      color: Colors.white24,
-                                      width: 1,
+                                child: Card3D(
+                                  borderRadius: 16,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      // color: const Color(0xFF1A2332),
+                                      color: ColorsPallet.darkBlue,
+                                      borderRadius: BorderRadius.circular(16),
+                                      // border: Border.all(
+                                      //   color: Colors.white24,
+                                      //   width: 1,
+                                      // ),
                                     ),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      // Tab Bar
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                          color: Color(0xFF0D1520),
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(16),
-                                            topRight: Radius.circular(16),
+                                    child: Column(
+                                      children: [
+                                        // Tab Bar
+                                        Container(
+                                          decoration: const BoxDecoration(
+                                            // color: Color(0xFF0D1520),
+                                            color: ColorsPallet.darkBlue,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(16),
+                                              topRight: Radius.circular(16),
+                                            ),
+                                          ),
+                                          child: TabBar(
+                                            controller: _tabController,
+                                            indicatorColor: Colors.transparent,
+                                            // 0xFF60A5FA,
+                                            indicatorWeight: 3,
+                                            labelColor: const Color(0xFF60A5FA),
+                                            unselectedLabelColor:
+                                                Colors.white60,
+                                            labelStyle: const TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            tabs: const [
+                                              Tab(text: 'DEFINITIONS'),
+                                              Tab(text: 'SYNONYMS'),
+                                              Tab(text: 'ANTONYMS'),
+                                            ],
                                           ),
                                         ),
-                                        child: TabBar(
-                                          controller: _tabController,
-                                          indicatorColor: const Color(
-                                            0xFF60A5FA,
+                                        // Tab Content
+                                        Container(
+                                          height: 250,
+                                          padding: const EdgeInsets.all(16),
+                                          child: TabBarView(
+                                            controller: _tabController,
+                                            children: [
+                                              SingleChildScrollView(
+                                                child: buildDefinitionContent(
+                                                  'definitions',
+                                                ),
+                                              ),
+                                              SingleChildScrollView(
+                                                child: buildDefinitionContent(
+                                                  'synonyms',
+                                                ),
+                                              ),
+                                              SingleChildScrollView(
+                                                child: buildDefinitionContent(
+                                                  'antonyms',
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          indicatorWeight: 3,
-                                          labelColor: const Color(0xFF60A5FA),
-                                          unselectedLabelColor: Colors.white60,
-                                          labelStyle: const TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          tabs: const [
-                                            Tab(text: 'DEFINITIONS'),
-                                            Tab(text: 'SYNONYMS'),
-                                            Tab(text: 'ANTONYMS'),
-                                          ],
                                         ),
-                                      ),
-                                      // Tab Content
-                                      Container(
-                                        height: 250,
-                                        padding: const EdgeInsets.all(16),
-                                        child: TabBarView(
-                                          controller: _tabController,
-                                          children: [
-                                            SingleChildScrollView(
-                                              child: buildDefinitionContent(
-                                                'definitions',
-                                              ),
-                                            ),
-                                            SingleChildScrollView(
-                                              child: buildDefinitionContent(
-                                                'synonyms',
-                                              ),
-                                            ),
-                                            SingleChildScrollView(
-                                              child: buildDefinitionContent(
-                                                'antonyms',
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
 
                               const SizedBox(width: 20),
 
-                              // Pronunciation Box
+                              // Pronunciation Box Column
                               Column(
                                 children: [
-                                  Container(
-                                    height: Screen.height(context) * 0.1,
-                                    width: Screen.width(context) * 0.45,
-
-                                    padding: const EdgeInsets.all(20),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFF1A2332),
-                                      borderRadius: BorderRadius.circular(16),
-                                      border: Border.all(
-                                        color: Colors.white24,
-                                        width: 1,
+                                  GestureDetector(
+                                    onTap: () {
+                                      final audioUrl = getIn(
+                                        searchResult,
+                                        'wordData.audio',
+                                        '',
+                                      );
+                                      if (audioUrl.isNotEmpty) {
+                                        player.setAudioSource(
+                                          AudioSource.uri(Uri.parse(audioUrl)),
+                                        );
+                                        player.play();
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 70,
+                                      width: Screen.width(context) * 0.45,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 30,
                                       ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        GestureDetector(
-                                          child: Image.asset(
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF030D1C),
+                                        borderRadius: BorderRadius.circular(40),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(
+                                              0.5,
+                                            ),
+                                            offset: const Offset(4, 4),
+                                            blurRadius: 8,
+                                            spreadRadius: 1,
+                                          ),
+                                          BoxShadow(
+                                            color: Colors.white.withOpacity(
+                                              0.05,
+                                            ),
+                                            offset: const Offset(-4, -4),
+                                            blurRadius: 8,
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            'PRONUNCIATION',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              letterSpacing: 1.2,
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                          ),
+                                          Image.asset(
                                             AppImages.playerlight,
-                                            height:
-                                                Screen.height(context) * 0.3,
+                                            height: 40,
+                                            fit: BoxFit.contain,
                                           ),
-                                          onTap: () {
-                                            final audioUrl = getIn(
-                                              searchResult,
-                                              'wordData.audio',
-                                              '',
-                                            );
-                                            if (audioUrl.isNotEmpty) {
-                                              player.setAudioSource(
-                                                AudioSource.uri(
-                                                  Uri.parse(audioUrl),
-                                                ),
-                                              );
-                                              player.play();
-                                            }
-                                          },
-                                        ),
-                                        const SizedBox(width: 20),
-                                        const Text(
-                                          'PRONUNCIATION',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 16),
@@ -360,74 +378,83 @@ class _SearchPage extends State<SearchPage>
                                     'wordData.meanings',
                                     {},
                                   ).isNotEmpty)
-                                    Container(
-                                      padding: const EdgeInsets.all(16),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFF1A2332),
-                                        borderRadius: BorderRadius.circular(16),
-                                        border: Border.all(
-                                          color: Colors.white24,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'REAL EXAMPLES SENTENCES',
-                                            style: TextStyle(
-                                              color: Color(0xFF60A5FA),
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                    Card3D(
+                                      borderRadius: 16,
+                                      child: Container(
+                                        width: Screen.width(context) * 0.45,
+                                        padding: const EdgeInsets.all(16),
+                                        decoration: BoxDecoration(
+                                          // color: const Color(0xFF1A2332),
+                                          color: ColorsPallet.darkBlue,
+                                          borderRadius: BorderRadius.circular(
+                                            16,
                                           ),
-                                          const SizedBox(height: 12),
-                                          ...(() {
-                                            var meanings = getIn(
-                                              searchResult,
-                                              'wordData.meanings',
-                                              {},
-                                            );
-                                            List<Widget> examples = [];
-                                            meanings.forEach((key, value) {
-                                              var examplesList =
-                                                  value['examples'] ?? [];
-                                              for (var example
-                                                  in examplesList) {
-                                                if (example
-                                                    .toString()
-                                                    .isNotEmpty) {
-                                                  examples.add(
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                            bottom: 8,
-                                                          ),
-                                                      child: Text(
-                                                        example.toString(),
-                                                        style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 14,
+                                          // border: Border.all(
+                                          //   color: Colors.white24,
+                                          //   width: 1,
+                                          // ),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              'REAL EXAMPLES SENTENCES',
+                                              style: TextStyle(
+                                                color: Color(0xFF60A5FA),
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 12),
+                                            ...(() {
+                                              var meanings = getIn(
+                                                searchResult,
+                                                'wordData.meanings',
+                                                {},
+                                              );
+                                              List<Widget> examples = [];
+                                              meanings.forEach((key, value) {
+                                                var examplesList =
+                                                    value['examples'] ?? [];
+                                                for (var example
+                                                    in examplesList) {
+                                                  if (example
+                                                      .toString()
+                                                      .isNotEmpty) {
+                                                    examples.add(
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                              bottom: 8,
+                                                            ),
+                                                        child: Text(
+                                                          example.toString(),
+                                                          style:
+                                                              const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 14,
+                                                              ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  );
+                                                    );
+                                                  }
                                                 }
-                                              }
-                                            });
-                                            return examples.isEmpty
-                                                ? [
-                                                    const Text(
-                                                      'No examples available',
-                                                      style: TextStyle(
-                                                        color: Colors.white54,
+                                              });
+                                              return examples.isEmpty
+                                                  ? [
+                                                      const Text(
+                                                        'No examples available',
+                                                        style: TextStyle(
+                                                          color: Colors.white54,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ]
-                                                : examples;
-                                          })(),
-                                        ],
+                                                    ]
+                                                  : examples;
+                                            })(),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                 ],
@@ -689,123 +716,142 @@ class _SearchPage extends State<SearchPage>
                           const SizedBox(height: 20),
                         ],
                       )
-                    : // MOBILE LAYOUT - Keep Original Design
+                    : // MOBILE LAYOUT
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Definition/Synonyms/Antonyms Tabs Section
-                          Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF1A2332),
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                color: Colors.white24,
-                                width: 1,
+                          Card3D(
+                            borderRadius: 16,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                // color: const Color(0xFF1A2332),
+                                color: ColorsPallet.darkBlue,
+                                borderRadius: BorderRadius.circular(16),
+                                // border: Border.all(
+                                //   color: Colors.white24,
+                                //   width: 1,
+                                // ),
                               ),
-                            ),
-                            child: Column(
-                              children: [
-                                // Tab Bar
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFF0D1520),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(16),
-                                      topRight: Radius.circular(16),
+                              child: Column(
+                                children: [
+                                  // Tab Bar
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      // color: Color(0xFF0D1520),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(16),
+                                        topRight: Radius.circular(16),
+                                      ),
+                                    ),
+                                    child: TabBar(
+                                      controller: _tabController,
+                                      indicatorColor: Colors.transparent,
+                                      // indicatorColor: const Color(0xFF60A5FA),
+                                      indicatorWeight: 3,
+                                      labelColor: const Color(0xFF60A5FA),
+                                      unselectedLabelColor: Colors.white60,
+                                      labelStyle: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      tabs: const [
+                                        Tab(text: 'DEFINITIONS'),
+                                        Tab(text: 'SYNONYMS'),
+                                        Tab(text: 'ANTONYMS'),
+                                      ],
                                     ),
                                   ),
-                                  child: TabBar(
-                                    controller: _tabController,
-                                    indicatorColor: const Color(0xFF60A5FA),
-                                    indicatorWeight: 3,
-                                    labelColor: const Color(0xFF60A5FA),
-                                    unselectedLabelColor: Colors.white60,
-                                    labelStyle: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
+                                  // Tab Content
+                                  Container(
+                                    height: 200,
+                                    padding: const EdgeInsets.all(16),
+                                    child: TabBarView(
+                                      controller: _tabController,
+                                      children: [
+                                        SingleChildScrollView(
+                                          child: buildDefinitionContent(
+                                            'definitions',
+                                          ),
+                                        ),
+                                        SingleChildScrollView(
+                                          child: buildDefinitionContent(
+                                            'synonyms',
+                                          ),
+                                        ),
+                                        SingleChildScrollView(
+                                          child: buildDefinitionContent(
+                                            'antonyms',
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    tabs: const [
-                                      Tab(text: 'DEFINITIONS'),
-                                      Tab(text: 'SYNONYMS'),
-                                      Tab(text: 'ANTONYMS'),
-                                    ],
                                   ),
-                                ),
-                                // Tab Content
-                                Container(
-                                  height: 200,
-                                  padding: const EdgeInsets.all(16),
-                                  child: TabBarView(
-                                    controller: _tabController,
-                                    children: [
-                                      SingleChildScrollView(
-                                        child: buildDefinitionContent(
-                                          'definitions',
-                                        ),
-                                      ),
-                                      SingleChildScrollView(
-                                        child: buildDefinitionContent(
-                                          'synonyms',
-                                        ),
-                                      ),
-                                      SingleChildScrollView(
-                                        child: buildDefinitionContent(
-                                          'antonyms',
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
 
                           const SizedBox(height: 20),
 
                           // Pronunciation Section
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF1A2332),
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                color: Colors.white24,
-                                width: 1,
+                          GestureDetector(
+                            onTap: () {
+                              final audioUrl = getIn(
+                                searchResult,
+                                'wordData.audio',
+                                '',
+                              );
+                              if (audioUrl.isNotEmpty) {
+                                player.setAudioSource(
+                                  AudioSource.uri(Uri.parse(audioUrl)),
+                                );
+                                player.play();
+                              }
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 5),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 30,
+                                vertical: 15,
                               ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                  icon: Image.asset(
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF030D1C),
+                                borderRadius: BorderRadius.circular(40),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.5),
+                                    offset: const Offset(4, 4),
+                                    blurRadius: 8,
+                                    spreadRadius: 1,
+                                  ),
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.05),
+                                    offset: const Offset(-4, -4),
+                                    blurRadius: 8,
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    'PRONUNCIATION',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      letterSpacing: 1.1,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                  Image.asset(
                                     AppImages.playerlight,
                                     width: 48,
                                     height: 48,
                                   ),
-                                  onPressed: () {
-                                    final audioUrl = getIn(
-                                      searchResult,
-                                      'wordData.audio',
-                                      '',
-                                    );
-                                    if (audioUrl.isNotEmpty) {
-                                      player.setAudioSource(
-                                        AudioSource.uri(Uri.parse(audioUrl)),
-                                      );
-                                      player.play();
-                                    }
-                                  },
-                                ),
-                                const SizedBox(width: 16),
-                                const Text(
-                                  'PRONUNCIATION',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
 
@@ -817,69 +863,73 @@ class _SearchPage extends State<SearchPage>
                             'wordData.meanings',
                             {},
                           ).isNotEmpty)
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF1A2332),
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: Colors.white24,
-                                  width: 1,
+                            Card3D(
+                              borderRadius: 16,
+                              child: Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  // color: const Color(0xFF1A2332),
+                                  color: ColorsPallet.darkBlue,
+                                  borderRadius: BorderRadius.circular(16),
+                                  // border: Border.all(
+                                  //   color: Colors.white24,
+                                  //   width: 1,
+                                  // ),
                                 ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'REAL EXAMPLES SENTENCES',
-                                    style: TextStyle(
-                                      color: Color(0xFF60A5FA),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'REAL EXAMPLES SENTENCES',
+                                      style: TextStyle(
+                                        color: Color(0xFF60A5FA),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 12),
-                                  ...(() {
-                                    var meanings = getIn(
-                                      searchResult,
-                                      'wordData.meanings',
-                                      {},
-                                    );
-                                    List<Widget> examples = [];
-                                    meanings.forEach((key, value) {
-                                      var examplesList =
-                                          value['examples'] ?? [];
-                                      for (var example in examplesList) {
-                                        if (example.toString().isNotEmpty) {
-                                          examples.add(
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                bottom: 8,
-                                              ),
-                                              child: Text(
-                                                example.toString(),
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14,
+                                    const SizedBox(height: 12),
+                                    ...(() {
+                                      var meanings = getIn(
+                                        searchResult,
+                                        'wordData.meanings',
+                                        {},
+                                      );
+                                      List<Widget> examples = [];
+                                      meanings.forEach((key, value) {
+                                        var examplesList =
+                                            value['examples'] ?? [];
+                                        for (var example in examplesList) {
+                                          if (example.toString().isNotEmpty) {
+                                            examples.add(
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                  bottom: 8,
+                                                ),
+                                                child: Text(
+                                                  example.toString(),
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          );
+                                            );
+                                          }
                                         }
-                                      }
-                                    });
-                                    return examples.isEmpty
-                                        ? [
-                                            const Text(
-                                              'No examples available',
-                                              style: TextStyle(
-                                                color: Colors.white54,
+                                      });
+                                      return examples.isEmpty
+                                          ? [
+                                              const Text(
+                                                'No examples available',
+                                                style: TextStyle(
+                                                  color: Colors.white54,
+                                                ),
                                               ),
-                                            ),
-                                          ]
-                                        : examples;
-                                  })(),
-                                ],
+                                            ]
+                                          : examples;
+                                    })(),
+                                  ],
+                                ),
                               ),
                             ),
 
@@ -944,84 +994,91 @@ class _SearchPage extends State<SearchPage>
                                     context,
                                   );
                                 },
-                                child: Container(
+                                child: Card3D(
+                                  borderRadius: 16,
                                   margin: const EdgeInsets.only(bottom: 12),
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF1A2332),
-                                    borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(
-                                      color: Colors.white24,
-                                      width: 1,
+                                  child: Container(
+                                    // margin: const EdgeInsets.only(bottom: 12),
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: ColorsPallet.darkBlue,
+                                      borderRadius: BorderRadius.circular(16),
+                                      // border: Border.all(
+                                      //   color: Colors.white24,
+                                      //   width: 1,
+                                      // ),
                                     ),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: CachedNetworkImage(
-                                          imageUrl: getIn(
-                                            subtitle,
-                                            'content_picture',
-                                            '',
+                                    child: Row(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            8,
                                           ),
-                                          width: 100,
-                                          height: 100,
-                                          fit: BoxFit.cover,
-                                          placeholder: (context, url) =>
-                                              Container(
-                                                width: 100,
-                                                height: 100,
-                                                color: Colors.white12,
-                                                child: const Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
+                                          child: CachedNetworkImage(
+                                            imageUrl: getIn(
+                                              subtitle,
+                                              'content_picture',
+                                              '',
+                                            ),
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                            placeholder: (context, url) =>
+                                                Container(
+                                                  width: 100,
+                                                  height: 100,
+                                                  color: Colors.white12,
+                                                  child: const Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  ),
+                                                ),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Container(
+                                                      width: 100,
+                                                      height: 100,
+                                                      color: Colors.white12,
+                                                      child: const Icon(
+                                                        Icons.error,
+                                                        color: Colors.white54,
+                                                      ),
+                                                    ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 16),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                getIn(
+                                                  subtitle,
+                                                  'content_label',
+                                                  '',
+                                                ),
+                                                style: const TextStyle(
+                                                  color: Color(0xFF60A5FA),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                          errorWidget: (context, url, error) =>
-                                              Container(
-                                                width: 100,
-                                                height: 100,
-                                                color: Colors.white12,
-                                                child: const Icon(
-                                                  Icons.error,
-                                                  color: Colors.white54,
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                getIn(subtitle, 'text', ''),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 13,
                                                 ),
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
                                               ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 16),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              getIn(
-                                                subtitle,
-                                                'content_label',
-                                                '',
-                                              ),
-                                              style: const TextStyle(
-                                                color: Color(0xFF60A5FA),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 8),
-                                            Text(
-                                              getIn(subtitle, 'text', ''),
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 13,
-                                              ),
-                                              maxLines: 3,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );

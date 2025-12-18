@@ -6,7 +6,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:edutainment/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:humanize_duration/humanize_duration.dart';
 
 import '../../utils/assets/assets_icons.dart';
 import '../../utils/movies.dart';
@@ -99,20 +98,51 @@ class _MoviePage extends State<MoviePage> {
                       ],
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(top: 10),
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Text(
-                      humanizeDuration(
-                        Duration(seconds: getIn(movie, 'duration', 0)),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        // width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(top: 0),
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Text(
+                          "Duration: ${formatDuration(Duration(seconds: getIn(movie, 'duration', 0)), short: true)}",
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.white,
+                            // fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: ColorsPallet.blueAccent,
-                        fontWeight: FontWeight.bold,
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => const FlashCardsListPage());
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Badge(
+                              // child: Icon(
+                              //   Icons.splitscreen_sharp,
+                              //   size: 17,
+                              //   color: Colors.grey,
+                              // ),
+                              child: Image.asset(
+                                AppImages.flashcardsblue,
+                                width: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text('  View FlashCards'),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                   Expanded(
                     child: SingleChildScrollView(
@@ -191,30 +221,8 @@ class _MoviePage extends State<MoviePage> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            InkWell(
-              onTap: () {
-                Get.to(() => const FlashCardsListPage());
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Badge(
-                    // child: Icon(
-                    //   Icons.splitscreen_sharp,
-                    //   size: 17,
-                    //   color: Colors.grey,
-                    // ),
-                    child: Image.asset(
-                      AppImages.flashcardsblue,
-                      width: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text('  View FlashCards'),
-                ],
-              ),
-            ),
+
+            // const SizedBox(height: 20),
             const SizedBox(height: 30),
             if (getIn(movie, 'similarMovies', []).isNotEmpty)
               Container(
@@ -224,8 +232,12 @@ class _MoviePage extends State<MoviePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Similar movies',
+                      'You May Also Like',
                       style: TextStyle(fontSize: 16),
+                    ),
+                    Transform.scale(
+                      scale: 1.2,
+                      child: Divider(color: Colors.white, thickness: 2),
                     ),
                     SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),

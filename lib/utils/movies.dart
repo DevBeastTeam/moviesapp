@@ -88,7 +88,7 @@ Future<void> movieFetchAndRedirect(id, BuildContext context) async {
     var movieFetch = await controller.fetchMovieDetails(id.toString());
     EasyLoading.dismiss();
 
-    if (getIn(movieFetch, 'success') == false) {
+    if (movieFetch == null || getIn(movieFetch, 'success', false) == false) {
       if (context.mounted) {
         await AwesomeDialog(
           context: context,
@@ -104,13 +104,22 @@ Future<void> movieFetchAndRedirect(id, BuildContext context) async {
         ).show();
       }
     } else {
-      // Update controller state instead of Hive
-      controller.selectedMovie.value = getIn(movieFetch, 'movie');
-      // We might also want to store historyMovie if needed
-      // controller.historyMovie.value = getIn(movieFetch, 'historyMovie');
-
-      if (context.mounted) {
-        Get.to(() => const MoviePage());
+      var movieData = getIn(movieFetch, 'movie', null);
+      if (movieData is Map<String, dynamic>) {
+        controller.selectedMovie.value = movieData;
+        if (context.mounted) {
+          Get.to(() => const MoviePage());
+        }
+      } else {
+        if (context.mounted) {
+          await AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            title: 'Error',
+            desc: 'Invalid movie data received.',
+            btnOkOnPress: () {},
+          ).show();
+        }
       }
     }
   } catch (e) {
@@ -145,7 +154,7 @@ Future<void> movieFetchAndRedirectPlayer(id, BuildContext context) async {
     var movieFetch = await controller.fetchMovieDetails(id.toString());
     EasyLoading.dismiss();
 
-    if (getIn(movieFetch, 'success') == false) {
+    if (movieFetch == null || getIn(movieFetch, 'success', false) == false) {
       if (context.mounted) {
         await AwesomeDialog(
           context: context,
@@ -161,9 +170,22 @@ Future<void> movieFetchAndRedirectPlayer(id, BuildContext context) async {
         ).show();
       }
     } else {
-      controller.selectedMovie.value = getIn(movieFetch, 'movie');
-      if (context.mounted) {
-        Get.to(() => const MoviePlayPage());
+      var movieData = getIn(movieFetch, 'movie', null);
+      if (movieData is Map<String, dynamic>) {
+        controller.selectedMovie.value = movieData;
+        if (context.mounted) {
+          Get.to(() => const MoviePlayPage());
+        }
+      } else {
+        if (context.mounted) {
+          await AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            title: 'Error',
+            desc: 'Invalid movie data received.',
+            btnOkOnPress: () {},
+          ).show();
+        }
       }
     }
   } catch (e) {

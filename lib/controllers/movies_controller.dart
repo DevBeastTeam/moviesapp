@@ -42,40 +42,45 @@ class MoviesController extends GetxController {
 
       if (response != null) {
         // Parse Subjects
-        final subjectsData = getIn(response, 'subjects', []) ?? [];
-        subjects.value = (subjectsData as List)
-            .map((e) => MovieSubject.fromJson(e))
-            .toList();
+        final subjectsData = getIn(response, 'subjects', []);
+        if (subjectsData is List) {
+          subjects.value = subjectsData
+              .map((e) => MovieSubject.fromJson(e))
+              .toList();
+        }
 
         // Parse Tags
-        final tagsData = getIn(response, 'tags', []) ?? [];
-        tags.value = (tagsData as List)
-            .map((e) => MovieTag.fromJson(e))
-            .toList();
+        final tagsData = getIn(response, 'tags', []);
+        if (tagsData is List) {
+          tags.value = tagsData.map((e) => MovieTag.fromJson(e)).toList();
+        }
 
         // Parse Group Movies
-        final groupMoviesData = getIn(response, 'groupMovies', {}) ?? {};
+        final groupMoviesData = getIn(response, 'groupMovies', {});
         final Map<String, List<Movie>> parsedGroupMovies = {};
-        groupMoviesData.forEach((key, value) {
-          if (value is List) {
-            parsedGroupMovies[key] = value
-                .map((e) => Movie.fromJson(e))
-                .toList();
-          }
-        });
+        if (groupMoviesData is Map) {
+          groupMoviesData.forEach((key, value) {
+            if (value is List) {
+              parsedGroupMovies[key.toString()] = value
+                  .map((e) => Movie.fromJson(e))
+                  .toList();
+            }
+          });
+        }
         groupMovies.value = parsedGroupMovies;
 
         // Parse Status Group Movies
-        final statusGroupMoviesData =
-            getIn(response, 'statusGroupMovies', {}) ?? {};
+        final statusGroupMoviesData = getIn(response, 'statusGroupMovies', {});
         final Map<String, List<Movie>> parsedStatusGroupMovies = {};
-        statusGroupMoviesData.forEach((key, value) {
-          if (value is List) {
-            parsedStatusGroupMovies[key] = value
-                .map((e) => Movie.fromJson(e))
-                .toList();
-          }
-        });
+        if (statusGroupMoviesData is Map) {
+          statusGroupMoviesData.forEach((key, value) {
+            if (value is List) {
+              parsedStatusGroupMovies[key.toString()] = value
+                  .map((e) => Movie.fromJson(e))
+                  .toList();
+            }
+          });
+        }
         statusGroupMovies.value = parsedStatusGroupMovies;
 
         updateMoviesList();

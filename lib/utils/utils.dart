@@ -1,10 +1,10 @@
-import '../pages/home/home_page.dart';
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:humanize_duration/humanize_duration.dart';
 
+import '../pages/home/home_page.dart';
 import '../../core/loader.dart';
 import 'boxes.dart';
 
@@ -13,8 +13,12 @@ String? isLoggedIn() {
 }
 
 Future<void> fetchData() async {
-  await Future.wait(
-      [fetchBadges(), fetchMovies(), fetchUser(), fetchQuizCategories()]);
+  await Future.wait([
+    fetchBadges(),
+    fetchMovies(),
+    fetchUser(),
+    fetchQuizCategories(),
+  ]);
 }
 
 Future<void> fetchAndRedirectHome(BuildContext context) async {
@@ -25,7 +29,7 @@ Future<void> fetchAndRedirectHome(BuildContext context) async {
 }
 
 dynamic getIn(object, path, [defaultValue = '']) {
-  if (object == null) {
+  if (object == null || object is! Map) {
     return defaultValue;
   }
   var varType = path.runtimeType.toString();
@@ -38,11 +42,11 @@ dynamic getIn(object, path, [defaultValue = '']) {
   }
   assert(finalPaths.isNotEmpty);
 
-  Map? pointer = object;
+  Map pointer = object;
   dynamic returnValue = defaultValue;
   for (var i = 0; i < finalPaths.length; i++) {
     final node = finalPaths[i];
-    if (!pointer!.containsKey(node)) {
+    if (!pointer.containsKey(node)) {
       break;
     }
     if (i == finalPaths.length - 1) {
@@ -70,4 +74,29 @@ void prettyPrintJSON(jsonData) {
       debugPrint(jsonData);
     }
   }
+}
+
+String formatDuration(Duration duration, {bool short = false}) {
+  String result = humanizeDuration(duration);
+  if (short) {
+    return result
+        .replaceAll(' years', 'y')
+        .replaceAll(' year', 'y')
+        .replaceAll(' months', 'mo')
+        .replaceAll(' month', 'mo')
+        .replaceAll(' weeks', 'w')
+        .replaceAll(' week', 'w')
+        .replaceAll(' days', 'd')
+        .replaceAll(' day', 'd')
+        .replaceAll(' hours', 'h')
+        .replaceAll(' hour', 'h')
+        .replaceAll(' minutes', 'm')
+        .replaceAll(' minute', 'm')
+        .replaceAll(' seconds', 's')
+        .replaceAll(' second', 's')
+        .replaceAll(' milliseconds', 'ms')
+        .replaceAll(' millisecond', 'ms')
+        .replaceAll(',', '');
+  }
+  return result;
 }
