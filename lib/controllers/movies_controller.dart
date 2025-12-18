@@ -31,7 +31,8 @@ class MoviesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchMovies();
+    // Don't auto-fetch here to avoid setState during build
+    // Let the UI trigger fetchMovies() in initState instead
   }
 
   // GET /movies/list

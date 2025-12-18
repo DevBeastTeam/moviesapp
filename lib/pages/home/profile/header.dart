@@ -139,7 +139,7 @@ class ProfileHeader extends StatelessWidget {
                           ),
                         ),
                         CustomProgressBar(
-                          height: 10,
+                          height: 20,
                           width: MediaQuery.of(context).size.width,
                           value:
                               getIn(user, 'score', 0) /
@@ -271,7 +271,7 @@ class ProfileHeader extends StatelessWidget {
                           ),
                         ),
                         CustomProgressBar(
-                          height: 10,
+                          height: 20,
                           width: MediaQuery.of(context).size.width,
                           value:
                               getIn(user, 'score', 0) /

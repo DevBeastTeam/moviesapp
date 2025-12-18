@@ -65,7 +65,7 @@ class ProfileProgress extends StatelessWidget {
           // margin: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
           padding: const EdgeInsets.all(10),
           width: screen.width * 0.99,
-          height: screen.height * 0.22,
+          height: screen.height * 0.3,
           decoration: BoxDecoration(
             color: ColorsPallet.borderCardBgColor,
             borderRadius: BorderRadius.circular(32),
@@ -139,7 +139,7 @@ class ProfileProgress extends StatelessWidget {
     required double value,
   }) {
     return SizedBox(
-      height: 30,
+      height: 45,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,13 +151,16 @@ class ProfileProgress extends StatelessWidget {
           ),
           const Divider(color: Colors.transparent, height: 1),
           CustomProgressBar(
-            height: 13,
+            height: 20,
             width: MediaQuery.of(context).size.width,
             value: value,
-            radius: 5,
+            radius: 15,
             backgroundColor: ColorsPallet.blue,
             accentColor: ColorsPallet.blueAccent,
-            gradient: const LinearGradient(colors: ColorsPallet.yyo),
+            gradient: const LinearGradient(
+              colors: [Colors.deepOrange, Colors.orange, Colors.yellow],
+            ),
+            // gradient: const LinearGradient(colors: ColorsPallet.yyo),
           ),
         ],
       ),
@@ -188,7 +191,10 @@ class ProfileProgress extends StatelessWidget {
             radius: 16,
             backgroundColor: ColorsPallet.blue,
             accentColor: ColorsPallet.blueAccent,
-            gradient: const LinearGradient(colors: ColorsPallet.yyo),
+            // gradient: const LinearGradient(colors: ColorsPallet.yyo),
+            gradient: LinearGradient(
+              colors: [Colors.deepOrange, Colors.orange, Colors.yellow],
+            ),
           ),
         ],
       ),

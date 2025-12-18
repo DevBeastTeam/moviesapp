@@ -173,7 +173,7 @@ class _HomePage extends State<HomePage> {
                     )
                   : screen.isTablet && !screen.isLandscape
                   ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

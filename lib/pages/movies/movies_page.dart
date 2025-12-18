@@ -29,13 +29,15 @@ class _MoviesPage extends State<MoviesPage> {
   @override
   void initState() {
     super.initState();
-    // Fetch movies if not already fetched or if needed
-    if (controller.groupMovies.isEmpty) {
-      controller.fetchMovies();
-    } else {
-      // Ensure the list is updated based on current selection
-      controller.updateMoviesList();
-    }
+    // Schedule movie fetching after the first frame to avoid setState during build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (controller.groupMovies.isEmpty) {
+        controller.fetchMovies();
+      } else {
+        // Ensure the list is updated based on current selection
+        controller.updateMoviesList();
+      }
+    });
   }
 
   List<List<Movie>> _chunkMovies(List<Movie> movies, int chunkSize) {
