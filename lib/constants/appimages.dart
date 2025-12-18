@@ -51,6 +51,7 @@ class AppImages {
   //// new icons version 3 start
   static const String pass = "assets/icons/pass.png";
   static const String puzzle = "assets/icons/puzzle.png";
+  static const String puzzles = "assets/icons/puzzles.png";
   static const String qa = "assets/icons/qa.png";
   static const String mp4 = "assets/icons/mp4.png";
   // gif

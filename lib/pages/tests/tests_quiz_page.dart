@@ -1,4 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:edutainment/constants/appimages.dart';
+import 'package:edutainment/constants/screenssize.dart';
 import 'package:edutainment/widgets/card_3d.dart';
 import 'package:edutainment/widgets/emptyWidget.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,9 @@ import 'package:get/get.dart';
 
 import '../../controllers/quiz_controller.dart';
 import '../../theme/colors.dart';
+import '../../utils/assets/assets_icons.dart';
 import '../../utils/utils.dart';
+import '../../widgets/ui/custom_submit_button.dart';
 import '../../widgets/ui/primary_button.dart';
 import '../quiz/quiz_page.dart';
 import 'tests_base_page.dart';
@@ -51,68 +55,202 @@ class _TestsQuizPage extends State<TestsQuizPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
+                    Text(
+                      "Welcome To",
+                      style: TextStyle(
+                        fontSize: 23,
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
+                        fontWeight: FontWeight.bold,
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            quiz.title,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: ColorsPallet.darkBlue,
-                            ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(AppImages.playerlight, width: 35),
+                        Text(
+                          "E-Dutainment",
+                          style: TextStyle(
+                            fontSize: 27,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Football Attack',
                           ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      "Ready to develop your English skills ?",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.white),
+                        borderRadius: BorderRadius.circular(1),
+                      ),
+                      child: Image.asset(AppImages.forestgumpwave),
+                    ),
+
+                    SizedBox(height: 20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: Screen.isPhone(context)
+                          ? MainAxisAlignment.spaceEvenly
+                          : MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          children: [
+                            Image.asset(
+                              width:
+                                  Screen.width(context) *
+                                  (Screen.isPhone(context) ? 0.15 : 0.1),
+                              AppImages.pass,
+                            ),
+                            Text("Take the\ntest"),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
                             children: [
-                              _buildInfoItem(
-                                Icons.timer,
-                                '${quiz.duration ?? 0} min',
-                                'Duration',
+                              Image.asset(
+                                width:
+                                    Screen.width(context) *
+                                    (Screen.isPhone(context) ? 0.15 : 0.1),
+                                AppImages.mp4,
                               ),
-                              _buildInfoItem(
-                                Icons.quiz,
-                                '${quiz.questions?.length ?? 0}',
-                                'Questions',
-                              ),
+                              Text("Watch film\nand videos"),
                             ],
                           ),
-                          const SizedBox(height: 30),
-                          PrimaryButton(
-                            onPressed: () {
-                              setState(() {
-                                _quizStarted = true;
-                              });
-                            },
-                            text: 'Start Quiz',
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                width:
+                                    Screen.width(context) *
+                                    (Screen.isPhone(context) ? 0.15 : 0.1),
+                                AppImages.qa,
+                              ),
+                              Text("Answer the\nquestions"),
+                            ],
                           ),
-                        ],
+                        ),
+                        Column(
+                          children: [
+                            Image.asset(
+                              width:
+                                  Screen.width(context) *
+                                  (Screen.isPhone(context) ? 0.15 : 0.1),
+                              AppImages.puzzles,
+                            ),
+                            Text("Have fun"),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 30),
+                    Center(
+                      child: CustomSubmitButton(
+                        width: (MediaQuery.of(context).size.width * .5 > 200
+                            ? 200
+                            : MediaQuery.of(context).size.width * .5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Icon(EdutainmentIcons.playEdutainment),
+                            Container(
+                              margin: const EdgeInsets.only(left: 3),
+                              child: Text(
+                                'START NOW',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: Theme.of(
+                                    context,
+                                  ).textTheme.titleLarge!.fontSize!,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        onPressed: () async {
+                          setState(() {
+                            _quizStarted = true;
+                          });
+                        },
                       ),
                     ),
-                    const Spacer(),
-                    TextButton(
-                      onPressed: () => Get.back(),
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(color: Colors.white70),
-                      ),
-                    ),
+
+                    // const Spacer(),
+                    // Container(
+                    //   padding: const EdgeInsets.all(24),
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white,
+                    //     borderRadius: BorderRadius.circular(20),
+                    //     boxShadow: [
+                    //       BoxShadow(
+                    //         color: Colors.black.withOpacity(0.1),
+                    //         blurRadius: 10,
+                    //         offset: const Offset(0, 5),
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   child: Column(
+                    //     mainAxisSize: MainAxisSize.min,
+                    //     children: [
+                    //       Text(
+                    //         quiz.title,
+                    //         textAlign: TextAlign.center,
+                    //         style: const TextStyle(
+                    //           fontSize: 24,
+                    //           fontWeight: FontWeight.bold,
+                    //           color: ColorsPallet.darkBlue,
+                    //         ),
+                    //       ),
+                    //       const SizedBox(height: 20),
+                    //       Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //         children: [
+                    //           _buildInfoItem(
+                    //             Icons.timer,
+                    //             '${quiz.duration ?? 0} min',
+                    //             'Duration',
+                    //           ),
+                    //           _buildInfoItem(
+                    //             Icons.quiz,
+                    //             '${quiz.questions?.length ?? 0}',
+                    //             'Questions',
+                    //           ),
+                    //         ],
+                    //       ),
+                    //       const SizedBox(height: 30),
+                    //       PrimaryButton(
+                    //         onPressed: () {
+                    //           setState(() {
+                    //             _quizStarted = true;
+                    //           });
+                    //         },
+                    //         text: 'Start Quiz',
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+
+                    // const Spacer(),
+                    // TextButton(
+                    //   onPressed: () => Get.back(),
+                    //   child: const Text(
+                    //     'Cancel',
+                    //     style: TextStyle(color: Colors.white70),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
