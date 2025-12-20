@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../controllers/quiz_controller.dart';
 import '../../utils/utils.dart';
-import '../../widgets/card_3d.dart';
 import 'tests_page.dart';
 
 class TestsQuizResultsPage extends StatefulWidget {

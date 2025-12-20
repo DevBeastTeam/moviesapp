@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:humanize_duration/humanize_duration.dart';
+import 'package:duration/duration.dart';
 
 import '../pages/home/home_page.dart';
 import '../../core/loader.dart';
@@ -77,7 +77,12 @@ void prettyPrintJSON(jsonData) {
 }
 
 String formatDuration(Duration duration, {bool short = false}) {
-  String result = humanizeDuration(duration);
+  String result = prettyDuration(
+    duration,
+    tersity: DurationTersity.millisecond,
+    delimiter: ', ',
+    conjunction: ', ',
+  );
   if (short) {
     return result
         .replaceAll(' years', 'y')

@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:edutainment/models/pLevelCatgModel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../core/api_helper.dart';
 import '../models/grammerDetailModel.dart';
 

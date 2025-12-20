@@ -28,13 +28,6 @@ class MoviesController extends GetxController {
   var isLoading = false.obs;
   var isMovieLoading = false.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // Don't auto-fetch here to avoid setState during build
-    // Let the UI trigger fetchMovies() in initState instead
-  }
-
   // GET /movies/list
   Future<void> fetchMovies() async {
     try {

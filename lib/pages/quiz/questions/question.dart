@@ -7,10 +7,8 @@ import 'package:better_player/better_player.dart';
 
 import 'package:edutainment/core/loader.dart';
 import 'package:edutainment/pages/quiz/questions/full_photo_view.dart';
-import 'package:edutainment/theme/colors.dart';
 import 'package:edutainment/utils/assets/assets_icons.dart';
 import 'package:edutainment/utils/utils.dart';
-import 'package:edutainment/widgets/card_3d.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:just_audio/just_audio.dart';
@@ -46,11 +44,58 @@ class _QuestionContent extends State<QuestionContent>
   BetterPlayerController? _betterPlayerController;
 
   void setupPlayer(movie) {
-    final betterPlayerDataSource = BetterPlayerDataSource(
-      BetterPlayerDataSourceType.network,
-      getIn(movie, 'm3u8_link'),
-      videoFormat: BetterPlayerVideoFormat.hls,
-      drmConfiguration: Platform.isIOS
+    // Debug logging for movie details
+    debugPrint('🎬 Question Player - Movie Details:');
+    debugPrint('   M3U8: ${getIn(movie, 'm3u8_link')}');
+    debugPrint('   MPD: ${getIn(movie, 'mpd_link')}');
+
+    // Select appropriate video URL based on platform
+    final String? m3u8Link = getIn(movie, 'm3u8_link');
+    final String? mpdLink = getIn(movie, 'mpd_link');
+
+    String videoUrl;
+    BetterPlayerVideoFormat videoFormat;
+
+    if (Platform.isIOS) {
+      // iOS: Prefer HLS, fallback to MPD
+      if (m3u8Link != null && m3u8Link.isNotEmpty) {
+        videoUrl = m3u8Link;
+        videoFormat = BetterPlayerVideoFormat.hls;
+      } else if (mpdLink != null && mpdLink.isNotEmpty) {
+        videoUrl = mpdLink;
+        videoFormat = BetterPlayerVideoFormat.dash;
+      } else {
+        videoUrl = '';
+        videoFormat = BetterPlayerVideoFormat.hls;
+      }
+    } else {
+      // Android: Prefer DASH (MPD), fallback to HLS
+      if (mpdLink != null && mpdLink.isNotEmpty) {
+        videoUrl = mpdLink;
+        videoFormat = BetterPlayerVideoFormat.dash;
+      } else if (m3u8Link != null && m3u8Link.isNotEmpty) {
+        videoUrl = m3u8Link;
+        videoFormat = BetterPlayerVideoFormat.hls;
+      } else {
+        videoUrl = '';
+        videoFormat = BetterPlayerVideoFormat.dash;
+      }
+    }
+
+    debugPrint('🎬 Selected URL: $videoUrl');
+    debugPrint('🎬 Selected format: $videoFormat');
+
+    // Check if DRM is needed
+    final bool isDrmProtected =
+        videoUrl.contains('swankmp') ||
+        videoUrl.contains('cloudfront') ||
+        videoUrl.contains('d2cj5ez5n4d4vx');
+
+    debugPrint('🔐 DRM Protected: $isDrmProtected');
+
+    BetterPlayerDrmConfiguration? drmConfig;
+    if (isDrmProtected) {
+      drmConfig = Platform.isIOS
           ? BetterPlayerDrmConfiguration(
               drmType: BetterPlayerDrmType.fairplay,
               certificateUrl: 'https://fairplay.swankmp.net/fairplay.cer',
@@ -61,7 +106,14 @@ class _QuestionContent extends State<QuestionContent>
               drmType: BetterPlayerDrmType.widevine,
               licenseUrl: 'https://wvlsmod.swankmp.net/moddrm_proxy/proxy',
               headers: {'SWANKPORTAL': 'de236319-cabd-4102-b240-98d92ec0db3a'},
-            ),
+            );
+    }
+
+    final betterPlayerDataSource = BetterPlayerDataSource(
+      BetterPlayerDataSourceType.network,
+      videoUrl,
+      videoFormat: videoFormat,
+      drmConfiguration: drmConfig,
     );
     _betterPlayerController = BetterPlayerController(
       BetterPlayerConfiguration(

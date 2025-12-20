@@ -129,7 +129,7 @@ class _QuizPage extends State<QuizPage> {
                                     ),
                                     SizedBox(height: 10),
                                     Text(
-                                      "Questions: ${currentQuestionIndex} / ${totalQuestions}",
+                                      "Questions: $currentQuestionIndex / $totalQuestions",
                                       style: TextStyle(
                                         color: const Color.fromARGB(
                                           255,

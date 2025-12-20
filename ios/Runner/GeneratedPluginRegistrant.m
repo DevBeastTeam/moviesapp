@@ -54,10 +54,10 @@
 @import path_provider_foundation;
 #endif
 
-#if __has_include(<rive_common/RivePlugin.h>)
-#import <rive_common/RivePlugin.h>
+#if __has_include(<rive_native/RiveNativePlugin.h>)
+#import <rive_native/RiveNativePlugin.h>
 #else
-@import rive_common;
+@import rive_native;
 #endif
 
 #if __has_include(<shared_preferences_foundation/SharedPreferencesPlugin.h>)
@@ -95,7 +95,7 @@
   [JustAudioPlugin registerWithRegistrar:[registry registrarForPlugin:@"JustAudioPlugin"]];
   [FPPPackageInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FPPPackageInfoPlusPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
-  [RivePlugin registerWithRegistrar:[registry registrarForPlugin:@"RivePlugin"]];
+  [RiveNativePlugin registerWithRegistrar:[registry registrarForPlugin:@"RiveNativePlugin"]];
   [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
   [TorchPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"TorchPlusPlugin"]];

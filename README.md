@@ -16,6 +16,8 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 plugin: 
 
+now check the movies not playng but on websote side by shaka player this link is working and movies playing so please fix its also print the movies links movies details in console to developer can see how many types data in movies details and fix it this is working url on web by shaka-player https://e-dutainment.s3.eu-west-1.amazonaws.com/bento/FOOTBALL_SHORTS_HD_/FS_48_/stream.mpd
+
 <!-- https://e-dutainment.s3.eu-west-1.amazonaws.com/bento/FOOTBALL_SHORTS_HD_/FS_48_/stream.mpd -->
 
 

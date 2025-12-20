@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\Users\dell\fvm\versions\3.32.6"
-export "FLUTTER_APPLICATION_PATH=E:\edutainment"
+export "FLUTTER_ROOT=/Users/mac/Documents/sdks/flutter332"
+export "FLUTTER_APPLICATION_PATH=/Users/mac/Documents/flutter_projects/awais/moviesapp"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"
