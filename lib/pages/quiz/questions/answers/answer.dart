@@ -31,8 +31,7 @@ class AnswerContent extends StatelessWidget {
         // margin: const EdgeInsets.only(top: 12),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: ColorsPallet.darkBlue,
-          // color: active ? ColorsPallet.blueAccent : Colors.white,
+          color: active ? ColorsPallet.blueAccent : ColorsPallet.darkBlue,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         child: Row(
@@ -47,7 +46,6 @@ class AnswerContent extends StatelessWidget {
                     fontSize: isInLandScapeMode ? 16 : 20,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    // color: active ? Colors.white : ColorsPallet.blueAccent,
                   ),
                   textAlign: TextAlign.center,
                 ),

@@ -19,9 +19,24 @@ class _MoviePlayPage extends State<MoviePlayPage> {
   final MoviesController controller = Get.find<MoviesController>();
   int startTime = 0;
 
+  // Cache the future so it doesn't re-execute on orientation changes
+  late Future<List<dynamic>>? _questionsFuture;
+
+  // Cache the built widget to prevent recreation on orientation changes
+  Widget? _playerWidget;
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
+
+    // Allow all orientations for the movie player
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
 
     // Get movie from controller
     final movie = controller.selectedMovie.value;
@@ -37,6 +52,46 @@ class _MoviePlayPage extends State<MoviePlayPage> {
           startTime = getIn(historyMovie[0], 'time', 0);
         }
       }
+
+      // Initialize the cached future once in initState
+      _questionsFuture = controller.getMovieQuestions(getIn(movie, '_id'));
+
+      // Load data and build player widget once
+      _loadPlayerWidget();
+    } else {
+      _questionsFuture = null;
+      _isLoading = false;
+    }
+  }
+
+  Future<void> _loadPlayerWidget() async {
+    final movie = controller.selectedMovie.value;
+    if (_questionsFuture != null && movie != null) {
+      try {
+        final questions = await _questionsFuture!;
+        if (mounted) {
+          setState(() {
+            _playerWidget = MoviePlayer(
+              movie: movie,
+              questions: questions,
+              startAt: startTime,
+            );
+            _isLoading = false;
+          });
+        }
+      } catch (e) {
+        debugPrint('❌ Error loading questions: $e');
+        if (mounted) {
+          setState(() {
+            _playerWidget = MoviePlayer(
+              movie: movie,
+              questions: [],
+              startAt: startTime,
+            );
+            _isLoading = false;
+          });
+        }
+      }
     }
   }
 
@@ -47,11 +102,6 @@ class _MoviePlayPage extends State<MoviePlayPage> {
       DeviceOrientation.portraitDown,
     ]);
     super.dispose();
-  }
-
-  Future<List<dynamic>> fetchMovieQuestions(String movieId) async {
-    // Use controller method instead of direct API call
-    return await controller.getMovieQuestions(movieId);
   }
 
   @override
@@ -98,38 +148,15 @@ class _MoviePlayPage extends State<MoviePlayPage> {
     return DefaultScaffold(
       currentPage: 'movies/movie/player',
       hideBottomBar: true,
-      child: SafeArea(
-        child: FutureBuilder(
-          future: fetchMovieQuestions(getIn(movie, '_id')),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasError) {
-              debugPrint('❌ FutureBuilder error: ${snapshot.error}');
-              // Still show player with empty questions on error
-              return MoviePlayer(
-                movie: movie,
-                questions: [],
-                startAt: startTime,
-              );
-            }
-
-            if (snapshot.hasData) {
-              var result = snapshot.data ?? [];
-              return MoviePlayer(
-                movie: movie,
-                questions: result,
-                startAt: startTime,
-              );
-            } else {
-              return Center(
-                child: Container(
-                  margin: const EdgeInsets.only(top: 50),
-                  child: const DoubleCircularProgressIndicator(),
-                ),
-              );
-            }
-          },
-        ),
-      ),
+      child: _isLoading
+          ? Center(
+              child: Container(
+                margin: const EdgeInsets.only(top: 50),
+                child: const DoubleCircularProgressIndicator(),
+              ),
+            )
+          : _playerWidget ??
+                MoviePlayer(movie: movie, questions: [], startAt: startTime),
     );
   }
 }

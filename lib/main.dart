@@ -49,6 +49,12 @@ void main() async {
       statusBarIconBrightness: Brightness.light,
     ),
   );
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
   runApp(const MyApp());
   configLoading();
 }
@@ -68,36 +74,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth <= 450) {
-          // Phone-sized device
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.portraitUp,
-            DeviceOrientation.portraitDown,
-          ]);
-        } else {
-          // Tablet-sized device
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.landscapeLeft,
-            DeviceOrientation.landscapeRight,
-            DeviceOrientation.portraitUp,
-            DeviceOrientation.portraitDown,
-          ]);
-        }
+    return GetMaterialApp(
+      // scaffoldMessengerKey: scaffoldMessengerKey,
+      key: globalKey,
 
-        return GetMaterialApp(
-          // scaffoldMessengerKey: scaffoldMessengerKey,
-          key: globalKey,
-
-          title: 'E-Dutainment',
-          debugShowCheckedModeBanner: false,
-          theme: appTheme,
-          themeMode: ThemeMode.light,
-          home: const SplashScreenPageV2(),
-          builder: EasyLoading.init(),
-        );
-      },
+      title: 'E-Dutainment',
+      debugShowCheckedModeBanner: false,
+      theme: appTheme,
+      themeMode: ThemeMode.light,
+      home: const SplashScreenPageV2(),
+      builder: EasyLoading.init(),
     );
   }
 }
@@ -146,3 +132,25 @@ void configLoading() {
 // missings
 // 1. french and english content in flashcards
 // 2. 
+
+
+// old  but working
+  // await SystemChrome.setEnabledSystemUIMode(
+  //   SystemUiMode
+  //       .edgeToEdge, // if edge to edge then  status bar color will be shown
+  //   // other wise will be hide status bar icons.
+  //   overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top],
+  // );
+  // SystemChrome.setSystemUIOverlayStyle(
+  //   // const SystemUiOverlayStyle(statusBarColor: ColorsPallet.darkBlue),
+  //   const SystemUiOverlayStyle(
+  //     statusBarColor: Colors.black38,
+  //     statusBarIconBrightness: Brightness.light,
+  //   ),
+  // );
+
+  
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);

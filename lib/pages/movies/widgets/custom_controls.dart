@@ -15,14 +15,12 @@ class CustomControlsWidget extends StatefulWidget {
   final Function(bool visbility)? onControlsVisibilityChanged;
   final Function()? onFullScreenPressed;
   final List<Duration> stops;
-  final bool isInLandScapeMode;
 
   const CustomControlsWidget({
     super.key,
     this.controller,
     this.onControlsVisibilityChanged,
     this.onFullScreenPressed,
-    this.isInLandScapeMode = false,
     this.stops = const [],
   });
 
@@ -366,7 +364,8 @@ class _CustomControlsWidgetState extends State<CustomControlsWidget> {
                             widget.onFullScreenPressed?.call();
                           },
                           icon: Icon(
-                            widget.isInLandScapeMode
+                            MediaQuery.of(context).size.width >
+                                    MediaQuery.of(context).size.height
                                 ? Icons.fullscreen_exit_rounded
                                 : Icons.fullscreen,
                             color: Colors.white,
