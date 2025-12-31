@@ -34,6 +34,8 @@ class CustomBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaHeight = MediaQuery.of(context).size.height;
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,57 +45,62 @@ class CustomBottomBar extends StatelessWidget {
           child: child,
         ),
         if (!hideBottomBar)
-          SizedBox(
-            height: height,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  height: height,
-                  decoration: BoxDecoration(
-                    color: backgroundColor,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(0),
-                      topRight: Radius.circular(0),
+          Container(
+            // Add bottom padding for devices with system navigation gestures
+            padding: EdgeInsets.only(bottom: bottomPadding),
+            decoration: BoxDecoration(color: backgroundColor),
+            child: SizedBox(
+              height: height,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    height: height,
+                    decoration: BoxDecoration(
+                      color: backgroundColor,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(0),
+                        topRight: Radius.circular(0),
+                      ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    for (int i = 0; i < items.length; i++)
-                      _BottomBarItem(
-                        width: items[i].width,
-                        height: items[i].height,
-                        selected: items[i].selected,
-                        icon: items[i].icon,
-                        image: items[i].image,
-                        bottomBarItemStyle: itemStyle,
-                        text: items[i].text,
-                        onPressed: () async {
-                          if (items[i].path.contains('movie')) {
-                            final dynamic groupMovies = moviesBox.get(
-                              'groupMovies',
-                            );
-                            if (groupMovies == null) {
-                              EasyLoading.show();
-                              await fetchMovies();
-                              EasyLoading.dismiss();
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      for (int i = 0; i < items.length; i++)
+                        _BottomBarItem(
+                          width: items[i].width,
+                          height: items[i].height,
+                          selected: items[i].selected,
+                          icon: items[i].icon,
+                          image: items[i].image,
+                          bottomBarItemStyle: itemStyle,
+                          text: items[i].text,
+                          onPressed: () async {
+                            if (items[i].path.contains('movie')) {
+                              final dynamic groupMovies = moviesBox.get(
+                                'groupMovies',
+                              );
+                              if (groupMovies == null) {
+                                EasyLoading.show();
+                                await fetchMovies();
+                                EasyLoading.dismiss();
+                              }
+                              Get.offAll(() => const MoviesPage());
+                            } else {
+                              // Map path to page widget
+                              Widget? page = _getPageFromPath(items[i].path);
+                              if (page != null) {
+                                Get.offAll(() => page);
+                              }
                             }
-                            Get.offAll(() => const MoviesPage());
-                          } else {
-                            // Map path to page widget
-                            Widget? page = _getPageFromPath(items[i].path);
-                            if (page != null) {
-                              Get.offAll(() => page);
-                            }
-                          }
-                        },
-                      ),
-                  ],
-                ),
-              ],
+                          },
+                        ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
       ],

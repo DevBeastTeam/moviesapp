@@ -54,7 +54,7 @@ class DefaultScaffold extends StatelessWidget {
                 ),
               ),
           SafeArea(
-            bottom: false,
+            bottom: true,
             child: CustomBottomBar(
               height: 60,
               backgroundColor: Colors.black87,
